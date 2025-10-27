@@ -2,7 +2,6 @@
 #include <vector>
 #include "Plant.h"
 #include "Inventory.h"
-class Inventory;
 class Greenhouse {
     public:
     Greenhouse(Inventory* inv);
