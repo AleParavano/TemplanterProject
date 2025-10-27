@@ -10,7 +10,7 @@ Worker();
 void executeCommand();
 void addCommand(Command* command);
 void addPlant(Plant* plant);
-void update(Plant* subject) ;
+void update(Plant* subject) override ;
 protected:
 
 std::vector<Command*> commandQueue;

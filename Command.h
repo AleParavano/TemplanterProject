@@ -38,7 +38,7 @@ public:
 class ServeCommand : public Command {
 public:
     void execute() override;
-    private:
-    Customer* target;
+
 private:
+    Customer* target;
 };
