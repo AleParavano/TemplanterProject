@@ -10,7 +10,7 @@ void FertilizeCommand::execute()
 }
 void HarvestCommand::execute()
 {
-    // add target plant to shop and remove from garden
+   greenhouse->harvestPlant(targetPlant);
 }
 void PatrolCommand::execute()
 {

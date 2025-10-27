@@ -1,6 +1,7 @@
 #pragma once
 #include "Plant.h"
 #include "Customer.h"
+#include "Greenhouse.h"
 class Command {
 public:
     virtual ~Command() {}
@@ -25,7 +26,8 @@ class HarvestCommand : public Command {
 public:
     void execute() override;
     private:
-    Plant* targetPlant;
+    int targetPlant;
+    Greenhouse* greenhouse;
 };
 
 class PatrolCommand : public Command {

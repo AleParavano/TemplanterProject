@@ -1,13 +1,22 @@
 #include "Greenhouse.h"
 
-greenhouse::greenhouse()
+Greenhouse::Greenhouse()
 {
     size=0;
     capacity=16;
     plots.resize(capacity,nullptr);
+    inventory=nullptr;
 }
 
-greenhouse::~greenhouse()
+Greenhouse::Greenhouse(Inventory *inv)
+{
+    size=0;
+    capacity=16;
+    plots.resize(capacity,nullptr);
+    inventory=inv;
+}
+
+Greenhouse::~Greenhouse()
 {
     for(auto plant:plots){
         if(plant){
@@ -15,7 +24,7 @@ greenhouse::~greenhouse()
         }
     }
 }
-bool greenhouse::addPlant(Plant* plant,int position)
+bool Greenhouse::addPlant(Plant* plant,int position)
 {
     if(position>=0 && position<capacity && plots[position]==nullptr){
         plots[position]=plant;
@@ -25,7 +34,7 @@ bool greenhouse::addPlant(Plant* plant,int position)
     return false;
 }
 
-bool greenhouse::addPlant(Plant *plant)
+bool Greenhouse::addPlant(Plant *plant)
 {
     for(int i=0;i<capacity;i++){
         if(plots[i]==nullptr){
@@ -37,7 +46,7 @@ bool greenhouse::addPlant(Plant *plant)
     return false;
 }
 
-bool greenhouse::removePlant(int position)
+bool Greenhouse::removePlant(int position)
 {
     if(position>=0 && position<capacity && plots[position]!=nullptr){
         delete plots[position];
@@ -48,9 +57,9 @@ bool greenhouse::removePlant(int position)
     return false;
 }
 
-bool greenhouse::harvestPlant(int position, Inventory* inventory)
+bool Greenhouse::harvestPlant(int position)
 {
-    if(position>=0 && position<capacity && plots[position]!=nullptr){
+    if(position>=0 && position<capacity && plots[position]!=nullptr && inventory!=nullptr){
         Plant* plant=plots[position];
         plots[position]=nullptr;
         size--;
@@ -61,12 +70,12 @@ bool greenhouse::harvestPlant(int position, Inventory* inventory)
     return false
 }
 
-Plant* greenhouse::getPlant(int position)
+Plant* Greenhouse::getPlant(int position)
 {
     return plots[position];
 }
 
-std::string greenhouse::getPlot(int position)
+std::string Greenhouse::getPlot(int position)
 {
     if(position>=0 && position<capacity && plots[position]!=nullptr){
         return plots[position]->getType();
@@ -74,17 +83,17 @@ std::string greenhouse::getPlot(int position)
     return "Empty";
 }
 
-int greenhouse::getSize()
+int Greenhouse::getSize()
 {
     return size;
 }
 
-int greenhouse::getCapacity()
+int Greenhouse::getCapacity()
 {
     return capacity;
 }
 
-bool greenhouse::increaseCapacity(int amount)
+bool Greenhouse::increaseCapacity(int amount)
 {
     if(amount>0&& capacity+amount<=128){
         capacity+=amount;
@@ -92,4 +101,9 @@ bool greenhouse::increaseCapacity(int amount)
         return true;
     }
     return false;
+}
+
+void Greenhouse::setInventory(Inventory *inv)
+{
+    inventory=inv;
 }
