@@ -49,6 +49,7 @@ public:
     void setDay(int d);
     void setHour(int h);
     void setMinute(int m);
+    bool isNewDay() const;
 
     void startClock();
     void stopClock();
