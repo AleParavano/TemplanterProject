@@ -18,5 +18,5 @@ void PatrolCommand::execute()
 }
 void ServeCommand::execute()
 {
-    // Implementation for serving action
+    //TODO implement this code
 }

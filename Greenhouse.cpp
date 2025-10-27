@@ -63,11 +63,11 @@ bool Greenhouse::harvestPlant(int position)
         Plant* plant=plots[position];
         plots[position]=nullptr;
         size--;
-        // transfer ownership to inventory
-        inventory->addPlant(plant);
+
+        inventory->add(plant);
         return true;
     }
-    return false
+    return false;
 }
 
 Plant* Greenhouse::getPlant(int position)
