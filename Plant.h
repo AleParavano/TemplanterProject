@@ -8,12 +8,25 @@ class Plant: public Subject
     public:
     Plant(std::string type,float growthRate);
     virtual ~Plant();
+    bool Protected=false;
+    //for use with growthCycle
+    void setGrowthCycle(GrowthCycle* gc);
     void grow(float growth);
-    std::string getType();
+    
+    
+    //for use with observer
     void notify();
     void attach(Observer* observer);
     void detach(Observer* observer);
-    void setGrowthCycle(GrowthCycle* gc);
+
+    //getters
+    std::string getType();
+    std::string getState();
+    
+    
+    // for use with commands
+    void fertilize(float amount);
+    void water(float amount);
 
     protected:
     PlantState* state;
