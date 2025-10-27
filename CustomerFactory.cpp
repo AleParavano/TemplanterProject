@@ -1,38 +1,37 @@
 #include "CustomerFactory.h"
 #include <array>
 #include <functional>
+#include <random>
 
-std::unique_ptr<Customer> RegularFactory::create(Plant* requestedPlant) const 
+Customer* RegularFactory::create(Plant* requestedPlant) const 
 {
-    return std::make_unique<Regular>(requestedPlant);
+    return new Regular(requestedPlant);
 }
 
-std::unique_ptr<Customer> VIPFactory::create(Plant* requestedPlant) const 
+Customer* VIPFactory::create(Plant* requestedPlant) const 
 {
-    return std::make_unique<VIP>(requestedPlant);
+    return new VIP(requestedPlant);
 }
 
-std::unique_ptr<Customer> RobberFactory::create(Plant* requestedPlant) const 
+Customer* RobberFactory::create(Plant* requestedPlant) const 
 {
-    return std::make_unique<Robber>(requestedPlant);
+    return new Robber(requestedPlant);
 }
 
 std::mt19937& RandomFactory::rng() 
 {
-    static std::mt19937 engine
-    { 
-        std::random_device{}() 
-    };
+    static std::mt19937 engine{ std::random_device{}() };
     return engine;
 }
 
-std::unique_ptr<Customer> RandomFactory::create(Plant* requestedPlant) const 
+Customer* RandomFactory::create(Plant* requestedPlant) const 
 {
     std::uniform_int_distribution<int> dist(0, 2);
+
     switch (dist(rng())) 
     {
-        case 0:  return std::make_unique<Regular>(requestedPlant);
-        case 1:  return std::make_unique<VIP>(requestedPlant);
-        default: return std::make_unique<Robber>(requestedPlant);
+        case 0:  return new Regular(requestedPlant);
+        case 1:  return new VIP(requestedPlant);
+        default: return new Robber(requestedPlant);
     }
 }

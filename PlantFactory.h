@@ -1,82 +1,81 @@
 #pragma once
 
-#include <memory>
 #include "Plant.h"
 
 class PlantFactory
 {
-    public:
-    PlantFactory();
-    virtual ~PlantFactory();
-    virtual std::unique_ptr<Plant> produce() = 0;
+public:
+    PlantFactory() {}
+    virtual ~PlantFactory() {}
+    virtual Plant* produce() = 0;
 };
 
 class CarrotFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Carrot>();
+    Plant* produce() override {
+        return new Carrot();
     }
 };
 
 class TomatoFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Tomato>();
+    Plant* produce() override {
+        return new Tomato();
     }
 };
 
 class SunflowerFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Sunflower>();
+    Plant* produce() override {
+        return new Sunflower();
     }
 };
 
 class LettuceFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Lettuce>();
+    Plant* produce() override {
+        return new Lettuce();
     }
 };
 
 class PotatoFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Potato>();
+    Plant* produce() override {
+        return new Potato();
     }
 };
 
 class CucumberFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Cucumber>();
+    Plant* produce() override {
+        return new Cucumber();
     }
 };
 
 class PepperFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Pepper>();
+    Plant* produce() override {
+        return new Pepper();
     }
 };
 
 class StrawberryFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Strawberry>();
+    Plant* produce() override {
+        return new Strawberry();
     }
 };
 
 class CornFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Corn>();
+    Plant* produce() override {
+        return new Corn();
     }
 };
 
 class PumpkinFactory : public PlantFactory {
 public:
-    std::unique_ptr<Plant> produce() override {
-        return std::make_unique<Pumpkin>();
+    Plant* produce() override {
+        return new Pumpkin();
     }
 };

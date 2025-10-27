@@ -2,11 +2,13 @@
 
 #include "Observer.h"
 #include <vector>
-class Subject{
+
+class Subject
+{
 public:
 virtual void notify()=0;
-virtual void attach()=0;
-virtual void detach()=0;
+virtual void attach(Observer* observer) = 0;
+virtual void detach(Observer* observer) = 0;
 protected:
 
 std::vector<Observer*> observers;

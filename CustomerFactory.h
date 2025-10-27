@@ -1,38 +1,38 @@
 #pragma once
 
-#include <memory>
 #include <random>
 #include "Customer.h"
 
 class CustomerFactory 
 {
-    public:
-    virtual ~CustomerFactory() = default;
-    virtual std::unique_ptr<Customer> create(Plant* requestedPlant = nullptr) const = 0;
+public:
+    virtual ~CustomerFactory();
+    virtual Customer* create(Plant* requestedPlant) const = 0;
 };
 
 class RegularFactory : public CustomerFactory 
 {
     public:
-    std::unique_ptr<Customer> create(Plant* requestedPlant = nullptr) const override;
+    Customer* create(Plant* requestedPlant) const override;
 };
 
 class VIPFactory : public CustomerFactory 
 {
     public:
-    std::unique_ptr<Customer> create(Plant* requestedPlant = nullptr) const override;
+    Customer* create(Plant* requestedPlant) const override;
 };
 
 class RobberFactory : public CustomerFactory 
 {
     public:
-    std::unique_ptr<Customer> create(Plant* requestedPlant = nullptr) const override;
+    Customer* create(Plant* requestedPlant) const override;
 };
 
-class RandomFactory : public CustomerFactory {
+class RandomFactory : public CustomerFactory 
+{
     public:
-    std::unique_ptr<Customer> create(Plant* requestedPlant = nullptr) const override;
+    Customer* create(Plant* requestedPlant) const override;
 
-private:
+    private:
     static std::mt19937& rng();
 };
