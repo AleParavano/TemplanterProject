@@ -14,6 +14,7 @@ class Plant: public Subject
     void attach(Observer* observer);
     void detach(Observer* observer);
     void setGrowthCycle(GrowthCycle* gc);
+    std::string getState();
 
     protected:
     PlantState* state;
