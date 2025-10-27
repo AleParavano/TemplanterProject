@@ -1,8 +1,13 @@
 #include "Player.h"
 #include <chrono>
 #include <cstdio>
+#include <iostream>
 
-Player::Player() : inventory(nullptr), workers(nullptr), plot(nullptr), money(1000.0f), rating(0), hour(0), minute(0), running(false), clockThread(nullptr) 
+Player::Player() 
+    : inventory(nullptr), workers(nullptr), plot(nullptr), 
+      money(1000.0f), rating(0), 
+      day(1), hour(6), minute(0),
+      running(false), clockThread(nullptr) 
 {
     inventory = new Inventory();
     workers = new Worker();
@@ -58,10 +63,32 @@ int Player::getRating() const
     return rating;
 }
 
+int Player::getDay() const 
+{
+    return day;
+}
+
+int Player::getHour() const 
+{
+    return hour;
+}
+
+int Player::getMinute() const 
+{
+    return minute;
+}
+
 std::string Player::getTimeString() const 
 {
     char buffer[6];
     snprintf(buffer, sizeof(buffer), "%02d:%02d", hour, minute);
+    return std::string(buffer);
+}
+
+std::string Player::getFullTimeString() const 
+{
+    char buffer[32];
+    snprintf(buffer, sizeof(buffer), "Day %d, %02d:%02d", day, hour, minute);
     return std::string(buffer);
 }
 
@@ -101,34 +128,73 @@ void Player::setPlot(Greenhouse* gh)
     }
 }
 
-void Player::setMoney(float m) {
+void Player::setMoney(float m) 
+{
     money = m;
 }
 
-void Player::setRating(int r) {
+void Player::setRating(int r) 
+{
     rating = r;
 }
 
-void Player::runClock() {
-    while (running) {
+void Player::setDay(int d) 
+{
+    if (d > 0) {
+        day = d;
+    }
+}
+
+void Player::setHour(int h) 
+{
+    if (h >= 0 && h < 24) {
+        hour = h;
+    }
+}
+
+void Player::setMinute(int m) 
+{
+    if (m >= 0 && m < 60) {
+        minute = m;
+    }
+}
+
+bool Player::isNewDay() const 
+{
+    return hour == 6 && minute == 0;
+}
+
+void Player::runClock() 
+{
+    while (running) 
+    {
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         minute++;
 
-        if (minute >= 60) {
+        if (minute >= 60) 
+        {
             minute = 0;
             hour++;
         }
-        if (hour >= 24) {
-            hour = 0;
+
+        if (hour >= 24) 
+        {
+            hour = 6; 
+            minute = 0;
+            day++;
         }
     }
 }
 
-void Player::startClock() {
-    if (!running) {
+void Player::startClock() 
+{
+    if (!running) 
+    {
         running = true;
-        if (clockThread) {
-            if (clockThread->joinable()) {
+        if (clockThread) 
+        {
+            if (clockThread->joinable()) 
+            {
                 clockThread->join();
             }
             delete clockThread;
@@ -137,16 +203,18 @@ void Player::startClock() {
     }
 }
 
-void Player::stopClock() {
+void Player::stopClock() 
+{
     running = false;
-    if (clockThread && clockThread->joinable()) {
+    if (clockThread && clockThread->joinable()) 
+    {
         clockThread->join();
     }
 }
 
 Memento* Player::createMemento() const 
 {
-    return new Memento(inventory, workers, plot, money, rating, hour, minute);
+    return new Memento(inventory, workers, plot, money, rating, day, hour, minute);
 }
 
 void Player::setMemento(Memento* memento) 
@@ -155,6 +223,7 @@ void Player::setMemento(Memento* memento)
     {
         money = memento->getMoney();
         rating = memento->getRating();
+        day = memento->getDay();
         hour = memento->getHour();
         minute = memento->getMinute();
         
@@ -168,8 +237,8 @@ void Player::setMemento(Memento* memento)
             delete plot;
         }
         
-        inventory = memento->getInventory() ? memento->getInventory()->clone() : nullptr;
-        workers = memento->getWorkers() ? memento->getWorkers()->clone() : nullptr;
-        plot = memento->getPlot() ? memento->getPlot()->clone() : nullptr;
+        inventory = memento->getInventory() ? new Inventory(*memento->getInventory()) : nullptr;
+        workers = memento->getWorkers() ? new Worker(*memento->getWorkers()) : nullptr;
+        plot = memento->getPlot() ? new Greenhouse(*memento->getPlot()) : nullptr;
     }
 }

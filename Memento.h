@@ -2,21 +2,32 @@
 
 #include <string>
 
-class Memento {
+class Inventory;
+class Worker;
+class Greenhouse;
+
+class Memento 
+{
 private:
+    Inventory* inventory;
+    Worker* workers;
+    Greenhouse* plot;
     float money;
     int rating;
-    int hour;
-    int minute;
-    std::string inventoryState;
+    int day;
+    int hour;   
+    int minute; 
 
 public:
-    Memento(float m, int r, int h, int min);
-    Memento(float m, int r, int h, int min, std::string invState);
+    Memento(Inventory* inv, Worker* work, Greenhouse* gh, float m, int r, int d, int h, int min);
+    ~Memento();
 
+    Inventory* getInventory() const;
+    Worker* getWorkers() const;
+    Greenhouse* getPlot() const;
     float getMoney() const;
     int getRating() const;
+    int getDay() const;
     int getHour() const;
     int getMinute() const;
-    std::string getInventoryState() const;
 };
