@@ -6,8 +6,7 @@
 Player::Player() 
     : inventory(nullptr), workers(nullptr), plot(nullptr), 
       money(1000.0f), rating(0), 
-      day(1), hour(6), minute(0),
-      running(false), clockThread(nullptr) 
+      day(1), hour(6), minute(0)
 {
     inventory = new Inventory();
     workers = new Worker();
@@ -16,24 +15,16 @@ Player::Player()
 
 Player::~Player() 
 {
-    stopClock();
-    
-    if (clockThread) 
+    if (inventory) 
     {
-        if (clockThread->joinable()) 
-        {
-            clockThread->join();
-        }
-        delete clockThread;
-    }
-
-    if (inventory) {
         delete inventory;
     }
-    if (workers) {
+    if (workers) 
+    {
         delete workers;
     }
-    if (plot) {
+    if (plot) 
+    {
         delete plot;
     }
 }
@@ -82,6 +73,7 @@ std::string Player::getTimeString() const
 {
     char buffer[6];
     snprintf(buffer, sizeof(buffer), "%02d:%02d", hour, minute);
+
     return std::string(buffer);
 }
 
@@ -89,6 +81,7 @@ std::string Player::getFullTimeString() const
 {
     char buffer[32];
     snprintf(buffer, sizeof(buffer), "Day %d, %02d:%02d", day, hour, minute);
+
     return std::string(buffer);
 }
 
@@ -140,21 +133,24 @@ void Player::setRating(int r)
 
 void Player::setDay(int d) 
 {
-    if (d > 0) {
+    if (d > 0) 
+    {
         day = d;
     }
 }
 
 void Player::setHour(int h) 
 {
-    if (h >= 0 && h < 24) {
+    if (h >= 0 && h < 24) 
+    {
         hour = h;
     }
 }
 
 void Player::setMinute(int m) 
 {
-    if (m >= 0 && m < 60) {
+    if (m >= 0 && m < 60) 
+    {
         minute = m;
     }
 }
@@ -162,54 +158,6 @@ void Player::setMinute(int m)
 bool Player::isNewDay() const 
 {
     return hour == 6 && minute == 0;
-}
-
-void Player::runClock() 
-{
-    while (running) 
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        minute++;
-
-        if (minute >= 60) 
-        {
-            minute = 0;
-            hour++;
-        }
-
-        if (hour >= 24) 
-        {
-            hour = 6; 
-            minute = 0;
-            day++;
-        }
-    }
-}
-
-void Player::startClock() 
-{
-    if (!running) 
-    {
-        running = true;
-        if (clockThread) 
-        {
-            if (clockThread->joinable()) 
-            {
-                clockThread->join();
-            }
-            delete clockThread;
-        }
-        clockThread = new std::thread(&Player::runClock, this);
-    }
-}
-
-void Player::stopClock() 
-{
-    running = false;
-    if (clockThread && clockThread->joinable()) 
-    {
-        clockThread->join();
-    }
 }
 
 Memento* Player::createMemento() const 
@@ -227,13 +175,16 @@ void Player::setMemento(Memento* memento)
         hour = memento->getHour();
         minute = memento->getMinute();
         
-        if (inventory) {
+        if (inventory) 
+        {
             delete inventory;
         }
-        if (workers) {
+        if (workers) 
+        {
             delete workers;
         }
-        if (plot) {
+        if (plot) 
+        {
             delete plot;
         }
         

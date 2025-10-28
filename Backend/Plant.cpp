@@ -2,11 +2,14 @@
 #include <string>
 #include <iostream>
 #include "GrowthCycle.h"
-Plant::Plant(std::string type, float growthRate) 
+
+Plant::Plant(std::string type, float growthRate, float sellPrice) 
     : state(nullptr), 
       type(type), 
-      growthRate(growthRate), 
-      growthCycle(new NormalGrowthCycle())
+      growthRate(growthRate),
+      sellPrice(sellPrice),
+      growthCycle(new NormalGrowthCycle()),
+      Protected(false)
 {
     state = new SeedState(0.0f, 100.0f, 100.0f);
 }
@@ -37,6 +40,11 @@ void Plant::applyGrowthToState(float growth)
 float Plant::getBaseGrowthRate() const
 {
     return growthRate;
+}
+
+float Plant::getSellPrice() const
+{
+    return sellPrice;
 }
 
 void Plant::tick() 
