@@ -1,13 +1,12 @@
 #include "Plant.h"
 #include <string>
 #include <iostream>
-
-
+#include "GrowthCycle.h"
 Plant::Plant(std::string type, float growthRate) 
     : state(nullptr), 
       type(type), 
       growthRate(growthRate), 
-      growthCycle(nullptr)
+      growthCycle(new NormalGrowthCycle())
 {
     state = new SeedState(0.0f, 100.0f, 100.0f);
 }
@@ -20,24 +19,37 @@ Plant::~Plant()
     if(growthCycle){
         delete growthCycle;
     }
-
 }
 
 void Plant::setGrowthCycle(GrowthCycle *gc)
 {
-    this->growthCycle=gc;
+    delete growthCycle;
+    this->growthCycle = gc;
 }
 
-void Plant::grow(float growth)
+void Plant::applyGrowthToState(float growth)
 {
-    state->growth=growth*growthRate;
+    if(state) {
+        state->applyGrowth(growth * growthRate);
+    }
+}
+
+float Plant::getBaseGrowthRate() const
+{
+    return growthRate;
 }
 
 void Plant::tick() 
 {
-    if (state) 
-    {
+    if (state) {
+        // Let state handle resource consumption and state transitions
         state->tick(this);
+        
+        // Use GrowthCycle if available to apply growth based on deltaTime
+        // For now, assume a fixed deltaTime of 1.0f per tick
+        if (growthCycle) {
+            growthCycle->grow(this, 1.0f);
+        }
     }
 }
 
@@ -48,7 +60,7 @@ float Plant::getGrowthRate() const
 
 void Plant::notify()
 {
-    for(auto observer:observers){
+    for(auto observer : observers){
         observer->update(this);
     }
 }
@@ -56,15 +68,15 @@ void Plant::notify()
 void Plant::attach(Observer *observer)
 {
     if(observer){
-    observers.push_back(observer);
+        observers.push_back(observer);
     }
 }
 
 void Plant::detach(Observer* observer)
 {
-    for (auto obs:observers){
-        if(*obs==observer){
-            //remove observer from observers vector
+    for (auto obs : observers){
+        if(*obs == observer){
+            // Remove observer from observers vector
         }
     }
 }
@@ -76,8 +88,6 @@ void Plant::setState(PlantState* newState)
             delete state;
         }
         state = newState;
-        
-        // Notify observers of state change
         notify();
     }
 }
@@ -124,12 +134,12 @@ bool Plant::isDead() const
 
 void Plant::fertilize(float amount)
 {
-    state->nutrients+=amount;
+    if(state) state->addNutrients(amount);
 }
 
 void Plant::water(float amount)
 {
-    state->water+=amount;
+    if(state) state->addWater(amount);
 }
 
 void Plant::printStatus() const {

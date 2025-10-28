@@ -1,59 +1,49 @@
+# Makefile for Plant State System Project (Flat Structure)
+
+# Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -Wextra -pedantic -std=c++17 -g -fsanitize=address -pthread 
-LDFLAGS = -fsanitize=address -pthread
+CXXFLAGS = -std=c++17 -Wall -Wextra -g
+LDFLAGS = -pthread
 
-# Source files
-SRC = PlantState.cpp \
-      Plant.cpp \
-	  Observer.cpp \
-      Greenhouse.cpp \
-      Worker.cpp \
-      Inventory.cpp \
-      Memento.cpp \
-      Caretaker.cpp \
-      Player.cpp \
-      Game.cpp \
-      plant_state_demo.cpp
+# Source files (all .cpp files in current directory)
+SOURCES = Plant.cpp PlantState.cpp GrowthCycle.cpp Game.cpp plant_state_demo.cpp Player.cpp Game.cpp Greenhouse.cpp Memento.cpp Inventory.cpp Observer.cpp Worker.cpp Subject.cpp
+OBJECTS = $(SOURCES:.cpp=.o)
 
-# Object files (replace .cpp with .o)
-OBJ = $(SRC:.cpp=.o)
-
-# Executable name
-EXEC = plant_state_demo
+# Output executable
+TARGET = plant_demo
 
 # Default target
-all: $(EXEC)
+all: $(TARGET)
 
-# Link object files to create executable
-$(EXEC): $(OBJ)
-	$(CXX) $(LDFLAGS) -o $@ $(OBJ)
+# Link executable
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
+	@echo "✓ Build complete: $(TARGET)"
 
-# Compile .cpp to .o
+# Compile source files to object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Run the program
+run: $(TARGET)
+	@./$(TARGET)
+
 # Clean build artifacts
 clean:
-	rm -rf $(OBJ) $(EXEC)
+	rm -f $(OBJECTS) $(TARGET)
+	@echo "✓ Cleaned build artifacts"
 
-# Rebuild everything
+# Clean and rebuild
 rebuild: clean all
 
-# Run the demo
-run: $(EXEC)
-	./$(EXEC)
+# Show help
+help:
+	@echo "Available targets:"
+	@echo "  make all       - Build the project (default)"
+	@echo "  make run       - Build and run the program"
+	@echo "  make clean     - Remove build artifacts"
+	@echo "  make rebuild   - Clean and rebuild"
+	@echo "  make help      - Show this help message"
 
 # Phony targets
-.PHONY: all clean rebuild run
-
-# Dependencies (optional but recommended)
-PlantState.o: PlantState.cpp PlantState.h Plant.h
-Plant.o: Plant.cpp Plant.h PlantState.h Subject.h Observer.h GrowthCycle.h
-Greenhouse.o: Greenhouse.cpp Greenhouse.h Plant.h
-Worker.o: Worker.cpp Worker.h Observer.h Command.h Plant.h
-Inventory.o: Inventory.cpp Inventory.h Plant.h
-Memento.o: Memento.cpp Memento.h Inventory.h Worker.h Greenhouse.h
-Caretaker.o: Caretaker.cpp Caretaker.h Memento.h
-Player.o: Player.cpp Player.h Inventory.h Worker.h Greenhouse.h Memento.h
-Game.o: Game.cpp Game.h Player.h
-plant_state_demo.o: plant_state_demo.cpp Game.h Plant.h Greenhouse.h
+.PHONY: all run clean rebuild help

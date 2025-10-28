@@ -1,26 +1,34 @@
 #pragma once
 #include "PlantState.h"
 #include "Subject.h"
-#include "GrowthCycle.h"
+
+// Forward declaration - define in cpp
+class GrowthCycle;
 
 class Plant: public Subject
 {
-    public:
-    Plant(std::string type,float growthRate);
+public:
+    Plant(std::string type, float growthRate);
     Plant(const Plant& other);
     virtual ~Plant();
-    bool Protected=false;
-    //for use with growthCycle
-    void setGrowthCycle(GrowthCycle* gc);
-    void grow(float growth);    
-    void tick();
     
-    //for use with observer
+    bool Protected = false;
+    
+    // GrowthCycle integration
+    void setGrowthCycle(GrowthCycle* gc);
+    void applyGrowthToState(float growth);
+    float getBaseGrowthRate() const;
+    
+    // Observer pattern
     void notify();
     void attach(Observer* observer);
     void detach(Observer* observer);
-
-    //getters
+    
+    // State management
+    void tick();
+    void setState(PlantState* newState);
+    
+    // Getters - all maintained for backward compatibility
     std::string getType();
     std::string getState();
     std::string getStateName() const;
@@ -30,16 +38,14 @@ class Plant: public Subject
     float getGrowth() const;
     bool isRipe() const;
     bool isDead() const;
-    //setters
-    void setState(PlantState* newState);    
     
-    // for use with commands
+    // Command pattern support
     void fertilize(float amount);
     void water(float amount);
-
+    
     void printStatus() const;
 
-    protected:
+protected:
     PlantState* state;
     GrowthCycle* growthCycle;
     std::string type;
