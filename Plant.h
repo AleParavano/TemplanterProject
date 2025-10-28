@@ -13,6 +13,7 @@ class Plant: public Subject
     //for use with growthCycle
     void setGrowthCycle(GrowthCycle* gc);
     void grow(float growth);    
+    void tick();
     
     //for use with observer
     void notify();
@@ -22,13 +23,21 @@ class Plant: public Subject
     //getters
     std::string getType();
     std::string getState();
+    std::string getStateName() const;
     float getGrowthRate() const;
+    float getWater() const;
+    float getNutrients() const;
+    float getGrowth() const;
+    bool isRipe() const;
+    bool isDead() const;
     //setters
     void setState(PlantState* newState);    
     
     // for use with commands
     void fertilize(float amount);
     void water(float amount);
+
+    void printStatus() const;
 
     protected:
     PlantState* state;
