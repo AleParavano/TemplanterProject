@@ -1,6 +1,7 @@
 #pragma once
-#include "Subject.h"
-#include "Plant.h"
+
+class Plant;
+
 class Observer{
     public:
     virtual void update(Plant* Plant)=0;

@@ -3,6 +3,8 @@
 #include "Observer.h"
 #include <vector>
 
+class Observer;
+
 class Subject
 {
 public:
