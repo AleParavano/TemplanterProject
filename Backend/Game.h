@@ -12,4 +12,5 @@ public:
     ~Game();
     static Game* getInstance();
     Player& getPlayer();
+    Player* getPlayerPtr();
 };

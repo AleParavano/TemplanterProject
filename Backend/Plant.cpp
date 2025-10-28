@@ -8,8 +8,7 @@ Plant::Plant(std::string type, float growthRate, float sellPrice)
       type(type), 
       growthRate(growthRate),
       sellPrice(sellPrice),
-      growthCycle(new NormalGrowthCycle()),
-      Protected(false)
+      growthCycle(new NormalGrowthCycle())
 {
     state = new SeedState(0.0f, 100.0f, 100.0f);
 }

@@ -1,5 +1,6 @@
 #include "Command.h"
 #include "Player.h"
+#include "Game.h"
 void WaterCommand::execute()
 {
     this->targetPlant->water(10.0f);
@@ -10,6 +11,9 @@ void FertilizeCommand::execute()
 }
 void HarvestCommand::execute()
 {
+    Game* game= Game::getInstance();
+    Player* player= game->getPlayerPtr();
+    Greenhouse* greenhouse= player->getPlot();
    greenhouse->harvestPlant(targetPlant);
 }
 void PatrolCommand::execute()
@@ -31,8 +35,8 @@ FertilizeCommand::FertilizeCommand(Plant *plant)
 {
 }
 
-HarvestCommand::HarvestCommand(int plant, Greenhouse *greenhouse)
-:targetPlant(plant),greenhouse(greenhouse)
+HarvestCommand::HarvestCommand(int plant)
+:targetPlant(plant)
 {
 }
 
