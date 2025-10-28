@@ -7,7 +7,7 @@ class Plant;
 class PlantState
 {
     public:
-    // Constructor, Copy Const, Deconstr
+    // Constructor, Copy Const, Deconstructor
     PlantState();
     PlantState(float gr, float wa, float nu);
     PlantState(const PlantState& other); 
