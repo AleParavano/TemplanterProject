@@ -12,7 +12,6 @@ public:
     Plant(const Plant& other);
     virtual ~Plant();
     
-    bool Protected = false;
     
     // GrowthCycle integration
     void setGrowthCycle(GrowthCycle* gc);
@@ -31,6 +30,7 @@ public:
     // Getters - all maintained for backward compatibility
     std::string getType();
     std::string getState();
+    PlantState* getPlantState();
     std::string getStateName() const;
     float getGrowthRate() const;
     float getWater() const;

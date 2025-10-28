@@ -69,7 +69,7 @@ float Plant::getGrowthRate() const
 void Plant::notify()
 {
     for(auto observer : observers){
-        observer->update(this);
+        observer->update();
     }
 }
 
@@ -77,6 +77,7 @@ void Plant::attach(Observer *observer)
 {
     if(observer){
         observers.push_back(observer);
+        observer->setSubject(this);
     }
 }
 
@@ -108,6 +109,11 @@ std::string Plant::getType()
 std::string Plant::getState()
 {
     return state->getState();
+}
+
+PlantState *Plant::getPlantState()
+{
+    return this->state;
 }
 
 std::string Plant::getStateName() const 

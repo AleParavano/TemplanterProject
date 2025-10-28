@@ -160,7 +160,20 @@ bool Player::isNewDay() const
     return hour == 6 && minute == 0;
 }
 
-Memento* Player::createMemento() const 
+void Player::setProtected(bool prot)
+{
+    safe=prot;
+
+}
+
+bool Player::isProtected()
+{
+return safe;
+}
+
+
+
+Memento *Player::createMemento() const
 {
     return new Memento(inventory, workers, plot, money, rating, day, hour, minute);
 }

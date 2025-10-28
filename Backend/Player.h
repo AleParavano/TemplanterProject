@@ -20,6 +20,7 @@ private:
     int day;
     int hour;
     int minute;
+    static bool safe;
 
 public:
     Player();
@@ -47,7 +48,10 @@ public:
     void setHour(int h);
     void setMinute(int m);
     bool isNewDay() const;
-
+    static void setProtected(bool prot);
+    static bool isProtected();
     Memento* createMemento() const;
     void setMemento(Memento* memento);
+  
+    
 };

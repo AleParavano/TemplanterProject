@@ -6,6 +6,7 @@ class Command {
 public:
     virtual ~Command() {}
     virtual void execute() = 0;
+    virtual bool isPatrol() const { return false; }
 };
 
 class WaterCommand : public Command {
@@ -37,9 +38,9 @@ public:
 class PatrolCommand : public Command {
 public:
     void execute() override;
-    PatrolCommand(Plant* plant);
+    PatrolCommand(){}
+    bool isPatrol() const override { return true; }
     private:
-    Plant* targetPlant;
 };
 
 class ServeCommand : public Command {
