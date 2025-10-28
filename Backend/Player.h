@@ -20,9 +20,6 @@ private:
     int day;
     int hour;
     int minute;
-    std::atomic<bool> running;
-    std::thread* clockThread;
-    void runClock();
 
 public:
     Player();
@@ -50,9 +47,6 @@ public:
     void setHour(int h);
     void setMinute(int m);
     bool isNewDay() const;
-
-    void startClock();
-    void stopClock();
 
     Memento* createMemento() const;
     void setMemento(Memento* memento);

@@ -42,8 +42,11 @@ public:
     const InventorySlot* getSlot(size_t index) const;
     void clear();
     
+    size_t getMaxSlots() const { return maxSlots; }
+    void setMaxSlots(size_t capacity) { maxSlots = capacity; }
+
 private:
-    static constexpr size_t MAX_SLOTS = 32;
+    size_t maxSlots;  
     std::vector<InventorySlot*> slots;
     InventorySlot* findCompatibleSlot(Plant* plant);
     InventorySlot* createNewSlot();

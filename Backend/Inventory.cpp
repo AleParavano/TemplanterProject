@@ -42,8 +42,8 @@ bool InventorySlot::canAccept( Plant* plant) const {
 }
 
 // Inventory Implementation
-Inventory::Inventory() {
-    slots.reserve(MAX_SLOTS);
+Inventory::Inventory() : maxSlots(32) {
+    slots.reserve(maxSlots);
 }
 
 Inventory::~Inventory() {
@@ -61,7 +61,7 @@ bool Inventory::add(Plant* plant) {
     }
     
     // Need to create new slot
-    if (slots.size() >= MAX_SLOTS) {
+    if (slots.size() >= maxSlots) {
         return false; // Inventory full
     }
     
@@ -116,7 +116,7 @@ int Inventory::getPlantCount(const std::string& plantType) const {
 }
 
 bool Inventory::isFull() const {
-    if (slots.size() < MAX_SLOTS) return false;
+    if (slots.size() < maxSlots) return false;
     
     // Check if all slots are full
     for (const auto* slot : slots) {
@@ -151,7 +151,7 @@ InventorySlot* Inventory::findCompatibleSlot( Plant* plant) {
 }
 
 InventorySlot* Inventory::createNewSlot() {
-    if (slots.size() >= MAX_SLOTS) return nullptr;
+    if (slots.size() >= maxSlots) return nullptr;
     
     InventorySlot* newSlot = new InventorySlot();
     slots.push_back(newSlot);
