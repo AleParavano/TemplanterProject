@@ -70,7 +70,6 @@ void SeedState::handle(Plant* plant) {
     if (water <= DEATH_WATER_THRESHOLD || nutrients <= DEATH_NUTRIENT_THRESHOLD) {
         std::cout << "[SEED] Plant died from lack of resources!" << std::endl;
         plant->setState(new DeadState(growth, water, nutrients));
-        delete this;
         return;
     }
     
@@ -78,7 +77,6 @@ void SeedState::handle(Plant* plant) {
     if (growth >= SEED_TO_GROWING_THRESHOLD) {
         std::cout << "[SEED -> GROWING] Plant sprouted! Growth: " << growth << std::endl;
         plant->setState(new GrowingState(growth, water, nutrients));
-        delete this;
         return;
     }
 }
@@ -125,7 +123,6 @@ void GrowingState::handle(Plant* plant) {
     if (water <= DEATH_WATER_THRESHOLD || nutrients <= DEATH_NUTRIENT_THRESHOLD) {
         std::cout << "[GROWING] Plant died from lack of resources!" << std::endl;
         plant->setState(new DeadState(growth, water, nutrients));
-        delete this;
         return;
     }
     
@@ -133,7 +130,6 @@ void GrowingState::handle(Plant* plant) {
     if (growth >= GROWING_TO_RIPE_THRESHOLD) {
         std::cout << "[GROWING -> RIPE] Plant is ripe! Growth: " << growth << std::endl;
         plant->setState(new RipeState(growth, water, nutrients));
-        delete this;
         return;
     }
 }
@@ -177,7 +173,6 @@ void RipeState::handle(Plant* plant) {
     if (water <= DEATH_WATER_THRESHOLD || nutrients <= DEATH_NUTRIENT_THRESHOLD) {
         std::cout << "[RIPE] Plant withered from lack of resources!" << std::endl;
         plant->setState(new DeadState(growth, water, nutrients));
-        delete this;
         return;
     }
     
@@ -185,7 +180,6 @@ void RipeState::handle(Plant* plant) {
     if (growth > 150.0f) {
         std::cout << "[RIPE] Plant over-ripened and died!" << std::endl;
         plant->setState(new DeadState(growth, water, nutrients));
-        delete this;
         return;
     }
 }

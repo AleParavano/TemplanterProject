@@ -4,7 +4,7 @@
 class GrowthCycle {
 public:
     GrowthCycle();
-    ~GrowthCycle();
+    virtual ~GrowthCycle();
      void grow(Plant* plant, float deltaTime);
 private:
     virtual float calculateGrowth(Plant* plant,float deltaTime ) = 0;

@@ -3,9 +3,14 @@
 #include <iostream>
 
 
-Plant::Plant(std::string type, float growthRate)
-: type(type),growthRate(growthRate),growthCycle(nullptr),state(new SeedState(0.0,0.0,0.0))
-{}
+Plant::Plant(std::string type, float growthRate) 
+    : state(nullptr), 
+      type(type), 
+      growthRate(growthRate), 
+      growthCycle(nullptr)
+{
+    state = new SeedState(0.0f, 100.0f, 100.0f);
+}
 
 Plant::~Plant()
 {
