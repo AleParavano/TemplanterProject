@@ -11,20 +11,24 @@ public:
 class WaterCommand : public Command {
 public:
     void execute() override;
+    WaterCommand(Plant* plant);
     private:
     Plant* targetPlant;
 };
 class FertilizeCommand : public Command {
 public:
     void execute() override;
+    FertilizeCommand(Plant* plant);
     private:
     Plant* targetPlant;
+    
 
 };
 
 class HarvestCommand : public Command {
 public:
     void execute() override;
+    HarvestCommand(int plant, Greenhouse* greenhouse);
     private:
     int targetPlant;
     Greenhouse* greenhouse;
@@ -33,6 +37,7 @@ public:
 class PatrolCommand : public Command {
 public:
     void execute() override;
+    PatrolCommand(Plant* plant);
     private:
     Plant* targetPlant;
 };
@@ -40,7 +45,7 @@ public:
 class ServeCommand : public Command {
 public:
     void execute() override;
-
+    ServeCommand(Customer* cust);
 private:
     Customer* target;
 };
