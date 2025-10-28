@@ -25,6 +25,11 @@ void Plant::grow(float growth)
     state->growth=growth*growthRate;
 }
 
+float Plant::getGrowthRate() const 
+{
+    return growthRate;
+}
+
 void Plant::notify()
 {
     for(auto observer:observers){
@@ -45,6 +50,19 @@ void Plant::detach(Observer* observer)
         if(*obs==observer){
             //remove observer from observers vector
         }
+    }
+}
+
+void Plant::setState(PlantState* newState) 
+{
+    if (state != newState) {
+        if (state) {
+            delete state;
+        }
+        state = newState;
+        
+        // Notify observers of state change
+        notify();
     }
 }
 
