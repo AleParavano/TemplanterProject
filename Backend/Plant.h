@@ -1,107 +1,105 @@
 #pragma once
 #include "PlantState.h"
 #include "Subject.h"
-#include "GrowthCycle.h"
+
+// Forward declaration - define in cpp
+class GrowthCycle;
 
 class Plant: public Subject
 {
-    public:
-    Plant(std::string type,float growthRate);
+public:
+    Plant(std::string type, float growthRate, float sellPrice);
     Plant(const Plant& other);
     virtual ~Plant();
-    bool Protected=false;
-    //for use with growthCycle
-    void setGrowthCycle(GrowthCycle* gc);
-    void grow(float growth);    
-    void tick();
     
-    //for use with observer
+    
+    // GrowthCycle integration
+    void setGrowthCycle(GrowthCycle* gc);
+    void applyGrowthToState(float growth);
+    float getBaseGrowthRate() const;
+    
+    // Observer pattern
     void notify();
     void attach(Observer* observer);
     void detach(Observer* observer);
-
-    //getters
+    
+    // State management
+    void tick();
+    void setState(PlantState* newState);
+    
+    // Getters - all maintained for backward compatibility
     std::string getType();
     std::string getState();
+    PlantState* getPlantState();
     std::string getStateName() const;
     float getGrowthRate() const;
     float getWater() const;
     float getNutrients() const;
     float getGrowth() const;
+    float getSellPrice() const;
     bool isRipe() const;
     bool isDead() const;
-    //setters
-    void setState(PlantState* newState);    
     
-    // for use with commands
+    // Command pattern support
     void fertilize(float amount);
     void water(float amount);
-
+    
     void printStatus() const;
 
-    protected:
+protected:
     PlantState* state;
     GrowthCycle* growthCycle;
     std::string type;
     float growthRate;
-};
-
-class Carrot : public Plant {
-public:
-    Carrot() : Plant("Carrot", 1.1f) {}
-    Carrot(const Carrot& other) : Plant(other) {}
-};
-
-class Tomato : public Plant {
-public:
-    Tomato() : Plant("Tomato", 1.4f) {}
-    Tomato(const Tomato& other) : Plant(other) {}
-};
-
-class Sunflower : public Plant {
-public:
-    Sunflower() : Plant("Sunflower", 1.6f) {}
-    Sunflower(const Sunflower& other) : Plant(other) {}
+    float sellPrice;
 };
 
 class Lettuce : public Plant {
 public:
-    Lettuce() : Plant("Lettuce", 1.0f) {}
-    Lettuce(const Lettuce& other) : Plant(other) {}
+    Lettuce() : Plant("Lettuce", 1.6f, 15.0f) {}  // Fast, cheap
+};
+
+class Carrot : public Plant {
+public:
+    Carrot() : Plant("Carrot", 1.4f, 25.0f) {}
 };
 
 class Potato : public Plant {
 public:
-    Potato() : Plant("Potato", 1.2f) {}
-    Potato(const Potato& other) : Plant(other) {}
+    Potato() : Plant("Potato", 1.2f, 35.0f) {}
 };
 
 class Cucumber : public Plant {
 public:
-    Cucumber() : Plant("Cucumber", 1.3f) {}
-    Cucumber(const Cucumber& other) : Plant(other) {}
+    Cucumber() : Plant("Cucumber", 1.1f, 45.0f) {}
+};
+
+class Tomato : public Plant {
+public:
+    Tomato() : Plant("Tomato", 1.0f, 55.0f) {}
 };
 
 class Pepper : public Plant {
 public:
-    Pepper() : Plant("Pepper", 1.5f) {}
-    Pepper(const Pepper& other) : Plant(other) {}
+    Pepper() : Plant("Pepper", 0.9f, 65.0f) {}
+};
+
+class Sunflower : public Plant {
+public:
+    Sunflower() : Plant("Sunflower", 0.8f, 80.0f) {}
 };
 
 class Strawberry : public Plant {
 public:
-    Strawberry() : Plant("Strawberry", 1.7f) {}
-    Strawberry(const Strawberry& other) : Plant(other) {}
+    Strawberry() : Plant("Strawberry", 0.7f, 100.0f) {}
 };
 
 class Corn : public Plant {
 public:
-    Corn() : Plant("Corn", 1.8f) {}
-    Corn(const Corn& other) : Plant(other) {}
+    Corn() : Plant("Corn", 0.6f, 120.0f) {}
 };
 
 class Pumpkin : public Plant {
 public:
-    Pumpkin() : Plant("Pumpkin", 2.0f) {}
-    Pumpkin(const Pumpkin& other) : Plant(other) {}
+    Pumpkin() : Plant("Pumpkin", 0.5f, 200.0f) {}  // Slowest, most valuable
 };

@@ -1,19 +1,50 @@
 #pragma once
 #include "Observer.h"
-#include <vector>
+#include <queue>
 #include "Command.h"
 #include "Plant.h"
+#include "PlantState.h"
+#include <mutex>
+#include <thread>
+#include <chrono>
+#include <condition_variable>
+#include <atomic>
 class Worker: public Observer {
 public:
 Worker();
+Worker(const Worker& worker);
 ~Worker();
 void executeCommand();
 void addCommand(Command* command);
-void addPlant(Plant* plant);
-void update(Plant* subject) override ;
+void setSubject(Plant* plant);
+virtual void update() override ;
+void stop();
 protected:
-
-std::vector<Command*> commandQueue;
+void startPatrol();
+void endPatrol();
+void setLevel(int level);
+std::mutex mtx;
+std::condition_variable condition;
+std::atomic<bool> running{true};
+std::thread workerThread;
+std::queue<Command*> commandQueue;
 // not responsible for  memory
-std::vector<Plant*> plants;
+Plant* subject;
+PlantState* subjectState;
+int level=0;
+
+
 };
+
+class WaterWorker:public Worker{
+    void update() override;
+};
+
+class FertiliserWorker:public Worker{
+    void update() override;
+};
+
+class HarvestWorker:public Worker{
+    void update() override;
+};
+

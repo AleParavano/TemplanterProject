@@ -19,3 +19,9 @@ Player& Game::getPlayer()
 {
     return player;
 }
+
+Player *Game::getPlayerPtr()
+{
+  
+    return &player;
+}

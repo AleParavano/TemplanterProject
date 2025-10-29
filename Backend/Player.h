@@ -20,9 +20,7 @@ private:
     int day;
     int hour;
     int minute;
-    std::atomic<bool> running;
-    std::thread* clockThread;
-    void runClock();
+    static bool safe;
 
 public:
     Player();
@@ -50,10 +48,10 @@ public:
     void setHour(int h);
     void setMinute(int m);
     bool isNewDay() const;
-
-    void startClock();
-    void stopClock();
-
+    static void setProtected(bool prot);
+    static bool isProtected();
     Memento* createMemento() const;
     void setMemento(Memento* memento);
+  
+    
 };

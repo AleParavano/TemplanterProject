@@ -1,11 +1,12 @@
 #include "Observer.h"
 
-Observer::Observer()
-{
-    id=ObserverCount++;
+// Initialize static member
+int Observer::ObserverCount = 0;
+
+Observer::Observer() {
+    id = ObserverCount++;
 }
 
-bool Observer::operator==(Observer *observer)
-{
-   return this->id==observer->id;
+bool Observer::operator==(Observer* observer) {
+    return this->id == observer->id;
 }

@@ -1,9 +1,11 @@
 #pragma once
-#include "Subject.h"
-#include "Plant.h"
+
+class Plant;
+
 class Observer{
     public:
-    virtual void update(Plant* Plant)=0;
+    virtual void update()=0;
+    virtual void setSubject(Plant* plant)=0;
     Observer();
     bool operator==(Observer* observer);
     virtual ~Observer(){}
