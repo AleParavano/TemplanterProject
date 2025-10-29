@@ -13,8 +13,11 @@ void HarvestCommand::execute()
 {
     Game* game= Game::getInstance();
     Player* player= game->getPlayerPtr();
+    if(player){
     Greenhouse* greenhouse= player->getPlot();
+    if(greenhouse)
    greenhouse->harvestPlant(targetPlant);
+    }
 }
 void PatrolCommand::execute()
 { Player* player=Game::getInstance()->getPlayerPtr();
