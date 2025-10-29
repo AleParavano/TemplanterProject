@@ -162,7 +162,7 @@ bool Player::isNewDay() const
 
 void Player::setProtected(bool prot)
 {
-    safe=prot;
+    safe = prot;
 
 }
 

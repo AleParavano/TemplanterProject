@@ -17,8 +17,9 @@ void HarvestCommand::execute()
    greenhouse->harvestPlant(targetPlant);
 }
 void PatrolCommand::execute()
-{
-    Player::setProtected(true);
+{ Player* player=Game::getInstance()->getPlayerPtr();
+    if(player)
+    player->setProtected(true);
 }
 void ServeCommand::execute()
 {

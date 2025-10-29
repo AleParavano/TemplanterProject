@@ -1,6 +1,8 @@
 #include "Worker.h"
 #include <iostream>
+#include "Command.h"
 #include "Player.h"
+#include "Game.h"
 Worker::Worker(): Observer()
 {
     workerThread=std::thread(&Worker::executeCommand,this);
@@ -106,12 +108,15 @@ void Worker::stop()
 
 void Worker::startPatrol()
 {
-    Player::setProtected(true);
+ Player* player=Game::getInstance()->getPlayerPtr();
+ if(player)
+ player->setProtected(true);
 }
 
 void Worker::endPatrol()
-{
-    Player::setProtected(false);
+{   Player* player=Game::getInstance()->getPlayerPtr();
+    if(player)
+    player->setProtected(false);
 }
 
 void Worker::setLevel(int level)
