@@ -5,15 +5,34 @@
 
 bool Player::safe = true;
 
+// Player::Player()
+//     : inventory(nullptr), workers(nullptr), plot(nullptr),
+//       money(1000.0f), rating(0),
+//       day(1), hour(6), minute(0)
+// {
+//     inventory = new Inventory(15);
+//     workers = new Worker();
+//     plot = new Greenhouse();
+// }
+
 Player::Player()
     : inventory(nullptr), workers(nullptr), plot(nullptr),
       money(1000.0f), rating(0),
       day(1), hour(6), minute(0)
 {
-    inventory = new Inventory();
-    inventory->setMaxSlots(15);
+    std::cout << "  Player constructor: Creating Inventory(15)..." << std::endl;
+    inventory = new Inventory(15);
+    std::cout << "  Player constructor: Inventory created!" << std::endl;
+    
+    std::cout << "  Player constructor: Creating Worker..." << std::endl;
     workers = new Worker();
+    std::cout << "  Player constructor: Worker created!" << std::endl;
+    
+    std::cout << "  Player constructor: Creating Greenhouse..." << std::endl;
     plot = new Greenhouse();
+    std::cout << "  Player constructor: Greenhouse created!" << std::endl;
+    
+    std::cout << "  Player constructor: Complete!" << std::endl;
 }
 
 Player::~Player()
@@ -207,83 +226,115 @@ void Player::setMemento(Memento *memento)
     }
 }
 
-// void Player::openInventory(){
-//     inventoryOpen = !inventoryOpen;
-// }
-
-// void Player::renderInventory(){
-//     if(inventoryOpen == true){
-//         DrawRectangle(460, 75, 487, 385, BLACK);
-//         DrawRectangle(461, 76, 485, 383, Color{178, 102, 0, 255});
-//         DrawText("INVENTORY:", 466, 85, 50, Color{86, 49, 0, 255});
-        
-//         int invPos = 0;
-
-//         for(int i = 466; i < 930; i += 100){
-//             for(int j = 170; j < 371; j += 100){
-//                 Rectangle tempRect = {i, j, 75, 75};
-//                 DrawRectangleRec(tempRect, Color{86, 49, 0, 255});
-
-//                 Slot tempSlot(inventory->getSlot(invPos), tempRect);
-//                 slotVector.push_back(tempSlot);
-//                 if(invPos < inventory->getMaxSlots()){
-//                     invPos++;
-//                 }
-//             }
-
-//         }
-//     }
-// }
-
-void Player::openInventory(){
+void Player::openInventory()
+{
     inventoryOpen = !inventoryOpen;
-    
+
     // Build the slot vector ONCE when opening
-    if(inventoryOpen && slotVector.empty()){
+    if (inventoryOpen && slotVector.empty())
+    {
         int invPos = 0;
 
-        for(int i = 170; i < 371; i+= 100){
-            for(int j = 466; j < 930; j += 100){
+        for (int i = 170; i < 371; i += 100)
+        {
+            for (int j = 466; j < 930; j += 100)
+            {
                 Rectangle tempRect = {j, i, 75, 75};
-                
-                const InventorySlot* slotData = nullptr;
-                if(invPos < inventory->getMaxSlots()){
+
+                const InventorySlot *slotData = nullptr;
+                if (invPos < inventory->getMaxSlots())
+                {
                     slotData = inventory->getSlot(invPos);
                 }
-                
+
                 Slot tempSlot(slotData, tempRect);
                 slotVector.push_back(tempSlot);
                 invPos++;
             }
         }
     }
-    
+
     // Clear slots when closing
-    if(!inventoryOpen){
+    if (!inventoryOpen)
+    {
         slotVector.clear();
+        selectedSlotIndex = -1;
     }
 }
 
-void Player::renderInventory(){    
+void Player::renderInventory(){
     if(inventoryOpen){
         DrawRectangle(460, 75, 487, 385, BLACK);
         DrawRectangle(461, 76, 485, 383, Color{178, 102, 0, 255});
         DrawText("INVENTORY:", 466, 85, 50, Color{86, 49, 0, 255});
-
-        Vector2 mousePos = GetMousePosition();
-                
-        for(const Slot& slot : slotVector){
-            DrawRectangleRec(slot.rect, Color{86, 49, 0, 255});
+         
+        for(int i = 0; i < slotVector.size(); i++){
+            const Slot& slot = slotVector[i];
+                   
+            // Draw slot background
+            if(slot.selected){
+                DrawRectangleRec(slot.rect, Color{110, 70, 20, 255});
+            } else {
+                DrawRectangleRec(slot.rect, Color{86, 49, 0, 255});
+            }
             
-            if(slot.slot != nullptr){
+            DrawRectangleLinesEx(slot.rect, 2, BLACK);
+            
+            // If slot has an item, draw it
+            if(slot.slot != nullptr && !slot.slot->isEmpty()){
                 DrawCircle(slot.rect.x + 37, slot.rect.y + 37, 20, GREEN);
-                DrawText(slot.quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 20, WHITE);
-
-                if(CheckCollisionPointRec(mousePos, slot.rect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-                    
-                    
-                }
+                
+                std::string quantity = std::to_string(slot.slot->getSize());
+                DrawText(quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 10, WHITE);
             }
         }
+    }
+}
+
+void Player::updateInventory(){
+    if(!inventoryOpen) return;
+    
+    Vector2 mouse = GetMousePosition();
+    
+    // Handle left click on slots
+    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+        for(int i = 0; i < slotVector.size(); i++){
+            if(slotVector[i].isClicked(mouse)){
+                
+                // If no slot is selected, select this one
+                if(selectedSlotIndex == -1){
+                    if(slotVector[i].slot != nullptr){  // Only select non-empty slots
+                        selectedSlotIndex = i;
+                        slotVector[i].selected = true;
+                    }
+                }
+                // If a slot is already selected, try to move/swap
+                else if(selectedSlotIndex != i){
+                    // Swap items in the inventory
+                    inventory->swapSlots(selectedSlotIndex, i);
+                    
+                    // Update the slot vector to reflect changes
+                    slotVector[selectedSlotIndex].slot = inventory->getSlot(selectedSlotIndex);
+                    slotVector[i].slot = inventory->getSlot(i);
+                    
+                    // Deselect
+                    slotVector[selectedSlotIndex].selected = false;
+                    selectedSlotIndex = -1;
+                }
+                // If clicking the same slot, deselect
+                else {
+                    slotVector[selectedSlotIndex].selected = false;
+                    selectedSlotIndex = -1;
+                }
+                
+                break;
+            }
+        }
+    }
+    
+    // Right-click to cancel selection
+    if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedSlotIndex != -1){
+        slotVector[selectedSlotIndex].selected = false;
+        selectedSlotIndex = -1;
     }
 }

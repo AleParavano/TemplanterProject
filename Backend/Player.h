@@ -35,8 +35,13 @@ private:
             }
             else
             {
-                quantity = "0"; 
+                quantity = "0";
             }
+        }
+
+        bool isClicked(Vector2 mousePos) const
+        {
+            return CheckCollisionPointRec(mousePos, rect);
         }
     };
 
@@ -53,6 +58,7 @@ private:
     // Frontend
     bool inventoryOpen = false;
     std::vector<Slot> slotVector;
+    int selectedSlotIndex = -1;
 
 public:
     Player();
@@ -88,4 +94,5 @@ public:
     // Frontend methods
     void openInventory();
     void renderInventory();
+    void updateInventory();
 };

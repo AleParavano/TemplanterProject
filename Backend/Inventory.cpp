@@ -1,159 +1,226 @@
 #include "Inventory.h"
 
-bool InventorySlot::add(Plant* plant) {
-    if (!plant) return false;
-    if (isFull()) return false;
-    
+bool InventorySlot::add(Plant *plant)
+{
+    if (!plant)
+        return false;
+    if (isFull())
+        return false;
+
     // If empty slot, accept any plant type
-    if (isEmpty()) {
+    if (isEmpty())
+    {
         plantType = plant->getType(); // Assuming Plant has getType() method
         items.push_back(plant);
         return true;
     }
-    
+
     // If not empty, check type compatibility
-    if (plant->getType() != plantType) {
+    if (plant->getType() != plantType)
+    {
         return false;
     }
-    
+
     items.push_back(plant);
     return true;
 }
 
-Plant* InventorySlot::remove() {
-    if (isEmpty()) return nullptr;
-    
-    Plant* plant = items.back();
+Plant *InventorySlot::remove()
+{
+    if (isEmpty())
+        return nullptr;
+
+    Plant *plant = items.back();
     items.pop_back();
-    
+
     // Clear plant type if slot becomes empty
-    if (isEmpty()) {
+    if (isEmpty())
+    {
         plantType.clear();
     }
-    
+
     return plant;
 }
 
-bool InventorySlot::canAccept( Plant* plant) const {
-    if (!plant) return false;
-    if (isFull()) return false;
-    if (isEmpty()) return true;
+bool InventorySlot::canAccept(Plant *plant) const
+{
+    if (!plant)
+        return false;
+    if (isFull())
+        return false;
+    if (isEmpty())
+        return true;
     return plant->getType() == plantType;
 }
 
 // Inventory Implementation
-Inventory::Inventory() : maxSlots(32) {
-    slots.reserve(maxSlots);
+Inventory::Inventory(int capacity) : maxSlots(capacity)
+{
+    slots.resize(maxSlots);
+    for (int i = 0; i < maxSlots; i++)
+    {
+        slots[i] = nullptr;
+    }
 }
 
-Inventory::~Inventory() {
+Inventory::~Inventory()
+{
     clear();
 }
 
-bool Inventory::add(Plant* plant) {
-    if (!plant) return false;
-    
+bool Inventory::add(Plant *plant)
+{    
+    if (!plant) {
+        return false;
+    }
+
+
     // Try to find existing compatible slot
-    InventorySlot* slot = findCompatibleSlot(plant);
-    
-    if (slot) {
+    InventorySlot *slot = findCompatibleSlot(plant);
+
+    if (slot)
+    {
         return slot->add(plant);
     }
     
-    // Need to create new slot
-    if (slots.size() >= maxSlots) {
-        return false; // Inventory full
-    }
-    
+    // Create new slot (removes the bad check!)
     slot = createNewSlot();
-    if (!slot) return false;
-    
+    if (!slot) {
+        return false;
+    }
+
     return slot->add(plant);
 }
 
-Plant* Inventory::removeItem(const std::string& plantType) {
+Plant *Inventory::removeItem(const std::string &plantType)
+{
     // Find first slot with this plant type
-    for (auto it = slots.begin(); it != slots.end(); ++it) {
-        InventorySlot* slot = *it;
-        if (slot->getPlantType() == plantType) {
-            Plant* plant = slot->remove();
-            
-            if (slot->isEmpty()) {
+    for (auto it = slots.begin(); it != slots.end(); ++it)
+    {
+        InventorySlot *slot = *it;
+        if (slot->getPlantType() == plantType)
+        {
+            Plant *plant = slot->remove();
+
+            if (slot->isEmpty())
+            {
                 slots.erase(it);
                 delete slot;
             }
-            
+
             return plant;
         }
     }
     return nullptr;
 }
 
-bool Inventory::removeStack(size_t index) {
-    if (index >= slots.size()) return false;
-    
-    InventorySlot* slot = slots[index];
-    
-    while (!slot->isEmpty()) {
-        Plant* plant = slot->remove();
-        delete plant; 
+bool Inventory::removeStack(size_t index)
+{
+    if (index >= slots.size())
+        return false;
+
+    InventorySlot *slot = slots[index];
+
+    while (!slot->isEmpty())
+    {
+        Plant *plant = slot->remove();
+        delete plant;
     }
-    
+
     slots.erase(slots.begin() + index);
     delete slot;
-    
+
     return true;
 }
 
-int Inventory::getPlantCount(const std::string& plantType) const {
+int Inventory::getPlantCount(const std::string &plantType) const
+{
     int count = 0;
-    for (const auto* slot : slots) {
-        if (slot->getPlantType() == plantType) {
+    for (const auto *slot : slots)
+    {
+        if (slot != nullptr && slot->getPlantType() == plantType) 
+        {
             count += slot->getSize();
         }
     }
     return count;
 }
 
-bool Inventory::isFull() const {
-    if (slots.size() < maxSlots) return false;
-    
-    // Check if all slots are full
-    for (const auto* slot : slots) {
-        if (!slot->isFull()) return false;
+bool Inventory::isFull() const
+{
+ int filledSlots = 0;
+    for (const auto *slot : slots)
+    {
+        if (slot != nullptr)  
+        {
+            filledSlots++;
+            if (!slot->isFull())
+                return false;
+        }
     }
-    return true;
+    return filledSlots >= maxSlots;
 }
 
-const InventorySlot* Inventory::getSlot(size_t index) const {
-    if (index >= slots.size()) return nullptr;
+const InventorySlot *Inventory::getSlot(size_t index) const
+{
+    if (index >= slots.size())
+        return nullptr;
     return slots[index];
 }
 
-void Inventory::clear() {
-    for (auto* slot : slots) {
-        while (!slot->isEmpty()) {
-            Plant* plant = slot->remove();
-            delete plant;
+void Inventory::clear()
+{
+    for (auto *slot : slots)
+    {
+        if (slot != nullptr)  
+        {
+            while (!slot->isEmpty())
+            {
+                Plant *plant = slot->remove();
+                delete plant;
+            }
+            delete slot;
         }
-        delete slot;
     }
     slots.clear();
 }
 
-InventorySlot* Inventory::findCompatibleSlot( Plant* plant) {
-    for (auto* slot : slots) {
-        if (slot->canAccept(plant)) {
+InventorySlot *Inventory::findCompatibleSlot(Plant *plant)
+{
+    for (auto *slot : slots)
+    {
+        // Skip nullptr slots!
+        if (slot != nullptr && slot->canAccept(plant))
+        {
             return slot;
         }
     }
     return nullptr;
 }
 
-InventorySlot* Inventory::createNewSlot() {
-    if (slots.size() >= maxSlots) return nullptr;
-    
-    InventorySlot* newSlot = new InventorySlot();
-    slots.push_back(newSlot);
-    return newSlot;
+InventorySlot *Inventory::createNewSlot()
+{
+    // Find first nullptr slot
+    for (int i = 0; i < slots.size(); i++)
+    {
+        if (slots[i] == nullptr)
+        {
+            slots[i] = new InventorySlot();
+            return slots[i];
+        }
+    }
+
+    return nullptr; // No empty slots
+}
+
+void Inventory::swapSlots(int index1, int index2)
+{
+    if (index1 < 0 || index1 >= maxSlots || index2 < 0 || index2 >= maxSlots)
+    {
+        return;
+    }
+
+    InventorySlot *temp = slots[index1];
+    slots[index1] = slots[index2];
+    slots[index2] = temp;
 }
