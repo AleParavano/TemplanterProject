@@ -6,7 +6,7 @@ CXXFLAGS = -std=c++17 -Wall -Wextra -g
 LDFLAGS = -pthread
 
 # Source files (all .cpp files in current directory)
-SOURCES = Plant.cpp PlantState.cpp GrowthCycle.cpp Player.cpp Game.cpp Greenhouse.cpp Memento.cpp Inventory.cpp Observer.cpp Command.cpp Worker.cpp Subject.cpp Store.cpp SeedAdapter.cpp plant_inv-store_demo.cpp 
+SOURCES = Plant.cpp PlantState.cpp GrowthCycle.cpp Player.cpp Game.cpp Greenhouse.cpp Memento.cpp Caretaker.cpp Inventory.cpp Observer.cpp Command.cpp Worker.cpp Subject.cpp Store.cpp SeedAdapter.cpp Serializer.cpp PersistenceManager.cpp Data_tester.cpp 
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # Output executable

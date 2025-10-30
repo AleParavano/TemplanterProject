@@ -14,7 +14,7 @@ public:
     ~Caretaker();
 
     void addMemento(Memento* memento);
-    Memento* getMemento(int index);
+    Memento* getMemento(int index) const;
     Memento* undo();
     Memento* redo();
     bool canUndo() const;
