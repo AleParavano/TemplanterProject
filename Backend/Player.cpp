@@ -3,9 +3,9 @@
 #include <cstdio>
 #include <iostream>
 
-Player::Player() 
-    : inventory(nullptr), workers(nullptr), plot(nullptr), 
-      money(1000.0f), rating(0), 
+Player::Player()
+    : inventory(nullptr), workers(nullptr), plot(nullptr),
+      money(1000.0f), rating(0),
       day(1), hour(6), minute(0)
 {
     inventory = new Inventory();
@@ -13,63 +13,63 @@ Player::Player()
     plot = new Greenhouse();
 }
 
-Player::~Player() 
+Player::~Player()
 {
-    if (inventory) 
+    if (inventory)
     {
         delete inventory;
     }
-    if (workers) 
+    if (workers)
     {
         delete workers;
     }
-    if (plot) 
+    if (plot)
     {
         delete plot;
     }
 }
 
-Inventory* Player::getInventory() const 
+Inventory *Player::getInventory() const
 {
     return inventory;
 }
 
-Worker* Player::getWorkers() const 
+Worker *Player::getWorkers() const
 {
     return workers;
 }
 
-Greenhouse* Player::getPlot() const 
+Greenhouse *Player::getPlot() const
 {
     return plot;
 }
 
-float Player::getMoney() const 
+float Player::getMoney() const
 {
     return money;
 }
 
-int Player::getRating() const 
+int Player::getRating() const
 {
     return rating;
 }
 
-int Player::getDay() const 
+int Player::getDay() const
 {
     return day;
 }
 
-int Player::getHour() const 
+int Player::getHour() const
 {
     return hour;
 }
 
-int Player::getMinute() const 
+int Player::getMinute() const
 {
     return minute;
 }
 
-std::string Player::getTimeString() const 
+std::string Player::getTimeString() const
 {
     char buffer[6];
     snprintf(buffer, sizeof(buffer), "%02d:%02d", hour, minute);
@@ -77,7 +77,7 @@ std::string Player::getTimeString() const
     return std::string(buffer);
 }
 
-std::string Player::getFullTimeString() const 
+std::string Player::getFullTimeString() const
 {
     char buffer[32];
     snprintf(buffer, sizeof(buffer), "Day %d, %02d:%02d", day, hour, minute);
@@ -85,11 +85,11 @@ std::string Player::getFullTimeString() const
     return std::string(buffer);
 }
 
-void Player::setInventory(Inventory* inv) 
+void Player::setInventory(Inventory *inv)
 {
-    if (inventory != inv) 
+    if (inventory != inv)
     {
-        if (inventory) 
+        if (inventory)
         {
             delete inventory;
         }
@@ -97,11 +97,11 @@ void Player::setInventory(Inventory* inv)
     }
 }
 
-void Player::setWorkers(Worker* w) 
+void Player::setWorkers(Worker *w)
 {
-    if (workers != w) 
+    if (workers != w)
     {
-        if (workers) 
+        if (workers)
         {
             delete workers;
         }
@@ -109,11 +109,11 @@ void Player::setWorkers(Worker* w)
     }
 }
 
-void Player::setPlot(Greenhouse* gh) 
+void Player::setPlot(Greenhouse *gh)
 {
-    if (plot != gh) 
+    if (plot != gh)
     {
-        if (plot) 
+        if (plot)
         {
             delete plot;
         }
@@ -121,86 +121,83 @@ void Player::setPlot(Greenhouse* gh)
     }
 }
 
-void Player::setMoney(float m) 
+void Player::setMoney(float m)
 {
     money = m;
 }
 
-void Player::setRating(int r) 
+void Player::setRating(int r)
 {
     rating = r;
 }
 
-void Player::setDay(int d) 
+void Player::setDay(int d)
 {
-    if (d > 0) 
+    if (d > 0)
     {
         day = d;
     }
 }
 
-void Player::setHour(int h) 
+void Player::setHour(int h)
 {
-    if (h >= 0 && h < 24) 
+    if (h >= 0 && h < 24)
     {
         hour = h;
     }
 }
 
-void Player::setMinute(int m) 
+void Player::setMinute(int m)
 {
-    if (m >= 0 && m < 60) 
+    if (m >= 0 && m < 60)
     {
         minute = m;
     }
 }
 
-bool Player::isNewDay() const 
+bool Player::isNewDay() const
 {
     return hour == 6 && minute == 0;
 }
 
 void Player::setProtected(bool prot)
 {
-    safe=prot;
-
+    safe = prot;
 }
 
 bool Player::isProtected()
 {
-return safe;
+    return safe;
 }
-
-
 
 Memento *Player::createMemento() const
 {
     return new Memento(inventory, workers, plot, money, rating, day, hour, minute);
 }
 
-void Player::setMemento(Memento* memento) 
+void Player::setMemento(Memento *memento)
 {
-    if (memento) 
+    if (memento)
     {
         money = memento->getMoney();
         rating = memento->getRating();
         day = memento->getDay();
         hour = memento->getHour();
         minute = memento->getMinute();
-        
-        if (inventory) 
+
+        if (inventory)
         {
             delete inventory;
         }
-        if (workers) 
+        if (workers)
         {
             delete workers;
         }
-        if (plot) 
+        if (plot)
         {
             delete plot;
         }
-        
+
         inventory = memento->getInventory() ? new Inventory(*memento->getInventory()) : nullptr;
         workers = memento->getWorkers() ? new Worker(*memento->getWorkers()) : nullptr;
         plot = memento->getPlot() ? new Greenhouse(*memento->getPlot()) : nullptr;

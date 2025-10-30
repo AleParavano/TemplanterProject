@@ -9,6 +9,9 @@
 #include <atomic>
 #include <mutex>
 
+//Frontend
+#include "../Frontend/Scene.h"
+
 class Player 
 {
 private:
@@ -21,6 +24,11 @@ private:
     int hour;
     int minute;
     static bool safe;
+
+    //Frontend
+    Vector2 position;
+    float radius;
+    Color color;
 
 public:
     Player();
@@ -53,5 +61,6 @@ public:
     Memento* createMemento() const;
     void setMemento(Memento* memento);
   
+    // Frontend methods
     
 };
