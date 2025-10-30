@@ -73,14 +73,12 @@ public:
             Rectangle loadBtn = {menuX + 10, 240.0f, MENU_WIDTH - 20, 30};
 
             if (CheckCollisionPointRec(mousePos, saveBtn)) {
-                // Future Memento Save Logic
-                std::cout << "DEBUG: Attempting to Save Game State..." << std::endl;
-                // Game::getInstance()->saveGame(); // <- Placeholder for future implementation
+                // Memento Save Logic
+                Game::getInstance()->saveGame(); 
             }
             if (CheckCollisionPointRec(mousePos, loadBtn)) {
-                // Future Memento Load Logic
-                std::cout << "DEBUG: Attempting to Load Game State..." << std::endl;
-                // Game::getInstance()->loadGame(); // <- Placeholder for future implementation
+                // Memento Load Logic
+                Game::getInstance()->loadGame();
             }
         }
 
