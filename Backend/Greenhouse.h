@@ -11,6 +11,7 @@ class Greenhouse {
     bool addPlant(Plant* plant);
     bool removePlant(int position);
     bool harvestPlant(int position);
+    bool harvestPlant(Plant* plant);
     Plant* getPlant(int position);
     std::string getPlot(int position);
     int getSize();

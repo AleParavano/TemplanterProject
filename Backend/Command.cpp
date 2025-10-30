@@ -39,7 +39,7 @@ FertilizeCommand::FertilizeCommand(Plant *plant)
 {
 }
 
-HarvestCommand::HarvestCommand(int plant)
+HarvestCommand::HarvestCommand(Plant* plant)
 :targetPlant(plant)
 {
 }
