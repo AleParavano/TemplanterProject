@@ -5,12 +5,6 @@
 
 bool Player::safe = true;
 
-struct Slot{
-    InventorySlot* slot;
-    int xpos;
-    int ypos;
-};
-
 Player::Player()
     : inventory(nullptr), workers(nullptr), plot(nullptr),
       money(1000.0f), rating(0),
@@ -213,12 +207,83 @@ void Player::setMemento(Memento *memento)
     }
 }
 
+// void Player::openInventory(){
+//     inventoryOpen = !inventoryOpen;
+// }
+
+// void Player::renderInventory(){
+//     if(inventoryOpen == true){
+//         DrawRectangle(460, 75, 487, 385, BLACK);
+//         DrawRectangle(461, 76, 485, 383, Color{178, 102, 0, 255});
+//         DrawText("INVENTORY:", 466, 85, 50, Color{86, 49, 0, 255});
+        
+//         int invPos = 0;
+
+//         for(int i = 466; i < 930; i += 100){
+//             for(int j = 170; j < 371; j += 100){
+//                 Rectangle tempRect = {i, j, 75, 75};
+//                 DrawRectangleRec(tempRect, Color{86, 49, 0, 255});
+
+//                 Slot tempSlot(inventory->getSlot(invPos), tempRect);
+//                 slotVector.push_back(tempSlot);
+//                 if(invPos < inventory->getMaxSlots()){
+//                     invPos++;
+//                 }
+//             }
+
+//         }
+//     }
+// }
+
 void Player::openInventory(){
     inventoryOpen = !inventoryOpen;
+    
+    // Build the slot vector ONCE when opening
+    if(inventoryOpen && slotVector.empty()){
+        int invPos = 0;
+
+        for(int i = 170; i < 371; i+= 100){
+            for(int j = 466; j < 930; j += 100){
+                Rectangle tempRect = {j, i, 75, 75};
+                
+                const InventorySlot* slotData = nullptr;
+                if(invPos < inventory->getMaxSlots()){
+                    slotData = inventory->getSlot(invPos);
+                }
+                
+                Slot tempSlot(slotData, tempRect);
+                slotVector.push_back(tempSlot);
+                invPos++;
+            }
+        }
+    }
+    
+    // Clear slots when closing
+    if(!inventoryOpen){
+        slotVector.clear();
+    }
 }
 
-void Player::renderInventory(){
-    if(inventoryOpen == true){
-        DrawRectangle(75, 75, 1250, 750, BROWN);
+void Player::renderInventory(){    
+    if(inventoryOpen){
+        DrawRectangle(460, 75, 487, 385, BLACK);
+        DrawRectangle(461, 76, 485, 383, Color{178, 102, 0, 255});
+        DrawText("INVENTORY:", 466, 85, 50, Color{86, 49, 0, 255});
+
+        Vector2 mousePos = GetMousePosition();
+                
+        for(const Slot& slot : slotVector){
+            DrawRectangleRec(slot.rect, Color{86, 49, 0, 255});
+            
+            if(slot.slot != nullptr){
+                DrawCircle(slot.rect.x + 37, slot.rect.y + 37, 20, GREEN);
+                DrawText(slot.quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 20, WHITE);
+
+                if(CheckCollisionPointRec(mousePos, slot.rect) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+                    
+                    
+                }
+            }
+        }
     }
 }

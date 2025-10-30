@@ -45,9 +45,9 @@ endif
 CXXFLAGS += $(INCLUDE_PATH)
 
 # Source files
-SOURCES = demo_testing.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp ../Backend/Player.cpp ../Backend/Inventory.cpp ../Backend/Worker.cpp ../Backend/Greenhouse.cpp ../Backend/Memento.cpp ../Backend/Plant.cpp ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.cpp ../Backend/CustomerFactory.cpp ../Backend/Game.cpp ../Backend/GrowthCycle.cpp ../Backend/Observer.cpp ../Backend/PlantState.cpp
+SOURCES = demo_testing.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp ../Backend/Player.cpp ../Backend/Inventory.cpp ../Backend/Worker.cpp ../Backend/Greenhouse.cpp ../Backend/Memento.cpp ../Backend/Plant.cpp ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.cpp ../Backend/CustomerFactory.cpp ../Backend/Game.cpp ../Backend/GrowthCycle.cpp ../Backend/Observer.cpp ../Backend/PlantState.cpp ../Backend/SeedAdapter.cpp ../Backend/Store.cpp ../Backend/Subject.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-HEADERS = Scene.cpp StoreScene.h OutdoorScene.h GreenHouseScene.h ../Backend/Player.h ../Backend/Inventory.h ../Backend/Worker.h ../Backend/Greenhouse.h ../Backend/Memento.h ../Backend/Plant.h ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.h ../Backend/CustomerFactory.h ../Backend/Game.h ../Backend/GrowthCycle.h ../Backend/Observer.h ../Backend/PlantState.h ../Backend/PlantFactory.h
+HEADERS = Scene.cpp StoreScene.h OutdoorScene.h GreenHouseScene.h ../Backend/Player.h ../Backend/Inventory.h ../Backend/Worker.h ../Backend/Greenhouse.h ../Backend/Memento.h ../Backend/Plant.h ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.h ../Backend/CustomerFactory.h ../Backend/Game.h ../Backend/GrowthCycle.h ../Backend/Observer.h ../Backend/PlantState.h ../Backend/PlantFactory.h ../Backend/SeedAdapter.h ../Backend/Store.h ../Backend/Subject.h
 
 # Target executable
 TARGET = $(EXECUTABLE)

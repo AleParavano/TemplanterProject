@@ -2,6 +2,7 @@
 #include "StoreScene.h"
 #include "../Backend/Player.h"
 #include "../Backend/Inventory.h"
+#include <iostream>
 
 int main()
 {
@@ -18,29 +19,34 @@ int main()
     StoreScene store;
     Player player;
 
+    Plant *plant = new Plant("Test", 2, 2);
+    player.getInventory()->add(plant);
+    Plant *plant2 = new Plant("Test", 2, 2);
+    player.getInventory()->add(plant2);
+    Plant *plant3 = new Plant("Test2", 2, 2);
+    player.getInventory()->add(plant3);
     // Main game loop
     while (!WindowShouldClose())
     {
         // ===== UPDATE PHASE =====
         store.update();
-        
-        // ===== RENDER PHASE =====
-        BeginDrawing();
-        
-        // Render order matters - background to foreground
-        store.render();          // Draw store environment first
-        store.renderModal(width, height);  // Draw modal on top of everything
-        
-        if (IsKeyPressed(KEY_E)){
+        if (IsKeyPressed(KEY_E))
+        {
             player.openInventory();
         }
 
+        // ===== RENDER PHASE =====
+        BeginDrawing();
+
+        // Render order matters - background to foreground
+        store.render();                   // Draw store environment first
+        store.renderModal(width, height); // Draw modal on top of everything
         player.renderInventory();
         EndDrawing();
     }
 
     // Cleanup
     CloseWindow();
-    
+
     return 0;
 }
