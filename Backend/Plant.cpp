@@ -13,6 +13,17 @@ Plant::Plant(std::string type, float growthRate, float sellPrice)
     state = new SeedState(0.0f, 100.0f, 100.0f);
 }
 
+Plant::Plant(const Plant &other)
+:type(other.type),
+ growthRate(other.growthRate),
+ sellPrice(other.sellPrice),
+ growthCycle(new NormalGrowthCycle()),
+ state(new SeedState)
+
+
+{
+}
+
 Plant::~Plant()
 {
     if(state){
