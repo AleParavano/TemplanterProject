@@ -1,11 +1,13 @@
 #include "raylib.h"
 #include "StoreScene.h"
+#include "../Backend/Player.h"
+#include "../Backend/Inventory.h"
 
 int main()
 {
     // Window configuration
-    const int width = 800;
-    const int height = 500;
+    const int width = 1400;
+    const int height = 900;
 
     // Initialize window
     InitWindow(width, height, "Plant Store Game");
@@ -14,6 +16,7 @@ int main()
 
     // Create game objects
     StoreScene store;
+    Player player;
 
     // Main game loop
     while (!WindowShouldClose())
@@ -21,7 +24,6 @@ int main()
         // ===== UPDATE PHASE =====
         store.update();
         
-
         // ===== RENDER PHASE =====
         BeginDrawing();
         
@@ -29,6 +31,11 @@ int main()
         store.render();          // Draw store environment first
         store.renderModal(width, height);  // Draw modal on top of everything
         
+        if (IsKeyPressed(KEY_E)){
+            player.openInventory();
+        }
+
+        player.renderInventory();
         EndDrawing();
     }
 

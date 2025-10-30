@@ -3,6 +3,8 @@
 #include <functional>
 #include <random>
 
+CustomerFactory::~CustomerFactory() {}
+
 Customer* RegularFactory::create(Plant* requestedPlant) const 
 {
     return new Regular(requestedPlant);

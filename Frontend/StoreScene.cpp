@@ -6,11 +6,11 @@ StoreScene::StoreScene()
       selectedPlantFromGrid(false),
       selectedGridX(-1),
       selectedGridY(-1),
-      manageToggle{195, 215, 85, 20},
-      counterHitBox{500, 350, 300, 27},
-      sDoor{700, 350, 100, 26},
-      plotHitBox{75, 75, 320, 300},
-      boundaryWall{470, 0, 30, 377}
+      manageToggle{341, 376, 149, 35},
+      counterHitBox{875, 613, 525, 47},
+      sDoor{1225, 613, 175, 46},
+      plotHitBox{131, 131, 560, 525},
+      boundaryWall{823, 0, 53, 660}
 {
     // Initialize plants array to false
     for(int i = 0; i < 10; i++){
@@ -49,8 +49,8 @@ void StoreScene::update()
     if(showModal){
         // Handle inventory slot clicks
         for(int i = 0; i < 5; i++){
-            int slotY = 120 + (i * 40);
-            Rectangle slot = {470, slotY, 40, 40};
+            int slotY = 210 + (i * 70);
+            Rectangle slot = {823, slotY, 70, 70};
             
             if(CheckCollisionPointRec(mouse, slot) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
                 if(inventory[i] > 0){
@@ -62,9 +62,9 @@ void StoreScene::update()
         
         // Handle planting with selected inventory item
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            if(mouse.x >= 70 && mouse.x <= 430 && mouse.y >= 90 && mouse.y <= 450){
-                int gridX = (mouse.x - 70) / 40;
-                int gridY = (mouse.y - 90) / 40;
+            if(mouse.x >= 123 && mouse.x <= 753 && mouse.y >= 158 && mouse.y <= 788){
+                int gridX = (mouse.x - 123) / 70;
+                int gridY = (mouse.y - 158) / 70;
                 
                 if(gridX >= 0 && gridX < 10 && gridY >= 0 && gridY < 10){
                     if(selectedPlantFromGrid){
@@ -98,9 +98,9 @@ void StoreScene::update()
         
         // Right click to remove plant
         if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)){
-            if(mouse.x >= 70 && mouse.x <= 430 && mouse.y >= 90 && mouse.y <= 450){
-                int gridX = (mouse.x - 70) / 40;
-                int gridY = (mouse.y - 90) / 40;
+            if(mouse.x >= 123 && mouse.x <= 753 && mouse.y >= 158 && mouse.y <= 788){
+                int gridX = (mouse.x - 123) / 70;
+                int gridY = (mouse.y - 158) / 70;
                 
                 if(gridX >= 0 && gridX < 10 && gridY >= 0 && gridY < 10){
                     if(plants[gridX][gridY]){
@@ -121,84 +121,84 @@ void StoreScene::render()
     ClearBackground(GRAY);
 
     // Drawing tiled floor
-    DrawRectangle(500, 50, 300, 350, RAYWHITE);
+    DrawRectangle(875, 88, 525, 613, RAYWHITE);
 
-    int cellSize = 50;
+    int cellSize = 88;
 
     // Tile shading
-    for (int i = 496; i < GetScreenWidth(); i += cellSize){
-        DrawRectangle(i, 50, 7, 350, LIGHTGRAY);
+    for (int i = 868; i < GetScreenWidth(); i += cellSize){
+        DrawRectangle(i, 88, 12, 613, LIGHTGRAY);
     }
-    for (int j = 93; j < 400; j += cellSize){
-        DrawRectangle(500, j, 300, 7, LIGHTGRAY);
+    for (int j = 163; j < 700; j += cellSize){
+        DrawRectangle(875, j, 525, 12, LIGHTGRAY);
     }
 
     // Tile lines
-    for (int i = 500; i < GetScreenWidth(); i += cellSize){
-        DrawLine(i, 50, i, 400, BLACK);
+    for (int i = 875; i < GetScreenWidth(); i += cellSize){
+        DrawLine(i, 88, i, 700, BLACK);
     }
-    for (int j = 50; j <= 400; j += cellSize){
-        DrawLine(500, j, GetScreenWidth(), j, BLACK);
+    for (int j = 88; j <= 700; j += cellSize){
+        DrawLine(875, j, GetScreenWidth(), j, BLACK);
     }
 
     // Building the counter
     Color customColor = {178, 102, 0, 255};
     Color custColor2 = {30, 15, 0, 255};
     Color custColor3 = {86, 49, 0, 255};
-    DrawRectangle(500, 350, 200, 75, customColor);
-    DrawRectangle(500, 377, 200, 48, custColor3);
-    for (int i = 508; i < 700; i += 96){
-        for (int j = 380; j < 425; j += 23){
-            DrawRectangle(i, j, 88, 20, custColor2);
+    DrawRectangle(875, 613, 350, 131, customColor);
+    DrawRectangle(875, 660, 350, 84, custColor3);
+    for (int i = 889; i < 1225; i += 168){
+        for (int j = 665; j < 744; j += 40){
+            DrawRectangle(i, j, 154, 35, custColor2);
         }
     }
-    for (int i = 500; i <= 700; i += 20){
-        DrawLine(i, 350, i, 377, custColor3);
+    for (int i = 875; i <= 1225; i += 35){
+        DrawLine(i, 613, i, 660, custColor3);
     }
-    DrawLine(500, 377, 700, 377, custColor3);
+    DrawLine(875, 660, 1225, 660, custColor3);
 
     DrawRectangleRec(counterHitBox, Color{0, 0, 0, 0});
 
     // Swing door
     DrawRectangleRec(sDoor, customColor);
-    DrawRectangle(700, 376, 100, 3, custColor3);
-    DrawLine(700, 350, 700, 425, BLACK);
+    DrawRectangle(1225, 658, 175, 5, custColor3);
+    DrawLine(1225, 613, 1225, 744, BLACK);
 
     // Creating the boundary wall
     Color custColor5 = {50, 50, 50, 255};
     DrawRectangleRec(boundaryWall, DARKGRAY);
-    Rectangle boundaryWallShadow = {470, 325, 30, 100};
+    Rectangle boundaryWallShadow = {823, 569, 53, 175};
     DrawRectangleRec(boundaryWallShadow, custColor5);
 
     // Drawing the plot
     Color custColor4 = {50, 25, 0, 255};
-    DrawRectangle(75, 75, 320, 300, customColor);
-    DrawRectangle(85, 85, 300, 280, custColor4);
-    DrawRectangle(75, 375, 320, 20, custColor3);
+    DrawRectangle(131, 131, 560, 525, customColor);
+    DrawRectangle(149, 149, 525, 490, custColor4);
+    DrawRectangle(131, 656, 560, 35, custColor3);
     DrawRectangleRec(plotHitBox, Color{0, 0, 0, 0});
 
     // Creating entrance
-    DrawRectangle(700, 0, 50, 10, Color{50, 100, 50, 255});
-    DrawRectangle(500, 0, 200, 50, custColor5);
-    DrawRectangle(750, 0, 50, 50, custColor5);
-    DrawRectangle(740, 0, 10, 40, custColor3);
-    DrawRectangle(525, 0, 150, 30, custColor3);
-    DrawRectangle(530, 0, 140, 25, customColor);
-    DrawRectangle(530, 0, 140, 20, Color{130, 200, 250, 255});
-    DrawRectangle(530, 0, 140, 10, Color{100, 165, 250, 255});
+    DrawRectangle(1225, 0, 88, 18, Color{50, 100, 50, 255});
+    DrawRectangle(875, 0, 350, 88, custColor5);
+    DrawRectangle(1313, 0, 88, 88, custColor5);
+    DrawRectangle(1295, 0, 18, 70, custColor3);
+    DrawRectangle(919, 0, 263, 53, custColor3);
+    DrawRectangle(928, 0, 245, 44, customColor);
+    DrawRectangle(928, 0, 245, 35, Color{130, 200, 250, 255});
+    DrawRectangle(928, 0, 245, 18, Color{100, 165, 250, 255});
     
     // Drawing plants on the plot
-    for(int i = 107, k = 0; i < 395; i += 32, k++){
-        for(int j = 105, p = 0; j < 370; j += 30, p++){
+    for(int i = 187, k = 0; i < 691; i += 56, k++){
+        for(int j = 184, p = 0; j < 648; p++, j += 53){
             if(plants[k][p]){
-                DrawRectangle(i, j, 3, 6, Color{50, 100, 50, 255});
-                DrawRectangle(i, j, 3, 3, GREEN);
+                DrawRectangle(i, j, 5, 11, Color{50, 100, 50, 255});
+                DrawRectangle(i, j, 5, 5, GREEN);
             }
         }
     }
     
     // Modal Button
-    DrawText("Manage Plants", 200, 220, 10, WHITE);
+    DrawText("Manage Plants", 350, 385, 18, WHITE);
     DrawRectangleRec(manageToggle, Color{255, 255, 255, 100});
 }
 
@@ -212,40 +212,40 @@ void StoreScene::renderModal(int width, int height)
     DrawRectangle(0, 0, width, height, Fade(BLACK, 0.5f));
 
     // Modal box
-    Rectangle modal = {50, 50, 700, 425};
+    Rectangle modal = {88, 88, 1225, 744};
     DrawRectangleRec(modal, RAYWHITE);
-    DrawRectangleLinesEx(modal, 2, DARKGRAY);
+    DrawRectangleLinesEx(modal, 4, DARKGRAY);
 
     // Title
-    DrawText("Plant Management", 300, 60, 20, BLACK);
+    DrawText("Plant Management", 525, 105, 35, BLACK);
 
     // Draw plant grid (10x10)
-    for (int i = 70; i < 450; i += 40){
-        DrawLine(i, 90, i, 450, BLACK);
+    for (int i = 123; i < 788; i += 70){
+        DrawLine(i, 158, i, 788, BLACK);
     }
-    for(int j = 90; j < 470; j += 40){
-        DrawLine(70, j, 430, j, BLACK);
+    for(int j = 158; j < 823; j += 70){
+        DrawLine(123, j, 753, j, BLACK);
     }
 
     // Adding plants to grid
-    for(int i = 88, k = 0; i < 430; i += 40, k++){
-        for(int j = 107, p = 0; j < 430; j += 40, p++){
+    for(int i = 154, k = 0; i < 753; i += 70, k++){
+        for(int j = 187, p = 0; j < 753; j += 70, p++){
             if(plants[k][p]){
                 if(selectedPlantFromGrid && selectedGridX == k && selectedGridY == p){
-                    DrawRectangle(i - 18, j - 15, 40, 40, Color{255, 255, 100, 100});
+                    DrawRectangle(i - 32, j - 26, 70, 70, Color{255, 255, 100, 100});
                 }
-                DrawRectangle(i, j, 3, 6, Color{50, 100, 50, 255});
-                DrawRectangle(i, j, 3, 3, GREEN);
+                DrawRectangle(i, j, 5, 11, Color{50, 100, 50, 255});
+                DrawRectangle(i, j, 5, 5, GREEN);
             }
         }
     }
 
     // Inventory section
-    DrawText("Inventory", 500, 90, 16, BLACK);
+    DrawText("Inventory", 875, 158, 28, BLACK);
 
     for(int i = 0; i < 5; i++){
-        int slotY = 120 + (i * 40);
-        Rectangle slot = {470, slotY, 40, 40};
+        int slotY = 210 + (i * 70);
+        Rectangle slot = {823, slotY, 70, 70};
         
         if(selectedInventorySlot == i){
             DrawRectangleRec(slot, Color{100, 200, 100, 255});
@@ -253,21 +253,21 @@ void StoreScene::renderModal(int width, int height)
             DrawRectangleRec(slot, LIGHTGRAY);
         }
         
-        DrawRectangleLinesEx(slot, 2, BLACK);
+        DrawRectangleLinesEx(slot, 4, BLACK);
 
         if(inventory[i] > 0){
-            DrawRectangle(484, slotY + 15, 3, 6, Color{50, 100, 50, 255});
-            DrawRectangle(484, slotY + 15, 3, 3, GREEN);
+            DrawRectangle(847, slotY + 26, 5, 11, Color{50, 100, 50, 255});
+            DrawRectangle(847, slotY + 26, 5, 5, GREEN);
         }
 
-        DrawText(TextFormat("%d", inventory[i]), 515, slotY + 12, 16, BLACK);
+        DrawText(TextFormat("%d", inventory[i]), 901, slotY + 21, 28, BLACK);
     }
 
     // Instructions
-    DrawText("Left-click inventory, then grid to plant", 70, 460, 10, DARKGRAY);
-    DrawText("Left-click plant, then empty slot to move", 70, 473, 10, DARKGRAY);
-    DrawText("Right-click plant to remove & return to inventory", 420, 460, 10, DARKGRAY);
-    DrawText("ESC to close", 650, 473, 10, DARKGRAY);
+    DrawText("Left-click inventory, then grid to plant", 123, 805, 18, DARKGRAY);
+    DrawText("Left-click plant, then empty slot to move", 123, 828, 18, DARKGRAY);
+    DrawText("Right-click plant to remove & return to inventory", 735, 805, 18, DARKGRAY);
+    DrawText("ESC to close", 1138, 828, 18, DARKGRAY);
 }
 
 string StoreScene::getType(){

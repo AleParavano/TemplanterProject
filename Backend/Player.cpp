@@ -3,12 +3,21 @@
 #include <cstdio>
 #include <iostream>
 
+bool Player::safe = true;
+
+struct Slot{
+    InventorySlot* slot;
+    int xpos;
+    int ypos;
+};
+
 Player::Player()
     : inventory(nullptr), workers(nullptr), plot(nullptr),
       money(1000.0f), rating(0),
       day(1), hour(6), minute(0)
 {
     inventory = new Inventory();
+    inventory->setMaxSlots(15);
     workers = new Worker();
     plot = new Greenhouse();
 }
@@ -201,5 +210,15 @@ void Player::setMemento(Memento *memento)
         inventory = memento->getInventory() ? new Inventory(*memento->getInventory()) : nullptr;
         workers = memento->getWorkers() ? new Worker(*memento->getWorkers()) : nullptr;
         plot = memento->getPlot() ? new Greenhouse(*memento->getPlot()) : nullptr;
+    }
+}
+
+void Player::openInventory(){
+    inventoryOpen = !inventoryOpen;
+}
+
+void Player::renderInventory(){
+    if(inventoryOpen == true){
+        DrawRectangle(75, 75, 1250, 750, BROWN);
     }
 }

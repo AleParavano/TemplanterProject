@@ -10,7 +10,7 @@
 #include <mutex>
 
 //Frontend
-#include "../Frontend/Scene.h"
+#include "raylib.h"
 
 class Player 
 {
@@ -26,9 +26,7 @@ private:
     static bool safe;
 
     //Frontend
-    Vector2 position;
-    float radius;
-    Color color;
+    bool inventoryOpen;
 
 public:
     Player();
@@ -62,5 +60,6 @@ public:
     void setMemento(Memento* memento);
   
     // Frontend methods
-    
+    void openInventory();
+    void renderInventory();
 };

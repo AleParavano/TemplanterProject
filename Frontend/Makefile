@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++11
+CXXFLAGS = -Wall -Wextra -std=c++11 -w
 
 # Detect OS
 ifeq ($(OS),Windows_NT)
@@ -45,9 +45,9 @@ endif
 CXXFLAGS += $(INCLUDE_PATH)
 
 # Source files
-SOURCES = demo_testing.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp
+SOURCES = demo_testing.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp ../Backend/Player.cpp ../Backend/Inventory.cpp ../Backend/Worker.cpp ../Backend/Greenhouse.cpp ../Backend/Memento.cpp ../Backend/Plant.cpp ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.cpp ../Backend/CustomerFactory.cpp ../Backend/Game.cpp ../Backend/GrowthCycle.cpp ../Backend/Observer.cpp ../Backend/PlantState.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-HEADERS = Scene.cpp StoreScene.h OutdoorScene.h GreenHouseScene.h
+HEADERS = Scene.cpp StoreScene.h OutdoorScene.h GreenHouseScene.h ../Backend/Player.h ../Backend/Inventory.h ../Backend/Worker.h ../Backend/Greenhouse.h ../Backend/Memento.h ../Backend/Plant.h ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.h ../Backend/CustomerFactory.h ../Backend/Game.h ../Backend/GrowthCycle.h ../Backend/Observer.h ../Backend/PlantState.h ../Backend/PlantFactory.h
 
 # Target executable
 TARGET = $(EXECUTABLE)
@@ -70,12 +70,13 @@ $(TARGET): $(OBJECTS)
 clean:
 	@echo "Cleaning..."
 ifeq ($(DETECTED_OS),Windows)
-	-@$(RM) *.o 2>nul
-	-@$(RM) $(TARGET) 2>nul
+	-@for %%f in ($(OBJECTS)) do if exist "%%f" del /Q "%%f"
+	-@if exist "$(TARGET)" del /Q "$(TARGET)"
 else
 	-@$(RM) $(OBJECTS) $(TARGET)
 endif
 	@echo "Clean complete!"
+
 
 # Run the game
 run: $(TARGET)
