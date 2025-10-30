@@ -6,6 +6,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include "Backend/Player.h"
+#include "Backend/Game.h"
 
 // --- Defines ---
 #define MAX_PEOPLE 15
@@ -16,6 +18,8 @@
 #define MAX_PARKING_SPOTS_WAREHOUSE 6
 #define MAX_PLANTS 250
 #define MAX_WAYPOINTS 10
+
+//Time 
 
 
 
@@ -31,7 +35,7 @@ private:
     Tree trees[MAX_TREES];
     ParkingSpot parkingSpots[MAX_PARKING_SPOTS];
     ParkingSpot warehouseParkingSpots[MAX_PARKING_SPOTS_WAREHOUSE];
-    Plant greenhousePlants[MAX_PLANTS];
+    PlantVisual greenhousePlants[MAX_PLANTS];
     
     
     // UI and game state
@@ -81,7 +85,7 @@ private:
     void DrawTreeDetailed(Tree t);
     void DrawPersonDetailed(Person p);
     void DrawCarDetailed(Car c);
-    void DrawPlantDetailed(Plant p);
+    void DrawPlantDetailed( PlantVisual p);
     void DrawGreenhouseGarden();
     void DrawUI();
     void DrawMoneyCounter();

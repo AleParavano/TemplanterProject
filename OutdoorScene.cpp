@@ -15,6 +15,15 @@ void OutdoorScene::Init() {
     InitParkingSpots();
     InitPeople();
     InitGreenhousePlants();
+
+    // Initialize timeOfDay float by synchronizing with the global Player time 
+    Player* player = Game::getInstance()->getPlayerPtr();
+    if (player) {
+        float h = (float)player->getHour();
+        float m = (float)player->getMinute();
+        timeOfDay = h / 24.0f + m / (24.0f * 60.0f);
+    }
+
 }
 
 void OutdoorScene::InitBuildings() {
@@ -157,10 +166,13 @@ void OutdoorScene::InitGreenhousePlants() {
 
 void OutdoorScene::Update(float dt) {
     if (!isPaused) {
-        UpdatePeople(dt);
-        // UpdateCars(dt); // REMOVED
-        timeOfDay += dt * 0.005f;
-        if (timeOfDay > 1.0f) timeOfDay = 0.0f;
+        //Synchronize timeOfDay float from the global Player every frame
+        Player* player = Game::getInstance()->getPlayerPtr();
+        if (player) {
+            float h = (float)player->getHour();
+            float m = (float)player->getMinute();
+            timeOfDay = h / 24.0f + m / (24.0f * 60.0f);
+        }
     }
 }
 
@@ -476,7 +488,7 @@ void OutdoorScene::DrawPersonDetailed(Person p) {
 
 
 
-void OutdoorScene::DrawPlantDetailed(Plant p) {
+void OutdoorScene::DrawPlantDetailed(PlantVisual p) {
     float size = p.size * p.growthStage;
     if (p.type == 0) {
         DrawEllipse(p.position.x + 1, p.position.y + 1, size + 1, size * 0.6f, Fade(BLACK, 0.3f));

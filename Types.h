@@ -17,7 +17,7 @@ typedef struct {
     float size;
     int type;
     float growthStage;
-} Plant;
+} PlantVisual; // Renamed from Plant
 
 // --- Building Structure ---
 typedef struct {

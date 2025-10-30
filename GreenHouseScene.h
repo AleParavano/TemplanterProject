@@ -8,14 +8,14 @@
 
 class GreenHouseScene : public Scene {
 private:
-    Plant plants[MAX_PLANTS];
+    PlantVisual plants[MAX_PLANTS];
     Road paths[10];
     int numPlants;
     int numPaths;
 
     void InitPlants();
     void InitPaths();
-    void DrawPlantDetailed(Plant p);
+    void DrawPlantDetailed(PlantVisual p);
     void DrawGate(Vector2 position, bool isVertical);
     void DrawGreenhouse();
     float Distance(Vector2 a, Vector2 b);

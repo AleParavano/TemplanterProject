@@ -4,6 +4,7 @@
 #include "GreenHouseScene.h"
 #include "StoreScene.h"
 #include "WarehouseScene.h"
+#include "Backend/Game.h"
 #include <stdlib.h>
 #include <time.h>
 #include <map>
@@ -94,6 +95,9 @@ int main(void) {
     SetTargetFPS(60);
     srand((unsigned int)time(NULL));
 
+    // Ensure the Game Singleton is initialized first to set up the player/time
+    Game::getInstance();
+
     SceneManager manager;
     
     bool exitWindow = false;
@@ -107,6 +111,9 @@ int main(void) {
 
         // Update
         float dt = GetFrameTime();
+
+        //the time updates here, outside of any scene, ensuring continuous ticking and respecting the night acceleration.
+        Game::getInstance()->UpdateGameTime(dt);
         manager.Update(dt);
         manager.HandleInput();
 

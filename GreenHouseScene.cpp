@@ -57,9 +57,6 @@ void GreenHouseScene::Update(float dt) {
 }
 
 void GreenHouseScene::HandleInput() {
-    if (IsKeyPressed(KEY_ESCAPE)) {
-        // Scene will return to outdoor
-    }
 }
 
 void GreenHouseScene::Draw() {
