@@ -9,34 +9,49 @@
 
 // --- Defines ---
 #define MAX_PEOPLE 15
-#define MAX_CARS 8
 #define MAX_HOUSES 6
 #define PERSON_SPEED 40.0f
-#define CAR_SPEED 80.0f
 #define MAX_TREES 50
 #define MAX_PARKING_SPOTS 6
 #define MAX_PARKING_SPOTS_WAREHOUSE 6
 #define MAX_PLANTS 250
+#define MAX_WAYPOINTS 10
+
+
+
 
 // --- OutdoorScene Class ---
 class OutdoorScene : public Scene {
 private:
+    // Buildings and structures
     Building greenhouse, store, inventory;
     House houses[MAX_HOUSES];
     Person people[MAX_PEOPLE];
-    Car cars[MAX_CARS];
     Road roads[8];
     Tree trees[MAX_TREES];
     ParkingSpot parkingSpots[MAX_PARKING_SPOTS];
     ParkingSpot warehouseParkingSpots[MAX_PARKING_SPOTS_WAREHOUSE];
     Plant greenhousePlants[MAX_PLANTS];
     
+    
+    // UI and game state
     Vector2 storeEntrance;
+    Vector2 greenhouseEntrance;
+    Vector2 inventoryEntrance;
     float timeOfDay;
     bool isPaused;
     int numRoads;
     int numTrees;
     int numPlants;
+    
+    // New game state variables
+    float playerMoney;
+    int playerRating;
+    
+    // Click detection areas
+    Rectangle greenhouseClickArea;
+    Rectangle storeClickArea;
+    Rectangle warehouseClickArea;
 
     SceneType nextScene;
 
@@ -46,14 +61,16 @@ private:
     void InitHouses();
     void InitTrees();
     void InitPeople();
-    void InitCars();
     void InitParkingSpots();
     void InitGreenhousePlants();
+    void InitCarPaths();
+    void InitClickAreas();
 
     // Update functions
     void UpdatePeople(float dt);
-    void UpdateCars(float dt);
     bool CheckCollision(Vector2 pos, float radius);
+    void AssignPersonDestination(Person& person);
+    void HandleBuildingClicks();
 
     // Draw functions
     void DrawTiledBackground(Color baseColor, int width, int height);
@@ -66,12 +83,20 @@ private:
     void DrawCarDetailed(Car c);
     void DrawPlantDetailed(Plant p);
     void DrawGreenhouseGarden();
+    void DrawUI();
+    void DrawMoneyCounter();
+    void DrawRatingStars();
 
     // Utility functions
     float Distance(Vector2 a, Vector2 b);
     Color GetSkyColor();
     Color GetGrassColor();
     int ClampValue(int value, int min, int max);
+    Vector2 GetBuildingEntrance(Building b);
+    
+    // Save/Load hooks
+    void SaveGame();
+    void LoadGame();
 
 public:
     OutdoorScene();

@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <map>
-#include <cstdio>
 
 // Scene manager class
 class SceneManager {
@@ -77,68 +76,7 @@ public:
         }
         
         scenes[currentScene]->Draw();
-        
-        // Draw UI panel on the right
-        DrawUIPanel();
-        
         EndDrawing();
-    }
-
-    void DrawUIPanel() {
-        int panelWidth = 200;
-        int panelX = 1400 - panelWidth;
-        int panelY = 0;
-        
-        // Draw semi-transparent background panel
-        DrawRectangle(panelX, panelY, panelWidth, 900, Fade(BLACK, 0.6f));
-        DrawRectangleLinesEx({(float)panelX, (float)panelY, (float)panelWidth, 900.0f}, 2, {100, 100, 100, 255});
-        
-        // Title
-        DrawText("GAME INFO", panelX + 20, panelY + 20, 16, WHITE);
-        
-        // Time of day section
-        DrawText("Time of Day", panelX + 20, panelY + 60, 12, LIGHTGRAY);
-        
-        // Get time percentage for display (0-100)
-        float timePercent = 50.0f;
-        OutdoorScene* outdoorScene = dynamic_cast<OutdoorScene*>(scenes[SCENE_OUTDOOR]);
-        if (outdoorScene) {
-            timePercent = outdoorScene->GetTimeOfDay() * 100.0f;
-        }
-        
-        // Draw time bar
-        DrawRectangle(panelX + 20, panelY + 80, 160, 20, Fade(DARKGRAY, 0.5f));
-        DrawRectangle(panelX + 20, panelY + 80, (int)(160 * timePercent / 100.0f), 20, {255, 200, 100, 255});
-        DrawRectangleLinesEx({(float)(panelX + 20), (float)(panelY + 80), 160.0f, 20.0f}, 1, LIGHTGRAY);
-        
-        // Time text
-        char timeText[32];
-        snprintf(timeText, sizeof(timeText), "%.1f%%", timePercent);
-        DrawText(timeText, panelX + 70, panelY + 85, 10, WHITE);
-        
-        // Save button
-        int buttonY = panelY + 150;
-        int buttonWidth = 160;
-        int buttonHeight = 30;
-        bool mouseOverSave = CheckCollisionPointRec(GetMousePosition(), {(float)(panelX + 20), (float)buttonY, (float)buttonWidth, (float)buttonHeight});
-        
-        Color buttonColor = mouseOverSave ? RED : MAROON;
-        DrawRectangle(panelX + 20, buttonY, buttonWidth, buttonHeight, buttonColor);
-        DrawRectangleLinesEx({(float)(panelX + 20), (float)buttonY, (float)buttonWidth, (float)buttonHeight}, 2, WHITE);
-        
-        DrawText("SAVE GAME", panelX + 35, buttonY + 7, 14, WHITE);
-        
-        // Handle save button click
-        if (mouseOverSave && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            // Save functionality would go here
-        }
-        
-        // Additional info
-        DrawText("Status: Running", panelX + 20, panelY + 250, 10, LIME);
-        DrawText("FPS: ", panelX + 20, panelY + 280, 10, LIGHTGRAY);
-        char fpsText[16];
-        snprintf(fpsText, sizeof(fpsText), "%d", GetFPS());
-        DrawText(fpsText, panelX + 60, panelY + 280, 10, WHITE);
     }
 
     bool IsDone() const {

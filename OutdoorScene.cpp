@@ -1,4 +1,9 @@
 #include "OutdoorScene.h"
+#include <iostream>
+
+// Note: MAX_CARS is defined as 8 in OutdoorScene.h, but we ignore it here.
+
+// --- OutdoorScene Class Implementation ---
 
 OutdoorScene::OutdoorScene() : timeOfDay(0.6f), isPaused(false), numRoads(0), numTrees(0), numPlants(0), nextScene(SCENE_OUTDOOR) {}
 
@@ -9,7 +14,6 @@ void OutdoorScene::Init() {
     InitTrees();
     InitParkingSpots();
     InitPeople();
-    InitCars();
     InitGreenhousePlants();
 }
 
@@ -17,7 +21,11 @@ void OutdoorScene::InitBuildings() {
     greenhouse = {{250, 300}, {140, 90}, {220, 220, 220, 255}, "GREENHOUSE"};
     store = {{950, 600}, {200, 160}, {200, 80, 60, 255}, "MEGA STORE"};
     inventory = {{930, 200}, {200, 160}, {180, 180, 190, 255}, "WAREHOUSE"};
+    
+    // Define all entrance points for people
+    greenhouseEntrance = {greenhouse.position.x + greenhouse.size.x / 2, greenhouse.position.y + greenhouse.size.y + 90}; 
     storeEntrance = {store.position.x + store.size.x / 2, store.position.y + store.size.y + 25};
+    inventoryEntrance = {inventory.position.x + inventory.size.x / 2, inventory.position.y + inventory.size.y + 25}; 
 }
 
 void OutdoorScene::InitRoads() {
@@ -93,47 +101,25 @@ void OutdoorScene::InitPeople() {
     Color shirtColors[] = {RED, BLUE, GREEN, YELLOW, PURPLE, ORANGE, PINK, SKYBLUE, LIME};
     Color pantsColors[] = {DARKBLUE, DARKGRAY, BROWN, BLACK, DARKBROWN};
 
+    Vector2 destinations[] = {greenhouseEntrance, storeEntrance, inventoryEntrance};
+
     for (int i = 0; i < MAX_PEOPLE; i++) {
         int houseIdx = rand() % MAX_HOUSES;
         Vector2 homePos = {
             houses[houseIdx].position.x + houses[houseIdx].size.x / 2,
             houses[houseIdx].position.y + houses[houseIdx].size.y / 2
         };
+        
+        Vector2 initialTarget = destinations[rand() % 3]; // Randomly select initial destination
+
         people[i] = {
-            homePos, storeEntrance, homePos, PERSON_SPEED + (rand() % 20 - 10), 
-            shirtColors[rand() % 9], pantsColors[rand() % 5], true, 
+            homePos, initialTarget, homePos, PERSON_SPEED + (rand() % 20 - 10),
+            shirtColors[rand() % 9], pantsColors[rand() % 5], true,
             (float)(rand() % 500) / 100.0f, 0.0f, {3, 3}
         };
     }
 }
 
-void OutdoorScene::InitCars() {
-    Color carColors[] = {RED, BLUE, GREEN, YELLOW, BLACK, WHITE, GRAY, ORANGE, PURPLE, DARKBLUE};
-    Vector2 carWaypoints[][5] = {
-        {{250, 370}, {520, 370}, {625, 370}, {850, 370}, {250, 370}},
-        {{850, 370}, {625, 370}, {520, 370}, {250, 370}, {850, 370}},
-        {{625, 130}, {625, 370}, {625, 590}, {625, 370}, {625, 130}},
-        {{160, 200}, {160, 370}, {520, 370}, {160, 370}, {160, 200}},
-        {{950, 590}, {625, 590}, {280, 590}, {625, 590}, {950, 590}}
-    };
-
-    for (int i = 0; i < MAX_CARS && i < 5; i++) {
-        cars[i] = {
-            carWaypoints[i][0], {38, 22}, 0, CAR_SPEED + (rand() % 30 - 15), 
-            carColors[rand() % 10], {100, 180, 220, 200}, true, false, 
-            0.0f, -1, 0.0f, {4, 4}
-        };
-    }
-
-    for (int i = 5; i < MAX_CARS; i++) {
-        cars[i] = {
-            {store.position.x + 220, store.position.y - 50}, {38, 22}, 0, CAR_SPEED, 
-            carColors[rand() % 10], {100, 180, 220, 200}, true, 
-            rand() % 2 == 0, (float)(rand() % 1000) / 100.0f, 
-            rand() % MAX_PARKING_SPOTS, 0.0f, {4, 4}
-        };
-    }
-}
 
 void OutdoorScene::InitGreenhousePlants() {
     Color plantColors[][3] = {
@@ -172,13 +158,15 @@ void OutdoorScene::InitGreenhousePlants() {
 void OutdoorScene::Update(float dt) {
     if (!isPaused) {
         UpdatePeople(dt);
-        UpdateCars(dt);
+        // UpdateCars(dt); // REMOVED
         timeOfDay += dt * 0.005f;
         if (timeOfDay > 1.0f) timeOfDay = 0.0f;
     }
 }
 
 void OutdoorScene::UpdatePeople(float dt) {
+    Vector2 destinations[] = {greenhouseEntrance, storeEntrance, inventoryEntrance};
+    
     for (int i = 0; i < MAX_PEOPLE; i++) {
         Person *p = &people[i];
         if (p->waitTimer > 0) {
@@ -190,12 +178,12 @@ void OutdoorScene::UpdatePeople(float dt) {
         float dist = sqrtf(direction.x * direction.x + direction.y * direction.y);
 
         if (dist < 8.0f) {
-            if (p->goingToStore) {
+            if (p->goingToStore) { // Reached a public building entrance
                 p->target = p->home;
                 p->goingToStore = false;
                 p->waitTimer = 3.0f + (float)(rand() % 400) / 100.0f;
-            } else {
-                p->target = storeEntrance;
+            } else { // Reached home
+                p->target = destinations[rand() % 3]; // Select a new random public building
                 p->goingToStore = true;
                 p->waitTimer = 2.0f + (float)(rand() % 300) / 100.0f;
             }
@@ -212,68 +200,6 @@ void OutdoorScene::UpdatePeople(float dt) {
     }
 }
 
-void OutdoorScene::UpdateCars(float dt) {
-    Vector2 allWaypoints[][5] = {
-        {{250, 370}, {520, 370}, {625, 370}, {850, 370}, {250, 370}},
-        {{850, 370}, {625, 370}, {520, 370}, {250, 370}, {850, 370}},
-        {{625, 130}, {625, 370}, {625, 590}, {625, 370}, {625, 130}},
-        {{160, 200}, {160, 370}, {520, 370}, {160, 370}, {160, 200}},
-        {{950, 590}, {625, 590}, {280, 590}, {625, 590}, {950, 590}}
-    };
-
-    for (int i = 0; i < MAX_CARS && i < 5; i++) {
-        Car *c = &cars[i];
-        Vector2 target = allWaypoints[i][c->currentWaypoint];
-        Vector2 direction = {target.x - c->position.x, target.y - c->position.y};
-        float dist = Distance(c->position, target);
-        c->angle = atan2f(direction.y, direction.x);
-        if (dist < 15.0f) {
-            c->currentWaypoint = (c->currentWaypoint + 1) % 5;
-        } else {
-            direction.x /= dist;
-            direction.y /= dist;
-            c->position.x += direction.x * c->speed * dt;
-            c->position.y += direction.y * c->speed * dt;
-        }
-    }
-
-    for (int i = 5; i < MAX_CARS; i++) {
-        Car *c = &cars[i];
-        if (c->parked) {
-            c->parkTimer -= dt;
-            if (c->parkTimer <= 0 && c->targetSpot >= 0) {
-                parkingSpots[c->targetSpot].occupied = false;
-                c->parked = false;
-                c->targetSpot = -1;
-            }
-        } else {
-            if (c->targetSpot < 0) {
-                for (int j = 0; j < MAX_PARKING_SPOTS; j++) {
-                    if (!parkingSpots[j].occupied) {
-                        c->targetSpot = j;
-                        parkingSpots[j].occupied = true;
-                        break;
-                    }
-                }
-            }
-            if (c->targetSpot >= 0) {
-                Vector2 target = parkingSpots[c->targetSpot].position;
-                float dist = Distance(c->position, target);
-                if (dist < 5.0f) {
-                    c->parked = true;
-                    c->parkTimer = 5.0f + (float)(rand() % 1000) / 100.0f;
-                } else {
-                    Vector2 dir = {target.x - c->position.x, target.y - c->position.y};
-                    dir.x /= dist;
-                    dir.y /= dist;
-                    c->position.x += dir.x * c->speed * 0.5f * dt;
-                    c->position.y += dir.y * c->speed * 0.5f * dt;
-                    c->angle = atan2f(dir.y, dir.x);
-                }
-            }
-        }
-    }
-}
 
 bool OutdoorScene::CheckCollision(Vector2 pos, float radius) {
     Rectangle buildings[] = {
@@ -291,6 +217,14 @@ bool OutdoorScene::CheckCollision(Vector2 pos, float radius) {
         if (CheckCollisionCircleRec(pos, radius, houseRect)) return true;
     }
     return false;
+}
+
+void OutdoorScene::AssignPersonDestination(Person& person) {
+    // REMOVED - Original function was empty or not used. Logic is in UpdatePeople.
+}
+
+void OutdoorScene::HandleBuildingClicks() {
+    // REMOVED - Original function was empty or not used. Logic is in HandleInput.
 }
 
 void OutdoorScene::HandleInput() {
@@ -332,18 +266,22 @@ void OutdoorScene::Draw() {
         }
     }
 
+    // Draw Store Parking Spots Background (No car spot drawing detail)
     int parkingSpotwidth = Distance(parkingSpots[0].position, parkingSpots[MAX_PARKING_SPOTS - 1].position);
     int parkingSpotheight = Distance(parkingSpots[0].position, parkingSpots[3].position);
     DrawRectangle(parkingSpots[0].position.x - 40, store.position.y, parkingSpotwidth + 50, parkingSpotheight + 100, {60, 60, 60, 255});
+    
+    // Draw Warehouse Parking Spots Background (No car spot drawing detail)
+    DrawRectangle(warehouseParkingSpots[0].position.x, inventory.position.y, parkingSpotwidth + 50, parkingSpotheight + 100, {60, 60, 60, 255});
+    
+    // Draw Parking Spot outlines
     for (int i = 0; i < MAX_PARKING_SPOTS; i++) {
-        Color spotColor = parkingSpots[i].occupied ? Color{100, 100, 100, 255} : Color{80, 80, 80, 255};
+        Color spotColor = Color{80, 80, 80, 255}; // Neutral color since occupancy is irrelevant without cars
         DrawRectangle(parkingSpots[i].position.x - 20, parkingSpots[i].position.y - 15, 40, 30, spotColor);
         DrawRectangleLinesEx({parkingSpots[i].position.x - 20, parkingSpots[i].position.y - 15, 40, 30}, 2, YELLOW);
     }
-
-    DrawRectangle(warehouseParkingSpots[0].position.x, inventory.position.y, parkingSpotwidth + 50, parkingSpotheight + 100, {60, 60, 60, 255});
     for (int i = 0; i < MAX_PARKING_SPOTS_WAREHOUSE; i++) {
-        Color spotColor = warehouseParkingSpots[i].occupied ? Color{100, 100, 100, 255} : Color{80, 80, 80, 255};
+        Color spotColor = Color{80, 80, 80, 255}; // Neutral color
         DrawRectangle(warehouseParkingSpots[i].position.x + 20, warehouseParkingSpots[i].position.y + 10, 40, 30, spotColor);
         DrawRectangleLinesEx({warehouseParkingSpots[i].position.x + 20, warehouseParkingSpots[i].position.y + 10, 40, 30}, 2, YELLOW);
     }
@@ -365,9 +303,6 @@ void OutdoorScene::Draw() {
         if (trees[i].position.y >= 400) DrawTreeDetailed(trees[i]);
     }
 
-    for (int i = 0; i < MAX_CARS; i++) {
-        DrawCarDetailed(cars[i]);
-    }
 
     for (int i = 0; i < MAX_PEOPLE; i++) {
         DrawPersonDetailed(people[i]);
@@ -420,15 +355,28 @@ int OutdoorScene::ClampValue(int value, int min, int max) {
     return value;
 }
 
+Vector2 OutdoorScene::GetBuildingEntrance(Building b) {
+    // REMOVED - Original function was empty or not used.
+    return {0, 0};
+}
+    
+void OutdoorScene::SaveGame() {
+    // REMOVED - Original function was empty or not used.
+}
+
+void OutdoorScene::LoadGame() {
+    // REMOVED - Original function was empty or not used.
+}
+
 void OutdoorScene::DrawTiledBackground(Color baseColor, int width, int height) {
     for (int y = 0; y < height; y += 20) {
         for (int x = 0; x < width; x += 20) {
             Color varColor = baseColor;
             int variation = (x * 7 + y * 13) % 30 - 15;
             varColor = {
-                (unsigned char)ClampValue(varColor.r + variation, 0, 255), 
-                (unsigned char)ClampValue(varColor.g + variation, 0, 255), 
-                (unsigned char)ClampValue(varColor.b + variation, 0, 255), 
+                (unsigned char)ClampValue(varColor.r + variation, 0, 255),
+                (unsigned char)ClampValue(varColor.g + variation, 0, 255),
+                (unsigned char)ClampValue(varColor.b + variation, 0, 255),
                 255
             };
             DrawRectangle(x, y, 20, 20, varColor);
@@ -526,43 +474,7 @@ void OutdoorScene::DrawPersonDetailed(Person p) {
     DrawCircle(p.position.x, p.position.y - 11, 4, {101, 67, 33, 255});
 }
 
-void OutdoorScene::DrawCarDetailed(Car c) {
-    DrawEllipse(c.position.x + c.shadowOffset.x, c.position.y + c.shadowOffset.y, c.size.x / 2 + 3, c.size.y / 2 + 3, Fade(BLACK, 0.4f));
-    Rectangle carBody = {c.position.x, c.position.y, c.size.x, c.size.y};
-    Vector2 origin = {c.size.x / 2, c.size.y / 2};
-    DrawRectanglePro(carBody, origin, c.angle * RAD2DEG, c.bodyColor);
-    float cosA = cosf(c.angle * DEG2RAD);
-    float sinA = sinf(c.angle * DEG2RAD);
-    Vector2 corners[4];
-    float hw = c.size.x / 2;
-    float hh = c.size.y / 2;
-    corners[0] = {c.position.x + cosA * hw - sinA * hh, c.position.y + sinA * hw + cosA * hh};
-    corners[1] = {c.position.x + cosA * hw + sinA * hh, c.position.y + sinA * hw - cosA * hh};
-    corners[2] = {c.position.x - cosA * hw + sinA * hh, c.position.y - sinA * hw - cosA * hh};
-    corners[3] = {c.position.x - cosA * hw - sinA * hh, c.position.y - sinA * hw + cosA * hh};
-    DrawLineEx(corners[0], corners[1], 2, ColorBrightness(c.bodyColor, -0.4f));
-    DrawLineEx(corners[1], corners[2], 2, ColorBrightness(c.bodyColor, -0.4f));
-    DrawLineEx(corners[2], corners[3], 2, ColorBrightness(c.bodyColor, -0.4f));
-    DrawLineEx(corners[3], corners[0], 2, ColorBrightness(c.bodyColor, -0.4f));
-    Rectangle frontWindow = {c.position.x + 5, c.position.y - 3, 10, 6};
-    Rectangle backWindow = {c.position.x - 15, c.position.y - 3, 10, 6};
-    DrawRectanglePro(frontWindow, origin, c.angle * RAD2DEG, c.windowColor);
-    DrawRectanglePro(backWindow, origin, c.angle * RAD2DEG, c.windowColor);
-    if (timeOfDay < 0.3f || timeOfDay > 0.7f) {
-        Vector2 headlightPos = {c.position.x + cosf(c.angle) * (c.size.x / 2), c.position.y + sinf(c.angle) * (c.size.x / 2)};
-        DrawCircle(headlightPos.x, headlightPos.y, 3, {255, 255, 200, 200});
-    }
-    float wheelOffsetX = c.size.x / 3;
-    float wheelOffsetY = c.size.y / 2 + 2;
-    Vector2 wheel1 = {c.position.x + cosf(c.angle) * wheelOffsetX - sinf(c.angle) * wheelOffsetY, c.position.y + sinf(c.angle) * wheelOffsetX + cosf(c.angle) * wheelOffsetY};
-    Vector2 wheel2 = {c.position.x + cosf(c.angle) * wheelOffsetX + sinf(c.angle) * wheelOffsetY, c.position.y + sinf(c.angle) * wheelOffsetX - cosf(c.angle) * wheelOffsetY};
-    Vector2 wheel3 = {c.position.x - cosf(c.angle) * wheelOffsetX - sinf(c.angle) * wheelOffsetY, c.position.y - sinf(c.angle) * wheelOffsetX + cosf(c.angle) * wheelOffsetY};
-    Vector2 wheel4 = {c.position.x - cosf(c.angle) * wheelOffsetX + sinf(c.angle) * wheelOffsetY, c.position.y - sinf(c.angle) * wheelOffsetX - cosf(c.angle) * wheelOffsetY};
-    DrawCircle(wheel1.x, wheel1.y, 3, {40, 40, 40, 255});
-    DrawCircle(wheel2.x, wheel2.y, 3, {40, 40, 40, 255});
-    DrawCircle(wheel3.x, wheel3.y, 3, {40, 40, 40, 255});
-    DrawCircle(wheel4.x, wheel4.y, 3, {40, 40, 40, 255});
-}
+
 
 void OutdoorScene::DrawPlantDetailed(Plant p) {
     float size = p.size * p.growthStage;
@@ -598,9 +510,9 @@ void OutdoorScene::DrawGreenhouseGarden() {
             Color soilColor = {101, 67, 33, 255};
             int variation = ((int)(gardenStartX + x) * 7 + (int)(gardenStartY + y) * 13) % 20 - 10;
             soilColor = {
-                (unsigned char)ClampValue(soilColor.r + variation, 0, 255), 
-                (unsigned char)ClampValue(soilColor.g + variation, 0, 255), 
-                (unsigned char)ClampValue(soilColor.b + variation, 0, 255), 
+                (unsigned char)ClampValue(soilColor.r + variation, 0, 255),
+                (unsigned char)ClampValue(soilColor.g + variation, 0, 255),
+                (unsigned char)ClampValue(soilColor.b + variation, 0, 255),
                 255
             };
             DrawRectangle(gardenStartX + x, gardenStartY + y, 8, 8, soilColor);
@@ -663,3 +575,19 @@ void OutdoorScene::DrawGreenhouseGarden() {
         }
     }
 }
+
+void OutdoorScene::DrawUI() {
+    // REMOVED - Original function was empty or not used.
+}
+
+void OutdoorScene::DrawMoneyCounter() {
+    // REMOVED - Original function was empty or not used.
+}
+
+void OutdoorScene::DrawRatingStars() {
+    // REMOVED - Original function was empty or not used.
+}
+
+
+
+
