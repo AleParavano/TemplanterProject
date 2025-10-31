@@ -13,6 +13,8 @@ private:
     int numPlants;
     int numPaths;
 
+    SceneType nextScene; 
+    
     void InitPlants();
     void InitPaths();
     void DrawPlantDetailed(PlantVisual p);
@@ -24,6 +26,7 @@ private:
 public:
     GreenHouseScene();
     ~GreenHouseScene() = default;
+    SceneType CheckExit() override;
 
     void Init() override;
     void Update(float dt) override;

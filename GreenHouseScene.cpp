@@ -4,7 +4,12 @@
 
 GreenHouseScene::GreenHouseScene() : numPlants(0), numPaths(0) {}
 
+
+
 void GreenHouseScene::Init() {
+
+    nextScene = GetSceneType(); 
+
     InitPlants();
     InitPaths();
 }
@@ -57,6 +62,15 @@ void GreenHouseScene::Update(float dt) {
 }
 
 void GreenHouseScene::HandleInput() {
+    // if (IsKeyPressed(KEY_ESCAPE)) {
+    //     nextScene = SCENE_OUTDOOR; 
+    // }
+}
+
+SceneType GreenHouseScene::CheckExit() {
+    SceneType result = nextScene;
+    nextScene = GetSceneType(); 
+    return result; 
 }
 
 void GreenHouseScene::Draw() {
