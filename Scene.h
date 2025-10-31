@@ -4,7 +4,8 @@
 #include "raylib.h"
 
 // --- Screen/Scene Enum ---
-typedef enum {
+typedef enum
+{
     SCENE_OUTDOOR,
     SCENE_GREENHOUSE,
     SCENE_STORE,
@@ -12,7 +13,8 @@ typedef enum {
 } SceneType;
 
 // --- Base Scene Class ---
-class Scene {
+class Scene
+{
 public:
     virtual ~Scene() = default;
 
@@ -23,9 +25,14 @@ public:
     virtual void HandleInput() = 0;             // Handle keyboard/mouse input
     virtual SceneType GetSceneType() const = 0; // Return this scene's type
 
+
+    // Virtual functions 
+    // Default implementation does nothing, so not all scenes need a menu.
+    virtual void DrawMenu() {}
     // Check if this scene should exit (returns next scene type, or current if staying)
-    virtual SceneType CheckExit() { 
-        return GetSceneType(); 
+    virtual SceneType CheckExit()
+    {
+        return GetSceneType();
     }
 };
 

@@ -90,13 +90,16 @@ void SceneManager::Draw() {
         ClearBackground({200, 200, 200, 255});
     }
     
+    //Drawing the scene
     scenes[currentScene]->Draw();
     
     // Call the dedicated global UI function 
     DrawGlobalMenu();
+    
+    // Drawing the actually Scene's Menu
+    scenes[currentScene]->DrawMenu();
 
     //Draw the Back Button (top left)
-
     DrawBackButton(currentScene);
 
     EndDrawing();

@@ -18,12 +18,12 @@
 #define BACK_BUTTON_HEIGHT 30
 #define BACK_BUTTON_MARGIN 20
 
-/**
- * @brief Draws the persistent, translucent right-side menu, including the clock, 
- * player stats, save/load buttons, and the message log.
- * * This function should be called inside BeginDrawing()/EndDrawing() in SceneManager.cpp.
- */
 
+
+//Tiles start their pattern relative to the screen origin (0, 0)
+ void DrawTiledArea(Rectangle targetRect, Color baseColor);
+//Function to tile a background 
+ void DrawTiledBackground(Color baseColor, int width, int height);
  // Function to draw the back button 
 void DrawBackButton(SceneType currentScene);
 

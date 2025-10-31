@@ -70,8 +70,76 @@ void DrawGlobalMenu() {
     }
 }
 
-void DrawBackButton(SceneType currentScene){
-     if (currentScene == SCENE_OUTDOOR) return;
+
+// --- Local Helper Function (Required by DrawTiledBackground) ---
+static int ClampValue(int value, int min, int max) {
+    if (value < min) return min;
+    if (value > max) return max;
+    return value;
+}
+
+// GLOBAL IMPLEMENTATION
+void DrawTiledBackground(Color baseColor, int width, int height)
+{
+    for (int y = 0; y < height; y += 20) {
+        for (int x = 0; x < width; x += 20) {
+            Color varColor = baseColor;
+            
+            // Generate a variation based on coordinates (noise effect)
+            int variation = (x * 7 + y * 13) % 30 - 15;
+            
+            varColor = {
+                (unsigned char)ClampValue(varColor.r + variation, 0, 255),
+                (unsigned char)ClampValue(varColor.g + variation, 0, 255),
+                (unsigned char)ClampValue(varColor.b + variation, 0, 255),
+                255
+            };
+            DrawRectangle(x, y, 20, 20, varColor);
+        }
+    }
+}
+void DrawTiledArea(Rectangle targetRect, Color baseColor) {
+    const int TILE_SIZE = 20;
+
+    // Determine the start and end points for tiling
+    int startX = (int)targetRect.x;
+    int startY = (int)targetRect.y;
+    int endX = startX + (int)targetRect.width;
+    int endY = startY + (int)targetRect.height;
+    
+    // We start iterating from the first tile boundary that covers targetRect
+    int tileStartX = (startX / TILE_SIZE) * TILE_SIZE;
+    int tileStartY = (startY / TILE_SIZE) * TILE_SIZE;
+
+    for (int y = tileStartY; y < endY; y += TILE_SIZE) {
+        for (int x = tileStartX; x < endX; x += TILE_SIZE) {
+            
+            // Generate color variation based on absolute screen coordinates (x, y)
+            int variation = (x * 7 + y * 13) % 30 - 15;
+            
+            Color varColor = {
+                (unsigned char)ClampValue(baseColor.r + variation, 0, 255),
+                (unsigned char)ClampValue(baseColor.g + variation, 0, 255),
+                (unsigned char)ClampValue(baseColor.b + variation, 0, 255),
+                255
+            };
+            
+            // Define the tile rectangle (full tile size)
+            Rectangle tileRect = {(float)x, (float)y, (float)TILE_SIZE, (float)TILE_SIZE};
+            
+            // Clip the drawing to the targetRect boundary
+            Rectangle drawRect = GetCollisionRec(tileRect, targetRect);
+            
+            // Draw the clipped portion
+            DrawRectangleRec(drawRect, varColor);
+        }
+    }
+}
+
+void DrawBackButton(SceneType currentScene)
+{
+    if (currentScene == SCENE_OUTDOOR)
+        return;
 
     Rectangle backBtn = {BACK_BUTTON_MARGIN, BACK_BUTTON_MARGIN, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT};
     
