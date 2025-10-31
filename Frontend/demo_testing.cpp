@@ -36,7 +36,6 @@ int main()
     Plant *storePlant2 = new Plant("StorePlant", 2, 2);
     Plant *storePlant3 = new Plant("StorePlant2", 2, 2);
 
-    
     store.getStorage()->add(storePlant);
     store.getStorage()->add(storePlant2);
     store.getStorage()->add(storePlant3);
@@ -46,10 +45,10 @@ int main()
     while (!WindowShouldClose())
     {
         // Update store (handles modal toggle)
-        store.update();
+        store.update(&player); // Pass player reference
 
-        // Toggle player inventory
-        if (IsKeyPressed(KEY_E))
+        // E key only works when storage isn't open
+        if (IsKeyPressed(KEY_E) && !store.getShowModal())
         {
             player.openInventory();
         }

@@ -138,6 +138,8 @@ public:
     void openInventory();
     void renderInventory();
     void updateInventory(Inventory *storageInventory = nullptr, int *selectedStorageSlot = nullptr);
+    bool isInventoryOpen() const { return inventoryOpen; }
+
     
     // Helper methods for cross-inventory interaction
     int getSelectedSlotIndex() const { return selectedSlotIndex; }

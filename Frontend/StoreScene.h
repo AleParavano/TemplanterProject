@@ -35,7 +35,7 @@ public:
     StoreScene();
     ~StoreScene();
 
-    void update();
+    void update(Player *player = nullptr);
     void render();
     void renderModal(int width, int height);
     void updateStorage(Player *player); // Takes player to access their inventory

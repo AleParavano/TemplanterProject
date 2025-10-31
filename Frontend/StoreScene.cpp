@@ -29,13 +29,59 @@ StoreScene::~StoreScene()
     delete storageInventory;
 }
 
-void StoreScene::update()
+// void StoreScene::update()
+// {
+//     Vector2 mouse = GetMousePosition();
+    
+//     if(CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+//         showModal = !showModal;
+        
+//         if(showModal && storageSlots.empty()){
+//             int storagePos = 0;
+//             for (int i = 401; i < 900 && storagePos < 25; i += 100)
+//             {
+//                 for (int j = 466; j < 930 && storagePos < 25; j += 100)
+//                 {
+//                     Rectangle tempRect = {j, i, 75, 75};
+//                     const InventorySlot* slotData = storageInventory->getSlot(storagePos);
+//                     Slot tempSlot(slotData, tempRect);
+//                     storageSlots.push_back(tempSlot);
+//                     storagePos++;
+//                 }
+//             }
+//         }
+//     }
+    
+//     if(showModal && IsKeyPressed(KEY_ESCAPE)){
+//         showModal = false;
+//         storageSlots.clear();
+//         selectedStorageSlot = -1;
+//     }
+// }
+
+void StoreScene::update(Player* player)
 {
     Vector2 mouse = GetMousePosition();
     
     if(CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-        showModal = !showModal;
+        showModal = !showModal;  // Toggle storage modal
         
+        // Open/close player inventory along with storage
+        if(player) {
+            if(showModal) {
+                // Opening storage - ensure player inventory is also open
+                if(!player->isInventoryOpen()) {
+                    player->openInventory();
+                }
+            } else {
+                // Closing storage - also close player inventory
+                if(player->isInventoryOpen()) {
+                    player->openInventory();  // This toggles it closed
+                }
+            }
+        }
+        
+        // Build storage slots when opening
         if(showModal && storageSlots.empty()){
             int storagePos = 0;
             for (int i = 401; i < 900 && storagePos < 25; i += 100)
@@ -56,80 +102,13 @@ void StoreScene::update()
         showModal = false;
         storageSlots.clear();
         selectedStorageSlot = -1;
+        
+        // Also close player inventory when ESC is pressed
+        if(player && player->isInventoryOpen()) {
+            player->openInventory();
+        }
     }
 }
-
-// void StoreScene::updateStorage(Player* player)
-// {
-//     if (!player) return;
-    
-//     // Refresh slot pointers to reflect inventory changes
-//     for(int i = 0; i < storageSlots.size(); i++){
-//         storageSlots[i].slot = storageInventory->getSlot(i);
-        
-//         // Clear selection visual if this was the selected slot and it's now -1
-//         if(selectedStorageSlot == -1){
-//             storageSlots[i].selected = false;
-//         }
-//         else if(i == selectedStorageSlot){
-//             storageSlots[i].selected = true;
-//         }
-//         else{
-//             storageSlots[i].selected = false;
-//         }
-//     }
-    
-//     Vector2 mouse = GetMousePosition();
-    
-//     // Handle storage slot clicks
-//     if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-//     {
-//         for(int i = 0; i < storageSlots.size(); i++)
-//         {
-//             if(storageSlots[i].isClicked(mouse))
-//             {
-//                 // CASE 1: No storage slot selected - select this one
-//                 if(selectedStorageSlot == -1)
-//                 {
-//                     // Only select if slot has items
-//                     if(storageSlots[i].slot != nullptr && !storageSlots[i].slot->isEmpty())
-//                     {
-//                         selectedStorageSlot = i;
-//                         storageSlots[i].selected = true;
-//                     }
-//                 }
-//                 // CASE 2: Different storage slot already selected - swap within storage
-//                 else if(selectedStorageSlot != i)
-//                 {
-//                     storageInventory->swapSlots(selectedStorageSlot, i);
-                    
-//                     // Refresh both slots
-//                     storageSlots[selectedStorageSlot].slot = storageInventory->getSlot(selectedStorageSlot);
-//                     storageSlots[i].slot = storageInventory->getSlot(i);
-                    
-//                     // Clear selection
-//                     storageSlots[selectedStorageSlot].selected = false;
-//                     selectedStorageSlot = -1;
-//                 }
-//                 // CASE 3: Same slot clicked - deselect
-//                 else 
-//                 {
-//                     storageSlots[selectedStorageSlot].selected = false;
-//                     selectedStorageSlot = -1;
-//                 }
-                
-//                 break;
-//             }
-//         }
-//     }
-    
-//     // Right-click to cancel selection
-//     if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedStorageSlot != -1)
-//     {
-//         storageSlots[selectedStorageSlot].selected = false;
-//         selectedStorageSlot = -1;
-//     }
-// }
 
 void StoreScene::updateStorage(Player* player)
 {
