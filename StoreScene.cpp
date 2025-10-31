@@ -10,7 +10,6 @@ void StoreScene::Update(float dt) {
 
 void StoreScene::HandleInput() {
     if (IsKeyPressed(KEY_ESCAPE)) {
-        // Return to outdoor scene
     }
 }
 

@@ -10,9 +10,7 @@ void WarehouseScene::Update(float dt) {
 }
 
 void WarehouseScene::HandleInput() {
-    if (IsKeyPressed(KEY_ESCAPE)) {
-        // Return to outdoor scene
-    }
+   
 }
 
 void WarehouseScene::Draw() {
