@@ -224,3 +224,32 @@ void Inventory::swapSlots(int index1, int index2)
     slots[index1] = slots[index2];
     slots[index2] = temp;
 }
+
+void Inventory::swapBetweenInventories(Inventory* inv1, int index1, Inventory* inv2, int index2)
+{
+    if (!inv1 || !inv2) return;
+    if (index1 < 0 || index1 >= inv1->maxSlots) return;
+    if (index2 < 0 || index2 >= inv2->maxSlots) return;
+
+    // Simple pointer swap
+    InventorySlot* temp = inv1->slots[index1];
+    inv1->slots[index1] = inv2->slots[index2];
+    inv2->slots[index2] = temp;
+}
+
+bool Inventory::addToSpecificSlot(Plant* plant, size_t slotIndex)
+{
+    if (!plant) return false;
+    if (slotIndex >= slots.size()) return false;
+    
+    InventorySlot* slot = slots[slotIndex];
+    
+    // If slot doesn't exist, create it
+    if (slot == nullptr) {
+        slot = new InventorySlot();
+        slots[slotIndex] = slot;
+    }
+    
+    // Try to add to this specific slot
+    return slot->add(plant);
+}

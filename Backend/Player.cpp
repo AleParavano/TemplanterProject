@@ -5,34 +5,14 @@
 
 bool Player::safe = true;
 
-// Player::Player()
-//     : inventory(nullptr), workers(nullptr), plot(nullptr),
-//       money(1000.0f), rating(0),
-//       day(1), hour(6), minute(0)
-// {
-//     inventory = new Inventory(15);
-//     workers = new Worker();
-//     plot = new Greenhouse();
-// }
-
 Player::Player()
     : inventory(nullptr), workers(nullptr), plot(nullptr),
       money(1000.0f), rating(0),
       day(1), hour(6), minute(0)
 {
-    std::cout << "  Player constructor: Creating Inventory(15)..." << std::endl;
     inventory = new Inventory(15);
-    std::cout << "  Player constructor: Inventory created!" << std::endl;
-    
-    std::cout << "  Player constructor: Creating Worker..." << std::endl;
     workers = new Worker();
-    std::cout << "  Player constructor: Worker created!" << std::endl;
-    
-    std::cout << "  Player constructor: Creating Greenhouse..." << std::endl;
     plot = new Greenhouse();
-    std::cout << "  Player constructor: Greenhouse created!" << std::endl;
-    
-    std::cout << "  Player constructor: Complete!" << std::endl;
 }
 
 Player::~Player()
@@ -235,7 +215,7 @@ void Player::openInventory()
     {
         int invPos = 0;
 
-        for (int i = 170; i < 371; i += 100)
+        for (int i = 75; i < 326; i += 100)
         {
             for (int j = 466; j < 930; j += 100)
             {
@@ -262,28 +242,38 @@ void Player::openInventory()
     }
 }
 
-void Player::renderInventory(){
-    if(inventoryOpen){
-        DrawRectangle(460, 75, 487, 385, BLACK);
-        DrawRectangle(461, 76, 485, 383, Color{178, 102, 0, 255});
-        DrawText("INVENTORY:", 466, 85, 50, Color{86, 49, 0, 255});
-         
-        for(int i = 0; i < slotVector.size(); i++){
-            const Slot& slot = slotVector[i];
-                   
+void Player::renderInventory()
+{
+    if (inventoryOpen)
+    {
+        // DrawRectangle(0, 0, 1400, 900, Fade(BLACK, 0.5f));
+        Rectangle inv = {461, 26, 485, 333};
+        DrawRectangleRec(inv, Color{178, 102, 0, 255});
+        DrawRectangleLinesEx(inv, 1, BLACK);
+
+        DrawText("INVENTORY:", 466, 35, 35, Color{86, 49, 0, 255});
+
+        for (int i = 0; i < slotVector.size(); i++)
+        {
+            const Slot &slot = slotVector[i];
+
             // Draw slot background
-            if(slot.selected){
+            if (slot.selected)
+            {
                 DrawRectangleRec(slot.rect, Color{110, 70, 20, 255});
-            } else {
+            }
+            else
+            {
                 DrawRectangleRec(slot.rect, Color{86, 49, 0, 255});
             }
-            
+
             DrawRectangleLinesEx(slot.rect, 2, BLACK);
-            
+
             // If slot has an item, draw it
-            if(slot.slot != nullptr && !slot.slot->isEmpty()){
+            if (slot.slot != nullptr && !slot.slot->isEmpty())
+            {
                 DrawCircle(slot.rect.x + 37, slot.rect.y + 37, 20, GREEN);
-                
+
                 std::string quantity = std::to_string(slot.slot->getSize());
                 DrawText(quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 10, WHITE);
             }
@@ -291,49 +281,234 @@ void Player::renderInventory(){
     }
 }
 
-void Player::updateInventory(){
-    if(!inventoryOpen) return;
-    
+// void Player::updateInventory(Inventory* storageInventory, int* selectedStorageSlot)
+// {
+//     if (!inventoryOpen)
+//         return;
+
+//     // Refresh slot data to reflect any changes
+//     for(int i = 0; i < slotVector.size(); i++){
+//         slotVector[i].slot = inventory->getSlot(i);
+//     }
+
+//     Vector2 mouse = GetMousePosition();
+
+//     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+//     {
+//         for (int i = 0; i < slotVector.size(); i++)
+//         {
+//             if (slotVector[i].isClicked(mouse))
+//             {
+//                 // CASE 1: A storage slot is selected - swap between inventories
+//                 if(storageInventory && selectedStorageSlot && *selectedStorageSlot != -1)
+//                 {
+//                     Inventory::swapBetweenInventories(storageInventory, *selectedStorageSlot, 
+//                                                      inventory, i);
+                    
+//                     // Refresh player inventory display
+//                     slotVector[i].slot = inventory->getSlot(i);
+                    
+//                     // Clear storage selection
+//                     *selectedStorageSlot = -1;
+//                 }
+//                 // CASE 2: No slot selected - select this player slot
+//                 else if(selectedSlotIndex == -1)
+//                 {
+//                     // Only select if slot has items
+//                     if(slotVector[i].slot != nullptr && !slotVector[i].slot->isEmpty())
+//                     {
+//                         selectedSlotIndex = i;
+//                         slotVector[i].selected = true;
+//                     }
+//                 }
+//                 // CASE 3: Player slot already selected - swap within player inventory
+//                 else if(selectedSlotIndex != i)
+//                 {
+//                     inventory->swapSlots(selectedSlotIndex, i);
+                    
+//                     // Refresh both affected slots
+//                     slotVector[selectedSlotIndex].slot = inventory->getSlot(selectedSlotIndex);
+//                     slotVector[i].slot = inventory->getSlot(i);
+                    
+//                     // Clear selection
+//                     slotVector[selectedSlotIndex].selected = false;
+//                     selectedSlotIndex = -1;
+//                 }
+//                 // CASE 4: Clicking same slot - deselect
+//                 else 
+//                 {
+//                     slotVector[selectedSlotIndex].selected = false;
+//                     selectedSlotIndex = -1;
+//                 }
+
+//                 break;
+//             }
+//         }
+//     }
+
+//     // Right-click to cancel selection
+//     if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedSlotIndex != -1)
+//     {
+//         slotVector[selectedSlotIndex].selected = false;
+//         selectedSlotIndex = -1;
+//     }
+// }
+
+void Player::updateInventory(Inventory* storageInventory, int* selectedStorageSlot)
+{
+    if (!inventoryOpen)
+        return;
+
+    // Refresh slot data to reflect any changes
+    for(int i = 0; i < slotVector.size(); i++){
+        slotVector[i].slot = inventory->getSlot(i);
+    }
+
     Vector2 mouse = GetMousePosition();
-    
-    // Handle left click on slots
-    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-        for(int i = 0; i < slotVector.size(); i++){
-            if(slotVector[i].isClicked(mouse)){
-                
-                // If no slot is selected, select this one
-                if(selectedSlotIndex == -1){
-                    if(slotVector[i].slot != nullptr){  // Only select non-empty slots
+
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        for (int i = 0; i < slotVector.size(); i++)
+        {
+            if (slotVector[i].isClicked(mouse))
+            {
+                // CASE 1: A storage slot is selected - transfer from storage to player
+                if(storageInventory && selectedStorageSlot && *selectedStorageSlot != -1)
+                {
+                    const InventorySlot* storageSlot = storageInventory->getSlot(*selectedStorageSlot);
+                    const InventorySlot* playerSlot = inventory->getSlot(i);
+                    
+                    // Check if we should merge stacks
+                    bool shouldMerge = false;
+                    if(storageSlot && playerSlot && 
+                       !storageSlot->isEmpty() && !playerSlot->isEmpty() &&
+                       storageSlot->getPlantType() == playerSlot->getPlantType() &&
+                       !playerSlot->isFull())
+                    {
+                        shouldMerge = true;
+                    }
+                    
+                    if(shouldMerge)
+                    {
+                        // Merge stacks: move items from storage to THIS specific player slot
+                        std::string plantType = storageSlot->getPlantType();
+                        int spaceAvailable = playerSlot->getRemainingCapacity();
+                        int itemsInSource = storageSlot->getSize();
+                        int itemsToMove = std::min(spaceAvailable, itemsInSource);
+                        
+                        // Remove items from storage and add directly to the destination slot
+                        for(int j = 0; j < itemsToMove; j++)
+                        {
+                            Plant* plant = storageInventory->removeItem(plantType);
+                            if(!plant) break;
+                            
+                            // Add directly to the specific slot
+                            if(!inventory->addToSpecificSlot(plant, i))
+                            {
+                                // If add failed, put it back
+                                storageInventory->add(plant);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Simple swap
+                        Inventory::swapBetweenInventories(storageInventory, *selectedStorageSlot, 
+                                                         inventory, i);
+                    }
+                    
+                    // Refresh ALL slots after cross-inventory operation
+                    for(int k = 0; k < slotVector.size(); k++){
+                        slotVector[k].slot = inventory->getSlot(k);
+                    }
+                    
+                    // Clear storage selection
+                    *selectedStorageSlot = -1;
+                }
+                // CASE 2: A player slot is selected - swap/merge within player inventory
+                else if(selectedSlotIndex != -1 && selectedSlotIndex != i)
+                {
+                    const InventorySlot* sourceSlot = inventory->getSlot(selectedSlotIndex);
+                    const InventorySlot* destSlot = inventory->getSlot(i);
+                    
+                    // Check if we should merge
+                    bool shouldMerge = false;
+                    if(sourceSlot && destSlot && 
+                       !sourceSlot->isEmpty() && !destSlot->isEmpty() &&
+                       sourceSlot->getPlantType() == destSlot->getPlantType() &&
+                       !destSlot->isFull())
+                    {
+                        shouldMerge = true;
+                    }
+                    
+                    if(shouldMerge)
+                    {
+                        // Merge: move ALL items from source to dest (within same inventory)
+                        std::string plantType = sourceSlot->getPlantType();
+                        int spaceAvailable = destSlot->getRemainingCapacity();
+                        int itemsInSource = sourceSlot->getSize();
+                        int itemsToMove = std::min(spaceAvailable, itemsInSource);
+                        
+                        // Temporarily store items to move
+                        std::vector<Plant*> plantsToMove;
+                        for(int j = 0; j < itemsToMove; j++)
+                        {
+                            Plant* plant = inventory->removeItem(plantType);
+                            if(plant) {
+                                plantsToMove.push_back(plant);
+                            }
+                        }
+                        
+                        // Now add them back - they should go to the destination slot
+                        for(Plant* plant : plantsToMove)
+                        {
+                            if(!inventory->add(plant))
+                            {
+                                // This shouldn't happen, but clean up if it does
+                                delete plant;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Simple swap within player inventory
+                        inventory->swapSlots(selectedSlotIndex, i);
+                    }
+                    
+                    // Refresh both affected slots
+                    slotVector[selectedSlotIndex].slot = inventory->getSlot(selectedSlotIndex);
+                    slotVector[i].slot = inventory->getSlot(i);
+                    
+                    // Clear selection
+                    slotVector[selectedSlotIndex].selected = false;
+                    selectedSlotIndex = -1;
+                }
+                // CASE 3: No slot selected - select this player slot
+                else if(selectedSlotIndex == -1)
+                {
+                    // Only select if slot has items
+                    if(slotVector[i].slot != nullptr && !slotVector[i].slot->isEmpty())
+                    {
                         selectedSlotIndex = i;
                         slotVector[i].selected = true;
                     }
                 }
-                // If a slot is already selected, try to move/swap
-                else if(selectedSlotIndex != i){
-                    // Swap items in the inventory
-                    inventory->swapSlots(selectedSlotIndex, i);
-                    
-                    // Update the slot vector to reflect changes
-                    slotVector[selectedSlotIndex].slot = inventory->getSlot(selectedSlotIndex);
-                    slotVector[i].slot = inventory->getSlot(i);
-                    
-                    // Deselect
+                // CASE 4: Clicking same slot - deselect
+                else 
+                {
                     slotVector[selectedSlotIndex].selected = false;
                     selectedSlotIndex = -1;
                 }
-                // If clicking the same slot, deselect
-                else {
-                    slotVector[selectedSlotIndex].selected = false;
-                    selectedSlotIndex = -1;
-                }
-                
+
                 break;
             }
         }
     }
-    
+
     // Right-click to cancel selection
-    if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedSlotIndex != -1){
+    if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedSlotIndex != -1)
+    {
         slotVector[selectedSlotIndex].selected = false;
         selectedSlotIndex = -1;
     }

@@ -1,8 +1,9 @@
 #include "StoreScene.h"
+#include "../Backend/Player.h"
 
 StoreScene::StoreScene()
     : showModal(false),
-      selectedInventorySlot(-1),
+      selectedStorageSlot(-1),
       selectedPlantFromGrid(false),
       selectedGridX(-1),
       selectedGridY(-1),
@@ -12,107 +13,294 @@ StoreScene::StoreScene()
       plotHitBox{131, 131, 560, 525},
       boundaryWall{823, 0, 53, 660}
 {
-    // Initialize plants array to false
-    for(int i = 0; i < 10; i++){
-        for(int j = 0; j < 10; j++){
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
             plants[i][j] = false;
         }
     }
-    
-    // Initialize inventory with some plants
-    inventory[0] = 5;
-    inventory[1] = 3;
-    inventory[2] = 7;
-    inventory[3] = 2;
-    inventory[4] = 10;
+   
+    storageInventory = new Inventory(25);
+}
+
+StoreScene::~StoreScene()
+{
+    delete storageInventory;
 }
 
 void StoreScene::update()
 {
     Vector2 mouse = GetMousePosition();
     
-    // Check if manage button clicked
     if(CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-        showModal = true;
-    }
-    
-    // Close modal with ESC
-    if(showModal && IsKeyPressed(KEY_ESCAPE)){
-        showModal = false;
-        selectedInventorySlot = -1;
-        selectedPlantFromGrid = false;
-        selectedGridX = -1;
-        selectedGridY = -1;
-    }
-    
-    // Handle modal interactions
-    if(showModal){
-        // Handle inventory slot clicks
-        for(int i = 0; i < 5; i++){
-            int slotY = 210 + (i * 70);
-            Rectangle slot = {823, slotY, 70, 70};
-            
-            if(CheckCollisionPointRec(mouse, slot) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-                if(inventory[i] > 0){
-                    selectedInventorySlot = i;
-                    selectedPlantFromGrid = false;
+        showModal = !showModal;
+        
+        if(showModal && storageSlots.empty()){
+            int storagePos = 0;
+            for (int i = 401; i < 900 && storagePos < 25; i += 100)
+            {
+                for (int j = 466; j < 930 && storagePos < 25; j += 100)
+                {
+                    Rectangle tempRect = {j, i, 75, 75};
+                    const InventorySlot* slotData = storageInventory->getSlot(storagePos);
+                    Slot tempSlot(slotData, tempRect);
+                    storageSlots.push_back(tempSlot);
+                    storagePos++;
                 }
             }
         }
+    }
+    
+    if(showModal && IsKeyPressed(KEY_ESCAPE)){
+        showModal = false;
+        storageSlots.clear();
+        selectedStorageSlot = -1;
+    }
+}
+
+// void StoreScene::updateStorage(Player* player)
+// {
+//     if (!player) return;
+    
+//     // Refresh slot pointers to reflect inventory changes
+//     for(int i = 0; i < storageSlots.size(); i++){
+//         storageSlots[i].slot = storageInventory->getSlot(i);
         
-        // Handle planting with selected inventory item
-        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-            if(mouse.x >= 123 && mouse.x <= 753 && mouse.y >= 158 && mouse.y <= 788){
-                int gridX = (mouse.x - 123) / 70;
-                int gridY = (mouse.y - 158) / 70;
+//         // Clear selection visual if this was the selected slot and it's now -1
+//         if(selectedStorageSlot == -1){
+//             storageSlots[i].selected = false;
+//         }
+//         else if(i == selectedStorageSlot){
+//             storageSlots[i].selected = true;
+//         }
+//         else{
+//             storageSlots[i].selected = false;
+//         }
+//     }
+    
+//     Vector2 mouse = GetMousePosition();
+    
+//     // Handle storage slot clicks
+//     if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+//     {
+//         for(int i = 0; i < storageSlots.size(); i++)
+//         {
+//             if(storageSlots[i].isClicked(mouse))
+//             {
+//                 // CASE 1: No storage slot selected - select this one
+//                 if(selectedStorageSlot == -1)
+//                 {
+//                     // Only select if slot has items
+//                     if(storageSlots[i].slot != nullptr && !storageSlots[i].slot->isEmpty())
+//                     {
+//                         selectedStorageSlot = i;
+//                         storageSlots[i].selected = true;
+//                     }
+//                 }
+//                 // CASE 2: Different storage slot already selected - swap within storage
+//                 else if(selectedStorageSlot != i)
+//                 {
+//                     storageInventory->swapSlots(selectedStorageSlot, i);
+                    
+//                     // Refresh both slots
+//                     storageSlots[selectedStorageSlot].slot = storageInventory->getSlot(selectedStorageSlot);
+//                     storageSlots[i].slot = storageInventory->getSlot(i);
+                    
+//                     // Clear selection
+//                     storageSlots[selectedStorageSlot].selected = false;
+//                     selectedStorageSlot = -1;
+//                 }
+//                 // CASE 3: Same slot clicked - deselect
+//                 else 
+//                 {
+//                     storageSlots[selectedStorageSlot].selected = false;
+//                     selectedStorageSlot = -1;
+//                 }
                 
-                if(gridX >= 0 && gridX < 10 && gridY >= 0 && gridY < 10){
-                    if(selectedPlantFromGrid){
-                        if(!plants[gridX][gridY]){
-                            plants[selectedGridX][selectedGridY] = false;
-                            plants[gridX][gridY] = true;
-                            selectedPlantFromGrid = false;
-                            selectedGridX = -1;
-                            selectedGridY = -1;
-                        }
+//                 break;
+//             }
+//         }
+//     }
+    
+//     // Right-click to cancel selection
+//     if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedStorageSlot != -1)
+//     {
+//         storageSlots[selectedStorageSlot].selected = false;
+//         selectedStorageSlot = -1;
+//     }
+// }
+
+void StoreScene::updateStorage(Player* player)
+{
+    if (!player) return;
+    
+    // Refresh slot pointers to reflect inventory changes
+    for(int i = 0; i < storageSlots.size(); i++){
+        storageSlots[i].slot = storageInventory->getSlot(i);
+        
+        // Update selection visual
+        storageSlots[i].selected = (i == selectedStorageSlot);
+    }
+    
+    Vector2 mouse = GetMousePosition();
+    
+    // Handle storage slot clicks
+    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        bool clickHandled = false;
+        
+        // First check if player has a selection - this enables player->storage transfer
+        if(player->getSelectedSlotIndex() != -1)
+        {
+            int playerSlotIndex = player->getSelectedSlotIndex();
+            
+            for(int i = 0; i < storageSlots.size(); i++)
+            {
+                if(storageSlots[i].isClicked(mouse))
+                {
+                    const InventorySlot* playerSlot = player->getInventory()->getSlot(playerSlotIndex);
+                    const InventorySlot* storageSlot = storageInventory->getSlot(i);
+                    
+                    // Check if we should merge stacks
+                    bool shouldMerge = false;
+                    if(playerSlot && storageSlot && 
+                       !playerSlot->isEmpty() && !storageSlot->isEmpty() &&
+                       playerSlot->getPlantType() == storageSlot->getPlantType() &&
+                       !storageSlot->isFull())
+                    {
+                        shouldMerge = true;
                     }
-                    else if(selectedInventorySlot != -1){
-                        if(!plants[gridX][gridY]){
-                            plants[gridX][gridY] = true;
-                            inventory[selectedInventorySlot]--;
+                    
+                    if(shouldMerge)
+                    {
+                        // Merge: move items from player to THIS specific storage slot
+                        std::string plantType = playerSlot->getPlantType();
+                        int spaceAvailable = storageSlot->getRemainingCapacity();
+                        int itemsInSource = playerSlot->getSize();
+                        int itemsToMove = std::min(spaceAvailable, itemsInSource);
+                        
+                        // Remove items from player and add to specific storage slot
+                        for(int j = 0; j < itemsToMove; j++)
+                        {
+                            Plant* plant = player->getInventory()->removeItem(plantType);
+                            if(!plant) break;
                             
-                            if(inventory[selectedInventorySlot] <= 0){
-                                selectedInventorySlot = -1;
+                            if(!storageInventory->addToSpecificSlot(plant, i))
+                            {
+                                // If add failed, put it back in player inventory
+                                player->getInventory()->add(plant);
+                                break;
                             }
                         }
                     }
-                    else if(plants[gridX][gridY]){
-                        selectedPlantFromGrid = true;
-                        selectedGridX = gridX;
-                        selectedGridY = gridY;
-                        selectedInventorySlot = -1;
+                    else
+                    {
+                        // Simple swap between player and storage
+                        Inventory::swapBetweenInventories(player->getInventory(), playerSlotIndex,
+                                                         storageInventory, i);
                     }
+                    
+                    // Refresh ALL storage slots after cross-inventory operation
+                    for(int k = 0; k < storageSlots.size(); k++){
+                        storageSlots[k].slot = storageInventory->getSlot(k);
+                    }
+                    
+                    // Clear player selection
+                    player->clearSlotSelection();
+                    
+                    clickHandled = true;
+                    break;
                 }
             }
         }
         
-        // Right click to remove plant
-        if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)){
-            if(mouse.x >= 123 && mouse.x <= 753 && mouse.y >= 158 && mouse.y <= 788){
-                int gridX = (mouse.x - 123) / 70;
-                int gridY = (mouse.y - 158) / 70;
-                
-                if(gridX >= 0 && gridX < 10 && gridY >= 0 && gridY < 10){
-                    if(plants[gridX][gridY]){
-                        plants[gridX][gridY] = false;
-                        inventory[0]++;
-                        selectedPlantFromGrid = false;
-                        selectedGridX = -1;
-                        selectedGridY = -1;
+        // If no player selection or click wasn't handled, handle storage-only clicks
+        if(!clickHandled)
+        {
+            for(int i = 0; i < storageSlots.size(); i++)
+            {
+                if(storageSlots[i].isClicked(mouse))
+                {
+                    // CASE 1: No storage slot selected - select this one
+                    if(selectedStorageSlot == -1)
+                    {
+                        // Only select if slot has items
+                        if(storageSlots[i].slot != nullptr && !storageSlots[i].slot->isEmpty())
+                        {
+                            selectedStorageSlot = i;
+                            storageSlots[i].selected = true;
+                        }
                     }
+                    // CASE 2: Different storage slot already selected - swap/merge within storage
+                    else if(selectedStorageSlot != i)
+                    {
+                        const InventorySlot* sourceSlot = storageInventory->getSlot(selectedStorageSlot);
+                        const InventorySlot* destSlot = storageInventory->getSlot(i);
+                        
+                        // Check if we should merge
+                        bool shouldMerge = false;
+                        if(sourceSlot && destSlot && 
+                           !sourceSlot->isEmpty() && !destSlot->isEmpty() &&
+                           sourceSlot->getPlantType() == destSlot->getPlantType() &&
+                           !destSlot->isFull())
+                        {
+                            shouldMerge = true;
+                        }
+                        
+                        if(shouldMerge)
+                        {
+                            // Merge stacks within storage
+                            std::string plantType = sourceSlot->getPlantType();
+                            int spaceAvailable = destSlot->getRemainingCapacity();
+                            int itemsInSource = sourceSlot->getSize();
+                            int itemsToMove = std::min(spaceAvailable, itemsInSource);
+                            
+                            // Remove and add directly to destination
+                            for(int j = 0; j < itemsToMove; j++)
+                            {
+                                Plant* plant = storageInventory->removeItem(plantType);
+                                if(!plant) break;
+                                
+                                if(!storageInventory->addToSpecificSlot(plant, i))
+                                {
+                                    delete plant;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Simple swap within storage
+                            storageInventory->swapSlots(selectedStorageSlot, i);
+                        }
+                        
+                        // Refresh both slots
+                        storageSlots[selectedStorageSlot].slot = storageInventory->getSlot(selectedStorageSlot);
+                        storageSlots[i].slot = storageInventory->getSlot(i);
+                        
+                        // Clear selection
+                        storageSlots[selectedStorageSlot].selected = false;
+                        selectedStorageSlot = -1;
+                    }
+                    // CASE 3: Same slot clicked - deselect
+                    else 
+                    {
+                        storageSlots[selectedStorageSlot].selected = false;
+                        selectedStorageSlot = -1;
+                    }
+                    
+                    break;
                 }
             }
         }
+    }
+    
+    // Right-click to cancel selection
+    if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedStorageSlot != -1)
+    {
+        storageSlots[selectedStorageSlot].selected = false;
+        selectedStorageSlot = -1;
     }
 }
 
@@ -120,64 +308,63 @@ void StoreScene::render()
 {
     ClearBackground(GRAY);
 
-    // Drawing tiled floor
     DrawRectangle(875, 88, 525, 613, RAYWHITE);
 
     int cellSize = 88;
 
-    // Tile shading
-    for (int i = 868; i < GetScreenWidth(); i += cellSize){
+    for (int i = 868; i < GetScreenWidth(); i += cellSize)
+    {
         DrawRectangle(i, 88, 12, 613, LIGHTGRAY);
     }
-    for (int j = 163; j < 700; j += cellSize){
+    for (int j = 163; j < 700; j += cellSize)
+    {
         DrawRectangle(875, j, 525, 12, LIGHTGRAY);
     }
 
-    // Tile lines
-    for (int i = 875; i < GetScreenWidth(); i += cellSize){
+    for (int i = 875; i < GetScreenWidth(); i += cellSize)
+    {
         DrawLine(i, 88, i, 700, BLACK);
     }
-    for (int j = 88; j <= 700; j += cellSize){
+    for (int j = 88; j <= 700; j += cellSize)
+    {
         DrawLine(875, j, GetScreenWidth(), j, BLACK);
     }
 
-    // Building the counter
     Color customColor = {178, 102, 0, 255};
     Color custColor2 = {30, 15, 0, 255};
     Color custColor3 = {86, 49, 0, 255};
     DrawRectangle(875, 613, 350, 131, customColor);
     DrawRectangle(875, 660, 350, 84, custColor3);
-    for (int i = 889; i < 1225; i += 168){
-        for (int j = 665; j < 744; j += 40){
+    for (int i = 889; i < 1225; i += 168)
+    {
+        for (int j = 665; j < 744; j += 40)
+        {
             DrawRectangle(i, j, 154, 35, custColor2);
         }
     }
-    for (int i = 875; i <= 1225; i += 35){
+    for (int i = 875; i <= 1225; i += 35)
+    {
         DrawLine(i, 613, i, 660, custColor3);
     }
     DrawLine(875, 660, 1225, 660, custColor3);
 
     DrawRectangleRec(counterHitBox, Color{0, 0, 0, 0});
 
-    // Swing door
     DrawRectangleRec(sDoor, customColor);
     DrawRectangle(1225, 658, 175, 5, custColor3);
     DrawLine(1225, 613, 1225, 744, BLACK);
 
-    // Creating the boundary wall
     Color custColor5 = {50, 50, 50, 255};
     DrawRectangleRec(boundaryWall, DARKGRAY);
     Rectangle boundaryWallShadow = {823, 569, 53, 175};
     DrawRectangleRec(boundaryWallShadow, custColor5);
 
-    // Drawing the plot
     Color custColor4 = {50, 25, 0, 255};
     DrawRectangle(131, 131, 560, 525, customColor);
     DrawRectangle(149, 149, 525, 490, custColor4);
     DrawRectangle(131, 656, 560, 35, custColor3);
     DrawRectangleRec(plotHitBox, Color{0, 0, 0, 0});
 
-    // Creating entrance
     DrawRectangle(1225, 0, 88, 18, Color{50, 100, 50, 255});
     DrawRectangle(875, 0, 350, 88, custColor5);
     DrawRectangle(1313, 0, 88, 88, custColor5);
@@ -186,90 +373,54 @@ void StoreScene::render()
     DrawRectangle(928, 0, 245, 44, customColor);
     DrawRectangle(928, 0, 245, 35, Color{130, 200, 250, 255});
     DrawRectangle(928, 0, 245, 18, Color{100, 165, 250, 255});
-    
-    // Drawing plants on the plot
-    for(int i = 187, k = 0; i < 691; i += 56, k++){
-        for(int j = 184, p = 0; j < 648; p++, j += 53){
-            if(plants[k][p]){
+
+    for (int i = 187, k = 0; i < 691; i += 56, k++)
+    {
+        for (int j = 184, p = 0; j < 648; p++, j += 53)
+        {
+            if (plants[k][p])
+            {
                 DrawRectangle(i, j, 5, 11, Color{50, 100, 50, 255});
                 DrawRectangle(i, j, 5, 5, GREEN);
             }
         }
     }
-    
-    // Modal Button
+
     DrawText("Manage Plants", 350, 385, 18, WHITE);
     DrawRectangleRec(manageToggle, Color{255, 255, 255, 100});
 }
 
 void StoreScene::renderModal(int width, int height)
 {
-    if(!showModal) return;
-    
-    Vector2 mouse = GetMousePosition();
-    
-    // Darken background
-    DrawRectangle(0, 0, width, height, Fade(BLACK, 0.5f));
+    if (!showModal)
+        return;
 
-    // Modal box
-    Rectangle modal = {88, 88, 1225, 744};
-    DrawRectangleRec(modal, RAYWHITE);
-    DrawRectangleLinesEx(modal, 4, DARKGRAY);
+    Rectangle modal = {461, 356, 485, 535};
+    DrawRectangleRec(modal, Color{178, 102, 0, 255});
+    DrawRectangleLinesEx(modal, 1, BLACK);
 
-    // Title
-    DrawText("Plant Management", 525, 105, 35, BLACK);
+    DrawText("Storage:", 466, 361, 35, Color{86, 49, 0, 255});
 
-    // Draw plant grid (10x10)
-    for (int i = 123; i < 788; i += 70){
-        DrawLine(i, 158, i, 788, BLACK);
-    }
-    for(int j = 158; j < 823; j += 70){
-        DrawLine(123, j, 753, j, BLACK);
-    }
-
-    // Adding plants to grid
-    for(int i = 154, k = 0; i < 753; i += 70, k++){
-        for(int j = 187, p = 0; j < 753; j += 70, p++){
-            if(plants[k][p]){
-                if(selectedPlantFromGrid && selectedGridX == k && selectedGridY == p){
-                    DrawRectangle(i - 32, j - 26, 70, 70, Color{255, 255, 100, 100});
-                }
-                DrawRectangle(i, j, 5, 11, Color{50, 100, 50, 255});
-                DrawRectangle(i, j, 5, 5, GREEN);
-            }
-        }
-    }
-
-    // Inventory section
-    DrawText("Inventory", 875, 158, 28, BLACK);
-
-    for(int i = 0; i < 5; i++){
-        int slotY = 210 + (i * 70);
-        Rectangle slot = {823, slotY, 70, 70};
-        
-        if(selectedInventorySlot == i){
-            DrawRectangleRec(slot, Color{100, 200, 100, 255});
+    // Draw storage slots
+    for(const Slot& slot : storageSlots){
+        if(slot.selected){
+            DrawRectangleRec(slot.rect, Color{110, 70, 20, 255});
         } else {
-            DrawRectangleRec(slot, LIGHTGRAY);
+            DrawRectangleRec(slot.rect, Color{86, 49, 0, 255});
         }
         
-        DrawRectangleLinesEx(slot, 4, BLACK);
-
-        if(inventory[i] > 0){
-            DrawRectangle(847, slotY + 26, 5, 11, Color{50, 100, 50, 255});
-            DrawRectangle(847, slotY + 26, 5, 5, GREEN);
+        DrawRectangleLinesEx(slot.rect, 2, BLACK);
+        
+        if(slot.slot != nullptr && !slot.slot->isEmpty()){
+            DrawCircle(slot.rect.x + 37, slot.rect.y + 37, 20, GREEN);
+            
+            std::string quantity = std::to_string(slot.slot->getSize());
+            DrawText(quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 10, WHITE);
         }
-
-        DrawText(TextFormat("%d", inventory[i]), 901, slotY + 21, 28, BLACK);
     }
-
-    // Instructions
-    DrawText("Left-click inventory, then grid to plant", 123, 805, 18, DARKGRAY);
-    DrawText("Left-click plant, then empty slot to move", 123, 828, 18, DARKGRAY);
-    DrawText("Right-click plant to remove & return to inventory", 735, 805, 18, DARKGRAY);
-    DrawText("ESC to close", 1138, 828, 18, DARKGRAY);
 }
 
-string StoreScene::getType(){
+string StoreScene::getType()
+{
     return "Store";
 }

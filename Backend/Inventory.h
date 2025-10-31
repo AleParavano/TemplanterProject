@@ -28,6 +28,7 @@ private:
     std::string plantType;
     std::vector<Plant *> items;
 };
+
 class Inventory
 {
 public:
@@ -48,6 +49,10 @@ public:
 
     // Frontend methods
     void swapSlots(int index1, int index2);
+    
+    // NEW: Cross-inventory swap
+    static void swapBetweenInventories(Inventory* inv1, int index1, Inventory* inv2, int index2);
+    bool addToSpecificSlot(Plant* plant, size_t slotIndex);
 
 private:
     size_t maxSlots;
