@@ -31,6 +31,12 @@
 #define SHOP_Y ((SCREEN_HEIGHT - SHOP_HEIGHT) / 2)
 #define ITEM_ROW_HEIGHT 60
 
+struct WorkerData {
+    std::string type;
+    float cost;
+    Color shirtColor;
+};
+
 class GreenHouseScene : public Scene {
 private:
     PlantVisual plants[MAX_PLANTS];
@@ -39,6 +45,7 @@ private:
     int numPaths;
     int selectedPlotIndex;
     bool isShopOpen;
+    bool isHireShopOpen;
     float simTimeAccumulator;
 
     SceneType nextScene; 
@@ -49,6 +56,7 @@ private:
     void InitPaths();
     void DrawPlantDetailed(PlantVisual p);
     void DrawSeedShop();
+    void DrawHireShop();
     void DrawPlantInspector(Plant* plant, Vector2 drawPos);
     void DrawGate(Vector2 position, bool isVertical);
     void DrawGreenhouse();

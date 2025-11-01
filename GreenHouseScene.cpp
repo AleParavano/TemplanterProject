@@ -33,6 +33,11 @@ std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> 
     {"Corn", {120.0f, new CornFactory(), new CornVisualStrategy(20.0f, 55.0f)}},
     {"Pumpkin", {200.0f, new PumpkinFactory(), new PumpkinVisualStrategy(40.0f, 30.0f)}}};
 
+std::map<std::string, WorkerData> workerCatalog = {
+    {"Water Worker", {"Water", 200.0f, BLUE}},            // Blue for Water
+    {"Fertilizer Worker", {"Fertilizer", 300.0f, BROWN}}, // Brown for Fertilizer
+    {"Harvest Worker", {"Harvest", 500.0f, GREEN}}        // Green for Harvest/Harvesting
+};
 // --- Helper Functions ---
 Color GetSoilColor()
 {
@@ -47,9 +52,16 @@ Color GetPathColor()
     return {60, 160, 60, 255};
 }
 
+Worker* CreateSpecializedWorker(const std::string& type) {
+    if (type == "Water") return new WaterWorker();
+    if (type == "Fertilizer") return new FertiliserWorker();
+    if (type == "Harvest") return new HarvestWorker();
+    return nullptr;
+}
+
 // --- CONSTRUCTOR AND INIT ---
 GreenHouseScene::GreenHouseScene()
-    : numPlants(0), numPaths(0), nextScene(SCENE_GREENHOUSE), isShopOpen(false), selectedPlotIndex(-1), simTimeAccumulator(0.0f) {}
+    : numPlants(0), numPaths(0), nextScene(SCENE_GREENHOUSE), isShopOpen(false), isHireShopOpen(false), selectedPlotIndex(-1), simTimeAccumulator(0.0f) {}
 
 void GreenHouseScene::Init()
 {
@@ -101,11 +113,12 @@ void GreenHouseScene::Update(float dt)
 
 void GreenHouseScene::HandleInput()
 {
-    if (isShopOpen)
+    if (isShopOpen || isHireShopOpen) 
     {
         if (IsKeyPressed(KEY_ESCAPE))
         {
             isShopOpen = false;
+            isHireShopOpen = false; 
         }
         return;
     }
@@ -118,7 +131,7 @@ void GreenHouseScene::HandleInput()
         Rectangle hireBtnArea = {MENU_X_START + 10, MENU_Y_START + 35, MENU_WIDTH - 20, ITEM_HEIGHT};
         if (CheckCollisionPointRec(mousePos, hireBtnArea))
         {
-            std::cout << "LOG: HIRE WORKER clicked (functionality TBD)." << std::endl;
+            isHireShopOpen = true;
             return;
         }
 
@@ -386,6 +399,9 @@ void GreenHouseScene::DrawMenu()
     if (isShopOpen)
     {
         DrawSeedShop();
+    }else if (isHireShopOpen) 
+    {
+        DrawHireShop();
     }
 }
 
@@ -455,9 +471,9 @@ void GreenHouseScene::DrawSeedShop()
                 }
                 else
                 {
-                    newPlant->attach(worker);
-                    Plant *newPlant = factory->produce();  // This plant is our Subject
-                    Worker *worker = player->getWorkers(); // The Player holds the generic worker (Observer)
+                    
+                    Plant *newPlant = factory->produce(); 
+                    // Worker *worker = player->getWorkers(); // The Player holds the generic worker (Observer)
                     if (greenhouse->addPlant(newPlant))
                     {
                         player->setMoney(player->getMoney() - price);
@@ -472,6 +488,88 @@ void GreenHouseScene::DrawSeedShop()
             }
         }
         startY += ITEM_ROW_HEIGHT;
+    }
+}
+
+void GreenHouseScene::DrawHireShop()
+{
+Player *player = Game::getInstance()->getPlayerPtr();
+    if (!player) return;
+
+    // Background Mask and Modal Window ---
+    DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Fade(BLACK, 0.6f));
+    Rectangle modalRect = {SHOP_X, SHOP_Y, SHOP_WIDTH, SHOP_HEIGHT};
+    Color modalColor = {20, 20, 20, 200}; 
+    DrawRectangleRec(modalRect, modalColor);
+    DrawRectangleLinesEx(modalRect, 3, RAYWHITE);
+
+    // Header
+    DrawText("HIRE WORKERS", SHOP_X + (SHOP_WIDTH - MeasureText("HIRE WORKERS", 30)) / 2, SHOP_Y + 15, 30, RAYWHITE);
+
+    // Close Button
+    Rectangle closeBtn = {SHOP_X + SHOP_WIDTH - 40, SHOP_Y + 10, 30, 30};
+    DrawRectangleRec(closeBtn, MAROON);
+    DrawText("X", closeBtn.x + 8, closeBtn.y + 5, 20, RAYWHITE);
+    
+    // Check Close Button Click
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), closeBtn))
+    {
+        isHireShopOpen = false;
+        return; 
+    }
+
+    // --- 2. Worker Items Loop ---
+    int startY = SHOP_Y + 80;
+    
+    for (const auto &pair : workerCatalog)
+    {
+        const std::string &name = pair.first;
+        const WorkerData &data = pair.second;
+        
+        Rectangle itemRect = {SHOP_X + 20, (float)startY, SHOP_WIDTH - 40, ITEM_ROW_HEIGHT + 5};
+        DrawRectangleRec(itemRect, Fade(DARKGRAY, 0.2f));
+
+        // a. VISUAL GRAPHIC: Simple stick figure with colored shirt
+        float visualX = SHOP_X + 60;
+        float visualY = (float)startY + ITEM_ROW_HEIGHT / 2 + 10;
+        
+        // Draw Shadow
+        DrawEllipse(visualX + 3, visualY + 3, 15, 7, Fade(BLACK, 0.4f)); 
+        // Draw Shirt (Colored Item)
+        DrawRectangle(visualX - 10, visualY - 15, 20, 15, data.shirtColor);
+        // Draw Head
+        DrawCircle(visualX, visualY - 20, 7, RAYWHITE);
+
+        // b. Name and Price
+        DrawText(name.c_str(), SHOP_X + 110, startY + 10, 20, RAYWHITE);
+        DrawText(TextFormat("Cost: $%.2f", data.cost), SHOP_X + 110, startY + 35, 18, GOLD);
+        DrawText(TextFormat("Specialty: %s", data.type.c_str()), SHOP_X + 110, startY + 55, 15, RAYWHITE);
+
+
+        // c. Hire Button
+        Rectangle hireBtn = {SHOP_X + SHOP_WIDTH - 120, (float)startY + 15, 100, ITEM_ROW_HEIGHT - 10};
+        bool canAfford = player->getMoney() >= data.cost;
+        
+        Color btnColor = canAfford ? MAROON : DARKGRAY;
+        DrawRectangleRec(hireBtn, btnColor);
+        DrawText("HIRE", hireBtn.x + 15, hireBtn.y + 15, 18, RAYWHITE);
+
+        // Check Hire Button Click (Functionality TBD)
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), hireBtn))
+        {
+            if (canAfford) {
+                // *** EXECUTE HIRE LOGIC (Deduct money + instantiate worker) ***
+                player->setMoney(player->getMoney() - data.cost);
+                
+                // *** NOTE: Worker instantiation/assignment TBD ***
+                
+                isHireShopOpen = false; // Close shop after successful hire
+            } else {
+                std::cout << "LOG: Cannot hire. Insufficient funds." << std::endl;
+            }
+        }
+        
+        startY += ITEM_ROW_HEIGHT + 10;
     }
 }
 
