@@ -22,7 +22,7 @@ StoreScene::StoreScene()
     }
 
     backendStore = new Store();
-    customerManager = new CustomerManager({1312, 630}, {1200, 630});
+    customerManager = new CustomerManager({1270, 0}, {1200, 580});
 }
 
 StoreScene::~StoreScene()
@@ -101,7 +101,8 @@ void StoreScene::update(Player *player)
 
 void StoreScene::updateCustomers(float deltaTime, Player *player)
 {
-    if (!customerManager || !player) return;
+    if (!customerManager || !player)
+        return;
 
     // Update customer manager (spawning, movement, etc)
     customerManager->update(deltaTime, storeOpen);
@@ -110,7 +111,7 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !showModal && player->isInventoryOpen())
     {
         Vector2 mouse = GetMousePosition();
-        CustomerVisual* clickedCustomer = customerManager->getClickedCustomer(mouse);
+        CustomerVisual *clickedCustomer = customerManager->getClickedCustomer(mouse);
 
         if (clickedCustomer)
         {
@@ -119,13 +120,13 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
             if (selectedSlot != -1)
             {
                 // CRITICAL: Get fresh slot data each time
-                const InventorySlot* slot = player->getInventory()->getSlot(selectedSlot);
-                
+                const InventorySlot *slot = player->getInventory()->getSlot(selectedSlot);
+
                 // Check if slot is valid and not empty
                 if (slot && !slot->isEmpty())
                 {
                     std::string plantType = slot->getPlantType();
-                    
+
                     // Verify the plant type is valid
                     if (!plantType.empty())
                     {
@@ -133,15 +134,15 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
                         if (customerManager->serveCustomer(clickedCustomer, plantType))
                         {
                             // Remove one plant from player inventory
-                            Plant* plant = player->getInventory()->removeItem(plantType);
+                            Plant *plant = player->getInventory()->removeItem(plantType);
                             if (plant)
                             {
                                 delete plant; // Customer took the plant
                             }
-                            
+
                             // Clear selection after serving
                             player->clearSlotSelection();
-                            
+
                             // TODO: Add money to player for successful sale
                             // player->addMoney(plant->getPrice());
                         }

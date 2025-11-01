@@ -29,7 +29,7 @@ private:
     const int MAX_CUSTOMERS = 5;
     
 public:
-    CustomerManager(Vector2 doorPos = {1312, 350}, Vector2 counterPos = {1150, 350})
+    CustomerManager(Vector2 doorPos = {1270, 0}, Vector2 counterPos = {1200, 580})
         : doorPosition(doorPos), 
           counterWaitPosition(counterPos),
           customerSpacing(80.0f),
@@ -69,24 +69,13 @@ public:
             custVisual->update(deltaTime);
         }
         
-        // Check if any active customers just started leaving
-        bool customerStartedLeaving = false;
-        for (auto* custVisual : activeCustomers)
-        {
-            if (!custVisual->isActive && !custVisual->isMoving)
-            {
-                // Customer finished leaving animation
-                customerStartedLeaving = true;
-            }
-        }
-        
         // Remove customers that have left and reorder queue
         bool removedAny = false;
         activeCustomers.erase(
             std::remove_if(activeCustomers.begin(), activeCustomers.end(),
                 [&removedAny](CustomerVisual* cv) {
-                    // Check if customer has left the screen (past the door exit point)
-                    if (!cv->isActive && cv->position.x >= 1500) {
+                    // Check if customer has left the screen (walked off the top)
+                    if (!cv->isActive && cv->position.y <= -50) {
                         delete cv->customer;
                         delete cv;
                         removedAny = true;
@@ -160,7 +149,7 @@ public:
         if (custVisual->customer->getRequestedPlant()->getType() == plantType)
         {
             // Customer is satisfied - make them leave (walk past the door off-screen)
-            Vector2 exitPosition = {doorPosition.x + 200, doorPosition.y}; // Walk past door
+            Vector2 exitPosition = {doorPosition.x, doorPosition.y - 100}; // Walk past door
             custVisual->moveTo(exitPosition);
             custVisual->isActive = false;
             return true;
@@ -174,7 +163,7 @@ public:
         if (!custVisual) return;
         
         // Make customer walk past the door to exit
-        Vector2 exitPosition = {doorPosition.x + 200, doorPosition.y}; // Walk past door
+        Vector2 exitPosition = {doorPosition.x, doorPosition.y - 100}; // Walk past door
         custVisual->moveTo(exitPosition);
         custVisual->isActive = false;
     }
