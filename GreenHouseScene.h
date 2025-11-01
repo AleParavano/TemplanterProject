@@ -9,6 +9,7 @@
 #include "Backend/PlantFactory.h" 
 #include "Backend/Inventory.h" 
 #include "PlantVisualStrategy.h"
+#include "Backend/Worker.h"
 #include "UI.h" 
 #include <map>
 #include <vector>

@@ -18,7 +18,7 @@ const int PLOT_SIZE = 90;
 const int PATH_SIZE = 50;
 const int NARROW_PATH_WIDTH = 30;
 const int MIDDLE_PATH_INDEX = 7;
-const float REAL_SECONDS_PER_GAME_TICK = 1.0f;
+const float REAL_SECONDS_PER_GAME_TICK = 2.0f;
 
 // --- Plant Catalog (Hardcoded, assumed Factory/Visual Strategies exist) ---
 std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> plantCatalog = {
@@ -52,10 +52,14 @@ Color GetPathColor()
     return {60, 160, 60, 255};
 }
 
-Worker* CreateSpecializedWorker(const std::string& type) {
-    if (type == "Water") return new WaterWorker();
-    if (type == "Fertilizer") return new FertiliserWorker();
-    if (type == "Harvest") return new HarvestWorker();
+Worker *CreateSpecializedWorker(const std::string &type)
+{
+    if (type == "Water")
+        return new WaterWorker();
+    if (type == "Fertilizer")
+        return new FertiliserWorker();
+    if (type == "Harvest")
+        return new HarvestWorker();
     return nullptr;
 }
 
@@ -113,12 +117,12 @@ void GreenHouseScene::Update(float dt)
 
 void GreenHouseScene::HandleInput()
 {
-    if (isShopOpen || isHireShopOpen) 
+    if (isShopOpen || isHireShopOpen)
     {
         if (IsKeyPressed(KEY_ESCAPE))
         {
             isShopOpen = false;
-            isHireShopOpen = false; 
+            isHireShopOpen = false;
         }
         return;
     }
@@ -399,7 +403,8 @@ void GreenHouseScene::DrawMenu()
     if (isShopOpen)
     {
         DrawSeedShop();
-    }else if (isHireShopOpen) 
+    }
+    else if (isHireShopOpen)
     {
         DrawHireShop();
     }
@@ -471,11 +476,12 @@ void GreenHouseScene::DrawSeedShop()
                 }
                 else
                 {
-                    
-                    Plant *newPlant = factory->produce(); 
+
+                    Plant *newPlant = factory->produce();
                     // Worker *worker = player->getWorkers(); // The Player holds the generic worker (Observer)
                     if (greenhouse->addPlant(newPlant))
-                    {
+                    {   
+                        player->getWorkers()->attachToAllPlants(newPlant);
                         player->setMoney(player->getMoney() - price);
                         std::cout << "LOG: Bought and planted " << type << " seed directly into plot." << std::endl;
                     }
@@ -493,13 +499,14 @@ void GreenHouseScene::DrawSeedShop()
 
 void GreenHouseScene::DrawHireShop()
 {
-Player *player = Game::getInstance()->getPlayerPtr();
-    if (!player) return;
+    Player *player = Game::getInstance()->getPlayerPtr();
+    if (!player)
+        return;
 
     // Background Mask and Modal Window ---
     DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Fade(BLACK, 0.6f));
     Rectangle modalRect = {SHOP_X, SHOP_Y, SHOP_WIDTH, SHOP_HEIGHT};
-    Color modalColor = {20, 20, 20, 200}; 
+    Color modalColor = {20, 20, 20, 200};
     DrawRectangleRec(modalRect, modalColor);
     DrawRectangleLinesEx(modalRect, 3, RAYWHITE);
 
@@ -510,31 +517,31 @@ Player *player = Game::getInstance()->getPlayerPtr();
     Rectangle closeBtn = {SHOP_X + SHOP_WIDTH - 40, SHOP_Y + 10, 30, 30};
     DrawRectangleRec(closeBtn, MAROON);
     DrawText("X", closeBtn.x + 8, closeBtn.y + 5, 20, RAYWHITE);
-    
+
     // Check Close Button Click
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), closeBtn))
     {
         isHireShopOpen = false;
-        return; 
+        return;
     }
 
     // --- 2. Worker Items Loop ---
     int startY = SHOP_Y + 80;
-    
+
     for (const auto &pair : workerCatalog)
     {
         const std::string &name = pair.first;
         const WorkerData &data = pair.second;
-        
+
         Rectangle itemRect = {SHOP_X + 20, (float)startY, SHOP_WIDTH - 40, ITEM_ROW_HEIGHT + 5};
         DrawRectangleRec(itemRect, Fade(DARKGRAY, 0.2f));
 
         // a. VISUAL GRAPHIC: Simple stick figure with colored shirt
         float visualX = SHOP_X + 60;
         float visualY = (float)startY + ITEM_ROW_HEIGHT / 2 + 10;
-        
+
         // Draw Shadow
-        DrawEllipse(visualX + 3, visualY + 3, 15, 7, Fade(BLACK, 0.4f)); 
+        DrawEllipse(visualX + 3, visualY + 3, 15, 7, Fade(BLACK, 0.4f));
         // Draw Shirt (Colored Item)
         DrawRectangle(visualX - 10, visualY - 15, 20, 15, data.shirtColor);
         // Draw Head
@@ -545,11 +552,10 @@ Player *player = Game::getInstance()->getPlayerPtr();
         DrawText(TextFormat("Cost: $%.2f", data.cost), SHOP_X + 110, startY + 35, 18, GOLD);
         DrawText(TextFormat("Specialty: %s", data.type.c_str()), SHOP_X + 110, startY + 55, 15, RAYWHITE);
 
-
         // c. Hire Button
         Rectangle hireBtn = {SHOP_X + SHOP_WIDTH - 120, (float)startY + 15, 100, ITEM_ROW_HEIGHT - 10};
         bool canAfford = player->getMoney() >= data.cost;
-        
+
         Color btnColor = canAfford ? MAROON : DARKGRAY;
         DrawRectangleRec(hireBtn, btnColor);
         DrawText("HIRE", hireBtn.x + 15, hireBtn.y + 15, 18, RAYWHITE);
@@ -557,18 +563,35 @@ Player *player = Game::getInstance()->getPlayerPtr();
         // Check Hire Button Click (Functionality TBD)
         if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), hireBtn))
         {
-            if (canAfford) {
-                // *** EXECUTE HIRE LOGIC (Deduct money + instantiate worker) ***
+            if (canAfford)
+            {
+                // EXECUTE HIRE LOGIC (Deduct money + instantiate worker)
+                Worker* newWorker = CreateSpecializedWorker(data.type);
+            if (newWorker) {
                 player->setMoney(player->getMoney() - data.cost);
-                
-                // *** NOTE: Worker instantiation/assignment TBD ***
-                
-                isHireShopOpen = false; // Close shop after successful hire
-            } else {
+                // Add worker to the manager
+                player->getWorkers()->addWorker(newWorker);
+
+                Greenhouse *gh = player->getPlot();
+                for (int i = 0; i < gh->getCapacity(); ++i)
+                {
+                    Plant *plant = gh->getPlant(i);
+                    if (plant)
+                    {
+                        plant->attach(newWorker);
+                    }
+                }
+
+                std::cout << "LOG: Hired and assigned " << data.type << " worker." << std::endl;
+                isHireShopOpen = false;
+            }
+            }
+            else
+            {
                 std::cout << "LOG: Cannot hire. Insufficient funds." << std::endl;
             }
         }
-        
+
         startY += ITEM_ROW_HEIGHT + 10;
     }
 }
