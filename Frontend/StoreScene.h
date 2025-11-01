@@ -23,7 +23,10 @@ private:
     int selectedGridY;
 
     Rectangle manageToggle;
+    Rectangle exit;
+    Rectangle openNClose;
     int selectedStorageSlot;
+    bool storeOpen = false;
 
 public:
     // Collision rectangles
@@ -42,6 +45,7 @@ public:
     string getType();
     int *getSelectedStorageSlot() { return &selectedStorageSlot; }
     bool getShowModal() { return showModal; }
+    void toggleOpen(){storeOpen = !storeOpen;}
 
     Inventory *getStorage() { return storageInventory; }
 };

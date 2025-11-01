@@ -281,79 +281,6 @@ void Player::renderInventory()
     }
 }
 
-// void Player::updateInventory(Inventory* storageInventory, int* selectedStorageSlot)
-// {
-//     if (!inventoryOpen)
-//         return;
-
-//     // Refresh slot data to reflect any changes
-//     for(int i = 0; i < slotVector.size(); i++){
-//         slotVector[i].slot = inventory->getSlot(i);
-//     }
-
-//     Vector2 mouse = GetMousePosition();
-
-//     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-//     {
-//         for (int i = 0; i < slotVector.size(); i++)
-//         {
-//             if (slotVector[i].isClicked(mouse))
-//             {
-//                 // CASE 1: A storage slot is selected - swap between inventories
-//                 if(storageInventory && selectedStorageSlot && *selectedStorageSlot != -1)
-//                 {
-//                     Inventory::swapBetweenInventories(storageInventory, *selectedStorageSlot, 
-//                                                      inventory, i);
-                    
-//                     // Refresh player inventory display
-//                     slotVector[i].slot = inventory->getSlot(i);
-                    
-//                     // Clear storage selection
-//                     *selectedStorageSlot = -1;
-//                 }
-//                 // CASE 2: No slot selected - select this player slot
-//                 else if(selectedSlotIndex == -1)
-//                 {
-//                     // Only select if slot has items
-//                     if(slotVector[i].slot != nullptr && !slotVector[i].slot->isEmpty())
-//                     {
-//                         selectedSlotIndex = i;
-//                         slotVector[i].selected = true;
-//                     }
-//                 }
-//                 // CASE 3: Player slot already selected - swap within player inventory
-//                 else if(selectedSlotIndex != i)
-//                 {
-//                     inventory->swapSlots(selectedSlotIndex, i);
-                    
-//                     // Refresh both affected slots
-//                     slotVector[selectedSlotIndex].slot = inventory->getSlot(selectedSlotIndex);
-//                     slotVector[i].slot = inventory->getSlot(i);
-                    
-//                     // Clear selection
-//                     slotVector[selectedSlotIndex].selected = false;
-//                     selectedSlotIndex = -1;
-//                 }
-//                 // CASE 4: Clicking same slot - deselect
-//                 else 
-//                 {
-//                     slotVector[selectedSlotIndex].selected = false;
-//                     selectedSlotIndex = -1;
-//                 }
-
-//                 break;
-//             }
-//         }
-//     }
-
-//     // Right-click to cancel selection
-//     if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedSlotIndex != -1)
-//     {
-//         slotVector[selectedSlotIndex].selected = false;
-//         selectedSlotIndex = -1;
-//     }
-// }
-
 void Player::updateInventory(Inventory* storageInventory, int* selectedStorageSlot)
 {
     if (!inventoryOpen)
@@ -399,6 +326,10 @@ void Player::updateInventory(Inventory* storageInventory, int* selectedStorageSl
                         // Remove items from storage and add directly to the destination slot
                         for(int j = 0; j < itemsToMove; j++)
                         {
+                            // Re-check slot validity each iteration
+                            const InventorySlot* currentPlayerSlot = inventory->getSlot(i);
+                            if(!currentPlayerSlot || currentPlayerSlot->isFull()) break;
+                            
                             Plant* plant = storageInventory->removeItem(plantType);
                             if(!plant) break;
                             
@@ -450,23 +381,21 @@ void Player::updateInventory(Inventory* storageInventory, int* selectedStorageSl
                         int itemsInSource = sourceSlot->getSize();
                         int itemsToMove = std::min(spaceAvailable, itemsInSource);
                         
-                        // Temporarily store items to move
-                        std::vector<Plant*> plantsToMove;
+                        // Remove and add directly to destination slot
                         for(int j = 0; j < itemsToMove; j++)
                         {
+                            // Re-check destination slot validity
+                            const InventorySlot* currentDestSlot = inventory->getSlot(i);
+                            if(!currentDestSlot || currentDestSlot->isFull()) break;
+                            
                             Plant* plant = inventory->removeItem(plantType);
-                            if(plant) {
-                                plantsToMove.push_back(plant);
-                            }
-                        }
-                        
-                        // Now add them back - they should go to the destination slot
-                        for(Plant* plant : plantsToMove)
-                        {
-                            if(!inventory->add(plant))
+                            if(!plant) break;
+                            
+                            if(!inventory->addToSpecificSlot(plant, i))
                             {
                                 // This shouldn't happen, but clean up if it does
                                 delete plant;
+                                break;
                             }
                         }
                     }

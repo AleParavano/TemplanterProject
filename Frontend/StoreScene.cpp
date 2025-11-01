@@ -20,7 +20,7 @@ StoreScene::StoreScene()
             plants[i][j] = false;
         }
     }
-   
+
     storageInventory = new Inventory(25);
 }
 
@@ -29,67 +29,45 @@ StoreScene::~StoreScene()
     delete storageInventory;
 }
 
-// void StoreScene::update()
-// {
-//     Vector2 mouse = GetMousePosition();
-    
-//     if(CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-//         showModal = !showModal;
-        
-//         if(showModal && storageSlots.empty()){
-//             int storagePos = 0;
-//             for (int i = 401; i < 900 && storagePos < 25; i += 100)
-//             {
-//                 for (int j = 466; j < 930 && storagePos < 25; j += 100)
-//                 {
-//                     Rectangle tempRect = {j, i, 75, 75};
-//                     const InventorySlot* slotData = storageInventory->getSlot(storagePos);
-//                     Slot tempSlot(slotData, tempRect);
-//                     storageSlots.push_back(tempSlot);
-//                     storagePos++;
-//                 }
-//             }
-//         }
-//     }
-    
-//     if(showModal && IsKeyPressed(KEY_ESCAPE)){
-//         showModal = false;
-//         storageSlots.clear();
-//         selectedStorageSlot = -1;
-//     }
-// }
-
-void StoreScene::update(Player* player)
+void StoreScene::update(Player *player)
 {
     Vector2 mouse = GetMousePosition();
-    
-    if(CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
-        showModal = !showModal;  // Toggle storage modal
-        
+
+    if (CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        showModal = !showModal; // Toggle storage modal
+
         // Open/close player inventory along with storage
-        if(player) {
-            if(showModal) {
+        if (player)
+        {
+            if (showModal)
+            {
                 // Opening storage - ensure player inventory is also open
-                if(!player->isInventoryOpen()) {
+                if (!player->isInventoryOpen())
+                {
                     player->openInventory();
                 }
-            } else {
+            }
+            else
+            {
                 // Closing storage - also close player inventory
-                if(player->isInventoryOpen()) {
-                    player->openInventory();  // This toggles it closed
+                if (player->isInventoryOpen())
+                {
+                    player->openInventory(); // This toggles it closed
                 }
             }
         }
-        
+
         // Build storage slots when opening
-        if(showModal && storageSlots.empty()){
+        if (showModal && storageSlots.empty())
+        {
             int storagePos = 0;
             for (int i = 401; i < 900 && storagePos < 25; i += 100)
             {
                 for (int j = 466; j < 930 && storagePos < 25; j += 100)
                 {
                     Rectangle tempRect = {j, i, 75, 75};
-                    const InventorySlot* slotData = storageInventory->getSlot(storagePos);
+                    const InventorySlot *slotData = storageInventory->getSlot(storagePos);
                     Slot tempSlot(slotData, tempRect);
                     storageSlots.push_back(tempSlot);
                     storagePos++;
@@ -97,75 +75,89 @@ void StoreScene::update(Player* player)
             }
         }
     }
-    
-    if(showModal && IsKeyPressed(KEY_ESCAPE)){
+
+    if (showModal && IsKeyPressed(KEY_ESCAPE))
+    {
         showModal = false;
         storageSlots.clear();
         selectedStorageSlot = -1;
-        
+
         // Also close player inventory when ESC is pressed
-        if(player && player->isInventoryOpen()) {
+        if (player && player->isInventoryOpen())
+        {
             player->openInventory();
         }
     }
+
+    if(CheckCollisionPointRec(mouse, openNClose) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+        toggleOpen();
+    }
 }
 
-void StoreScene::updateStorage(Player* player)
+void StoreScene::updateStorage(Player *player)
 {
-    if (!player) return;
-    
+    if (!player)
+        return;
+
     // Refresh slot pointers to reflect inventory changes
-    for(int i = 0; i < storageSlots.size(); i++){
+    for (int i = 0; i < storageSlots.size(); i++)
+    {
         storageSlots[i].slot = storageInventory->getSlot(i);
-        
+
         // Update selection visual
         storageSlots[i].selected = (i == selectedStorageSlot);
     }
-    
+
     Vector2 mouse = GetMousePosition();
-    
+
     // Handle storage slot clicks
-    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
         bool clickHandled = false;
-        
+
         // First check if player has a selection - this enables player->storage transfer
-        if(player->getSelectedSlotIndex() != -1)
+        if (player->getSelectedSlotIndex() != -1)
         {
             int playerSlotIndex = player->getSelectedSlotIndex();
-            
-            for(int i = 0; i < storageSlots.size(); i++)
+
+            for (int i = 0; i < storageSlots.size(); i++)
             {
-                if(storageSlots[i].isClicked(mouse))
+                if (storageSlots[i].isClicked(mouse))
                 {
-                    const InventorySlot* playerSlot = player->getInventory()->getSlot(playerSlotIndex);
-                    const InventorySlot* storageSlot = storageInventory->getSlot(i);
-                    
+                    const InventorySlot *playerSlot = player->getInventory()->getSlot(playerSlotIndex);
+                    const InventorySlot *storageSlot = storageInventory->getSlot(i);
+
                     // Check if we should merge stacks
                     bool shouldMerge = false;
-                    if(playerSlot && storageSlot && 
-                       !playerSlot->isEmpty() && !storageSlot->isEmpty() &&
-                       playerSlot->getPlantType() == storageSlot->getPlantType() &&
-                       !storageSlot->isFull())
+                    if (playerSlot && storageSlot &&
+                        !playerSlot->isEmpty() && !storageSlot->isEmpty() &&
+                        playerSlot->getPlantType() == storageSlot->getPlantType() &&
+                        !storageSlot->isFull())
                     {
                         shouldMerge = true;
                     }
-                    
-                    if(shouldMerge)
+
+                    if (shouldMerge)
                     {
                         // Merge: move items from player to THIS specific storage slot
                         std::string plantType = playerSlot->getPlantType();
                         int spaceAvailable = storageSlot->getRemainingCapacity();
                         int itemsInSource = playerSlot->getSize();
                         int itemsToMove = std::min(spaceAvailable, itemsInSource);
-                        
+
                         // Remove items from player and add to specific storage slot
-                        for(int j = 0; j < itemsToMove; j++)
+                        for (int j = 0; j < itemsToMove; j++)
                         {
-                            Plant* plant = player->getInventory()->removeItem(plantType);
-                            if(!plant) break;
-                            
-                            if(!storageInventory->addToSpecificSlot(plant, i))
+                            // Re-check destination validity
+                            const InventorySlot *currentStorageSlot = storageInventory->getSlot(i);
+                            if (!currentStorageSlot || currentStorageSlot->isFull())
+                                break;
+
+                            Plant *plant = player->getInventory()->removeItem(plantType);
+                            if (!plant)
+                                break;
+
+                            if (!storageInventory->addToSpecificSlot(plant, i))
                             {
                                 // If add failed, put it back in player inventory
                                 player->getInventory()->add(plant);
@@ -177,71 +169,78 @@ void StoreScene::updateStorage(Player* player)
                     {
                         // Simple swap between player and storage
                         Inventory::swapBetweenInventories(player->getInventory(), playerSlotIndex,
-                                                         storageInventory, i);
+                                                          storageInventory, i);
                     }
-                    
+
                     // Refresh ALL storage slots after cross-inventory operation
-                    for(int k = 0; k < storageSlots.size(); k++){
+                    for (int k = 0; k < storageSlots.size(); k++)
+                    {
                         storageSlots[k].slot = storageInventory->getSlot(k);
                     }
-                    
+
                     // Clear player selection
                     player->clearSlotSelection();
-                    
+
                     clickHandled = true;
                     break;
                 }
             }
         }
-        
+
         // If no player selection or click wasn't handled, handle storage-only clicks
-        if(!clickHandled)
+        if (!clickHandled)
         {
-            for(int i = 0; i < storageSlots.size(); i++)
+            for (int i = 0; i < storageSlots.size(); i++)
             {
-                if(storageSlots[i].isClicked(mouse))
+                if (storageSlots[i].isClicked(mouse))
                 {
                     // CASE 1: No storage slot selected - select this one
-                    if(selectedStorageSlot == -1)
+                    if (selectedStorageSlot == -1)
                     {
                         // Only select if slot has items
-                        if(storageSlots[i].slot != nullptr && !storageSlots[i].slot->isEmpty())
+                        if (storageSlots[i].slot != nullptr && !storageSlots[i].slot->isEmpty())
                         {
                             selectedStorageSlot = i;
                             storageSlots[i].selected = true;
                         }
                     }
                     // CASE 2: Different storage slot already selected - swap/merge within storage
-                    else if(selectedStorageSlot != i)
+                    else if (selectedStorageSlot != i)
                     {
-                        const InventorySlot* sourceSlot = storageInventory->getSlot(selectedStorageSlot);
-                        const InventorySlot* destSlot = storageInventory->getSlot(i);
-                        
+                        const InventorySlot *sourceSlot = storageInventory->getSlot(selectedStorageSlot);
+                        const InventorySlot *destSlot = storageInventory->getSlot(i);
+
                         // Check if we should merge
                         bool shouldMerge = false;
-                        if(sourceSlot && destSlot && 
-                           !sourceSlot->isEmpty() && !destSlot->isEmpty() &&
-                           sourceSlot->getPlantType() == destSlot->getPlantType() &&
-                           !destSlot->isFull())
+                        if (sourceSlot && destSlot &&
+                            !sourceSlot->isEmpty() && !destSlot->isEmpty() &&
+                            sourceSlot->getPlantType() == destSlot->getPlantType() &&
+                            !destSlot->isFull())
                         {
                             shouldMerge = true;
                         }
-                        
-                        if(shouldMerge)
+
+                        if (shouldMerge)
                         {
                             // Merge stacks within storage
                             std::string plantType = sourceSlot->getPlantType();
                             int spaceAvailable = destSlot->getRemainingCapacity();
                             int itemsInSource = sourceSlot->getSize();
                             int itemsToMove = std::min(spaceAvailable, itemsInSource);
-                            
+
                             // Remove and add directly to destination
-                            for(int j = 0; j < itemsToMove; j++)
+                            for (int j = 0; j < itemsToMove; j++)
                             {
-                                Plant* plant = storageInventory->removeItem(plantType);
-                                if(!plant) break;
-                                
-                                if(!storageInventory->addToSpecificSlot(plant, i))
+                                // Re-check destination validity
+                                const InventorySlot *currentDestSlot = storageInventory->getSlot(i);
+                                if (!currentDestSlot || currentDestSlot->isFull())
+                                    break;
+
+                                Plant *plant = storageInventory->removeItem(plantType);
+                                if (!plant)
+                                    break;
+
+                                if (!storageInventory->addToSpecificSlot(plant, i))
                                 {
                                     delete plant;
                                     break;
@@ -253,30 +252,30 @@ void StoreScene::updateStorage(Player* player)
                             // Simple swap within storage
                             storageInventory->swapSlots(selectedStorageSlot, i);
                         }
-                        
+
                         // Refresh both slots
                         storageSlots[selectedStorageSlot].slot = storageInventory->getSlot(selectedStorageSlot);
                         storageSlots[i].slot = storageInventory->getSlot(i);
-                        
+
                         // Clear selection
                         storageSlots[selectedStorageSlot].selected = false;
                         selectedStorageSlot = -1;
                     }
                     // CASE 3: Same slot clicked - deselect
-                    else 
+                    else
                     {
                         storageSlots[selectedStorageSlot].selected = false;
                         selectedStorageSlot = -1;
                     }
-                    
+
                     break;
                 }
             }
         }
     }
-    
+
     // Right-click to cancel selection
-    if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedStorageSlot != -1)
+    if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedStorageSlot != -1)
     {
         storageSlots[selectedStorageSlot].selected = false;
         selectedStorageSlot = -1;
@@ -367,6 +366,19 @@ void StoreScene::render()
 
     DrawText("Manage Plants", 350, 385, 18, WHITE);
     DrawRectangleRec(manageToggle, Color{255, 255, 255, 100});
+
+    if (storeOpen)
+    {
+        DrawText("Open", 1030, 10, 20, RED);
+        openNClose = {1028, 8, 52, 22};
+        DrawRectangleRec(openNClose, Color{255, 0, 0, 100});
+    }
+    else
+    {
+        DrawText("Closed", 1020, 10, 20, RED);
+        openNClose = {1018, 8, 70, 22};
+        DrawRectangleRec(openNClose, Color{255, 0, 0, 100});
+    }
 }
 
 void StoreScene::renderModal(int width, int height)
@@ -381,18 +393,23 @@ void StoreScene::renderModal(int width, int height)
     DrawText("Storage:", 466, 361, 35, Color{86, 49, 0, 255});
 
     // Draw storage slots
-    for(const Slot& slot : storageSlots){
-        if(slot.selected){
+    for (const Slot &slot : storageSlots)
+    {
+        if (slot.selected)
+        {
             DrawRectangleRec(slot.rect, Color{110, 70, 20, 255});
-        } else {
+        }
+        else
+        {
             DrawRectangleRec(slot.rect, Color{86, 49, 0, 255});
         }
-        
+
         DrawRectangleLinesEx(slot.rect, 2, BLACK);
-        
-        if(slot.slot != nullptr && !slot.slot->isEmpty()){
+
+        if (slot.slot != nullptr && !slot.slot->isEmpty())
+        {
             DrawCircle(slot.rect.x + 37, slot.rect.y + 37, 20, GREEN);
-            
+
             std::string quantity = std::to_string(slot.slot->getSize());
             DrawText(quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 10, WHITE);
         }
