@@ -48,14 +48,8 @@ struct CustomerVisual
             else if(customer->type() == "VIP"){
                 text = "V";
             }
-            else if(customer->type() == "Impatient"){
-                text = "!";
-            }
-            else if(customer->type() == "Bulk"){
-                text = "B";
-            }
             else{
-                text = "?";
+                text = "R";
             }
         }
         
@@ -66,7 +60,7 @@ struct CustomerVisual
     // Update customer visual (movement, animation)
     void update(float deltaTime)
     {
-        if(!isActive) return;
+        // Always update movement, even when inactive (so they can leave)
         
         // Move towards target position
         if(isMoving) {
@@ -97,7 +91,7 @@ struct CustomerVisual
     // Render customer
     void render() const
     {
-        if(!isActive) return;
+        // Always render, even when inactive (so we can see them leaving)
         
         // Draw main circle
         DrawCircleV(position, radius, color);
