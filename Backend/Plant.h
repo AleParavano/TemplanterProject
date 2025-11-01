@@ -1,33 +1,26 @@
 #pragma once
 #include "PlantState.h"
-#include "Subject.h"
 
-// Forward declaration - define in cpp
+// Forward declaration
 class GrowthCycle;
 
-class Plant: public Subject
+class Plant
 {
 public:
     Plant(std::string type, float growthRate, float sellPrice);
     Plant(const Plant& other);
     virtual ~Plant();
     
-    
     // GrowthCycle integration
     void setGrowthCycle(GrowthCycle* gc);
     void applyGrowthToState(float growth);
     float getBaseGrowthRate() const;
     
-    // Observer pattern
-    void notify();
-    void attach(Observer* observer);
-    void detach(Observer* observer);
-    
     // State management
     void tick();
     void setState(PlantState* newState);
     
-    // Getters - all maintained for backward compatibility
+    // Getters
     std::string getType();
     std::string getState();
     PlantState* getPlantState();
@@ -56,7 +49,7 @@ protected:
 
 class Lettuce : public Plant {
 public:
-    Lettuce() : Plant("Lettuce", 1.6f, 15.0f) {}  // Fast, cheap
+    Lettuce() : Plant("Lettuce", 1.6f, 15.0f) {}
 };
 
 class Carrot : public Plant {
@@ -101,5 +94,5 @@ public:
 
 class Pumpkin : public Plant {
 public:
-    Pumpkin() : Plant("Pumpkin", 0.5f, 200.0f) {}  // Slowest, most valuable
+    Pumpkin() : Plant("Pumpkin", 0.5f, 200.0f) {}
 };

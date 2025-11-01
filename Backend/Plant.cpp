@@ -14,13 +14,11 @@ Plant::Plant(std::string type, float growthRate, float sellPrice)
 }
 
 Plant::Plant(const Plant &other)
-:type(other.type),
- growthRate(other.growthRate),
- sellPrice(other.sellPrice),
- growthCycle(new NormalGrowthCycle()),
- state(new SeedState)
-
-
+    : type(other.type),
+      growthRate(other.growthRate),
+      sellPrice(other.sellPrice),
+      growthCycle(new NormalGrowthCycle()),
+      state(new SeedState())
 {
 }
 
@@ -60,11 +58,8 @@ float Plant::getSellPrice() const
 void Plant::tick() 
 {
     if (state) {
-        // Let state handle resource consumption and state transitions
         state->tick(this);
         
-        // Use GrowthCycle if available to apply growth based on deltaTime
-        // For now, assume a fixed deltaTime of 1.0f per tick
         if (growthCycle) {
             growthCycle->grow(this, 1.0f);
         }
@@ -76,30 +71,6 @@ float Plant::getGrowthRate() const
     return growthRate;
 }
 
-void Plant::notify()
-{
-    for(auto observer : observers){
-        observer->update();
-    }
-}
-
-void Plant::attach(Observer *observer)
-{
-    if(observer){
-        observers.push_back(observer);
-        observer->setSubject(this);
-    }
-}
-
-void Plant::detach(Observer* observer)
-{
-    for (auto obs : observers){
-        if(*obs == observer){
-            // Remove observer from observers vector
-        }
-    }
-}
-
 void Plant::setState(PlantState* newState) 
 {
     if (state != newState) {
@@ -107,7 +78,6 @@ void Plant::setState(PlantState* newState)
             delete state;
         }
         state = newState;
-        notify();
     }
 }
 
