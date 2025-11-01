@@ -21,16 +21,20 @@ StoreScene::StoreScene()
         }
     }
 
-    storageInventory = new Inventory(25);
+    backendStore = new Store();
 }
 
 StoreScene::~StoreScene()
 {
-    delete storageInventory;
+    delete backendStore;
 }
 
 void StoreScene::update(Player *player)
 {
+    Inventory *storageInventory = backendStore->getStorage();
+    if (!storageInventory)
+        return;
+
     Vector2 mouse = GetMousePosition();
 
     if (CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
@@ -89,7 +93,8 @@ void StoreScene::update(Player *player)
         }
     }
 
-    if(CheckCollisionPointRec(mouse, openNClose) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+    if (CheckCollisionPointRec(mouse, openNClose) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
         toggleOpen();
     }
 }
@@ -97,6 +102,10 @@ void StoreScene::update(Player *player)
 void StoreScene::updateStorage(Player *player)
 {
     if (!player)
+        return;
+
+    Inventory *storageInventory = backendStore->getStorage();
+    if (!storageInventory)
         return;
 
     // Refresh slot pointers to reflect inventory changes
@@ -386,6 +395,10 @@ void StoreScene::renderModal(int width, int height)
     if (!showModal)
         return;
 
+    Inventory *storageInventory = backendStore->getStorage();
+    if (!storageInventory)
+        return;
+
     Rectangle modal = {461, 356, 485, 535};
     DrawRectangleRec(modal, Color{178, 102, 0, 255});
     DrawRectangleLinesEx(modal, 1, BLACK);
@@ -420,3 +433,11 @@ string StoreScene::getType()
 {
     return "Store";
 }
+
+// void StoreScene::manageCustomerQ(){
+//     if(storeOpen && customerQueue.size() <= 5){
+//         Plant* tempPlant = rngPlant.produce();
+//         Customer* newCust = rngFact.create(tempPlant);
+//         customerQueue.back(newCust);
+//     }
+// }

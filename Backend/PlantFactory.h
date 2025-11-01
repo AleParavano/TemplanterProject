@@ -101,7 +101,7 @@ public:
     }
 };
 
-class RandomFactory : public PlantFactory
+class RandomPlantFactory : public PlantFactory
 {
 public:
     Plant *produce() override

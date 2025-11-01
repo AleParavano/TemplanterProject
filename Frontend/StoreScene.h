@@ -4,7 +4,11 @@
 #include "Scene.h"
 #include "Slot.h"
 #include "../Backend/Inventory.h"
+#include "../Backend/Store.h"
 #include <vector>
+#include <queue>
+#include "../Backend/CustomerFactory.h"
+#include "../Backend/PlantFactory.h"
 
 class Player; // Forward declaration
 
@@ -14,7 +18,8 @@ private:
     bool plants[5][5];
 
     std::vector<Slot> storageSlots;
-    Inventory *storageInventory;
+    Store *backendStore;
+    std::queue<Customer *> customerQueue;
 
     // Modal state
     bool showModal;
@@ -27,6 +32,8 @@ private:
     Rectangle openNClose;
     int selectedStorageSlot;
     bool storeOpen = false;
+    RandomFactory rngFact;
+    RandomPlantFactory rngPlant;
 
 public:
     // Collision rectangles
@@ -34,7 +41,6 @@ public:
     Rectangle sDoor;
     Rectangle plotHitBox;
     Rectangle boundaryWall;
-
     StoreScene();
     ~StoreScene();
 
@@ -45,9 +51,11 @@ public:
     string getType();
     int *getSelectedStorageSlot() { return &selectedStorageSlot; }
     bool getShowModal() { return showModal; }
-    void toggleOpen(){storeOpen = !storeOpen;}
+    void toggleOpen() { storeOpen = !storeOpen; }
+    void manageCustomerQ();
 
-    Inventory *getStorage() { return storageInventory; }
+    Inventory *getStorage() { return backendStore ? backendStore->getStorage() : nullptr; }
+    Store *getBackendStore() { return backendStore; }
 };
 
 #endif
