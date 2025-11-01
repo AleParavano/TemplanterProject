@@ -22,11 +22,11 @@ void DrawGlobalMenu() {
         // Day
         DrawText(TextFormat("DAY: %d", player->getDay()), menuX + 10, clockY, 20, RAYWHITE);
         // Time
-        DrawText(player->getTimeString().c_str(), menuX + 10, clockY + 25, 30, YELLOW);
+        DrawText(player->getTimeString().c_str(), menuX + 10, clockY + 30, 30, YELLOW);
         
         
         // PLAYER STATES (Money, Rating, Protection) 
-        int statsY = 90;
+        int statsY = 95;
         
         // Money
         DrawText(TextFormat("Money: $%.2f", player->getMoney()), menuX + 10, statsY, 20, LIME);
@@ -34,16 +34,16 @@ void DrawGlobalMenu() {
         // Rating
         std::string ratingStr = TextFormat("Rating: %d", player->getRating());
         std::string starStr = std::string(player->getRating(), '*'); 
-        DrawText((ratingStr + " " + starStr).c_str(), menuX + 10, statsY + 30, 20, GOLD);
+        DrawText((ratingStr + " " + starStr).c_str(), menuX + 10, statsY + 35, 20, GOLD);
 
         // Protection Status (Patrol Command integration)
-        std::string protectionStr = player->isProtected() ? "🛡️ SAFE" : "⚠️ VULNERABLE";
+        std::string protectionStr = player->isProtected() ? "SAFE !!!" : "VULNERABLE???";
         Color protectionColor = player->isProtected() ? GREEN : RED;
-        DrawText(protectionStr.c_str(), menuX + 10, statsY + 60, 20, protectionColor);
+        DrawText(protectionStr.c_str(), menuX + 10, statsY + 65, 20, protectionColor);
         
         
         // SAVE/LOAD BUTTONS 
-        int buttonY = 200;
+        int buttonY = 225;
         Rectangle saveBtn = {menuX + 10, (float)buttonY, MENU_WIDTH - 20, 30};
         Rectangle loadBtn = {menuX + 10, (float)buttonY + 40, MENU_WIDTH - 20, 30};
         
@@ -53,14 +53,14 @@ void DrawGlobalMenu() {
         
         // Draw Load Button
         DrawRectangleRec(loadBtn, MAROON);
-        DrawText("LOAD GAME", loadBtn.x + (loadBtn.width - MeasureText("LOAD GAME", 20))/2, loadBtn.y + 45, 20, WHITE);
+        DrawText("LOAD GAME", loadBtn.x + (loadBtn.width - MeasureText("LOAD GAME", 20))/2, loadBtn.y + 5, 20, WHITE);
         
         // SEPARATOR LINE (Static position for scene-specific content) 
-        int separatorY = 300;
+        int separatorY = 320;
         DrawLine(menuX + 5, separatorY, menuX + MENU_WIDTH - 5, separatorY, LIGHTGRAY);
         
         //  HINT TEXT (For the bottom half) 
-        DrawText("SCENE-SPECIFIC MENU BELOW", menuX + 10, separatorY + 10, 15, RAYWHITE);
+        DrawText("SCENE MENU ", menuX + 50 , separatorY + 10, 20, RAYWHITE);
 
         // --- 7. MESSAGE LOG (Placeholder/Future Integration) ---
         // int logBoxY = SCREEN_HEIGHT - (MAX_LOG_MESSAGES * 18 + 20); 

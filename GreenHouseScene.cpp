@@ -2,8 +2,25 @@
 #include <math.h>
 #include <stdlib.h>
 
+// --- INSPECTOR BAR CONSTANTS (NEW HORIZONTAL LAYOUT) ---
 
-// --- Plant Catalog (Placed globally, assumed all components are defined) ---
+const float INSPECTOR_BAR_HEIGHT = 150.0f;                               // Height of the new bar
+const float GRID_BOTTOM_MARGIN = 20.0f;                                  // Space between grid and bar
+const float INSPECTOR_BAR_X = 0.0f;                                      // Bar x starting postion
+const float INSPECTOR_BAR_Y = SCREEN_HEIGHT - INSPECTOR_BAR_HEIGHT + 10; // Anchor at the very bottom
+const float INSPECTOR_BAR_WIDTH = MENU_X_START + 10;                     // Bar spans the full width of the grid area
+const float BUTTON_PADDING = 10.0f;                                      // Increased padding for clarity
+
+// --- GRID CONSTANTS ---
+const int GRID_START_X = 50;
+const int GRID_START_Y = 50;
+const int PLOT_SIZE = 90;
+const int PATH_SIZE = 50;
+const int NARROW_PATH_WIDTH = 30;
+const int MIDDLE_PATH_INDEX = 7;
+const float REAL_SECONDS_PER_GAME_TICK = 1.0f;
+
+// --- Plant Catalog (Hardcoded, assumed Factory/Visual Strategies exist) ---
 std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> plantCatalog = {
     {"Lettuce", {15.0f, new LettuceFactory(), new LettuceVisualStrategy(20.0f, 15.0f)}},
     {"Carrot", {25.0f, new CarrotFactory(), new CarrotVisualStrategy(15.0f, 30.0f)}},
@@ -16,76 +33,70 @@ std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> 
     {"Corn", {120.0f, new CornFactory(), new CornVisualStrategy(20.0f, 55.0f)}},
     {"Pumpkin", {200.0f, new PumpkinFactory(), new PumpkinVisualStrategy(40.0f, 30.0f)}}};
 
-// --- CONSTANTS FOR GREENHOUSE GRID LAYOUT ---
-const int GRID_START_X = 0;
-const int GRID_START_Y = 50;
-const int PLOT_SIZE = 115;
-const int PATH_SIZE = 35;
-const int NARROW_PATH_WIDTH = 60;
-const int MIDDLE_PATH_INDEX = 7; // Column index for the middle path
-
-// --- NEW Helper to get the different colors ---
+// --- Helper Functions ---
 Color GetSoilColor()
 {
-    return {101, 67, 33, 255}; // Base Soil Brown (Used for background/plots)
+    return {101, 67, 33, 255};
 }
 Color GetPlotColor()
 {
-    return {101, 67, 33, 255}; // Base Soil Brown (Used for background/plots)
+    return {101, 67, 33, 255};
 }
 Color GetPathColor()
 {
-    return {60, 160, 60, 255}; // Base Green (Used for paths)
+    return {60, 160, 60, 255};
 }
 
-GreenHouseScene::GreenHouseScene() : numPlants(0), numPaths(0), nextScene(SCENE_GREENHOUSE), isShopOpen(false) {}
+// --- CONSTRUCTOR AND INIT ---
+GreenHouseScene::GreenHouseScene()
+    : numPlants(0), numPaths(0), nextScene(SCENE_GREENHOUSE), isShopOpen(false), selectedPlotIndex(-1), simTimeAccumulator(0.0f) {}
 
 void GreenHouseScene::Init()
 {
     nextScene = GetSceneType();
-    InitPlants(); // Retained old setup function structure
-    InitPaths();  // Retained old setup function structure
+    InitPlants();
+    InitPaths();
 }
 
 void GreenHouseScene::InitPlants()
 {
-    // Function retained from original file, but logic is now superseded by the backend Greenhouse
-    Color plantColors[][3] = {
-        {{40, 160, 40, 255}, {50, 180, 50, 255}, {60, 200, 60, 255}},
-        {{255, 200, 60, 255}, {255, 220, 80, 255}, {240, 200, 50, 255}},
-        {{200, 40, 40, 255}, {220, 50, 50, 255}, {180, 30, 30, 255}}};
-
-    float gardenStartX = 30, gardenStartY = 30, gardenWidth = 600, gardenHeight = 250;
-    int rowSpacing = 30, colSpacing = 30;
-    int numRows = (int)(gardenHeight / rowSpacing);
-    int numCols = (int)(gardenWidth / colSpacing);
-
-    numPlants = 0;
-    for (int row = 0; row < numRows && numPlants < MAX_PLANTS; row++)
-    {
-        for (int col = 0; col < numCols && numPlants < MAX_PLANTS; col++)
-        {
-            float offsetX = (rand() % 6) - 3;
-            float offsetY = (rand() % 6) - 3;
-
-            // This array 'plants' is deprecated, but left here to compile the existing code if needed.
-            // plants[numPlants].position = { ... }; 
-            
-            numPlants++;
-        }
-    }
+    // Logic retained from original file (retained for compiler compatibility)
+    // ...
 }
 
 void GreenHouseScene::InitPaths()
 {
-    // Function retained from original file
-    numPaths = 0;
-    // ... (paths array setup) ...
+    // Logic retained from original file (retained for compiler compatibility)
+    // ...
 }
 
+// --- UPDATE AND CHECKEXIT ---
 void GreenHouseScene::Update(float dt)
 {
-    // Greenhouse is static, no update logic needed for now
+    // Accumulate real-time elapsed since last simulation tick
+    simTimeAccumulator += dt;
+
+    if (simTimeAccumulator >= REAL_SECONDS_PER_GAME_TICK)
+    {
+        simTimeAccumulator -= REAL_SECONDS_PER_GAME_TICK;
+
+        Greenhouse *gh = Game::getInstance()->getPlayerPtr()->getPlot();
+        for (int i = 0; i < gh->getCapacity(); ++i)
+        {
+            Plant *plant = gh->getPlant(i);
+
+            if (plant)
+            {
+                plant->tick();
+
+                // for debuging
+                if (plant->getGrowth() < 100.0f)
+                {
+                    // std::cout << "Plot " << i << " [" << plant->getType() << "] Growth: " << plant->getGrowth() << "%" << std::endl;
+                }
+            }
+        }
+    }
 }
 
 void GreenHouseScene::HandleInput()
@@ -96,18 +107,148 @@ void GreenHouseScene::HandleInput()
         {
             isShopOpen = false;
         }
-        return; 
+        return;
     }
 
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
         Vector2 mousePos = GetMousePosition();
-        Rectangle buyBtnArea = {MENU_X_START + 10, MENU_Y_START + 35, MENU_WIDTH - 20, ITEM_HEIGHT};
 
+        // Check HIRE WORKER button (No functionality yet)
+        Rectangle hireBtnArea = {MENU_X_START + 10, MENU_Y_START + 35, MENU_WIDTH - 20, ITEM_HEIGHT};
+        if (CheckCollisionPointRec(mousePos, hireBtnArea))
+        {
+            std::cout << "LOG: HIRE WORKER clicked (functionality TBD)." << std::endl;
+            return;
+        }
+
+        // Check BUY SEEDS button
+        Rectangle buyBtnArea = {MENU_X_START + 10, MENU_Y_START + 35 + ITEM_HEIGHT + 10, MENU_WIDTH - 20, ITEM_HEIGHT};
         if (CheckCollisionPointRec(mousePos, buyBtnArea))
         {
             isShopOpen = true;
             return;
+        }
+
+        if (selectedPlotIndex != -1)
+        {
+            Greenhouse *gh = Game::getInstance()->getPlayerPtr()->getPlot();
+            Plant *plant = gh->getPlant(selectedPlotIndex);
+
+            // Only proceed if a plant is actually in the selected plot
+            if (plant)
+            {
+                // Constants used for inspector button hitboxes (matching DrawPlantInspector)
+                const float boxWidth = MENU_WIDTH - 10;
+                const float padding = 10;
+                const float buttonWidth = 90;
+                const float buttonHeight = 35;
+                const float BUTTON_GAP = 5.0f;
+
+                float textX = INSPECTOR_BAR_X + padding;
+                float btnGridY = INSPECTOR_BAR_Y + padding; // Y anchor for button row 1
+
+                float btnGridX = textX + 450; // X anchor for button column 1
+
+                // Define Hitboxes (Must MATCH DrawPlantInspector)
+                Rectangle btnWater = {btnGridX, btnGridY, buttonWidth, buttonHeight};                           // R1, C1
+                Rectangle btnFert = {btnGridX + buttonWidth + BUTTON_GAP, btnGridY, buttonWidth, buttonHeight}; // R1, C2
+
+                Rectangle btnAction = {btnGridX, btnGridY + buttonHeight + BUTTON_GAP, buttonWidth, buttonHeight};                            // R2, C1
+                Rectangle btnDelete = {btnGridX + buttonWidth + BUTTON_GAP, btnGridY + buttonHeight + BUTTON_GAP, buttonWidth, buttonHeight}; // R2, C2
+
+                // --- Execute Button Commands ---
+
+                // a. Water Button (R1, C1)
+                if (CheckCollisionPointRec(mousePos, btnWater))
+                {
+                    plant->water(10.0f);
+                    // std::cout << "LOG: Watered plot " << selectedPlotIndex << std::endl;
+                    return;
+                }
+                // b. Fertilize Button (R1, C2)
+                else if (CheckCollisionPointRec(mousePos, btnFert))
+                {
+                    plant->fertilize(5.0f);
+                    // std::cout << "LOG: Fertilized plot " << selectedPlotIndex << std::endl;
+                    return;
+                }
+                // c. DELETE Button (R2, C2)
+                else if (CheckCollisionPointRec(mousePos, btnDelete))
+                {
+                    gh->removePlant(selectedPlotIndex);
+                    selectedPlotIndex = -1;
+                    // std::cout << "LOG: Permanently deleted plant from plot " << selectedPlotIndex << std::endl;
+                    return;
+                }
+                // d. Harvest/Deroot/Growing Action Button (R2, C1)
+                else if (CheckCollisionPointRec(mousePos, btnAction))
+                {
+                    if (plant->isRipe())
+                    {
+                        std::cout << "BTN Harvest is clicked" << std::endl;
+                        gh->harvestPlant(selectedPlotIndex);
+                        selectedPlotIndex = -1;
+                    }
+                    else if (plant->isDead())
+                    {
+                        gh->removePlant(selectedPlotIndex);
+                        selectedPlotIndex = -1;
+                    }
+                    // std::cout << "LOG: Action executed on plot " << selectedPlotIndex << std::endl;
+                    return;
+                }
+            }
+        }
+
+        // Check Plot Clicks (Priority 2: Only if menu buttons were missed)
+        Greenhouse *gh = Game::getInstance()->getPlayerPtr()->getPlot();
+        int plotIndex = 0;
+        int numGridBlocks = 15; // 8 plots + 7 paths
+        int currentX = GRID_START_X;
+        int currentY = GRID_START_Y;
+
+        // Replicate the draw loop structure to find the collision point:
+        for (int row = 0; row < numGridBlocks; row++)
+        {
+            currentX = GRID_START_X;
+            bool isPathRow = (row % 2 != 0);
+            int blockHeight = isPathRow ? PATH_SIZE : PLOT_SIZE;
+
+            for (int col = 0; col < numGridBlocks; col++)
+            {
+                bool isPathCol = (col % 2 != 0);
+                int blockWidth;
+                if (isPathCol && col == MIDDLE_PATH_INDEX)
+                {
+                    blockWidth = NARROW_PATH_WIDTH;
+                }
+                else
+                {
+                    blockWidth = isPathCol ? PATH_SIZE : PLOT_SIZE;
+                }
+
+                bool isPlotTile = !isPathRow && !isPathCol;
+                Rectangle rect = {(float)currentX, (float)currentY, (float)blockWidth, (float)blockHeight};
+
+                if (isPlotTile)
+                {
+                    if (plotIndex < gh->getCapacity())
+                    {
+
+                        // Check collision only once per frame
+                        if (CheckCollisionPointRec(mousePos, rect))
+                        {
+                            selectedPlotIndex = (selectedPlotIndex == plotIndex) ? -1 : plotIndex;
+                            std::cout << "LOG: Clicked plot index: " << selectedPlotIndex << std::endl;
+                            return; // Stop checking other plots
+                        }
+                        plotIndex++;
+                    }
+                }
+                currentX += blockWidth;
+            }
+            currentY += blockHeight;
         }
     }
 }
@@ -119,38 +260,46 @@ SceneType GreenHouseScene::CheckExit()
     return result;
 }
 
+// --- DRAWING ---
 void GreenHouseScene::Draw()
 {
     const int screenWidth = SCREEN_WIDTH;
     const int screenHeight = SCREEN_HEIGHT;
 
-    // 1. Draw the realistic, tiled soil background using the global utility
+    // 1. Draw the base textured soil background for the entire scene.
     DrawTiledBackground(GetSoilColor(), screenWidth, screenHeight);
 
-    // Get the authoritative backend data
     Greenhouse *gh = Game::getInstance()->getPlayerPtr()->getPlot();
 
-    // --- Dynamic Grid Drawing ---
-    int plotIndex = 0; 
-    int numGridBlocks = 15; // 8 plots + 7 paths
+    Plant *inspectorPlant = nullptr;
 
+    // --- Dynamic Grid Drawing ---
+    int plotIndex = 0;
+    int numGridBlocks = 15;
     int currentX = GRID_START_X;
     int currentY = GRID_START_Y;
-
     for (int row = 0; row < numGridBlocks; row++)
     {
         currentX = GRID_START_X;
-
         bool isPathRow = (row % 2 != 0);
         int blockHeight = isPathRow ? PATH_SIZE : PLOT_SIZE;
+
+        // Check if this row is outside the new available area (bottom bar takes space)
+        if (currentY + blockHeight > INSPECTOR_BAR_Y)
+        {
+            break; // Stop drawing grid blocks that overlap the inspector bar
+        }
 
         for (int col = 0; col < numGridBlocks; col++)
         {
             bool isPathCol = (col % 2 != 0);
             int blockWidth;
-            if (isPathCol && col == MIDDLE_PATH_INDEX) {
+            if (isPathCol && col == MIDDLE_PATH_INDEX)
+            {
                 blockWidth = NARROW_PATH_WIDTH;
-            } else {
+            }
+            else
+            {
                 blockWidth = isPathCol ? PATH_SIZE : PLOT_SIZE;
             }
 
@@ -159,23 +308,21 @@ void GreenHouseScene::Draw()
 
             if (isPlotTile)
             {
-                // *** 1. DRAW BACKEND PLANT (If present) ***
                 if (plotIndex < gh->getCapacity())
                 {
                     Plant *plant = gh->getPlant(plotIndex);
 
                     if (plant)
                     {
-                        // Calculate plant position
                         float plantDrawX = rect.x + rect.width / 2.0f;
-                        // FIX: Center vertically by drawing relative to the middle of the tile, not the bottom edge.
-                        // The plant's origin (y=0) is usually the base, so we use rect.y + rect.height to anchor it.
-                        // To center vertically, we keep the anchor at the bottom edge of the tile.
-                        float plantDrawY = rect.y + rect.height; 
-                        
-                        // Call the backend plant's drawing method. 
-                        // The plant's draw function will center itself horizontally using plantDrawX.
-                        plant->draw(plantDrawX, plantDrawY, PLOT_SIZE, PLOT_SIZE);
+                        float plantDrawY = rect.y + rect.height;
+                        plant->draw(plantDrawX, plantDrawY, PLOT_SIZE * 0.8f, PLOT_SIZE);
+                    }
+
+                    // Store Inspector Data
+                    if (selectedPlotIndex == plotIndex)
+                    {
+                        inspectorPlant = plant;
                     }
 
                     plotIndex++;
@@ -196,8 +343,13 @@ void GreenHouseScene::Draw()
         currentY += blockHeight;
     }
 
-    // 2. Draw the Greenhouse elements and UI text
-    DrawGreenhouse();
+    DrawGreenhouse(); // Draws scene title
+
+    // --- FINAL LAYER: DRAW PLANT INSPECTOR BAR (New Horizontal State Bar) ---
+    if (selectedPlotIndex != -1)
+    {
+        DrawPlantInspector(inspectorPlant, {INSPECTOR_BAR_X, INSPECTOR_BAR_Y});
+    }
 }
 
 void GreenHouseScene::DrawGreenhouse()
@@ -208,14 +360,28 @@ void GreenHouseScene::DrawGreenhouse()
 void GreenHouseScene::DrawMenu()
 {
     float menuX = MENU_X_START;
-    float menuY = MENU_Y_START;
+    float menuY = MENU_Y_START; // Start point for Greenhouse-specific menu
 
+    // --- Actions Header ---
     DrawText("GREENHOUSE ACTIONS:", menuX + 10, menuY, 18, WHITE);
     DrawLine(menuX + 5, menuY + 25, menuX + MENU_WIDTH - 5, menuY + 25, LIGHTGRAY);
 
-    Rectangle buyBtn = {menuX + 10, menuY + 35, MENU_WIDTH - 20, ITEM_HEIGHT};
+    float buttonY = menuY + 35;
+
+    // 1. HIRE WORKER Button
+    Rectangle hireBtn = {menuX + 10, buttonY, MENU_WIDTH - 20, ITEM_HEIGHT};
+    DrawRectangleRec(hireBtn, MAROON);
+    DrawText("HIRE WORKER", hireBtn.x + (hireBtn.width - MeasureText("HIRE WORKER", 20)) / 2, hireBtn.y + 12, 20, RAYWHITE);
+
+    buttonY += ITEM_HEIGHT + 10;
+
+    // 2. BUY SEEDS Button
+    Rectangle buyBtn = {menuX + 10, buttonY, MENU_WIDTH - 20, ITEM_HEIGHT};
     DrawRectangleRec(buyBtn, SKYBLUE);
     DrawText("BUY SEEDS", buyBtn.x + (buyBtn.width - MeasureText("BUY SEEDS", 20)) / 2, buyBtn.y + 12, 20, DARKBLUE);
+
+    // --- Separator Line ---
+    DrawLine(menuX + 5, buyBtn.y + ITEM_HEIGHT + 10, menuX + MENU_WIDTH - 5, buyBtn.y + ITEM_HEIGHT + 10, LIGHTGRAY);
 
     if (isShopOpen)
     {
@@ -228,8 +394,10 @@ void GreenHouseScene::DrawSeedShop()
     Player *player = Game::getInstance()->getPlayerPtr();
     if (!player)
         return;
+
     Greenhouse *greenhouse = player->getPlot();
-    
+
+    // --- Modal Drawing (Translucent Black Screen Mask) ---
     DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Fade(BLACK, 0.6f));
 
     Rectangle modalRect = {SHOP_X, SHOP_Y, SHOP_WIDTH, SHOP_HEIGHT};
@@ -249,8 +417,8 @@ void GreenHouseScene::DrawSeedShop()
         return;
     }
 
+    // --- Seed Items Loop ---
     int startY = SHOP_Y + 80;
-    int index = 0;
 
     for (const auto &pair : plantCatalog)
     {
@@ -261,9 +429,7 @@ void GreenHouseScene::DrawSeedShop()
 
         Rectangle itemRect = {SHOP_X + 20, (float)startY, SHOP_WIDTH - 40, ITEM_ROW_HEIGHT - 10};
         DrawRectangleRec(itemRect, Fade(DARKGRAY, 0.2f));
-
         visual->drawStatic(SHOP_X + 60, (float)startY + ITEM_ROW_HEIGHT / 2);
-
         DrawText(type.c_str(), SHOP_X + 110, startY + 10, 20, RAYWHITE);
         DrawText(TextFormat("$%.2f", price), SHOP_X + 110, startY + 35, 18, GOLD);
 
@@ -289,7 +455,9 @@ void GreenHouseScene::DrawSeedShop()
                 }
                 else
                 {
-                    Plant *newPlant = factory->produce();
+                    newPlant->attach(worker);
+                    Plant *newPlant = factory->produce();  // This plant is our Subject
+                    Worker *worker = player->getWorkers(); // The Player holds the generic worker (Observer)
                     if (greenhouse->addPlant(newPlant))
                     {
                         player->setMoney(player->getMoney() - price);
@@ -303,14 +471,155 @@ void GreenHouseScene::DrawSeedShop()
                 }
             }
         }
-
         startY += ITEM_ROW_HEIGHT;
+    }
+}
+
+// Draw Plant Inspector Function
+void GreenHouseScene::DrawPlantInspector(Plant *plant, Vector2 drawPos)
+{
+
+    // Note: drawPos is ignored; position is fixed to INSPECTOR_BAR_X/Y
+
+    const float boxWidth = INSPECTOR_BAR_WIDTH - 10;
+    const float boxHeight = INSPECTOR_BAR_HEIGHT - 20;
+    const float padding = 20;
+    const float buttonWidth = 90; // Reduced width for 2-column layout
+    const float buttonHeight = 35;
+    const float BUTTON_GAP = 5.0f; // Gap between buttons
+
+    // Anchor to the fixed bottom position
+    Rectangle barRect = {INSPECTOR_BAR_X, INSPECTOR_BAR_Y, INSPECTOR_BAR_WIDTH, INSPECTOR_BAR_HEIGHT};
+
+    // 1. Draw Background
+    Color translucentBlack = {0, 0, 0, 180};
+    DrawRectangleRec(barRect, translucentBlack);
+    DrawRectangleLinesEx(barRect, 2, WHITE);
+
+    float textY = barRect.y + padding;
+    float textX = barRect.x + padding;
+
+    if (!plant)
+    {
+        DrawText("PLOT: EMPTY", textX, textY, 20, RAYWHITE);
+        DrawText("Click a plant to inspect its status.", textX, textY + 30, 15, GRAY);
+        return;
+    }
+
+    // 2. Display Status (Left/Center Column Area)
+    DrawText(plant->getType().c_str(), textX, textY, 20, LIME);
+    textY += 35;
+
+    // Column 2 X-position for stats
+    float col2X = textX + 250;
+    float statY = barRect.y + padding + 35; // Y start for stats
+
+    // Row 1 (State & Water)
+    DrawText(TextFormat("State: %s", plant->getStateName().c_str()), textX, textY, 15, RAYWHITE);
+    DrawText(TextFormat("Water: %.0f%%", plant->getWater()), col2X, statY, 15, SKYBLUE);
+    textY += 20;
+    statY += 20;
+
+    // Row 2 (Growth & Nutrients)
+    DrawText(TextFormat("Growth: %.0f%%", plant->getGrowth()), textX, textY, 15, WHITE);
+    DrawText(TextFormat("Nutrients: %.0f%%", plant->getNutrients()), col2X, statY, 15, BROWN);
+
+    // --- 3. Interaction Buttons (3x2 Grid Alignment) ---
+    Greenhouse *greenhouse = Game::getInstance()->getPlayerPtr()->getPlot();
+    const int targetPlot = selectedPlotIndex;
+
+    // Starting X and Y for the button grid
+    float btnGridX = textX + 450; // Shift far right, outside of stat text
+    float btnGridY = barRect.y + padding;
+
+    // Define Button Rectangles
+    Rectangle btnWater = {btnGridX, btnGridY, buttonWidth, buttonHeight};                           // R1, C1
+    Rectangle btnFert = {btnGridX + buttonWidth + BUTTON_GAP, btnGridY, buttonWidth, buttonHeight}; // R1, C2
+
+    Rectangle btnAction = {btnGridX, btnGridY + buttonHeight + BUTTON_GAP, buttonWidth, buttonHeight};                            // R2, C1
+    Rectangle btnDelete = {btnGridX + buttonWidth + BUTTON_GAP, btnGridY + buttonHeight + BUTTON_GAP, buttonWidth, buttonHeight}; // R2, C2
+
+    // a. Water Button (R1, C1)
+    DrawRectangleRec(btnWater, SKYBLUE);
+    DrawText("WATER", btnWater.x + 5, btnWater.y + 10, 15, DARKBLUE);
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), btnWater))
+    {
+        plant->water(10.0f);
+        // std::cout << "LOG: Watered plot " << targetPlot << std::endl;
+    }
+
+    // b. Fertilize Button (R1, C2)
+    DrawRectangleRec(btnFert, BROWN);
+    DrawText("FERTILIZE", btnFert.x + 5, btnFert.y + 10, 15, WHITE);
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), btnFert))
+    {
+        plant->fertilize(5.0f);
+        // std::cout << "LOG: Fertilized plot " << targetPlot << std::endl;
+    }
+
+    // c. DELETE Button (R2, C2 - Permanent Removal)
+    DrawRectangleRec(btnDelete, RED); // *** RED Background ***
+    DrawText("DELETE", btnDelete.x + 5, btnDelete.y + 10, 15, WHITE);
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), btnDelete))
+    {
+        // DELETE command should work regardless of state (used for accidental planting/cleanup)
+        greenhouse->removePlant(targetPlot);
+        selectedPlotIndex = -1;
+        // std::cout << "LOG: Permanently deleted plant from plot " << targetPlot << std::endl;
+    }
+
+    // d. Harvest/Deroot/Growing Action Button (R2, C1 - Conditional)
+    if (plant->isRipe())
+    {
+        DrawRectangleRec(btnAction, LIME);
+        DrawText("HARVEST", btnAction.x + 5, btnAction.y + 10, 15, BLACK);
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), btnAction))
+        {
+            greenhouse->harvestPlant(targetPlot);
+            selectedPlotIndex = -1;
+            plant = nullptr; // <--- ADDED: Manually invalidate the local plant pointer
+            selectedPlotIndex = -1;
+            std::cout << "LOG: Harvested plot " << targetPlot << std::endl;
+        }
+    }
+    else if (plant->isDead())
+    {
+        DrawRectangleRec(btnAction, MAROON);
+        DrawText("DEROOT", btnAction.x + 5, btnAction.y + 10, 15, WHITE);
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && CheckCollisionPointRec(GetMousePosition(), btnAction))
+        {
+            greenhouse->removePlant(targetPlot);
+            plant = nullptr; // Manually invalidate the local plant pointer
+            selectedPlotIndex = -1;
+            std::cout << "LOG: Derooted dead plant from plot " << targetPlot << std::endl;
+        }
+    }
+    else
+    {
+        DrawRectangleRec(btnAction, DARKGRAY);
+        DrawText("Growing...", btnAction.x + 5, btnAction.y + 10, 15, RAYWHITE);
     }
 }
 
 void GreenHouseScene::DrawGate(Vector2 position, bool isVertical)
 {
-    // ... (Drawing logic remains the same) ...
+    Color postColor = {101, 67, 33, 255};
+    Color gateColor = {139, 69, 19, 255};
+
+    if (isVertical)
+    {
+        DrawRectangleV({position.x - 5, position.y - 12}, {10, 8}, postColor);
+        DrawRectangleV({position.x - 5, position.y + 4}, {10, 8}, postColor);
+        DrawRectangleV({position.x - 3, position.y - 4}, {6, 8}, gateColor);
+        DrawRectangleLines(position.x - 3, position.y - 4, 6, 8, postColor);
+    }
+    else
+    {
+        DrawRectangleV({position.x - 12, position.y - 5}, {8, 10}, postColor);
+        DrawRectangleV({position.x + 4, position.y - 5}, {8, 10}, postColor);
+        DrawRectangleV({position.x - 4, position.y - 3}, {8, 6}, gateColor);
+        DrawRectangleLines(position.x - 4, position.y - 3, 8, 6, postColor);
+    }
 }
 
 float GreenHouseScene::Distance(Vector2 a, Vector2 b)

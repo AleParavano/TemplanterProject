@@ -18,7 +18,7 @@
 // Constants for menu layout
 #define MENU_WIDTH 250
 #define MENU_X_START 1400 - MENU_WIDTH
-#define MENU_Y_START 320
+#define MENU_Y_START 370
 #define ITEM_HEIGHT 45
 #define BUTTON_SIZE 30
 #define BUTTON_WIDTH 30
@@ -37,15 +37,19 @@ private:
     Road paths[10];
     int numPlants;
     int numPaths;
+    int selectedPlotIndex;
     bool isShopOpen;
+    float simTimeAccumulator;
 
     SceneType nextScene; 
+    
     
     
     void InitPlants();
     void InitPaths();
     void DrawPlantDetailed(PlantVisual p);
     void DrawSeedShop();
+    void DrawPlantInspector(Plant* plant, Vector2 drawPos);
     void DrawGate(Vector2 position, bool isVertical);
     void DrawGreenhouse();
     float Distance(Vector2 a, Vector2 b);

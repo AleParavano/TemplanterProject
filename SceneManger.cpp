@@ -47,10 +47,10 @@ void SceneManager::HandleInput() {
         }
     }
 
-    // --- 2. SCENE INPUT (Only runs if the Back Button wasn't clicked) ---
+    // SCENE INPUT (Only runs if the Back Button wasn't clicked) 
     scenes[currentScene]->HandleInput();
     
-    // --- 3. NATURAL TRANSITION CHECK (Internal scene logic) ---
+    // NATURAL TRANSITION CHECK (Internal scene logic) 
     nextScene = scenes[currentScene]->CheckExit();
     
     if (nextScene != currentScene) {
@@ -58,21 +58,23 @@ void SceneManager::HandleInput() {
         scenes[currentScene]->Init(); 
     }
     
-    // --- 4. GLOBAL UI INPUT (Save/Load) ---
+    // GLOBAL UI INPUT (Save/Load) ---
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         Vector2 mousePos = GetMousePosition();
         float menuX = SCREEN_WIDTH - MENU_WIDTH;
-        Rectangle saveBtn = {menuX + 10, 200.0f, MENU_WIDTH - 20, 30};
-        Rectangle loadBtn = {menuX + 10, 240.0f, MENU_WIDTH - 20, 30};
+        Rectangle saveBtn = {menuX + 10, 225.0f, MENU_WIDTH - 20, 30};
+        Rectangle loadBtn = {menuX + 10, 265.0f, MENU_WIDTH - 20, 30};
 
         if (CheckCollisionPointRec(mousePos, saveBtn)) {
             Game::getInstance()->saveGame(); 
+            std::cout<<"save button clicked"<< std::endl;
         } else if (CheckCollisionPointRec(mousePos, loadBtn)) {
             Game::getInstance()->loadGame();
+            std::cout<<"load button clicked"<< std::endl;
         }
     }
 
-    // --- 5. GLOBAL QUIT CHECK ---
+    // GLOBAL QUIT CHECK 
     if (IsKeyPressed(KEY_ESCAPE) && currentScene == SCENE_OUTDOOR) {
         shouldExit = true;
     }
