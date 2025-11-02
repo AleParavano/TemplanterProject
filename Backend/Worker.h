@@ -9,42 +9,57 @@
 #include <chrono>
 #include <condition_variable>
 #include <atomic>
-class Worker: public Observer {
+#include <vector>
+
+// Forward declaration
+class Greenhouse;
+
+class Worker : public Observer
+{
+
 public:
-Worker();
-Worker(const Worker& worker);
-~Worker();
-void executeCommand();
-void addCommand(Command* command);
-void setSubject(Plant* plant);
-virtual void update() override ;
-void stop();
+    Worker();
+    Worker(const Worker &worker);
+    virtual ~Worker();
+
+    void setLevel(int level);
+    void executeCommand();
+    void addCommand(Command *command);
+    void setSubject(Greenhouse* greenhouse) override;
+    void update() override;
+    void stop();
+    std::vector<Worker *> hiredWorkers;
+    void addWorker(Worker *worker);
+    virtual const char *type() const { return "Manager/Generic Worker"; }
+
 protected:
-void startPatrol();
-void endPatrol();
-void setLevel(int level);
-std::mutex mtx;
-std::condition_variable condition;
-std::atomic<bool> running{true};
-std::thread workerThread;
-std::queue<Command*> commandQueue;
-// not responsible for  memory
-Plant* subject;
-PlantState* subjectState;
-int level=0;
-
-
+    void startPatrol();
+    void endPatrol();
+    std::string currentTaskDescription;
+    std::mutex mtx;
+    std::condition_variable condition;
+    std::atomic<bool> running{true};
+    std::thread workerThread;
+    std::queue<Command *> commandQueue;
+    // not responsible for  memory
+    Greenhouse *subject;
+    int level = 1;
 };
 
-class WaterWorker:public Worker{
+class WaterWorker : public Worker
+{
     void update() override;
+    const char *type() const override { return "Water Worker"; }
 };
 
-class FertiliserWorker:public Worker{
+class FertiliserWorker : public Worker
+{
     void update() override;
+    const char *type() const override { return "Fertiliser Worker"; }
 };
 
-class HarvestWorker:public Worker{
+class HarvestWorker : public Worker
+{
     void update() override;
+    const char *type() const override { return "Harvest Worker"; }
 };
-

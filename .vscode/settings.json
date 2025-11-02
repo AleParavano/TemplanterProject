@@ -52,8 +52,6 @@
         "semaphore": "cpp",
         "stop_token": "cpp",
         "thread": "cpp",
-        "queue": "cpp",
-        "xstring": "cpp",
         "charconv": "cpp",
         "cstring": "cpp",
         "format": "cpp",
@@ -62,7 +60,9 @@
         "ios": "cpp",
         "list": "cpp",
         "locale": "cpp",
+        "map": "cpp",
         "optional": "cpp",
+        "queue": "cpp",
         "sstream": "cpp",
         "xfacet": "cpp",
         "xhash": "cpp",
@@ -75,7 +75,10 @@
         "xlocnum": "cpp",
         "xloctime": "cpp",
         "xmemory": "cpp",
+        "xstddef": "cpp",
+        "xstring": "cpp",
         "xtr1common": "cpp",
+        "xtree": "cpp",
         "xutility": "cpp"
     }
 }

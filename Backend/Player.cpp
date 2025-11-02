@@ -1,19 +1,17 @@
 #include "Player.h"
-#include <chrono>
-#include <cstdio>
-#include <iostream>
+#include "Serializer.h"
+#include <sstream>
+#include <iomanip> 
 #include "../Frontend/InventoryUI.h"
 
 bool Player::safe = true;
 
 Player::Player()
-    : inventory(nullptr), workers(nullptr), plot(nullptr),
-      money(1000.0f), rating(0),
-      day(1), hour(6), minute(0)
+    : money(100.0f), rating(0), day(1), hour(6), minute(0),
+      inventory(nullptr), plot(nullptr)
 {
-    inventory = new Inventory(25); // Changed from 15 to 25 slots
-    workers = new Worker();
-    plot = new Greenhouse();
+    inventory = new Inventory(); // Changed from 15 to 25 slots
+    plot = new Greenhouse(inventory);
     inventoryUI = new InventoryUI(inventory);
 }
 
@@ -22,14 +20,14 @@ Player::~Player()
     if (inventory)
     {
         delete inventory;
-    }
-    if (workers)
-    {
-        delete workers;
-    }
     if (plot)
-    {
         delete plot;
+    for (auto worker : workers)
+    {
+        if (worker)
+            delete worker;
+    }
+    workers.clear();
     }
     if (inventoryUI)
     {
@@ -57,9 +55,69 @@ float Player::getMoney() const
     return money;
 }
 
+void Player::setMoney(float amount)
+{
+    money = amount;
+}
+
+void Player::addMoney(float amount)
+{
+    money += amount;
+}
+
+void Player::subtractMoney(float amount)
+{
+    money -= amount;
+    if (money < 0)
+        money = 0;
+}
+
+void Player::UpdateGameTime(float dt)
+{
+    const float REAL_SECONDS_PER_GAME_MINUTE = 1.0f;
+
+    int speedMultiplier = 1;
+
+    if (hour >= 20 || hour < 6 || isProtected())
+    {
+        speedMultiplier = 10;
+    }
+    else
+    {
+        speedMultiplier = 1;
+    }
+    timeAccumulator += dt * (float)speedMultiplier;
+    if (timeAccumulator >= REAL_SECONDS_PER_GAME_MINUTE)
+    {
+        int minutesToAdvance = (int)(timeAccumulator / REAL_SECONDS_PER_GAME_MINUTE);
+        if (minutesToAdvance > 0)
+        {
+            advanceTime(minutesToAdvance);
+            timeAccumulator -= (float)minutesToAdvance * REAL_SECONDS_PER_GAME_MINUTE;
+        }
+    }
+}
+
 int Player::getRating() const
 {
     return rating;
+}
+
+void Player::setRating(int r)
+{
+    rating = r;
+}
+
+void Player::addRating(int r)
+{
+    rating += r;
+}
+
+void Player::subtractRating(int r)
+{
+    rating -= r;
+    if (rating < 0)
+        rating = 0;
 }
 
 int Player::getDay() const
@@ -77,95 +135,78 @@ int Player::getMinute() const
     return minute;
 }
 
-std::string Player::getTimeString() const
+void Player::setTime(int d, int h, int m)
 {
-    char buffer[6];
-    snprintf(buffer, sizeof(buffer), "%02d:%02d", hour, minute);
-
-    return std::string(buffer);
+    day = d;
+    hour = h;
+    minute = m;
 }
 
-std::string Player::getFullTimeString() const
+void Player::advanceTime(int minutes)
 {
-    char buffer[32];
-    snprintf(buffer, sizeof(buffer), "Day %d, %02d:%02d", day, hour, minute);
-
-    return std::string(buffer);
-}
-
-void Player::setInventory(Inventory *inv)
-{
-    if (inventory != inv)
+    minute += minutes;
+    while (minute >= 60)
     {
-        if (inventory)
-        {
-            delete inventory;
+        minute -= 60;
+        hour++;
+    }
+    while (hour >= 24)
+    {
+        hour -= 24;
+        day++;
+    }
+}
+
+Inventory *Player::getInventory() const
+{
+    return inventory;
+}
+
+Greenhouse *Player::getPlot() const
+{
+    return plot;
+}
+
+
+void Player::addWorker(Worker* worker) {
+    if (worker) {
+        workers.push_back(worker);
+        if (plot) {
+            plot->attach(worker); 
+            worker->setSubject(plot); 
         }
-        inventory = inv;
     }
 }
 
-void Player::setWorkers(Worker *w)
+void Player::fireWorker(int index)
 {
-    if (workers != w)
+    if (index >= 0 && index < (int)workers.size())
     {
-        if (workers)
+        if (workers[index])
         {
-            delete workers;
+            delete workers[index];
         }
-        workers = w;
+        workers.erase(workers.begin() + index);
     }
 }
 
-void Player::setPlot(Greenhouse *gh)
+Worker *Player::getWorker(int index) const
 {
-    if (plot != gh)
+    if (index >= 0 && index < (int)workers.size())
     {
-        if (plot)
-        {
-            delete plot;
-        }
-        plot = gh;
+        return workers[index];
     }
+    return nullptr;
 }
 
-void Player::setMoney(float m)
+int Player::getWorkerCount() const
 {
-    money = m;
+    return workers.size();
 }
 
-void Player::setRating(int r)
+const std::vector<Worker *> &Player::getWorkers() const
 {
-    rating = r;
-}
-
-void Player::setDay(int d)
-{
-    if (d > 0)
-    {
-        day = d;
-    }
-}
-
-void Player::setHour(int h)
-{
-    if (h >= 0 && h < 24)
-    {
-        hour = h;
-    }
-}
-
-void Player::setMinute(int m)
-{
-    if (m >= 0 && m < 60)
-    {
-        minute = m;
-    }
-}
-
-bool Player::isNewDay() const
-{
-    return hour == 6 && minute == 0;
+    return workers;
 }
 
 void Player::setProtected(bool prot)
@@ -180,7 +221,11 @@ bool Player::isProtected()
 
 Memento *Player::createMemento() const
 {
-    return new Memento(inventory, workers, plot, money, rating, day, hour, minute);
+    std::string invData = Serializer::serializeInventory(inventory);
+    std::string workersData = Serializer::serializeWorkers(workers);
+    std::string ghData = Serializer::serializeGreenhouse(plot);
+
+    return new Memento(invData, workersData, ghData, money, rating, day, hour, minute);
 }
 
 void Player::setMemento(Memento *memento)
@@ -193,21 +238,25 @@ void Player::setMemento(Memento *memento)
         hour = memento->getHour();
         minute = memento->getMinute();
 
-        if (inventory)
+        Serializer::deserializeInventory(inventory, memento->getInventoryData());
+        Serializer::deserializeGreenhouse(plot, memento->getGreenhouseData());
+        Serializer::deserializeWorkers(workers, memento->getWorkerData());
+        for (auto *worker : workers)
         {
-            delete inventory;
+            if (worker)
+            {
+                plot->attach(worker);
+            }
         }
-        if (workers)
-        {
-            delete workers;
-        }
-        if (plot)
-        {
-            delete plot;
-        }
-
-        inventory = memento->getInventory() ? new Inventory(*memento->getInventory()) : nullptr;
-        workers = memento->getWorkers() ? new Worker(*memento->getWorkers()) : nullptr;
-        plot = memento->getPlot() ? new Greenhouse(*memento->getPlot()) : nullptr;
     }
 }
+
+
+std::string Player::getTimeString() const {
+    std::stringstream ss;
+    ss << std::setw(2) << std::setfill('0') << hour << ":"
+       << std::setw(2) << std::setfill('0') << minute;
+       
+    return ss.str();
+}
+

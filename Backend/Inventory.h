@@ -23,6 +23,12 @@ public:
 
     int getRemainingCapacity() const { return capacity - items.size(); }
 
+    Plant* getPlant(int index) const 
+    {
+        if (index >= 0 && index < (int)items.size()) { return items[index]; }
+        return nullptr;
+    }
+    
 private:
     static constexpr int capacity = 64;
     std::string plantType;

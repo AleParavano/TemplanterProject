@@ -1,15 +1,21 @@
 #pragma once
 
-class Plant;
+// Forward declarations
+class Greenhouse;
 
-class Observer{
-    public:
-    virtual void update()=0;
-    virtual void setSubject(Plant* plant)=0;
+class Observer {
+public:
     Observer();
+    virtual ~Observer() = default;
+    
+    virtual void update() = 0;
+    virtual void setSubject(Greenhouse* greenhouse) = 0;
+    
     bool operator==(Observer* observer);
-    virtual ~Observer(){}
-    protected:
-    static int ObserverCount;
+    
+protected:
     int id;
+    
+private:
+    static int ObserverCount;
 };

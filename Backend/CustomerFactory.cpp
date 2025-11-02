@@ -3,7 +3,7 @@
 #include <functional>
 #include <random>
 
-CustomerFactory::~CustomerFactory() {}
+CustomerFactory::~CustomerFactory(){}
 
 Customer *RegularFactory::create(Plant *requestedPlant) const
 {

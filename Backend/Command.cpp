@@ -1,24 +1,33 @@
 #include "Command.h"
 #include "Player.h"
 #include "Game.h"
+#include <iostream>
 void WaterCommand::execute()
 {
-    this->targetPlant->water(10.0f);
+    std::cout << "COMMAND EXECUTION: WaterCommand started. Target water: " 
+              << this->targetPlant->getWater() << "%." << std::endl;
+    this->targetPlant->water(50.0f);
+    std::cout << "COMMAND EXECUTION: WaterCommand completed. New water: " 
+              << this->targetPlant->getWater() << "%." << std::endl;
 }
 void FertilizeCommand::execute()
 {
-    this->targetPlant->fertilize(5.0f);
+    this->targetPlant->fertilize(50.0f);
 }
 void HarvestCommand::execute()
 {
     Game* game= Game::getInstance();
     Player* player= game->getPlayerPtr();
+    if(player){
     Greenhouse* greenhouse= player->getPlot();
+    if(greenhouse)
    greenhouse->harvestPlant(targetPlant);
+    }
 }
 void PatrolCommand::execute()
-{
-    Player::setProtected(true);
+{ Player* player=Game::getInstance()->getPlayerPtr();
+    if(player)
+    player->setProtected(true);
 }
 void ServeCommand::execute()
 {
@@ -35,7 +44,7 @@ FertilizeCommand::FertilizeCommand(Plant *plant)
 {
 }
 
-HarvestCommand::HarvestCommand(int plant)
+HarvestCommand::HarvestCommand(Plant* plant)
 :targetPlant(plant)
 {
 }

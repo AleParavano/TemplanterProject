@@ -2,14 +2,19 @@
 #include <string>
 #include <iostream>
 #include "GrowthCycle.h"
+#include "PlantState.h"    // Defines PlantState and SeedState
 
-Plant::Plant(std::string type, float growthRate, float sellPrice) 
+#include "../Frontend/PlantVisualStrategy.h" 
+
+Plant::Plant(std::string type, float growthRate, float sellPrice, PlantVisualStrategy* strategy) 
     : state(nullptr), 
       type(type), 
       growthRate(growthRate),
       sellPrice(sellPrice),
-      growthCycle(new NormalGrowthCycle())
+      growthCycle(new NormalGrowthCycle()),
+      visualStrategy(strategy)
 {
+    // Fix: State construction requires the full definition of SeedState
     state = new SeedState(0.0f, 100.0f, 100.0f);
 }
 
@@ -20,6 +25,25 @@ Plant::~Plant()
     }
     if(growthCycle){
         delete growthCycle;
+    }
+    if(visualStrategy){
+        delete visualStrategy;
+    }
+}
+
+void Plant::draw(float x, float y, float initialWidth, float initialHeight) const {
+    if (visualStrategy) {
+        float progress = state ? (state->getGrowth() / 100.0f) : 0.0f;
+        
+        float currentWidth = initialWidth * (0.3f + 0.7f * progress);
+        float currentHeight = initialHeight * (0.3f + 0.7f * progress);
+        
+        visualStrategy->setDimensions(currentWidth, currentHeight);
+        visualStrategy->setGrowth(progress);
+        
+        visualStrategy->setDead(isDead()); 
+
+        visualStrategy->drawDetailed(x, y);
     }
 }
 
@@ -49,11 +73,8 @@ float Plant::getSellPrice() const
 void Plant::tick() 
 {
     if (state) {
-        // Let state handle resource consumption and state transitions
         state->tick(this);
         
-        // Use GrowthCycle if available to apply growth based on deltaTime
-        // For now, assume a fixed deltaTime of 1.0f per tick
         if (growthCycle) {
             growthCycle->grow(this, 1.0f);
         }
@@ -65,29 +86,6 @@ float Plant::getGrowthRate() const
     return growthRate;
 }
 
-void Plant::notify()
-{
-    for(auto observer : observers){
-        observer->update();
-    }
-}
-
-void Plant::attach(Observer *observer)
-{
-    if(observer){
-        observers.push_back(observer);
-        observer->setSubject(this);
-    }
-}
-
-void Plant::detach(Observer* observer)
-{
-    for (auto obs : observers){
-        if(*obs == observer){
-            // Remove observer from observers vector
-        }
-    }
-}
 
 void Plant::setState(PlantState* newState) 
 {
@@ -96,7 +94,6 @@ void Plant::setState(PlantState* newState)
             delete state;
         }
         state = newState;
-        notify();
     }
 }
 
@@ -110,6 +107,7 @@ std::string Plant::getState()
     return state->getState();
 }
 
+// FIX: This function requires the full definition of PlantState
 PlantState *Plant::getPlantState()
 {
     return this->state;
