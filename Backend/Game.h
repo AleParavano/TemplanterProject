@@ -21,8 +21,5 @@ public:
     static Game* getInstance();
     Player& getPlayer();
     Player* getPlayerPtr();
-    // --- NEW GLOBAL FUNCTION ---
-    void UpdateGameTime(float dt);
-    void saveGame();
-    void loadGame();
+  
 };
