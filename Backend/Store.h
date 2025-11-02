@@ -27,8 +27,7 @@
 class Store {
 private:
     std::vector<StoreItem*> items;
-    Inventory* storageInventory;  // Add storage inventory
-    
+        
 public:
     Store();
     ~Store();
@@ -37,11 +36,4 @@ public:
     bool purchaseItem(size_t index, Player* player);
     size_t getItemCount() const;
     StoreItem* getItem(size_t index) const;
-    
-    // Storage access methods
-    Inventory* getStorage() { return storageInventory; }
-    const Inventory* getStorage() const { return storageInventory; }
-    
-    // Add plant directly to storage
-    bool addToStorage(Plant* plant);
 };

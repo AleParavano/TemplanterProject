@@ -3,7 +3,6 @@
 
 StoreScene::StoreScene()
     : showModal(false),
-      selectedStorageSlot(-1),
       selectedPlantFromGrid(false),
       selectedGridX(-1),
       selectedGridY(-1),
@@ -13,13 +12,6 @@ StoreScene::StoreScene()
       plotHitBox{131, 131, 560, 525},
       boundaryWall{823, 0, 53, 660}
 {
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            plants[i][j] = false;
-        }
-    }
 
     backendStore = new Store();
     customerManager = new CustomerManager({1270, 0}, {1200, 580});
@@ -33,72 +25,47 @@ StoreScene::~StoreScene()
 
 void StoreScene::update(Player *player)
 {
-    Inventory *storageInventory = backendStore->getStorage();
-    if (!storageInventory)
-        return;
-
     Vector2 mouse = GetMousePosition();
 
+    // Toggle player inventory when manage plants is clicked
     if (CheckCollisionPointRec(mouse, manageToggle) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
-        showModal = !showModal;
-
         if (player)
         {
-            if (showModal)
+            if (!player->getInventoryUI()->isInventoryOpen())
             {
-                if (!player->isInventoryOpen())
-                {
-                    player->openInventory();
-                }
+                player->getInventoryUI()->toggle();
             }
             else
             {
-                if (player->isInventoryOpen())
-                {
-                    player->openInventory();
-                }
-            }
-        }
-
-        if (showModal && storageSlots.empty())
-        {
-            int storagePos = 0;
-            for (int i = 401; i < 900 && storagePos < 25; i += 100)
-            {
-                for (int j = 466; j < 930 && storagePos < 25; j += 100)
-                {
-                    Rectangle tempRect = {j, i, 75, 75};
-                    const InventorySlot *slotData = storageInventory->getSlot(storagePos);
-                    Slot tempSlot(slotData, tempRect);
-                    storageSlots.push_back(tempSlot);
-                    storagePos++;
-                }
+                player->getInventoryUI()->toggle();
             }
         }
     }
 
+    // Close inventory with ESC
     if (showModal && IsKeyPressed(KEY_ESCAPE))
     {
         showModal = false;
-        storageSlots.clear();
-        selectedStorageSlot = -1;
 
-        if (player && player->isInventoryOpen())
+        if (player && player->getInventoryUI()->isInventoryOpen())
         {
-            player->openInventory();
+            player->getInventoryUI()->toggle();
         }
     }
 
+    // Toggle store open/closed - NOW INDEPENDENT OF MANAGE PLANTS BUTTON
     if (CheckCollisionPointRec(mouse, openNClose) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
     {
         toggleOpen();
     }
 
-    // Update customers
-    updateCustomers(GetFrameTime(), player);
+    // Update customers - NOW ALWAYS RUNS WHEN PLAYER EXISTS
+    if (player)
+    {
+        updateCustomers(GetFrameTime(), player);
+    }
 }
-
 void StoreScene::updateCustomers(float deltaTime, Player *player)
 {
     if (!customerManager || !player)
@@ -108,7 +75,7 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
     customerManager->update(deltaTime, storeOpen);
 
     // Handle customer clicks
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !showModal && player->isInventoryOpen())
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !showModal && player->getInventoryUI()->isInventoryOpen())
     {
         Vector2 mouse = GetMousePosition();
         CustomerVisual *clickedCustomer = customerManager->getClickedCustomer(mouse);
@@ -116,7 +83,7 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
         if (clickedCustomer)
         {
             // Check if player has a selected item
-            int selectedSlot = player->getSelectedSlotIndex();
+            int selectedSlot = player->getInventoryUI()->getSelectedSlotIndex();
             if (selectedSlot != -1)
             {
                 // CRITICAL: Get fresh slot data each time
@@ -141,8 +108,7 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
                             }
 
                             // Clear selection after serving
-                            player->clearSlotSelection();
-
+                            player->getInventoryUI()->clearSlotSelection();
                             // TODO: Add money to player for successful sale
                             // player->addMoney(plant->getPrice());
                         }
@@ -155,13 +121,13 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
                     else
                     {
                         // Invalid plant type - clear selection
-                        player->clearSlotSelection();
+                        player->getInventoryUI()->clearSlotSelection();
                     }
                 }
                 else
                 {
                     // Empty slot selected - clear selection
-                    player->clearSlotSelection();
+                    player->getInventoryUI()->clearSlotSelection();
                 }
             }
             else
@@ -170,171 +136,6 @@ void StoreScene::updateCustomers(float deltaTime, Player *player)
                 customerManager->dismissCustomer(clickedCustomer);
             }
         }
-    }
-}
-
-void StoreScene::updateStorage(Player *player)
-{
-    if (!player)
-        return;
-
-    Inventory *storageInventory = backendStore->getStorage();
-    if (!storageInventory)
-        return;
-
-    for (int i = 0; i < storageSlots.size(); i++)
-    {
-        storageSlots[i].slot = storageInventory->getSlot(i);
-        storageSlots[i].selected = (i == selectedStorageSlot);
-    }
-
-    Vector2 mouse = GetMousePosition();
-
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-    {
-        bool clickHandled = false;
-
-        if (player->getSelectedSlotIndex() != -1)
-        {
-            int playerSlotIndex = player->getSelectedSlotIndex();
-
-            for (int i = 0; i < storageSlots.size(); i++)
-            {
-                if (storageSlots[i].isClicked(mouse))
-                {
-                    const InventorySlot *playerSlot = player->getInventory()->getSlot(playerSlotIndex);
-                    const InventorySlot *storageSlot = storageInventory->getSlot(i);
-
-                    bool shouldMerge = false;
-                    if (playerSlot && storageSlot &&
-                        !playerSlot->isEmpty() && !storageSlot->isEmpty() &&
-                        playerSlot->getPlantType() == storageSlot->getPlantType() &&
-                        !storageSlot->isFull())
-                    {
-                        shouldMerge = true;
-                    }
-
-                    if (shouldMerge)
-                    {
-                        std::string plantType = playerSlot->getPlantType();
-                        int spaceAvailable = storageSlot->getRemainingCapacity();
-                        int itemsInSource = playerSlot->getSize();
-                        int itemsToMove = std::min(spaceAvailable, itemsInSource);
-
-                        for (int j = 0; j < itemsToMove; j++)
-                        {
-                            const InventorySlot *currentStorageSlot = storageInventory->getSlot(i);
-                            if (!currentStorageSlot || currentStorageSlot->isFull())
-                                break;
-
-                            Plant *plant = player->getInventory()->removeItem(plantType);
-                            if (!plant)
-                                break;
-
-                            if (!storageInventory->addToSpecificSlot(plant, i))
-                            {
-                                player->getInventory()->add(plant);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Inventory::swapBetweenInventories(player->getInventory(), playerSlotIndex,
-                                                          storageInventory, i);
-                    }
-
-                    for (int k = 0; k < storageSlots.size(); k++)
-                    {
-                        storageSlots[k].slot = storageInventory->getSlot(k);
-                    }
-
-                    player->clearSlotSelection();
-                    clickHandled = true;
-                    break;
-                }
-            }
-        }
-
-        if (!clickHandled)
-        {
-            for (int i = 0; i < storageSlots.size(); i++)
-            {
-                if (storageSlots[i].isClicked(mouse))
-                {
-                    if (selectedStorageSlot == -1)
-                    {
-                        if (storageSlots[i].slot != nullptr && !storageSlots[i].slot->isEmpty())
-                        {
-                            selectedStorageSlot = i;
-                            storageSlots[i].selected = true;
-                        }
-                    }
-                    else if (selectedStorageSlot != i)
-                    {
-                        const InventorySlot *sourceSlot = storageInventory->getSlot(selectedStorageSlot);
-                        const InventorySlot *destSlot = storageInventory->getSlot(i);
-
-                        bool shouldMerge = false;
-                        if (sourceSlot && destSlot &&
-                            !sourceSlot->isEmpty() && !destSlot->isEmpty() &&
-                            sourceSlot->getPlantType() == destSlot->getPlantType() &&
-                            !destSlot->isFull())
-                        {
-                            shouldMerge = true;
-                        }
-
-                        if (shouldMerge)
-                        {
-                            std::string plantType = sourceSlot->getPlantType();
-                            int spaceAvailable = destSlot->getRemainingCapacity();
-                            int itemsInSource = sourceSlot->getSize();
-                            int itemsToMove = std::min(spaceAvailable, itemsInSource);
-
-                            for (int j = 0; j < itemsToMove; j++)
-                            {
-                                const InventorySlot *currentDestSlot = storageInventory->getSlot(i);
-                                if (!currentDestSlot || currentDestSlot->isFull())
-                                    break;
-
-                                Plant *plant = storageInventory->removeItem(plantType);
-                                if (!plant)
-                                    break;
-
-                                if (!storageInventory->addToSpecificSlot(plant, i))
-                                {
-                                    delete plant;
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            storageInventory->swapSlots(selectedStorageSlot, i);
-                        }
-
-                        storageSlots[selectedStorageSlot].slot = storageInventory->getSlot(selectedStorageSlot);
-                        storageSlots[i].slot = storageInventory->getSlot(i);
-
-                        storageSlots[selectedStorageSlot].selected = false;
-                        selectedStorageSlot = -1;
-                    }
-                    else
-                    {
-                        storageSlots[selectedStorageSlot].selected = false;
-                        selectedStorageSlot = -1;
-                    }
-
-                    break;
-                }
-            }
-        }
-    }
-
-    if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON) && selectedStorageSlot != -1)
-    {
-        storageSlots[selectedStorageSlot].selected = false;
-        selectedStorageSlot = -1;
     }
 }
 
@@ -408,21 +209,11 @@ void StoreScene::render()
     DrawRectangle(928, 0, 245, 35, Color{130, 200, 250, 255});
     DrawRectangle(928, 0, 245, 18, Color{100, 165, 250, 255});
 
-    for (int i = 187, k = 0; i < 691; i += 56, k++)
-    {
-        for (int j = 184, p = 0; j < 648; p++, j += 53)
-        {
-            if (plants[k][p])
-            {
-                DrawRectangle(i, j, 5, 11, Color{50, 100, 50, 255});
-                DrawRectangle(i, j, 5, 5, GREEN);
-            }
-        }
-    }
-
+    // Draw "Manage Plants" button
     DrawText("Manage Plants", 350, 385, 18, WHITE);
     DrawRectangleRec(manageToggle, Color{255, 255, 255, 100});
 
+    // Draw store open/closed status
     if (storeOpen)
     {
         DrawText("Open", 1030, 10, 20, RED);
@@ -440,44 +231,6 @@ void StoreScene::render()
     if (customerManager)
     {
         customerManager->render();
-    }
-}
-
-void StoreScene::renderModal(int width, int height)
-{
-    if (!showModal)
-        return;
-
-    Inventory *storageInventory = backendStore->getStorage();
-    if (!storageInventory)
-        return;
-
-    Rectangle modal = {461, 356, 485, 535};
-    DrawRectangleRec(modal, Color{178, 102, 0, 255});
-    DrawRectangleLinesEx(modal, 1, BLACK);
-
-    DrawText("Storage:", 466, 361, 35, Color{86, 49, 0, 255});
-
-    for (const Slot &slot : storageSlots)
-    {
-        if (slot.selected)
-        {
-            DrawRectangleRec(slot.rect, Color{110, 70, 20, 255});
-        }
-        else
-        {
-            DrawRectangleRec(slot.rect, Color{86, 49, 0, 255});
-        }
-
-        DrawRectangleLinesEx(slot.rect, 2, BLACK);
-
-        if (slot.slot != nullptr && !slot.slot->isEmpty())
-        {
-            DrawCircle(slot.rect.x + 37, slot.rect.y + 37, 20, GREEN);
-
-            std::string quantity = std::to_string(slot.slot->getSize());
-            DrawText(quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 10, WHITE);
-        }
     }
 }
 
