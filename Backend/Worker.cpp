@@ -146,7 +146,19 @@ void Worker::attachToAllPlants(Plant *plant)
     }
 }
 
-void WaterWorker::update(Plant* plantToTend)
+void WaterWorker::update()
+{
+    if(subject){
+        for(int i = 0; i < subject->getCapacity(); i++){
+            Plant* plant = subject->getPlant(i);
+            if(plant && plant->getWater() <= 20.0f){
+                addCommand(new WaterCommand(plant));
+            }
+        }
+    }
+}
+
+void FertiliserWorker::update()
 {
     if(subject){
         for(int i = 0; i < subject->getCapacity(); i++){
@@ -158,7 +170,7 @@ void WaterWorker::update(Plant* plantToTend)
     }
 }
 
-void FertiliserWorker::update(Plant* changedPlant)
+void HarvestWorker::update()
 {
     if(subject){
         for(int i = 0; i < subject->getCapacity(); i++){

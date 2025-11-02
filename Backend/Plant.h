@@ -1,17 +1,15 @@
-// CRITICAL FILE: Backend/Plant.h
+
 
 #pragma once
 
-// CRITICAL DEPENDENCIES
+
 #include "PlantState.h"       
-#include "../PlantVisualStrategy.h"
-#include "Subject.h"          // Defines the base class 'Subject'
+#include "../Frontend/PlantVisualStrategy.h"         
 #include <string>
 
 // Forward declarations
 class GrowthCycle;
-class Observer; // Observer is defined in Observer.h, which is included by Subject.h, 
-                // but keeping explicit helps clarify dependency.
+
 
 class Plant
 {
@@ -24,12 +22,6 @@ public:
     void setGrowthCycle(GrowthCycle* gc);
     void applyGrowthToState(float growth);
     float getBaseGrowthRate() const;
-    
-    // Observer pattern
-    virtual void notify(Plant* changedPlant);
-    void notify() override;
-    void attach(Observer* observer);
-    void detach(Observer* observer);
     
     // State management
     void tick();

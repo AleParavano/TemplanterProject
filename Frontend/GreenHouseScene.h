@@ -32,11 +32,6 @@
 #define SHOP_Y ((SCREEN_HEIGHT - SHOP_HEIGHT) / 2)
 #define ITEM_ROW_HEIGHT 60
 
-struct WorkerData {
-    std::string type;
-    float cost;
-    Color shirtColor;
-};
 
 class GreenHouseScene : public Scene {
 private:

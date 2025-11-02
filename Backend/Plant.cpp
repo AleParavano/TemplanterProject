@@ -2,13 +2,9 @@
 #include <string>
 #include <iostream>
 #include "GrowthCycle.h"
-// CRITICAL MISSING INCLUDES (Required for definitions used below)
 #include "PlantState.h"    // Defines PlantState and SeedState
-#include "Observer.h"      // Defines Observer
-#include "Subject.h"       // Defines Subject (which holds observers)
+
 #include "../PlantVisualStrategy.h" // Defines PlantVisualStrategy
-// NOTE: Redundant includes from original code have been removed.
-// NOTE: Assuming all headers are in the same relative directory structure for simplicity.
 
 Plant::Plant(std::string type, float growthRate, float sellPrice, PlantVisualStrategy* strategy) 
     : state(nullptr), 
@@ -92,7 +88,6 @@ void Plant::tick()
             growthCycle->grow(this, 1.0f);
         }
     }
-    notify(this);
 }
 
 float Plant::getGrowthRate() const 
@@ -100,37 +95,6 @@ float Plant::getGrowthRate() const
     return growthRate;
 }
 
-void Plant::notify(Plant* changedPlant)
-{
-    for(auto observer : observers){
-        observer->update(changedPlant);
-    }
-}
-
-void Plant::notify() 
-{
-    for(auto observer : observers){
-        observer->update(this); 
-    }
-}
-
-void Plant::attach(Observer *observer)
-{
-    if(observer){
-        observers.push_back(observer);
-        observer->setSubject(this);
-    }
-}
-
-void Plant::detach(Observer* observer)
-{
-    for (auto obs : observers){
-        if(*obs == observer){
-            // Logic to remove observer from observers vector (assumed to be a std::vector)
-            // Example fix: observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
-        }
-    }
-}
 
 void Plant::setState(PlantState* newState) 
 {
@@ -139,7 +103,6 @@ void Plant::setState(PlantState* newState)
             delete state;
         }
         state = newState;
-        notify(this);
     }
 }
 

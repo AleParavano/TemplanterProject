@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Plant.h"
-#include "../PlantVisualStrategy.h"
+#include "../Frontend/PlantVisualStrategy.h"
 
 class PlantFactory
 {

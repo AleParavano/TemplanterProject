@@ -79,4 +79,10 @@ typedef struct {
     bool occupied;
 } ParkingSpot;
 
+struct WorkerData {
+    std::string type;
+    float cost;
+    Color shirtColor;
+};
+
 #endif // TYPES_H
