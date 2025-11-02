@@ -1,25 +1,29 @@
 #pragma once
 
 #include "Memento.h"
-#include <vector>
+#include <string>
 
 class Caretaker {
 private:
-    std::vector<Memento*> mementos;
-    int currentIndex;
-    static const int MAX_MEMENTOS = 3;
+    Memento* currentMemento;
+    std::string saveFile;
 
 public:
-    Caretaker();
+    Caretaker(const std::string& filename = "game_state.txt");
     ~Caretaker();
 
+    // Add memento - automatically saves to file
     void addMemento(Memento* memento);
-    Memento* getMemento(int index) const;
-    Memento* undo();
-    Memento* redo();
-    bool canUndo() const;
-    bool canRedo() const;
-    int getMementoCount() const;
-    int getCurrentIndex() const;
-    int getMaxMementos() const;
+    
+    // Get current memento
+    Memento* getMemento() const;
+    
+    // Load from file
+    void loadFromFile();
+    
+    // Delete all saved data from file
+    void deleteData();
+
+private:
+    void saveToFile();
 };

@@ -30,57 +30,19 @@ std::string Serializer::join(const std::vector<std::string>& parts, char delimit
     return result;
 }
 
-std::string Serializer::serializePlantState(PlantState* state) {
-    if (!state) return "NONE";
-    
-    std::stringstream ss;
-    std::string stateName = state->getState();
-    
-    ss << stateName << "|" 
-       << state->getGrowth() << "|"
-       << state->getWater() << "|"
-       << state->getNutrients();
-    
-    return ss.str();
-}
-
-PlantState* Serializer::deserializePlantState(const std::string& stateData) {
-    if (stateData == "NONE") return nullptr;
-    
-    auto parts = split(stateData, '|');
-    if (parts.size() < 4) return nullptr;
-    
-    try {
-        std::string stateName = parts[0];
-        float growth = std::stof(parts[1]);
-        float water = std::stof(parts[2]);
-        float nutrients = std::stof(parts[3]);
-        
-        if (stateName == "Seed") {
-            return new SeedState(growth, water, nutrients);
-        } else if (stateName == "Growing") {
-            return new GrowingState(growth, water, nutrients);
-        } else if (stateName == "Ripe") {
-            return new RipeState(growth, water, nutrients);
-        } else if (stateName == "Dead") {
-            return new DeadState(growth, water, nutrients);
-        }
-    } catch (...) {
-        return nullptr;
-    }
-    
-    return nullptr;
-}
-
 std::string Serializer::serializePlant(Plant* plant) {
     if (!plant) return "NULL";
     
+    PlantState* state = plant->getPlantState();
     std::stringstream ss;
     
     ss << plant->getType() << "|"
        << plant->getBaseGrowthRate() << "|"
        << plant->getSellPrice() << "|"
-       << serializePlantState(plant->getPlantState());
+       << (state ? state->getState() : "Seed") << "|"
+       << (state ? state->getGrowth() : 0.0f) << "|"
+       << (state ? state->getWater() : 100.0f) << "|"
+       << (state ? state->getNutrients() : 100.0f);
     
     return ss.str();
 }
@@ -89,12 +51,16 @@ Plant* Serializer::deserializePlant(const std::string& plantData) {
     if (plantData == "NULL") return nullptr;
     
     auto parts = split(plantData, '|');
-    if (parts.size() < 4) return nullptr;
+    if (parts.size() < 7) return nullptr;
     
     try {
         std::string type = parts[0];
         float growthRate = std::stof(parts[1]);
         float sellPrice = std::stof(parts[2]);
+        std::string stateName = parts[3];
+        float growth = std::stof(parts[4]);
+        float water = std::stof(parts[5]);
+        float nutrients = std::stof(parts[6]);
         
         Plant* plant = nullptr;
         
@@ -105,18 +71,26 @@ Plant* Serializer::deserializePlant(const std::string& plantData) {
         else if (type == "Strawberry") plant = new Strawberry();
         else if (type == "Potato") plant = new Potato();
         else if (type == "Cucumber") plant = new Cucumber();
+        else if (type == "Pepper") plant = new Pepper();
+        else if (type == "Sunflower") plant = new Sunflower();
+        else if (type == "Corn") plant = new Corn();
         else return nullptr;
         
-        std::string stateData = parts[3];
-        if (parts.size() > 4) {
-            for (size_t i = 4; i < parts.size(); ++i) {
-                stateData += "|" + parts[i];
-            }
+        PlantState* newState = nullptr;
+        if (stateName == "Seed") {
+            newState = new SeedState(growth, water, nutrients);
+        } else if (stateName == "Growing") {
+            newState = new GrowingState(growth, water, nutrients);
+        } else if (stateName == "Ripe") {
+            newState = new RipeState(growth, water, nutrients);
+        } else if (stateName == "Dead") {
+            newState = new DeadState(growth, water, nutrients);
+        } else {
+            newState = new SeedState(growth, water, nutrients);
         }
         
-        PlantState* state = deserializePlantState(stateData);
-        if (state) {
-            plant->setState(state);
+        if (newState) {
+            plant->setState(newState);
         }
         
         return plant;
@@ -129,23 +103,25 @@ std::string Serializer::serializeInventory(Inventory* inventory) {
     if (!inventory) return "";
     
     std::stringstream ss;
-    std::vector<std::string> stacks;
+    std::vector<std::string> allPlants;
     
-    std::vector<std::string> plantTypes = {
-        "Lettuce", "Tomato", "Carrot", "Pumpkin", 
-        "Strawberry", "Potato", "Cucumber"
-    };
-    
-    for (const auto& type : plantTypes) {
-        int count = inventory->getPlantCount(type);
-        if (count > 0) {
-            stacks.push_back(type + ":" + std::to_string(count));
+    for (size_t i = 0; i < inventory->getStackCount(); ++i) {
+        const InventorySlot* slot = inventory->getSlot(i);
+        if (slot && slot->getSize() > 0) {
+            for (int j = 0; j < slot->getSize(); ++j) {
+                Plant* plant = slot->getPlant(j);
+                if (plant) {
+                    allPlants.push_back(serializePlant(plant));
+                } else {
+                    allPlants.push_back(slot->getPlantType() + "|1.6|15.0|Seed|0.0|100.0|100.0");
+                }
+            }
         }
     }
     
-    for (size_t i = 0; i < stacks.size(); ++i) {
-        ss << stacks[i];
-        if (i < stacks.size() - 1) ss << "|";
+    for (size_t i = 0; i < allPlants.size(); ++i) {
+        ss << allPlants[i];
+        if (i < allPlants.size() - 1) ss << "|";
     }
     
     return ss.str();
@@ -156,30 +132,18 @@ void Serializer::deserializeInventory(Inventory* inventory, const std::string& d
     
     inventory->clear();
     
-    auto stacks = split(data, '|');
+    auto parts = split(data, '|');
     
-    for (const auto& stack : stacks) {
-        auto parts = split(stack, ':');
-        if (parts.size() < 2) continue;
+    for (size_t i = 0; i < parts.size(); i += 7) {
+        if (i + 6 >= parts.size()) break;
         
         try {
-            std::string type = parts[0];
-            int count = std::stoi(parts[1]);
+            std::string plantData = parts[i] + "|" + parts[i+1] + "|" + parts[i+2] + "|" 
+                                   + parts[i+3] + "|" + parts[i+4] + "|" + parts[i+5] + "|" + parts[i+6];
             
-            for (int i = 0; i < count; ++i) {
-                Plant* plant = nullptr;
-                
-                if (type == "Lettuce") plant = new Lettuce();
-                else if (type == "Tomato") plant = new Tomato();
-                else if (type == "Carrot") plant = new Carrot();
-                else if (type == "Pumpkin") plant = new Pumpkin();
-                else if (type == "Strawberry") plant = new Strawberry();
-                else if (type == "Potato") plant = new Potato();
-                else if (type == "Cucumber") plant = new Cucumber();
-                
-                if (plant) {
-                    inventory->add(plant);
-                }
+            Plant* plant = deserializePlant(plantData);
+            if (plant) {
+                inventory->add(plant);
             }
         } catch (...) {
             continue;
@@ -192,7 +156,7 @@ std::string Serializer::serializeGreenhouse(Greenhouse* greenhouse) {
     
     std::stringstream ss;
     
-    ss << greenhouse->getSize() << "," 
+    ss << greenhouse->getSize() << ","
        << greenhouse->getCapacity() << "|";
     
     std::vector<std::string> plants;
@@ -228,21 +192,40 @@ void Serializer::deserializeGreenhouse(Greenhouse* greenhouse, const std::string
         
         int plantIndex = 1;
         for (int i = 0; i < capacity && plantIndex < (int)parts.size(); ++i) {
-            Plant* plant = deserializePlant(parts[plantIndex]);
-            if (plant) {
-                greenhouse->addPlant(plant, i);
+            if (plantIndex + 6 < (int)parts.size()) {
+                std::string plantData = parts[plantIndex] + "|" + parts[plantIndex+1] + "|" 
+                                       + parts[plantIndex+2] + "|" + parts[plantIndex+3] + "|"
+                                       + parts[plantIndex+4] + "|" + parts[plantIndex+5] + "|" + parts[plantIndex+6];
+                Plant* plant = deserializePlant(plantData);
+                if (plant) {
+                    greenhouse->addPlant(plant, i);
+                }
+                plantIndex += 7;
+            } else {
+                plantIndex++;
             }
-            plantIndex++;
         }
     } catch (...) {
     }
 }
 
 std::string Serializer::serializeWorkers(const std::vector<Worker*>& workers) {
-    if (workers.empty()) return "0";
+    if (workers.empty()) return "";
     
     std::stringstream ss;
-    ss << workers.size();
+    std::vector<std::string> workerData;
+    
+    for (const auto* worker : workers) {
+        if (worker) {
+            std::string workerType = worker->type();
+            workerData.push_back(workerType);
+        }
+    }
+    
+    for (size_t i = 0; i < workerData.size(); ++i) {
+        ss << workerData[i];
+        if (i < workerData.size() - 1) ss << "|";
+    }
     
     return ss.str();
 }
@@ -256,11 +239,24 @@ void Serializer::deserializeWorkers(std::vector<Worker*>& workers, const std::st
     if (data.empty()) return;
     
     try {
-        int count = std::stoi(data);
-        for (int i = 0; i < count; ++i) {
-            Worker* newWorker = new Worker();
-            workers.push_back(newWorker);
+        auto workerTypes = split(data, '|');
+        
+        for (const auto& workerType : workerTypes) {
+            Worker* newWorker = nullptr;
+            
+            if (workerType == "Water Worker") {
+                newWorker = new WaterWorker();
+            } else if (workerType == "Fertiliser Worker") {
+                newWorker = new FertiliserWorker();
+            } else if (workerType == "Harvest Worker") {
+                newWorker = new HarvestWorker();
+            } else {
+                newWorker = new Worker();
+            }
+            
+            if (newWorker) {
+                workers.push_back(newWorker);
+            }
         }
-    } catch (...) {
-    }
+    } catch (...) {}
 }

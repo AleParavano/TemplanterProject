@@ -2,11 +2,11 @@
 #include "Serializer.h"
 
 Player::Player()
-    : money(0.0f), rating(0), day(1), hour(6), minute(0),
+    : money(100.0f), rating(0), day(1), hour(6), minute(0),
       inventory(nullptr), plot(nullptr)
 {
     inventory = new Inventory();
-    plot = new Greenhouse();
+    plot = new Greenhouse(inventory);
 }
 
 Player::~Player() {

@@ -1,88 +1,124 @@
 #include "Caretaker.h"
+#include <fstream>
+#include <sstream>
+#include <filesystem>
 
-Caretaker::Caretaker() : currentIndex(-1) {}
+Caretaker::Caretaker(const std::string& filename) : currentMemento(nullptr), saveFile(filename) 
+{
+    loadFromFile();
+}
 
-Caretaker::~Caretaker() {
-    for (auto memento : mementos) {
-        delete memento;
+Caretaker::~Caretaker() 
+{
+    if (currentMemento) 
+    {
+        delete currentMemento;
     }
 }
 
 void Caretaker::addMemento(Memento* memento) 
 {
-    while (mementos.size() > currentIndex + 1) 
+    if (!memento) return;
+    
+    if (currentMemento) 
     {
-        delete mementos.back();
-        mementos.pop_back();
+        delete currentMemento;
     }
     
-    if (mementos.size() >= MAX_MEMENTOS) 
+    currentMemento = memento;
+    saveToFile();
+}
+
+Memento* Caretaker::getMemento() const 
+{
+    return currentMemento;
+}
+
+void Caretaker::saveToFile() 
+{
+    if (!currentMemento) return;
+    
+    std::ofstream file(saveFile);
+    if (!file.is_open()) return;
+    
+    file << "INVENTORY:" << currentMemento->getInventoryData() << "\n";
+    file << "GREENHOUSE:" << currentMemento->getGreenhouseData() << "\n";
+    file << "WORKERS:" << currentMemento->getWorkerData() << "\n";
+    file << "MONEY:" << currentMemento->getMoney() << "\n";
+    file << "RATING:" << currentMemento->getRating() << "\n";
+    file << "DAY:" << currentMemento->getDay() << "\n";
+    file << "HOUR:" << currentMemento->getHour() << "\n";
+    file << "MINUTE:" << currentMemento->getMinute() << "\n";
+    
+    file.close();
+}
+
+void Caretaker::loadFromFile() 
+{
+    std::ifstream file(saveFile);
+    if (!file.is_open()) return;
+    
+    std::string line;
+    std::string inv, gh, workers;
+    float money = 0.0f;
+    int rating = 0, day = 1, hour = 6, minute = 0;
+    
+    while (std::getline(file, line)) 
     {
-        delete mementos.front();
-        mementos.erase(mementos.begin());
-        if (currentIndex > 0) 
+        size_t colonPos = line.find(':');
+        if (colonPos == std::string::npos) continue;
+        
+        std::string key = line.substr(0, colonPos);
+        std::string value = line.substr(colonPos + 1);
+        
+        try 
         {
-            currentIndex--;
+            if (key == "INVENTORY") {
+                inv = value;
+            } else if (key == "GREENHOUSE") {
+                gh = value;
+            } else if (key == "WORKERS") {
+                workers = value;
+            } else if (key == "MONEY") {
+                money = std::stof(value);
+            } else if (key == "RATING") {
+                rating = std::stoi(value);
+            } else if (key == "DAY") {
+                day = std::stoi(value);
+            } else if (key == "HOUR") {
+                hour = std::stoi(value);
+            } else if (key == "MINUTE") {
+                minute = std::stoi(value);
+            }
+        } 
+        catch (...) 
+        {
+            continue;
         }
     }
     
-    mementos.push_back(memento);
-    currentIndex++;
-}
-
-Memento* Caretaker::getMemento(int index) const 
-{
-    if (index >= 0 && index < mementos.size()) 
+    file.close();
+    
+    if (!inv.empty() || !gh.empty() || !workers.empty()) 
     {
-        return mementos[index];
+        currentMemento = new Memento(inv, workers, gh, money, rating, day, hour, minute);
     }
-
-    return nullptr;
 }
 
-Memento* Caretaker::undo() 
+void Caretaker::deleteData() 
 {
-    if (currentIndex > 0) 
+    if (currentMemento) 
     {
-        currentIndex--;
-        return mementos[currentIndex];
+        delete currentMemento;
+        currentMemento = nullptr;
     }
-
-    return nullptr;
-}
-
-Memento* Caretaker::redo() 
-{
-    if (currentIndex < mementos.size() - 1) 
+    
+    try 
     {
-        currentIndex++;
-        return mementos[currentIndex];
-    }
-
-    return nullptr;
-}
-
-bool Caretaker::canUndo() const 
-{
-    return currentIndex > 0;
-}
-
-bool Caretaker::canRedo() const 
-{
-    return currentIndex < mementos.size() - 1;
-}
-
-int Caretaker::getMementoCount() const 
-{
-    return mementos.size();
-}
-
-int Caretaker::getCurrentIndex() const 
-{
-    return currentIndex;
-}
-
-int Caretaker::getMaxMementos() const 
-{
-    return MAX_MEMENTOS;
+        if (std::filesystem::exists(saveFile)) 
+        {
+            std::filesystem::remove(saveFile);
+        }
+    } 
+    catch (...) {}
 }
