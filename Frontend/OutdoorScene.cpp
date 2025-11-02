@@ -8,6 +8,11 @@
 OutdoorScene::OutdoorScene() : timeOfDay(0.6f), isPaused(false), numRoads(0), numTrees(0), numPlants(0), nextScene(SCENE_OUTDOOR) {}
 
 void OutdoorScene::Init() {
+    // Reset all counters to prevent accumulation on re-initialization
+    numRoads = 0;
+    numTrees = 0;
+    numPlants = 0;
+    
     InitBuildings();
     InitRoads();
     InitHouses();
@@ -263,7 +268,9 @@ void OutdoorScene::HandleInput() {
 }
 
 SceneType OutdoorScene::CheckExit() {
-    return nextScene;
+    SceneType result = nextScene;
+    nextScene = SCENE_OUTDOOR;  // Reset to stay in outdoor scene by default
+    return result;
 }
 
 void OutdoorScene::Draw() {
@@ -599,7 +606,3 @@ void OutdoorScene::DrawMoneyCounter() {
 void OutdoorScene::DrawRatingStars() {
     // REMOVED - Original function was empty or not used.
 }
-
-
-
-
