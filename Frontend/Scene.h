@@ -2,6 +2,8 @@
 #define SCENE_H
 
 #include "raylib.h"
+#include "raymath.h"
+#include <string>
 
 // --- Screen/Scene Enum ---
 typedef enum
@@ -15,6 +17,9 @@ typedef enum
 // --- Base Scene Class ---
 class Scene
 {
+private:
+    std::string type;
+
 public:
     virtual ~Scene() = default;
 
@@ -25,8 +30,7 @@ public:
     virtual void HandleInput() = 0;             // Handle keyboard/mouse input
     virtual SceneType GetSceneType() const = 0; // Return this scene's type
 
-
-    // Virtual functions 
+    // Virtual functions
     // Default implementation does nothing, so not all scenes need a menu.
     virtual void DrawMenu() {}
     // Check if this scene should exit (returns next scene type, or current if staying)
@@ -34,23 +38,9 @@ public:
     {
         return GetSceneType();
     }
+
+    virtual void render() = 0;
+    virtual std::string getType() = 0;
 };
 
 #endif // SCENE_H#ifndef SCENE_H
-#define SCENE_H
-
-#include "raylib.h"
-#include "raymath.h"
-#include <string>
-
-using namespace std;
-
-class Scene{
-private:
-    string type;
-    public:
-    virtual void render() = 0;
-    virtual string getType() = 0;
-};
-
-#endif
