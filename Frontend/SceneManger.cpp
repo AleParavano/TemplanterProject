@@ -36,13 +36,12 @@ void SceneManager::HandleInput() {
         Rectangle backBtnArea = {BACK_BUTTON_MARGIN, BACK_BUTTON_MARGIN, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT};
         
         if (CheckCollisionPointRec(mousePos, backBtnArea)) {
-            // Step A: FORCE THE TRANSITION
+            // Transition to OUTDOOR scene
             currentScene = SCENE_OUTDOOR;
-            scenes[currentScene]->Init(); 
+            nextScene = SCENE_OUTDOOR;
+            scenes[currentScene]->Init();
             
-            std::cout << "DEBUG: Back button clicked. Transitioning." << std::endl;
-            
-            // Step B: CRITICAL - Return immediately to skip all other input/transition logic
+            // Return immediately to skip all other input/transition logic
             return; 
         }
     }
