@@ -2,10 +2,10 @@
 
 Greenhouse::Greenhouse()
 {
-    size = 0;
-    capacity = 16;
-    plots.resize(capacity, nullptr);
-    inventory = nullptr;
+    size=0;
+    capacity=56;
+    plots.resize(capacity,nullptr);
+    inventory=nullptr;
 }
 
 Greenhouse::Greenhouse(Inventory *inv)

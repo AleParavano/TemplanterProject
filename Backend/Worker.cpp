@@ -70,7 +70,7 @@ void Worker::setSubject(Greenhouse* greenhouse)
     this->subject = greenhouse;
 }
 
-void Worker::update()
+void Worker::update(Plant *changedPlant)
 {
     // Base worker checks all plants and generates appropriate commands
     if(subject){
@@ -105,6 +105,14 @@ void Worker::stop()
     }
 }
 
+void Worker::addWorker(Worker *worker)
+{
+    if (worker) {
+        hiredWorkers.push_back(worker);
+        std::cout << "WORKER MANAGER: New " << worker->type() << " hired." << std::endl;
+    }
+}
+
 void Worker::startPatrol()
 {
     Player* player = Game::getInstance()->getPlayerPtr();
@@ -123,6 +131,18 @@ void Worker::setLevel(int level)
 {
     if(level >= 1 && level <= 3){
         this->level = level;
+    }
+}
+
+void Worker::attachToAllPlants(Plant *plant)
+{
+    if(subject){
+        for(int i = 0; i < subject->getCapacity(); i++){
+            Plant* plant = subject->getPlant(i);
+            if(plant && plant->getWater() <= 20.0f){
+                addCommand(new WaterCommand(plant));
+            }
+        }
     }
 }
 

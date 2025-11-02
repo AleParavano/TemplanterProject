@@ -2,14 +2,19 @@
 #include <string>
 #include <iostream>
 #include "GrowthCycle.h"
+#include "PlantState.h"    // Defines PlantState and SeedState
 
-Plant::Plant(std::string type, float growthRate, float sellPrice) 
+#include "../Frontend/PlantVisualStrategy.h" // Defines PlantVisualStrategy
+
+Plant::Plant(std::string type, float growthRate, float sellPrice, PlantVisualStrategy* strategy) 
     : state(nullptr), 
       type(type), 
       growthRate(growthRate),
       sellPrice(sellPrice),
-      growthCycle(new NormalGrowthCycle())
+      growthCycle(new NormalGrowthCycle()),
+      visualStrategy(strategy)
 {
+    // Fix: State construction requires the full definition of SeedState
     state = new SeedState(0.0f, 100.0f, 100.0f);
 }
 
@@ -29,6 +34,25 @@ Plant::~Plant()
     }
     if(growthCycle){
         delete growthCycle;
+    }
+    if(visualStrategy){
+        delete visualStrategy;
+    }
+}
+
+void Plant::draw(float x, float y, float initialWidth, float initialHeight) const {
+    if (visualStrategy) {
+        float progress = state ? (state->getGrowth() / 100.0f) : 0.0f;
+        
+        float currentWidth = initialWidth * (0.3f + 0.7f * progress);
+        float currentHeight = initialHeight * (0.3f + 0.7f * progress);
+        
+        visualStrategy->setDimensions(currentWidth, currentHeight);
+        visualStrategy->setGrowth(progress);
+        
+        visualStrategy->setDead(isDead()); 
+
+        visualStrategy->drawDetailed(x, y);
     }
 }
 
@@ -71,6 +95,7 @@ float Plant::getGrowthRate() const
     return growthRate;
 }
 
+
 void Plant::setState(PlantState* newState) 
 {
     if (state != newState) {
@@ -91,6 +116,7 @@ std::string Plant::getState()
     return state->getState();
 }
 
+// FIX: This function requires the full definition of PlantState
 PlantState *Plant::getPlantState()
 {
     return this->state;

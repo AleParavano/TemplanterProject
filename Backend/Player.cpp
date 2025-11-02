@@ -151,3 +151,4 @@ void Player::setMemento(Memento* memento) {
         Serializer::deserializeWorkers(workers, memento->getWorkerData());
     }
 }
+
