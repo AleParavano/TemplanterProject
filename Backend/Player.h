@@ -52,7 +52,9 @@ public:
     Memento* createMemento() const;
     void setMemento(Memento* memento);
     std::string getTimeString() const;
+    InventoryUI *getInventoryUI() const { return inventoryUI; }
 
+    
     private:
     float money;
     int rating;

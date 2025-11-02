@@ -39,8 +39,8 @@ public:
         return GetSceneType();
     }
 
-    virtual void render() = 0;
-    virtual std::string getType() = 0;
+    // virtual void render() = 0;
+    // virtual std::string getType() = 0;
 };
 
 #endif // SCENE_H#ifndef SCENE_H
