@@ -149,6 +149,13 @@ void Player::setMemento(Memento* memento) {
         Serializer::deserializeInventory(inventory, memento->getInventoryData());
         Serializer::deserializeGreenhouse(plot, memento->getGreenhouseData());
         Serializer::deserializeWorkers(workers, memento->getWorkerData());
+        for (const auto* worker : workers) 
+        {
+            if (worker) 
+            {
+                plot.attach(worker);
+            }
+        }
     }
 }
 

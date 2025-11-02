@@ -250,6 +250,7 @@ void Serializer::deserializeWorkers(std::vector<Worker*>& workers, const std::st
                 newWorker = new FertiliserWorker();
             } else if (workerType == "Harvest Worker") {
                 newWorker = new HarvestWorker();
+                
             } else {
                 newWorker = new Worker();
             }
