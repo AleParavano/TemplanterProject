@@ -27,7 +27,10 @@
  // Function to draw the back button 
 void DrawBackButton(SceneType currentScene);
 
+void DrawPersonDetailed(Person p);
+
 void DrawGlobalMenu();
+
 
 
 

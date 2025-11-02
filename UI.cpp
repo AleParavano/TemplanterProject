@@ -146,8 +146,29 @@ void DrawBackButton(SceneType currentScene)
     DrawRectangleRec(backBtn, MAROON);
     DrawRectangleLinesEx(backBtn, 2, RED);
     
-    DrawText("↩ BACK TO MAP", 
+    DrawText("BACK TO MAP", 
              backBtn.x + (BACK_BUTTON_WIDTH - MeasureText("↩ BACK TO MAP", 20)) / 2, 
              backBtn.y + 5, 
              20, WHITE);
+}
+
+void DrawPersonDetailed(Person p) {
+    // Positioning is based on p.position
+    DrawEllipse(p.position.x + p.shadowOffset.x, p.position.y + p.shadowOffset.y, 8, 4, Fade(BLACK, 0.4f));
+    float legOffset = sinf(p.walkCycle) * 3;
+    DrawRectangle(p.position.x - 3, p.position.y + 3, 2, 6 + legOffset, p.pantsColor);
+    DrawRectangle(p.position.x + 1, p.position.y + 3, 2, 6 - legOffset, p.pantsColor);
+    
+    // Shirt color input is directly p.shirtColor
+    DrawRectangle(p.position.x - 4, p.position.y - 5, 8, 8, p.shirtColor);
+    
+    // Note: ColorBrightness must be available
+    DrawRectangleLinesEx({p.position.x - 4, p.position.y - 5, 8, 8}, 1, ColorBrightness(p.shirtColor, -0.3f));
+    
+    float armOffset = sinf(p.walkCycle) * 2;
+    DrawRectangle(p.position.x - 5, p.position.y - 3 + armOffset, 1, 5, ColorBrightness(p.shirtColor, -0.2f));
+    DrawRectangle(p.position.x + 4, p.position.y - 3 - armOffset, 1, 5, ColorBrightness(p.shirtColor, -0.2f));
+    DrawCircle(p.position.x, p.position.y - 9, 4, {255, 220, 177, 255});
+    DrawCircleLines(p.position.x, p.position.y - 9, 4, {210, 180, 140, 255});
+    DrawCircle(p.position.x, p.position.y - 11, 4, {101, 67, 33, 255});
 }
