@@ -111,13 +111,14 @@
 
 
 Demo::Demo() 
-    : player(&game.getPlayer()), manager() 
+    : player(Game::getInstance()->getPlayerPtr()), manager() 
 {
-    std::cout << "=== INITIALIZING GAME FACADE ===" << std::endl;
-    std::cout << "Player created!" << std::endl;
+    std::cout << "=== INITIALIZING GAME FACADE hey I'm the demom ===" << std::endl;
     
+    std::cout << player->getMoney() << std::endl;
     // Add cheat money for testing
-    player->addMoney(10000000000); 
+    player->addMoney(10000); 
+    std::cout << player->getMoney() << std::endl;
 }
 
 Demo::~Demo() {
@@ -127,7 +128,7 @@ Demo::~Demo() {
 }
 
 void Demo::initializeWindow() {
-    InitWindow(width, height, "TEMPLANTER - Top-Down Simulation");
+    InitWindow(width, height, "TEMPLANTER - Plant Store Simulation");
     SetExitKey(KEY_NULL);
     SetTargetFPS(60);
     srand((unsigned int)time(NULL));
@@ -135,24 +136,7 @@ void Demo::initializeWindow() {
 }
 
 void Demo::setupTestInventory() {
-    std::cout << "Setting up test inventory..." << std::endl;
     
-    PumpkinFactory pump;
-    CarrotFactory carr;
-    TomatoFactory tomat;
-    LettuceFactory lett;
-    PotatoFactory potat;
-
-    // Add various test plants to player inventory 
-    for (int i = 0; i < 3; i++) {
-        player->getInventory()->add(pump.produce());
-        player->getInventory()->add(carr.produce());
-        player->getInventory()->add(tomat.produce());
-        player->getInventory()->add(lett.produce());
-        player->getInventory()->add(potat.produce());
-    }
-    
-    std::cout << "Test inventory created!" << std::endl;
 }
 
 void Demo::displayControls() {
@@ -185,8 +169,10 @@ void Demo::run() {
     }
     // ------------------------------------------------------------------------
 
-    setupTestInventory();
     displayControls();
+    player->setMoney(10000.0f);
+    std::cout << "DEBUG: Final money set to : " << player->getMoney() << std::endl;
+    player->getInventoryUI()->toggle();
     
     bool exitWindow = false;
 

@@ -288,10 +288,19 @@ void InventoryUI::render()
         {
             // Note: This draws a generic green circle.
             DrawCircle(slot.rect.x + 37, slot.rect.y + 37, 20, GREEN);
+           
 
             std::string quantity = std::to_string(slot.slot->getSize());
             DrawText(quantity.c_str(), slot.rect.x + 5, slot.rect.y + 5, 10, WHITE);
-        }
+
+
+            std::string itemName = slot.slot->getPlantType();
+            int textWidth = MeasureText(itemName.c_str(), 10);
+            DrawText(itemName.c_str(), 
+                     slot.rect.x + (slot.rect.width - textWidth) / 2, 
+                     slot.rect.y + 58, 
+                     10, RAYWHITE);
+        } 
     }
 }
 
@@ -303,8 +312,17 @@ void InventoryUI::update()
     // Refresh slot data to reflect any changes
     for (int i = 0; i < slotVector.size(); i++)
     {
-        // Re-read the slot data from the backend inventory
+        // <<< DEBUGGING STATEMENT ADDED HERE >>>
+        std::cout << "DEBUG: InventoryUI checking slot index " << i;
+        
         slotVector[i].slot = inventory->getSlot(i);
+
+        if (slotVector[i].slot && !slotVector[i].slot->isEmpty()) {
+            std::cout << " - FOUND: " << slotVector[i].slot->getPlantType() << " x" << slotVector[i].slot->getSize() << std::endl;
+        } else {
+            std::cout << " - EMPTY/NULL" << std::endl;
+        }
+        // <<< END DEBUGGING >>>
     }
 
     Vector2 mouse = GetMousePosition();

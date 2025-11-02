@@ -55,7 +55,6 @@
 class Demo {
 private:
     // Subsystems
-    Game game;
     StoreScene store; 
     Player* player;
     SceneManager manager; 

@@ -161,7 +161,6 @@ void Greenhouse::tickAllPlants()
     for(int i = 0; i < capacity; i++){
         if(plots[i] != nullptr){
             plots[i]->tick();
-            std::cout<<"Plant needs"<<std::endl;
         }
     }
     notify();
