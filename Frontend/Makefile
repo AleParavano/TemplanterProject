@@ -1,8 +1,3 @@
-# ============================
-# TEMPLANTER Project Makefile 
-# Compiles Frontend and Backend together
-# ============================
-
 # Compiler and flags
 CXX = g++
 CXXFLAGS = -O2 -std=c++17
@@ -39,12 +34,14 @@ BACKEND_SRC = ../Backend/Caretaker.cpp \
               ../Backend/SeedAdapter.cpp \
               ../Backend/Store.cpp \
               ../Backend/Subject.cpp \
-              ../Backend/Worker.cpp
+              ../Backend/Worker.cpp \
+              ../Backend/Serializer.cpp  # Includes the Serializer
 
 # Combined source files
 ALL_SRC = $(FRONTEND_SRC) $(BACKEND_SRC)
 
 # Object files
+# Generates object file names like: main.o, ../Backend/Caretaker.o, etc.
 OBJECTS = $(ALL_SRC:.cpp=.o)
 
 # Default target
@@ -56,19 +53,25 @@ $(TARGET): $(OBJECTS)
 	@echo "✓ Build successful! Run with: .\\$(TARGET)"
 
 # Compile backend files
-Backend/%.o: Backend/%.cpp
+# Pattern rule to compile source files located one directory up (../Backend/%.cpp) 
+# and place the object files in that same relative path (../Backend/%.o).
+../Backend/%.o: ../Backend/%.cpp
 	$(CXX) $(CXXFLAGS) $(RAYLIB_INCLUDE) -c $< -o $@
 
 # Compile frontend files
+# Places object files in the current directory (Frontend).
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(RAYLIB_INCLUDE) -c $< -o $@
 
 # Clean build artifacts
 clean:
 ifeq ($(OS),Windows_NT)
-	cmd /C "del /Q *.o 2>nul & del /Q Backend\\*.o 2>nul & del /Q $(TARGET) 2>nul"
+	cmd /C "del /Q *.o 2>nul & del /Q ..\Backend\*.o 2>nul & del /Q $(TARGET) 2>nul"
 else
-	rm -f *.o ../Backend/*.o $(TARGET)
+	# POSIX/MinGW command (rm -f) uses forward slashes.
+	# Deletes object files in the current directory and the Backend subdirectory.
+	rm -f *.o $(TARGET)
+	rm -f ../Backend/*.o
 endif
 	@echo "Clean complete!"
 

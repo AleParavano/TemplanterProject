@@ -19,6 +19,7 @@ int main(void) {
     srand((unsigned int)time(NULL));
 
     Game::getInstance(); 
+    Game::getInstance()->getPlayer().addMoney(10000000000);
     
     SceneManager manager;
     
@@ -32,7 +33,7 @@ int main(void) {
 
         float dt = GetFrameTime();
         
-        Game::getInstance(); 
+        Game::getInstance()->getPlayer().UpdateGameTime(dt); 
         
         manager.Update(dt);
         manager.HandleInput();
@@ -40,7 +41,6 @@ int main(void) {
         if (manager.IsDone()) {
             exitWindow = true;
         }
-
         manager.Draw();
     }
 

@@ -43,7 +43,7 @@ protected:
     std::queue<Command *> commandQueue;
     // not responsible for  memory
     Greenhouse *subject;
-    int level = 0;
+    int level = 1;
 };
 
 class WaterWorker : public Worker

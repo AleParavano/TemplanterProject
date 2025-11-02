@@ -3,7 +3,7 @@
 #pragma once
 
 #include "PlantState.h"       
-// #include "../Frontend/PlantVisualStrategy.h"      
+#include "../Frontend/PlantVisualStrategy.h"      
 #include <string>
 
 // Forward declarations

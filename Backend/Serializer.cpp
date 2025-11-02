@@ -64,16 +64,16 @@ Plant* Serializer::deserializePlant(const std::string& plantData) {
         
         Plant* plant = nullptr;
         
-        if (type == "Lettuce") plant = new Lettuce();
-        else if (type == "Tomato") plant = new Tomato();
-        else if (type == "Carrot") plant = new Carrot();
-        else if (type == "Pumpkin") plant = new Pumpkin();
-        else if (type == "Strawberry") plant = new Strawberry();
-        else if (type == "Potato") plant = new Potato();
-        else if (type == "Cucumber") plant = new Cucumber();
-        else if (type == "Pepper") plant = new Pepper();
-        else if (type == "Sunflower") plant = new Sunflower();
-        else if (type == "Corn") plant = new Corn();
+        if (type == "Lettuce") plant = new Lettuce(new LettuceVisualStrategy(20.0f, 15.0f));
+        else if (type == "Tomato") plant = new Tomato(new TomatoVisualStrategy(25.0f, 25.0f));
+        else if (type == "Carrot") plant = new Carrot(new CarrotVisualStrategy(15.0f, 30.0f));
+        else if (type == "Pumpkin") plant = new Pumpkin(new PumpkinVisualStrategy(40.0f, 30.0f));
+        else if (type == "Strawberry") plant = new Strawberry(new StrawberryVisualStrategy(25.0f, 15.0f));
+        else if (type == "Potato") plant = new Potato(new PotatoVisualStrategy(18.0f, 20.0f));
+        else if (type == "Cucumber") plant = new Cucumber(new CucumberVisualStrategy(20.0f, 35.0f));
+        else if (type == "Pepper") plant = new Pepper( new PepperVisualStrategy(25.0f, 30.0f));
+        else if (type == "Sunflower") plant = new Sunflower(new SunflowerVisualStrategy(25.0f, 50.0f));
+        else if (type == "Corn") plant = new Corn( new CornVisualStrategy(20.0f, 55.0f));
         else return nullptr;
         
         PlantState* newState = nullptr;

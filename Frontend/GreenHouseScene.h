@@ -64,7 +64,6 @@ public:
     ~GreenHouseScene() = default;
     SceneType CheckExit() override;
 
-    
     void Init() override;
     void Update(float dt) override;
     void Draw() override;

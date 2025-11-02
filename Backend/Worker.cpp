@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Game.h"
 
+
 Worker::Worker() : Observer()
 {
     subject = nullptr;
@@ -39,7 +40,7 @@ void Worker::executeCommand()
         if(!command->isPatrol()){
             endPatrol();
         }
-        
+        //command starts
         std::cout << "Executing command" << std::endl;
         switch(level){
             case 1:

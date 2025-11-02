@@ -9,6 +9,7 @@
 
 class Player 
 {
+
 public:
     Player();
     ~Player();
@@ -17,6 +18,7 @@ public:
     void setMoney(float amount);
     void addMoney(float amount);
     void subtractMoney(float amount);
+    void UpdateGameTime(float dt);
     
     int getRating() const;
     void setRating(int r);
@@ -32,7 +34,7 @@ public:
     Inventory* getInventory() const;
     Greenhouse* getPlot() const;
     
-    void hireWorker();
+    void addWorker(Worker* worker);
     void fireWorker(int index);
     Worker* getWorker(int index) const;
     int getWorkerCount() const;
@@ -44,6 +46,7 @@ public:
 
     Memento* createMemento() const;
     void setMemento(Memento* memento);
+    std::string getTimeString() const;
 
     private:
     float money;
@@ -52,6 +55,8 @@ public:
     int hour;
     int minute;
     bool safe;
+
+    float timeAccumulator = 0.0f;
     
     Inventory* inventory;
     Greenhouse* plot;

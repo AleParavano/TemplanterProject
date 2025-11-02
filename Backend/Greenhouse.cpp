@@ -1,4 +1,5 @@
 #include "Greenhouse.h"
+#include <iostream>
 
 Greenhouse::Greenhouse()
 {
@@ -11,7 +12,7 @@ Greenhouse::Greenhouse()
 Greenhouse::Greenhouse(Inventory *inv)
 {
     size = 0;
-    capacity = 16;
+    capacity = 56;
     plots.resize(capacity, nullptr);
     inventory = inv;
 }
@@ -160,6 +161,7 @@ void Greenhouse::tickAllPlants()
     for(int i = 0; i < capacity; i++){
         if(plots[i] != nullptr){
             plots[i]->tick();
+            std::cout<<"Plant needs"<<std::endl;
         }
     }
     notify();

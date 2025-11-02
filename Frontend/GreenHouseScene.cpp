@@ -18,7 +18,7 @@ const int PLOT_SIZE = 90;
 const int PATH_SIZE = 50;
 const int NARROW_PATH_WIDTH = 30;
 const int MIDDLE_PATH_INDEX = 7;
-const float REAL_SECONDS_PER_GAME_TICK = 2.0f;
+const float REAL_SECONDS_PER_GAME_TICK = 0.5f;
 
 // --- Plant Catalog (Hardcoded, assumed Factory/Visual Strategies exist) ---
 std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> plantCatalog = {
@@ -97,21 +97,7 @@ void GreenHouseScene::Update(float dt)
         simTimeAccumulator -= REAL_SECONDS_PER_GAME_TICK;
 
         Greenhouse *gh = Game::getInstance()->getPlayerPtr()->getPlot();
-        for (int i = 0; i < gh->getCapacity(); ++i)
-        {
-            Plant *plant = gh->getPlant(i);
-
-            if (plant)
-            {
-                plant->tick();
-
-                // for debuging
-                if (plant->getGrowth() < 100.0f)
-                {
-                    // std::cout << "Plot " << i << " [" << plant->getType() << "] Growth: " << plant->getGrowth() << "%" << std::endl;
-                }
-            }
-        }
+        gh->tickAllPlants();
     }
 }
 
@@ -479,7 +465,7 @@ void GreenHouseScene::DrawSeedShop()
 
                     Plant *newPlant = factory->produce();
                     if (greenhouse->addPlant(newPlant))
-                    {   
+                    {
                         player->getPlot()->notify();
                         player->setMoney(player->getMoney() - price);
                         std::cout << "LOG: Bought and planted " << type << " seed directly into plot." << std::endl;
@@ -565,16 +551,16 @@ void GreenHouseScene::DrawHireShop()
             if (canAfford)
             {
                 // EXECUTE HIRE LOGIC (Deduct money + instantiate worker)
-                Worker* newWorker = CreateSpecializedWorker(data.type);
-            if (newWorker) {
-                player->setMoney(player->getMoney() - data.cost);
-                // Add worker to the manager
-                player->getWorkers()->addWorker(newWorker);
-                player->getPlot()->attach(newWorker);
+                Worker *newWorker = CreateSpecializedWorker(data.type);
+                if (newWorker)
+                {
+                    player->setMoney(player->getMoney() - data.cost);
+                    // Add worker to the manager
+                    player->addWorker(newWorker);
 
-                std::cout << "LOG: Hired and assigned " << data.type << " worker." << std::endl;
-                isHireShopOpen = false;
-            }
+                    std::cout << "LOG: Hired and assigned " << data.type << " worker." << std::endl;
+                    isHireShopOpen = false;
+                }
             }
             else
             {
