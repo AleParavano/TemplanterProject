@@ -5,35 +5,42 @@
 
 CustomerFactory::~CustomerFactory() {}
 
-Customer* RegularFactory::create(Plant* requestedPlant) const 
+Customer *RegularFactory::create(Plant *requestedPlant) const
 {
     return new Regular(requestedPlant);
 }
 
-Customer* VIPFactory::create(Plant* requestedPlant) const 
+Customer *VIPFactory::create(Plant *requestedPlant) const
 {
     return new VIP(requestedPlant);
 }
 
-Customer* RobberFactory::create(Plant* requestedPlant) const 
+Customer *RobberFactory::create(Plant *requestedPlant) const
 {
     return new Robber(requestedPlant);
 }
 
-std::mt19937& RandomFactory::rng() 
+std::mt19937 &RandomFactory::rng()
 {
-    static std::mt19937 engine{ std::random_device{}() };
+    static std::mt19937 engine{std::random_device{}()};
     return engine;
 }
 
-Customer* RandomFactory::create(Plant* requestedPlant) const 
+Customer *RandomFactory::create(Plant *requestedPlant) const
 {
-    std::uniform_int_distribution<int> dist(0, 2);
+    std::uniform_int_distribution<int> dist(0, 100);
+    int randomValue = dist(rng());  
 
-    switch (dist(rng())) 
+    if (randomValue <= 85)  
     {
-        case 0:  return new Regular(requestedPlant);
-        case 1:  return new VIP(requestedPlant);
-        default: return new Robber(requestedPlant);
+        return new Regular(requestedPlant);
+    }
+    else if(randomValue <= 95)  
+    {
+        return new VIP(requestedPlant);
+    }
+    else  
+    {
+        return new Robber(requestedPlant);
     }
 }

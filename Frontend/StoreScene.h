@@ -45,8 +45,6 @@ public:
 
     void update(Player *player = nullptr);
     void render();
-    // void renderModal(int width, int height);
-    // void updateStorage(Player *player);
     void updateCustomers(float deltaTime, Player *player);
     
     string getType();
