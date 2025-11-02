@@ -6,8 +6,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-#include "Backend/Player.h"
-#include "Backend/Game.h"
+#include "../Backend/Player.h"
+#include "../Backend/Game.h"
 
 // --- Defines ---
 #define MAX_PEOPLE 15

@@ -7,8 +7,8 @@
 #include "GreenHouseScene.h"
 #include "StoreScene.h"
 #include "WarehouseScene.h"
-#include "Backend/Game.h"
-#include "Backend/Player.h"
+#include "../Backend/Game.h"
+#include "../Backend/Player.h"
 #include <map>
 
 

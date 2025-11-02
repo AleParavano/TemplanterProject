@@ -21,23 +21,23 @@ FRONTEND_SRC = main.cpp \
                UI.cpp
 
 # Backend Source Files (from Backend folder)
-BACKEND_SRC = Backend/Caretaker.cpp \
-              Backend/Command.cpp \
-              Backend/Customer.cpp \
-              Backend/CustomerFactory.cpp \
-              Backend/Game.cpp \
-              Backend/Greenhouse.cpp \
-              Backend/GrowthCycle.cpp \
-              Backend/Inventory.cpp \
-              Backend/Memento.cpp \
-              Backend/Observer.cpp \
-              Backend/Plant.cpp \
-              Backend/PlantState.cpp \
-              Backend/Player.cpp \
-              Backend/SeedAdapter.cpp \
-              Backend/Store.cpp \
-              Backend/Subject.cpp \
-              Backend/Worker.cpp
+BACKEND_SRC = ../Backend/Caretaker.cpp \
+              ../Backend/Command.cpp \
+              ../Backend/Customer.cpp \
+              ../Backend/CustomerFactory.cpp \
+              ../Backend/Game.cpp \
+              ../Backend/Greenhouse.cpp \
+              ../Backend/GrowthCycle.cpp \
+              ../Backend/Inventory.cpp \
+              ../Backend/Memento.cpp \
+              ../Backend/Observer.cpp \
+              ../Backend/Plant.cpp \
+              ../Backend/PlantState.cpp \
+              ../Backend/Player.cpp \
+              ../Backend/SeedAdapter.cpp \
+              ../Backend/Store.cpp \
+              ../Backend/Subject.cpp \
+              ../Backend/Worker.cpp
 
 # Combined source files
 ALL_SRC = $(FRONTEND_SRC) $(BACKEND_SRC)

@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include "SceneManager.h" 
-#include "Backend/Game.h"
-#include "Backend/Player.h" 
+#include "../Backend/Game.h"
+#include "../Backend/Player.h" 
 #include "UI.h"
 #include <stdlib.h>
 #include <time.h>

@@ -2,8 +2,8 @@
 #define UI_H
 
 #include "raylib.h"
-#include "Backend\Game.h"
-#include "Backend\Player.h"
+#include "../Backend\Game.h"
+#include "../Backend\Player.h"
 #include "Scene.h"
 #include <string>
 
