@@ -2,7 +2,7 @@
 #define GREENHOUSESCENE_H
 
 #include "Scene.h"
-#include "Types.h"
+#include "ObjectTypes.h"
 #include "../Backend/Game.h"
 #include "../Backend/Player.h"
 #include "../Backend/Plant.h"

@@ -4,7 +4,7 @@
 #include "raylib.h"
 #include "../Backend\Game.h"
 #include "../Backend\Player.h"
-#include "Types.h"
+#include "ObjectTypes.h"
 #include "Scene.h"
 #include <string>
 

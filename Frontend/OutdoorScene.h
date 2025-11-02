@@ -2,7 +2,7 @@
 #define OUTDOORSCENE_H
 
 #include "Scene.h"
-#include "Types.h"
+#include "ObjectTypes.h"
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>

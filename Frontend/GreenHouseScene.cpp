@@ -478,10 +478,9 @@ void GreenHouseScene::DrawSeedShop()
                 {
 
                     Plant *newPlant = factory->produce();
-                    // Worker *worker = player->getWorkers(); // The Player holds the generic worker (Observer)
                     if (greenhouse->addPlant(newPlant))
                     {   
-                        player->getWorkers()->attachToAllPlants(newPlant);
+                        player->getPlot()->notify();
                         player->setMoney(player->getMoney() - price);
                         std::cout << "LOG: Bought and planted " << type << " seed directly into plot." << std::endl;
                     }
@@ -571,16 +570,7 @@ void GreenHouseScene::DrawHireShop()
                 player->setMoney(player->getMoney() - data.cost);
                 // Add worker to the manager
                 player->getWorkers()->addWorker(newWorker);
-
-                Greenhouse *gh = player->getPlot();
-                for (int i = 0; i < gh->getCapacity(); ++i)
-                {
-                    Plant *plant = gh->getPlant(i);
-                    if (plant)
-                    {
-                        plant->attach(newWorker);
-                    }
-                }
+                player->getPlot()->attach(newWorker);
 
                 std::cout << "LOG: Hired and assigned " << data.type << " worker." << std::endl;
                 isHireShopOpen = false;
