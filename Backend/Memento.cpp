@@ -1,59 +1,55 @@
 #include "Memento.h"
-#include "Inventory.h"
-#include "Worker.h"
-#include "Greenhouse.h"
 
-Memento::Memento(Inventory* inv, Worker* work, Greenhouse* gh, float m, int r, int d, int h, int min) : inventory(nullptr), workers(nullptr), plot(nullptr), money(m), rating(r), day(d), hour(h), minute(min) 
+Memento::Memento(const std::string& inv, const std::string& work, 
+                 const std::string& gh, float m, int r, int d, int h, int min)
+    : inventoryData(inv), 
+      workerData(work), 
+      greenhouseData(gh), 
+      money(m), 
+      rating(r), 
+      day(d), 
+      hour(h), 
+      minute(min)
+{}
+
+Memento::~Memento() {}
+
+const std::string& Memento::getInventoryData() const 
 {
-    inventory = inv ? new Inventory(*inv) : nullptr;
-    workers = work ? new Worker(*work) : nullptr;
-    plot = gh ? new Greenhouse(*gh) : nullptr;
+    return inventoryData;
 }
 
-Memento::~Memento() 
+const std::string& Memento::getWorkerData() const 
 {
-    if (inventory) 
-    {
-        delete inventory;
-    }
-    if (workers) 
-    {
-        delete workers;
-    }
-    if (plot) 
-    {
-        delete plot;
-    }
+    return workerData;
 }
 
-Inventory* Memento::getInventory() const {
-    return inventory;
+const std::string& Memento::getGreenhouseData() const 
+{
+    return greenhouseData;
 }
 
-Worker* Memento::getWorkers() const {
-    return workers;
-}
-
-Greenhouse* Memento::getPlot() const {
-    return plot;
-}
-
-float Memento::getMoney() const {
+float Memento::getMoney() const 
+{
     return money;
 }
 
-int Memento::getRating() const {
+int Memento::getRating() const 
+{
     return rating;
 }
 
-int Memento::getDay() const {
+int Memento::getDay() const 
+{
     return day;
 }
 
-int Memento::getHour() const {
+int Memento::getHour() const 
+{
     return hour;
 }
 
-int Memento::getMinute() const {
+int Memento::getMinute() const 
+{
     return minute;
 }
