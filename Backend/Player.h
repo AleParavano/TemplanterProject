@@ -1,58 +1,59 @@
 #pragma once
 
-#include "Inventory.h"
-#include "Worker.h"
-#include "Greenhouse.h"
-#include "Memento.h"
 #include <string>
-#include <thread>
-#include <atomic>
-#include <mutex>
+#include <vector>
+#include "Inventory.h"
+#include "Greenhouse.h"
+#include "Worker.h"
+#include "Memento.h"
 
 class Player 
 {
-private:
-    Inventory* inventory;
-    Worker* workers;
-    Greenhouse* plot;
+public:
+    Player();
+    ~Player();
+    
+    float getMoney() const;
+    void setMoney(float amount);
+    void addMoney(float amount);
+    void subtractMoney(float amount);
+    
+    int getRating() const;
+    void setRating(int r);
+    void addRating(int r);
+    void subtractRating(int r);
+    
+    int getDay() const;
+    int getHour() const;
+    int getMinute() const;
+    void setTime(int d, int h, int m);
+    void advanceTime(int minutes);
+    
+    Inventory* getInventory() const;
+    Greenhouse* getPlot() const;
+    
+    void hireWorker();
+    void fireWorker(int index);
+    Worker* getWorker(int index) const;
+    int getWorkerCount() const;
+    const std::vector<Worker*>& getWorkers() const;
+    
+    
+    void setProtected(bool prot);
+    bool isProtected();
+
+    Memento* createMemento() const;
+    void setMemento(Memento* memento);
+
+    private:
     float money;
     int rating;
     int day;
     int hour;
     int minute;
-    static bool safe;
-
-public:
-    Player();
-    ~Player();
-
-    Inventory* getInventory() const;
-    Worker* getWorkers() const;
-    Greenhouse* getPlot() const;
-    float getMoney() const;
-    int getRating() const;
-
-    int getDay() const;
-    int getHour() const;
-    int getMinute() const;
-    std::string getTimeString() const;
-    std::string getFullTimeString() const;
-
-    void setInventory(Inventory* inv);
-    void setWorkers(Worker* w);
-    void setPlot(Greenhouse* gh);
-    void setMoney(float m);
-    void setRating(int r);
-
-    void setDay(int d);
-    void setHour(int h);
-    void setMinute(int m);
-    bool isNewDay() const;
-    void setProtected(bool prot);
-    bool isProtected();
-    Memento* createMemento() const;
-    void setMemento(Memento* memento);
+    bool safe;
     
-  
-    
+    Inventory* inventory;
+    Greenhouse* plot;
+    std::vector<Worker*> workers;
 };
