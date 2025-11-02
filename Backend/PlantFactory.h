@@ -102,34 +102,34 @@ public:
         switch (dist(rng()))
         {
         case 0:
-            return new Carrot();
+            return new Carrot(new CarrotVisualStrategy(15.0f, 30.0f));
             break;
         case 1:
-            return new Tomato();
+            return new Tomato(new TomatoVisualStrategy(25.0f, 25.0f));
             break;
         case 2:
-            return new Sunflower();
+            return new Sunflower(new SunflowerVisualStrategy(25.0f, 50.0f));
             break;
         case 3:
-            return new Lettuce();
+            return new Lettuce(new LettuceVisualStrategy(20.0f, 15.0f));
             break;
         case 4:
-            return new Potato();
+            return new Potato(new PotatoVisualStrategy(18.0f, 20.0f));
             break;
         case 5:
-            return new Cucumber();
+            return new Cucumber(new CucumberVisualStrategy(20.0f, 35.0f));
             break;
         case 6:
-            return new Pepper();
+            return new Pepper(new PepperVisualStrategy(25.0f, 30.0f));
             break;
         case 7:
-            return new Strawberry();
+            return new Strawberry(new StrawberryVisualStrategy(25.0f, 15.0f));
             break;
         case 8:
-            return new Corn();
+            return new Corn(new CornVisualStrategy(20.0f, 55.0f));
             break;
         default:
-            return new Pumpkin();
+            return new Pumpkin(new PumpkinVisualStrategy(40.0f, 30.0f));
             break;
         }
     }
