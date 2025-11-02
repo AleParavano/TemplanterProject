@@ -70,7 +70,7 @@ void Worker::setSubject(Greenhouse* greenhouse)
     this->subject = greenhouse;
 }
 
-void Worker::update(Plant *changedPlant)
+void Worker::update()
 {
     // Base worker checks all plants and generates appropriate commands
     if(subject){
@@ -134,17 +134,6 @@ void Worker::setLevel(int level)
     }
 }
 
-void Worker::attachToAllPlants(Plant *plant)
-{
-    if(subject){
-        for(int i = 0; i < subject->getCapacity(); i++){
-            Plant* plant = subject->getPlant(i);
-            if(plant && plant->getWater() <= 20.0f){
-                addCommand(new WaterCommand(plant));
-            }
-        }
-    }
-}
 
 void WaterWorker::update()
 {
