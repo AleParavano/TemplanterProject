@@ -4,7 +4,7 @@
 #include "GrowthCycle.h"
 #include "PlantState.h"    // Defines PlantState and SeedState
 
-#include "../Frontend/PlantVisualStrategy.h" // Defines PlantVisualStrategy
+#include "../Frontend/PlantVisualStrategy.h" 
 
 Plant::Plant(std::string type, float growthRate, float sellPrice, PlantVisualStrategy* strategy) 
     : state(nullptr), 

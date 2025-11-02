@@ -32,7 +32,7 @@ int main(void) {
 
         float dt = GetFrameTime();
         
-        Game::getInstance()->UpdateGameTime(dt); 
+        Game::getInstance(); 
         
         manager.Update(dt);
         manager.HandleInput();

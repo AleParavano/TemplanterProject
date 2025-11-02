@@ -15,6 +15,7 @@ class Plant
 public:
     // MODIFIED BASE CONSTRUCTOR
     Plant(std::string type, float growthRate, float sellPrice, PlantVisualStrategy* strategy);
+    Plant(const Plant &other);
     virtual ~Plant();
     
     // GrowthCycle integration

@@ -30,11 +30,11 @@ public:
     void stop();
     std::vector<Worker *> hiredWorkers;
     void addWorker(Worker *worker);
+    virtual const char *type() const { return "Manager/Generic Worker"; }
 
 protected:
     void startPatrol();
     void endPatrol();
-    virtual const char *type() const { return "Manager/Generic Worker"; }
     std::string currentTaskDescription;
     std::mutex mtx;
     std::condition_variable condition;
