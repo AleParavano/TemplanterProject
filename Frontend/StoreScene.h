@@ -58,7 +58,6 @@
 // };
 
 // #endif
-
 #ifndef STORESCENE_H
 #define STORESCENE_H
 
@@ -78,7 +77,7 @@ private:
     std::vector<Slot> storageSlots;
     Store *backendStore;
     CustomerManager* customerManager;
-    Inventory* storageInventory;  // StoreScene owns the storage inventory!
+    // Inventory* storageInventory;  <<< REMOVED: No longer local >>>
     Player* player;  // Store player reference for use across methods
 
     // Modal state
@@ -102,7 +101,6 @@ public:
     Rectangle sDoor;
     Rectangle plotHitBox;
     Rectangle boundaryWall;
-    InventoryUI invUI;
     
     StoreScene();
     ~StoreScene();
@@ -120,7 +118,7 @@ public:
     bool getShowModal() { return showModal; }
     void toggleOpen() { storeOpen = !storeOpen; }
 
-    Inventory *getStorage() { return storageInventory; }
+    // Inventory *getStorage() { return storageInventory; } <<< REMOVED: Use player->getInventory() >>>
     Store *getBackendStore() { return backendStore; }
     CustomerManager* getCustomerManager() { return customerManager; }
 };

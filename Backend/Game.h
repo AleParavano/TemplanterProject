@@ -21,3 +21,4 @@ public:
     void saveGame();
     void loadGame();
 };
+

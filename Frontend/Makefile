@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++11 -w
+CXXFLAGS = -Wall -Wextra -std=c++17 -w
 
 # Detect OS
 ifeq ($(OS),Windows_NT)
@@ -45,9 +45,9 @@ endif
 CXXFLAGS += $(INCLUDE_PATH)
 
 # Source files
-SOURCES = demo_testing.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp ../Backend/Player.cpp ../Backend/Inventory.cpp ../Backend/Worker.cpp ../Backend/Greenhouse.cpp ../Backend/Memento.cpp ../Backend/Plant.cpp ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.cpp ../Backend/CustomerFactory.cpp ../Backend/Game.cpp ../Backend/GrowthCycle.cpp ../Backend/Observer.cpp ../Backend/PlantState.cpp ../Backend/SeedAdapter.cpp ../Backend/Store.cpp ../Backend/Subject.cpp InventoryUI.cpp Demo.cpp CustomerFlyweight.cpp SceneManager.cpp UI.cpp
+SOURCES = demo_testing.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp ../Backend/Player.cpp ../Backend/Inventory.cpp ../Backend/Worker.cpp ../Backend/Greenhouse.cpp ../Backend/Memento.cpp ../Backend/Plant.cpp ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.cpp ../Backend/CustomerFactory.cpp SceneManager.cpp ../Backend/Game.cpp ../Backend/GrowthCycle.cpp ../Backend/Observer.cpp ../Backend/PlantState.cpp ../Backend/SeedAdapter.cpp ../Backend/Store.cpp ../Backend/Subject.cpp InventoryUI.cpp Demo.cpp CustomerFlyweight.cpp UI.cpp ../Backend/Serializer.cpp WarehouseScene.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-HEADERS = Scene.cpp StoreScene.h OutdoorScene.h GreenHouseScene.h ../Backend/Player.h ../Backend/Inventory.h ../Backend/Worker.h ../Backend/Greenhouse.h ../Backend/Memento.h ../Backend/Plant.h ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.h ../Backend/CustomerFactory.h ../Backend/Game.h ../Backend/GrowthCycle.h ../Backend/Observer.h ../Backend/PlantState.h ../Backend/PlantFactory.h ../Backend/SeedAdapter.h ../Backend/Store.h ../Backend/Subject.h Slot.h CustomerVisual.h CustomerManager.h InventoryUI.h Demo.h CustomerFlyweight.h ObjectTypes.h PlantVisualStrategy.h SceneManager.h UI.h
+HEADERS = Scene.cpp StoreScene.h OutdoorScene.h GreenHouseScene.h ../Backend/Player.h ../Backend/Inventory.h ../Backend/Worker.h ../Backend/Greenhouse.h ../Backend/Memento.h ../Backend/Plant.h ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.h ../Backend/CustomerFactory.h SceneManager.h ../Backend/Game.h ../Backend/GrowthCycle.h ../Backend/Observer.h ../Backend/PlantState.h ../Backend/PlantFactory.h ../Backend/SeedAdapter.h ../Backend/Store.h ../Backend/Subject.h Slot.h CustomerVisual.h CustomerManager.h InventoryUI.h Demo.h CustomerFlyweight.h ObjectTypes.h PlantVisualStrategy.h UI.h ../Backend/Serializer.h WarehouseScene.h
 
 # Target executable
 TARGET = $(EXECUTABLE)
