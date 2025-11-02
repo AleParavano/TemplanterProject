@@ -14,6 +14,7 @@ public:
 Worker();
 Worker(const Worker& worker);
 ~Worker();
+void setLevel(int level);
 void executeCommand();
 void addCommand(Command* command);
 void setSubject(Plant* plant);
@@ -22,7 +23,7 @@ void stop();
 protected:
 void startPatrol();
 void endPatrol();
-void setLevel(int level);
+
 std::mutex mtx;
 std::condition_variable condition;
 std::atomic<bool> running{true};

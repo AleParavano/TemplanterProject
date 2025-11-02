@@ -70,6 +70,19 @@ bool Greenhouse::harvestPlant(int position)
     return false;
 }
 
+bool Greenhouse::harvestPlant(Plant *plant)
+{
+    for(int i=0;i<capacity;i++){
+        if(plots[i]==plant && inventory!=nullptr){
+            plots[i]=nullptr;
+            size--;
+            inventory->add(plant);
+            return true;
+        }
+    }
+    return false;
+}
+
 Plant* Greenhouse::getPlant(int position)
 {
     return plots[position];
