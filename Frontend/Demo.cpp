@@ -135,13 +135,13 @@ void Demo::setupTestInventory() {
     std::cout << "Setting up test inventory..." << std::endl;
     
     // Add various test plants to player inventory (now 25 slots)
-    for (int i = 0; i < 3; i++) {
-        player->getInventory()->add(new Plant("Pumpkin", 2, 2));
-        player->getInventory()->add(new Plant("Carrot", 2, 2));
-        player->getInventory()->add(new Plant("Tomato", 2, 2));
-        player->getInventory()->add(new Plant("Lettuce", 2, 2));
-        player->getInventory()->add(new Plant("Potato", 2, 2));
-    }
+    // for (int i = 0; i < 3; i++) {
+    //     player->getInventory()->add(new Plant("Pumpkin", 2, 2));
+    //     player->getInventory()->add(new Plant("Carrot", 2, 2));
+    //     player->getInventory()->add(new Plant("Tomato", 2, 2));
+    //     player->getInventory()->add(new Plant("Lettuce", 2, 2));
+    //     player->getInventory()->add(new Plant("Potato", 2, 2));
+    // }
     
     std::cout << "Test inventory created!" << std::endl;
 }
