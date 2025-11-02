@@ -158,6 +158,7 @@ void HarvestWorker::update()
     if(subjectState){
     if(subjectState->getState()=="Ripe"){
         //harvest command
+        addCommand(new HarvestCommand(this->subject));
     }
 }
 }

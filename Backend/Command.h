@@ -29,9 +29,9 @@ public:
 class HarvestCommand : public Command {
 public:
     void execute() override;
-    HarvestCommand(int plant);
+    HarvestCommand(Plant* plant);
     private:
-    int targetPlant;
+    Plant* targetPlant;
 };
 
 class PatrolCommand : public Command {
