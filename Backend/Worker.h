@@ -11,6 +11,9 @@
 #include <atomic>
 #include <vector>
 
+// Forward declaration
+class Greenhouse;
+
 class Worker: public Observer {
   
 public:
@@ -42,7 +45,29 @@ Plant* subject;
 PlantState* subjectState;
 int level=0;
 
+    Worker();
+    Worker(const Worker& worker);
+    virtual ~Worker();
+    
+    void setLevel(int level);
+    void executeCommand();
+    void addCommand(Command* command);
+    void setSubject(Greenhouse* greenhouse) override;
+    virtual void update() override;
+    void stop();
+    
+protected:
+    void startPatrol();
+    void endPatrol();
 
+    std::mutex mtx;
+    std::condition_variable condition;
+    std::atomic<bool> running{true};
+    std::thread workerThread;
+    std::queue<Command*> commandQueue;
+    
+    Greenhouse* subject;
+    int level = 0;
 };
 
 class WaterWorker:public Worker{

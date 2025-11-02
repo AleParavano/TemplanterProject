@@ -13,13 +13,14 @@ class GrowthCycle;
 class Observer; // Observer is defined in Observer.h, which is included by Subject.h, 
                 // but keeping explicit helps clarify dependency.
 
-class Plant: public Subject
+class Plant
 {
 public:
     // MODIFIED BASE CONSTRUCTOR
     Plant(std::string type, float growthRate, float sellPrice, PlantVisualStrategy* strategy);
     virtual ~Plant();
     
+    // GrowthCycle integration
     void setGrowthCycle(GrowthCycle* gc);
     void applyGrowthToState(float growth);
     float getBaseGrowthRate() const;

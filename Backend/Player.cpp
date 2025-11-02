@@ -12,8 +12,7 @@ Player::Player()
 {
     inventory = new Inventory();
     workers = new Worker();
-    plot = new Greenhouse();
-    plot->setInventory(inventory);
+    plot = new Greenhouse(inventory);
 }
 
 Player::~Player() 

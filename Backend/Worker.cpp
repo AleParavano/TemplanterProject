@@ -1,20 +1,22 @@
 #include "Worker.h"
+#include "Greenhouse.h"
 #include <iostream>
 #include "Command.h"
 #include "Player.h"
 #include "Game.h"
-Worker::Worker(): Observer()
+
+Worker::Worker() : Observer()
 {
-    workerThread=std::thread(&Worker::executeCommand,this);
+    subject = nullptr;
+    workerThread = std::thread(&Worker::executeCommand, this);
 }
 
-Worker::Worker(const Worker &worker)
+Worker::Worker(const Worker& worker)
 {
-    this->level=worker.level;
-    this->subject=worker.subject;
-    this->subjectState=worker.subjectState;
-    workerThread=std::thread(&Worker::executeCommand,this);
-    //queue does not get copied over
+    this->level = worker.level;
+    this->subject = worker.subject;
+    workerThread = std::thread(&Worker::executeCommand, this);
+    // queue does not get copied over
 }
 
 Worker::~Worker()
@@ -24,60 +26,78 @@ Worker::~Worker()
 
 void Worker::executeCommand()
 {
-   while (running){
-    std::unique_lock<std::mutex> lock(mtx);
-    condition.wait(lock,[&]{return !commandQueue.empty()||!running;});
-    if(!running&&commandQueue.empty()){
-        break;
-    }
-    Command* command=commandQueue.front();
-    commandQueue.pop();
-    lock.unlock();
-    command->execute();
-    if (!command->isPatrol()) {
+    while(running){
+        std::unique_lock<std::mutex> lock(mtx);
+        condition.wait(lock, [&]{return !commandQueue.empty() || !running;});
+        if(!running && commandQueue.empty()){
+            break;
+        }
+        Command* command = commandQueue.front();
+        commandQueue.pop();
+        lock.unlock();
+        command->execute();
+        if(!command->isPatrol()){
             endPatrol();
+        }
+        
+        std::cout << "Executing command" << std::endl;
+        switch(level){
+            case 1:
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+                break;
+            case 2:
+                std::this_thread::sleep_for(std::chrono::milliseconds(750));
+                break;
+            case 3:
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                break;
+        }
+        delete command;
     }
-    
-    std::cout<<"Executing command"<<std::endl;
-    switch(level){
-        case 1:
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        break;
-        case 2:
-        std::this_thread::sleep_for(std::chrono::milliseconds(750));
-        break;
-        case 3:
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        break;
-
-    }
-    delete command;
-    
-    
-   }
 }
+
 void Worker::addCommand(Command* command)
-{   {
-    std::lock_guard<std::mutex> lock(mtx);
-    commandQueue.push(command);
+{
+    {
+        std::lock_guard<std::mutex> lock(mtx);
+        commandQueue.push(command);
     }
     condition.notify_one();
 }
 
-void Worker::setSubject(Plant *plant)
+void Worker::setSubject(Greenhouse* greenhouse)
 {
-    this->subject=plant;
+    this->subject = greenhouse;
 }
 
 void Worker::update(Plant *changedPlant)
 {
-    return;
+    // Base worker checks all plants and generates appropriate commands
+    if(subject){
+        for(int i = 0; i < subject->getCapacity(); i++){
+            Plant* plant = subject->getPlant(i);
+            if(plant){
+                if(plant->getNutrients() <= 20.0f){
+                    addCommand(new FertilizeCommand(plant));
+                }
+                else if(plant->getWater() <= 20.0f){
+                    addCommand(new WaterCommand(plant));
+                }
+                else if(plant->isRipe()){
+                    addCommand(new HarvestCommand(plant));
+                }
+                else{
+                    addCommand(new PatrolCommand());
+                }
+            }
+        }
+    }
 }
 
 void Worker::stop()
 {
     if(running){
-        running=false;
+        running = false;
         condition.notify_all();
         if(workerThread.joinable()){
             workerThread.join();
@@ -95,79 +115,57 @@ void Worker::addWorker(Worker *worker)
 
 void Worker::startPatrol()
 {
- Player* player=Game::getInstance()->getPlayerPtr();
- if(player)
- player->setProtected(true);
+    Player* player = Game::getInstance()->getPlayerPtr();
+    if(player)
+        player->setProtected(true);
 }
 
 void Worker::endPatrol()
-{   Player* player=Game::getInstance()->getPlayerPtr();
+{
+    Player* player = Game::getInstance()->getPlayerPtr();
     if(player)
-    player->setProtected(false);
+        player->setProtected(false);
 }
 
 void Worker::setLevel(int level)
 {
-    if(level>=1&&level<=3){
-        this->level=level;
+    if(level >= 1 && level <= 3){
+        this->level = level;
     }
 }
 
 void Worker::attachToAllPlants(Plant *plant)
 {
-    if (!plant) return;   
-    for (Worker* specializedWorker : hiredWorkers) {
-        if (specializedWorker) {
-            // The Plant (Subject) registers the specialized Worker (Observer)
-            plant->attach(specializedWorker);
-            std::cout << "WORKER MANAGER: Attached plant to " << specializedWorker->type() << " worker." << std::endl;
+    if(subject){
+        for(int i = 0; i < subject->getCapacity(); i++){
+            Plant* plant = subject->getPlant(i);
+            if(plant && plant->getWater() <= 20.0f){
+                addCommand(new WaterCommand(plant));
+            }
         }
     }
 }
 
 void WaterWorker::update(Plant* plantToTend)
 {
-    if (!plantToTend) return;
-    PlantState* plantState = plantToTend->getPlantState();
-    
-    if (plantState)
-    {
-       
-        if (plantState->getWater() <= 30.0f) 
-        {
-            addCommand(new WaterCommand(plantToTend)); 
-            
-            std::cout << "WORKER SCHEDULE: " << type() << " detected low water (" 
-                      << plantState->getWater() << "%) for plant "
-                      << plantToTend->getType() << " and queued WaterCommand." << std::endl;
+    if(subject){
+        for(int i = 0; i < subject->getCapacity(); i++){
+            Plant* plant = subject->getPlant(i);
+            if(plant && plant->getNutrients() <= 20.0f){
+                addCommand(new FertilizeCommand(plant));
+            }
         }
     }
 }
 
 void FertiliserWorker::update(Plant* changedPlant)
 {
-    if (!changedPlant) return;
-
-    PlantState* plantState = changedPlant->getPlantState();
-    
-    if (plantState)
-    {
-        // FIX: Check if Nutrients is below 30% threshold
-        if (plantState->getNutrients() <= 30.0f) 
-        {
-            addCommand(new FertilizeCommand(changedPlant));
-            std::cout << "WORKER SCHEDULE: " << type() << " detected low nutrients (" 
-                      << subjectState->getNutrients() << "%) and queued FertilizeCommand." << std::endl;
+    if(subject){
+        for(int i = 0; i < subject->getCapacity(); i++){
+            Plant* plant = subject->getPlant(i);
+            if(plant && plant->isRipe()){
+                addCommand(new HarvestCommand(plant));
+            }
         }
     }
-}
-
-void HarvestWorker::update(Plant* changedPlant)
-{
-    if (!changedPlant) return;
-    if(subjectState){
-    if(subjectState->getState()=="Ripe"){
-        //harvest command
-    }
-}
 }
