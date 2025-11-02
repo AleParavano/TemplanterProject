@@ -26,7 +26,7 @@ public:
     void executeCommand();
     void addCommand(Command *command);
     void setSubject(Greenhouse* greenhouse) override;
-    virtual void update() override;
+    void update() override;
     void stop();
     std::vector<Worker *> hiredWorkers;
     void addWorker(Worker *worker);
