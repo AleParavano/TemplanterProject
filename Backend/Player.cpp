@@ -93,22 +93,23 @@ void Player::UpdateGameTime(float dt)
     }
 }
 
-int Player::getRating() const
+float Player::getRating() const
 {
     return rating;
 }
 
-void Player::setRating(int r)
+void Player::setRating(float r)
 {
     rating = r;
 }
 
-void Player::addRating(int r)
+void Player::addRating(float r)
 {
     rating += r;
+    if(rating > 5) rating = 5;
 }
 
-void Player::subtractRating(int r)
+void Player::subtractRating(float r)
 {
     rating -= r;
     if (rating < 0)

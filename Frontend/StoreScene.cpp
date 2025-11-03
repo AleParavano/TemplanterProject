@@ -124,6 +124,7 @@ void StoreScene::HandleInput()
                                 //add money when you make a sell;
                                 float salePrice = plant->getSellPrice();
                                 player->addMoney(salePrice);
+                                player->addRating(0.4);
                                 delete plant; 
                             }
                             player->getInventoryUI()->clearSlotSelection();
@@ -138,6 +139,7 @@ void StoreScene::HandleInput()
                 else
                 {
                     customerManager->dismissCustomer(clickedCustomer);
+                    // player->subtractRating(0.2);
                 }
                 return; // Input consumed
             }

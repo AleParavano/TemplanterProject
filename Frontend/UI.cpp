@@ -32,7 +32,7 @@ void DrawGlobalMenu() {
         DrawText(TextFormat("Money: $%.2f", player->getMoney()), menuX + 10, statsY, 20, LIME);
         
         // Rating
-        std::string ratingStr = TextFormat("Rating: %d", player->getRating());
+        std::string ratingStr = TextFormat("Rating: %.1f", player->getRating());
         std::string starStr = std::string(player->getRating(), '*'); 
         DrawText((ratingStr + " " + starStr).c_str(), menuX + 10, statsY + 35, 20, GOLD);
 
