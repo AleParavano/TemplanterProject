@@ -79,12 +79,8 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xtree": "cpp",
-<<<<<<< HEAD
-        "xutility": "cpp"
-=======
         "xutility": "cpp",
-        "filesystem": "cpp",
+        "codecvt": "cpp",
         "fstream": "cpp"
->>>>>>> origin/Frontend
     }
 }
