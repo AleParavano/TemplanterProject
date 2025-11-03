@@ -48,13 +48,42 @@ bool Greenhouse::addPlant(Plant *plant)
     return false;
 }
 
+// bool Greenhouse::removePlant(int position)
+// {
+//     if(position >= 0 && position < capacity && plots[position] != nullptr){
+//         delete plots[position];
+//         plots[position] = nullptr;
+//         size--;
+//         notify();
+//         return true;
+//     }
+//     return false;
+// }
+
+// bool Greenhouse::harvestPlant(int position)
+// {
+//     if(position >= 0 && position < capacity && plots[position] != nullptr && inventory != nullptr){
+//         Plant* plant = plots[position];
+//         plots[position] = nullptr;
+//         size--;
+//         inventory->add(plant);
+//         notify();
+//         return true;
+//     }
+//     return false;
+// }
+
 bool Greenhouse::removePlant(int position)
 {
     if(position >= 0 && position < capacity && plots[position] != nullptr){
+        
         delete plots[position];
-        plots[position] = nullptr;
+        plots[position] = nullptr; 
         size--;
+        
+       
         notify();
+        
         return true;
     }
     return false;
@@ -63,16 +92,19 @@ bool Greenhouse::removePlant(int position)
 bool Greenhouse::harvestPlant(int position)
 {
     if(position >= 0 && position < capacity && plots[position] != nullptr && inventory != nullptr){
+        
         Plant* plant = plots[position];
-        plots[position] = nullptr;
+        plots[position] = nullptr; 
         size--;
-        inventory->add(plant);
+        
+        inventory->add(plant); 
+        
         notify();
+        
         return true;
     }
     return false;
 }
-
 bool Greenhouse::harvestPlant(Plant *plant)
 {
     for(int i = 0; i < capacity; i++){
@@ -80,6 +112,7 @@ bool Greenhouse::harvestPlant(Plant *plant)
             plots[i] = nullptr;
             size--;
             inventory->add(plant);
+            notify();
             
             return true;
         }

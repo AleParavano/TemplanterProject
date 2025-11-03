@@ -28,10 +28,8 @@ public:
     void setSubject(Greenhouse* greenhouse) override;
     void update() override;
     void stop();
-    std::vector<Worker *> hiredWorkers;
-    void addWorker(Worker *worker);
     virtual const char *type() const { return "Manager/Generic Worker"; }
-
+    void clearCommandQueue();
 protected:
     void startPatrol();
     void endPatrol();

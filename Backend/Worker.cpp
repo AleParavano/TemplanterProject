@@ -57,6 +57,18 @@ void Worker::executeCommand()
     }
 }
 
+void Worker::clearCommandQueue()
+{
+    std::lock_guard<std::mutex> lock(mtx);
+    while (!commandQueue.empty())
+    {
+        Command* cmd = commandQueue.front();
+        commandQueue.pop();
+        if (cmd) {
+            delete cmd; // CRITICAL: Deletes the command object, preventing leak
+        }
+    }
+}
 void Worker::addCommand(Command* command)
 {
     {
@@ -84,13 +96,7 @@ void Worker::stop()
     }
 }
 
-void Worker::addWorker(Worker *worker)
-{
-    if (worker) {
-        hiredWorkers.push_back(worker);
-        std::cout << "WORKER MANAGER: New " << worker->type() << " hired." << std::endl;
-    }
-}
+
 
 void Worker::startPatrol()
 {
@@ -117,37 +123,87 @@ void Worker::update()
     return;
 }
 
+// void WaterWorker::update()
+// {
+//     if(subject){
+//         for(int i = 0; i < subject->getCapacity(); i++){
+//             Plant* plant = subject->getPlant(i);
+//             if(plant && plant->getWater() <= 20.0f){
+//                 addCommand(new WaterCommand(plant, subject));
+//             }
+//         }
+//     }
+// }
+
 void WaterWorker::update()
 {
     if(subject){
+        // 1. FIX: Clear stale commands before checking for new ones
+        clearCommandQueue(); 
+        
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
+            
+            // Recheck status and queue fresh commands
             if(plant && plant->getWater() <= 20.0f){
-                addCommand(new WaterCommand(plant, subject));
+                addCommand(new WaterCommand(plant, subject)); // Pass subject for crash guard
             }
         }
     }
 }
 
+// void FertiliserWorker::update()
+// {
+//     if(subject){
+//         for(int i = 0; i < subject->getCapacity(); i++){
+//             Plant* plant = subject->getPlant(i);
+//             if(plant && plant->getNutrients() <= 20.0f){
+//                 addCommand(new FertilizeCommand(plant,subject));
+//             }
+//         }
+//     }
+// }
 void FertiliserWorker::update()
 {
     if(subject){
+        // 1. FIX: Clear stale commands before checking for new ones
+        clearCommandQueue(); 
+
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
+            
+            // Recheck status and queue fresh commands
             if(plant && plant->getNutrients() <= 20.0f){
-                addCommand(new FertilizeCommand(plant,subject));
+                addCommand(new FertilizeCommand(plant, subject)); // Pass subject for crash guard
             }
         }
     }
 }
+
+// void HarvestWorker::update()
+// {
+//     if(subject){
+//         for(int i = 0; i < subject->getCapacity(); i++){
+//             Plant* plant = subject->getPlant(i);
+//             if(plant && plant->isRipe()){
+//                 addCommand(new HarvestCommand(plant,subject));
+//             }
+//         }
+//     }
+// }
 
 void HarvestWorker::update()
 {
     if(subject){
+        // 1. FIX: Clear stale commands before checking for new ones
+        clearCommandQueue(); 
+
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
+            
+            // Recheck status and queue fresh commands
             if(plant && plant->isRipe()){
-                addCommand(new HarvestCommand(plant,subject));
+                addCommand(new HarvestCommand(plant, subject)); // Pass subject for crash guard
             }
         }
     }
