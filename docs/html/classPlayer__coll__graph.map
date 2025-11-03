@@ -1,0 +1,7 @@
+<map id="Player" name="Player">
+<area shape="rect" id="node1" title=" " alt="" coords="140,184,203,211"/>
+<area shape="rect" id="node2" href="$classGreenhouse.html" title=" " alt="" coords="23,95,123,121"/>
+<area shape="rect" id="node3" href="$classSubject.html" title=" " alt="" coords="5,5,76,32"/>
+<area shape="rect" id="node4" href="$classInventory.html" title=" " alt="" coords="129,5,213,32"/>
+<area shape="rect" id="node5" href="$classInventoryUI.html" title=" " alt="" coords="262,95,361,121"/>
+</map>

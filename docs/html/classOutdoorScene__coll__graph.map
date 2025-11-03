@@ -1,0 +1,11 @@
+<map id="OutdoorScene" name="OutdoorScene">
+<area shape="rect" id="node1" title=" " alt="" coords="403,124,517,151"/>
+<area shape="rect" id="node2" href="$classScene.html" title=" " alt="" coords="5,5,67,32"/>
+<area shape="rect" id="node3" href="$structPerson.html" title=" " alt="" coords="91,5,157,32"/>
+<area shape="rect" id="node4" href="$structParkingSpot.html" title=" " alt="" coords="181,5,280,32"/>
+<area shape="rect" id="node5" href="$structBuilding.html" title=" " alt="" coords="367,5,441,32"/>
+<area shape="rect" id="node6" href="$structPlantVisual.html" title=" " alt="" coords="469,5,563,32"/>
+<area shape="rect" id="node7" href="$structTree.html" title=" " alt="" coords="637,5,686,32"/>
+<area shape="rect" id="node8" href="$structHouse.html" title=" " alt="" coords="710,5,773,32"/>
+<area shape="rect" id="node9" href="$structRoad.html" title=" " alt="" coords="797,5,851,32"/>
+</map>

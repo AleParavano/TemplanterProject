@@ -1,0 +1,34 @@
+<map id="Frontend/OutdoorScene.cpp" name="Frontend/OutdoorScene.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="297,5,499,32"/>
+<area shape="rect" id="node2" href="$OutdoorScene_8h.html" title=" " alt="" coords="273,80,398,107"/>
+<area shape="rect" id="node32" title=" " alt="" coords="422,80,502,107"/>
+<area shape="rect" id="node3" href="$Scene_8h.html" title=" " alt="" coords="13,677,87,704"/>
+<area shape="rect" id="node7" href="$ObjectTypes_8h.html" title=" " alt="" coords="111,677,224,704"/>
+<area shape="rect" id="node8" title=" " alt="" coords="305,752,373,779"/>
+<area shape="rect" id="node9" title=" " alt="" coords="300,155,371,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="395,155,459,181"/>
+<area shape="rect" id="node11" href="$Player_8h.html" title=" " alt="" coords="644,229,789,256"/>
+<area shape="rect" id="node30" href="$Game_8h.html" title=" " alt="" coords="494,155,638,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="132,752,203,779"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,752,95,779"/>
+<area shape="rect" id="node6" title=" " alt="" coords="618,752,677,779"/>
+<area shape="rect" id="node12" title=" " alt="" coords="793,603,856,629"/>
+<area shape="rect" id="node13" href="$Inventory_8h.html" title=" " alt="" coords="863,528,957,555"/>
+<area shape="rect" id="node17" href="$Greenhouse_8h.html" title=" " alt="" coords="967,453,1079,480"/>
+<area shape="rect" id="node20" href="$Worker_8h.html" title=" " alt="" coords="1268,304,1347,331"/>
+<area shape="rect" id="node29" href="$Memento_8h.html" title=" " alt="" coords="539,304,635,331"/>
+<area shape="rect" id="node14" href="$Plant_8h.html" title=" " alt="" coords="1146,603,1213,629"/>
+<area shape="rect" id="node15" href="$PlantState_8h.html" title=" " alt="" coords="1538,677,1639,704"/>
+<area shape="rect" id="node16" href="$PlantVisualStrategy_8h.html" title=" " alt="" coords="300,677,533,704"/>
+<area shape="rect" id="node18" href="$Subject_8h.html" title=" " alt="" coords="982,528,1065,555"/>
+<area shape="rect" id="node19" href="$Observer_8h.html" title=" " alt="" coords="1029,603,1121,629"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1223,379,1285,405"/>
+<area shape="rect" id="node22" href="$Command_8h.html" title=" " alt="" coords="1310,379,1411,405"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1435,379,1499,405"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1523,379,1587,405"/>
+<area shape="rect" id="node26" title=" " alt="" coords="1611,379,1678,405"/>
+<area shape="rect" id="node27" title=" " alt="" coords="913,379,1056,405"/>
+<area shape="rect" id="node28" title=" " alt="" coords="1081,379,1147,405"/>
+<area shape="rect" id="node23" href="$Customer_8h.html" title=" " alt="" coords="1487,453,1583,480"/>
+<area shape="rect" id="node31" href="$Caretaker_8h.html" title=" " alt="" coords="518,229,614,256"/>
+</map>

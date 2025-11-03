@@ -1,0 +1,7 @@
+<map id="CustomerManager" name="CustomerManager">
+<area shape="rect" id="node1" title=" " alt="" coords="81,171,224,197"/>
+<area shape="rect" id="node2" href="$classRandomFactory.html" title=" " alt="" coords="10,81,133,108"/>
+<area shape="rect" id="node3" href="$classCustomerFactory.html" title=" " alt="" coords="5,5,137,32"/>
+<area shape="rect" id="node4" href="$classRandomPlantFactory.html" title=" " alt="" coords="157,81,313,108"/>
+<area shape="rect" id="node5" href="$classPlantFactory.html" title=" " alt="" coords="184,5,287,32"/>
+</map>

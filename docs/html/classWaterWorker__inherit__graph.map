@@ -1,0 +1,5 @@
+<map id="WaterWorker" name="WaterWorker">
+<area shape="rect" id="node1" title=" " alt="" coords="5,155,111,181"/>
+<area shape="rect" id="node2" href="$classWorker.html" title=" " alt="" coords="25,80,91,107"/>
+<area shape="rect" id="node3" href="$classObserver.html" title=" " alt="" coords="17,5,99,32"/>
+</map>

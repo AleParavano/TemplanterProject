@@ -1,0 +1,13 @@
+<map id="Plant" name="Plant">
+<area shape="rect" id="node1" title=" " alt="" coords="427,5,481,32"/>
+<area shape="rect" id="node2" href="$classCarrot.html" title=" " alt="" coords="5,80,68,107"/>
+<area shape="rect" id="node3" href="$classCorn.html" title=" " alt="" coords="92,80,144,107"/>
+<area shape="rect" id="node4" href="$classCucumber.html" title=" " alt="" coords="169,80,257,107"/>
+<area shape="rect" id="node5" href="$classLettuce.html" title=" " alt="" coords="281,80,352,107"/>
+<area shape="rect" id="node6" href="$classPepper.html" title=" " alt="" coords="377,80,443,107"/>
+<area shape="rect" id="node7" href="$classPotato.html" title=" " alt="" coords="467,80,531,107"/>
+<area shape="rect" id="node8" href="$classPumpkin.html" title=" " alt="" coords="556,80,635,107"/>
+<area shape="rect" id="node9" href="$classStrawberry.html" title=" " alt="" coords="659,80,753,107"/>
+<area shape="rect" id="node10" href="$classSunflower.html" title=" " alt="" coords="777,80,864,107"/>
+<area shape="rect" id="node11" href="$classTomato.html" title=" " alt="" coords="888,80,959,107"/>
+</map>

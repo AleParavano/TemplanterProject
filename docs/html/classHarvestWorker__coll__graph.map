@@ -1,0 +1,8 @@
+<map id="HarvestWorker" name="HarvestWorker">
+<area shape="rect" id="node1" title=" " alt="" coords="25,260,144,287"/>
+<area shape="rect" id="node2" href="$classWorker.html" title=" " alt="" coords="51,184,118,211"/>
+<area shape="rect" id="node3" href="$classObserver.html" title=" " alt="" coords="5,95,87,121"/>
+<area shape="rect" id="node4" href="$classGreenhouse.html" title=" " alt="" coords="111,95,211,121"/>
+<area shape="rect" id="node5" href="$classSubject.html" title=" " alt="" coords="75,5,145,32"/>
+<area shape="rect" id="node6" href="$classInventory.html" title=" " alt="" coords="169,5,253,32"/>
+</map>

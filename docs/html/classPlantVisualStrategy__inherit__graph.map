@@ -1,0 +1,13 @@
+<map id="PlantVisualStrategy" name="PlantVisualStrategy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,233,156,260"/>
+<area shape="rect" id="node2" href="$classCarrotVisualStrategy.html" title=" " alt="" coords="219,5,377,32"/>
+<area shape="rect" id="node3" href="$classCornVisualStrategy.html" title=" " alt="" coords="225,56,371,83"/>
+<area shape="rect" id="node4" href="$classCucumberVisualStrategy.html" title=" " alt="" coords="207,107,389,133"/>
+<area shape="rect" id="node5" href="$classLettuceVisualStrategy.html" title=" " alt="" coords="215,157,381,184"/>
+<area shape="rect" id="node6" href="$classPepperVisualStrategy.html" title=" " alt="" coords="217,208,379,235"/>
+<area shape="rect" id="node7" href="$classPotatoVisualStrategy.html" title=" " alt="" coords="219,259,377,285"/>
+<area shape="rect" id="node8" href="$classPumpkinVisualStrategy.html" title=" " alt="" coords="211,309,385,336"/>
+<area shape="rect" id="node9" href="$classStrawberryVisualStrategy.html" title=" " alt="" coords="204,360,392,387"/>
+<area shape="rect" id="node10" href="$classSunflowerVisualStrategy.html" title=" " alt="" coords="207,411,389,437"/>
+<area shape="rect" id="node11" href="$classTomatoVisualStrategy.html" title=" " alt="" coords="215,461,381,488"/>
+</map>
