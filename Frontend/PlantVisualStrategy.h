@@ -8,7 +8,7 @@
 
 // --- General Constants ---
 #define PI 3.14159265358979323846f
-#define STATIC_ICON_SIZE 16.0f
+#define STATIC_ICON_SIZE 32.0f
 
 // Helper to interpolate colors (Assuming this utility is available globally)
 inline Color ColorLerp(Color c1, Color c2, float t)
