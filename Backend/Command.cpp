@@ -2,22 +2,66 @@
 #include "Player.h"
 #include "Game.h"
 #include <iostream>
+
+
+WaterCommand::WaterCommand(Plant *plant, Greenhouse *gh)
+: targetPlant(plant), subject(gh)
+{
+}
+
+
+FertilizeCommand::FertilizeCommand(Plant *plant, Greenhouse *gh)
+: targetPlant(plant), subject(gh)
+{
+}
+
+
+HarvestCommand::HarvestCommand(Plant* plant, Greenhouse* gh)
+: targetPlant(plant), subject(gh)
+{
+}
+
 void WaterCommand::execute()
 {
+    if (!targetPlant) return;
+
+    if (!subject || subject->getPlantByPointer(targetPlant) == nullptr) {
+        return; 
+    }
+
+    if (targetPlant->isDead()) {
+        return;
+    }
+
     std::cout << "COMMAND EXECUTION: WaterCommand started. Target water: " 
               << this->targetPlant->getWater() << "%." << std::endl;
-    this->targetPlant->water(50.0f);
+              this->targetPlant->water(50.0f);
+
     std::cout << "COMMAND EXECUTION: WaterCommand completed. New water: " 
               << this->targetPlant->getWater() << "%." << std::endl;
 }
 void FertilizeCommand::execute()
 {
+    
+    if (!targetPlant) return;
+    if (!subject || subject->getPlantByPointer(targetPlant) == nullptr) {
+        return; 
+    }
+    if (targetPlant->isDead()) {
+        return;
+    }
     this->targetPlant->fertilize(50.0f);
 }
 void HarvestCommand::execute()
 {
+    if (!targetPlant) return;
+    if (!subject || subject->getPlantByPointer(targetPlant) == nullptr) {
+        return; 
+    }
+
     Game* game= Game::getInstance();
     Player* player= game->getPlayerPtr();
+
     if(player){
     Greenhouse* greenhouse= player->getPlot();
     if(greenhouse)
@@ -33,22 +77,6 @@ void ServeCommand::execute()
 {
     //TODO implement this code
 }
-
-WaterCommand::WaterCommand(Plant *plant)
-:targetPlant(plant)
-{
-}
-
-FertilizeCommand::FertilizeCommand(Plant *plant)
-:targetPlant(plant)
-{
-}
-
-HarvestCommand::HarvestCommand(Plant* plant)
-:targetPlant(plant)
-{
-}
-
 
 ServeCommand::ServeCommand(Customer *cust)
 :target(cust)

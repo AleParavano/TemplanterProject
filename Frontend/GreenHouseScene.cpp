@@ -21,7 +21,7 @@ const int MIDDLE_PATH_INDEX = 7;
 const float REAL_SECONDS_PER_GAME_TICK = 0.5f;
 
 // --- Plant Catalog (Hardcoded, assumed Factory/Visual Strategies exist) ---
-std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> plantCatalog = {
+extern std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> plantCatalog = {
     {"Lettuce", {15.0f, new LettuceFactory(), new LettuceVisualStrategy(20.0f, 15.0f)}},
     {"Carrot", {25.0f, new CarrotFactory(), new CarrotVisualStrategy(15.0f, 30.0f)}},
     {"Potato", {35.0f, new PotatoFactory(), new PotatoVisualStrategy(18.0f, 20.0f)}},
