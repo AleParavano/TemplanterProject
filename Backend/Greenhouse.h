@@ -18,6 +18,10 @@ public:
     bool harvestPlant(Plant* plant);
     
     Plant* getPlant(int position);
+<<<<<<< HEAD
+=======
+    Plant* getPlantByPointer(Plant* p) ;
+>>>>>>> origin/Frontend
     std::string getPlot(int position);
     int getSize();
     int getCapacity();

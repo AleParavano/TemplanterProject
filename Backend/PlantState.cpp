@@ -51,7 +51,7 @@ void PlantState::addNutrients(float amount) {
 }
 
 void PlantState::applyGrowth(float growthAmount) {
-    growth += growthAmount;
+    growth = std::min(GROWING_TO_RIPE_THRESHOLD, growth + growthAmount);
 }
 
 SeedState::SeedState() : PlantState(0.0f, 100.0f, 100.0f) {}

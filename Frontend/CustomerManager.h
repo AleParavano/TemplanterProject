@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // #ifndef CUSTOMERMANAGER_H
 // #define CUSTOMERMANAGER_H
 
@@ -240,6 +241,8 @@
 
 // #endif
 
+=======
+>>>>>>> origin/Frontend
 #ifndef CUSTOMERMANAGER_H
 #define CUSTOMERMANAGER_H
 

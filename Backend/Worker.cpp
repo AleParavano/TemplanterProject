@@ -17,7 +17,6 @@ Worker::Worker(const Worker& worker)
     this->level = worker.level;
     this->subject = worker.subject;
     workerThread = std::thread(&Worker::executeCommand, this);
-    // queue does not get copied over
 }
 
 Worker::~Worker()
@@ -40,7 +39,6 @@ void Worker::executeCommand()
         if(!command->isPatrol()){
             endPatrol();
         }
-        //command starts
         std::cout << "Executing command" << std::endl;
         switch(level){
             case 1:
@@ -57,6 +55,18 @@ void Worker::executeCommand()
     }
 }
 
+void Worker::clearCommandQueue()
+{
+    std::lock_guard<std::mutex> lock(mtx);
+    while (!commandQueue.empty())
+    {
+        Command* cmd = commandQueue.front();
+        commandQueue.pop();
+        if (cmd) {
+            delete cmd;
+        }
+    }
+}
 void Worker::addCommand(Command* command)
 {
     {
@@ -84,13 +94,7 @@ void Worker::stop()
     }
 }
 
-void Worker::addWorker(Worker *worker)
-{
-    if (worker) {
-        hiredWorkers.push_back(worker);
-        std::cout << "WORKER MANAGER: New " << worker->type() << " hired." << std::endl;
-    }
-}
+
 
 void Worker::startPatrol()
 {
@@ -117,13 +121,17 @@ void Worker::update()
     return;
 }
 
+
 void WaterWorker::update()
 {
     if(subject){
+        clearCommandQueue(); 
+        
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
+            
             if(plant && plant->getWater() <= 20.0f){
-                addCommand(new WaterCommand(plant));
+                addCommand(new WaterCommand(plant, subject));
             }
         }
     }
@@ -132,22 +140,29 @@ void WaterWorker::update()
 void FertiliserWorker::update()
 {
     if(subject){
+        clearCommandQueue(); 
+
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
+            
             if(plant && plant->getNutrients() <= 20.0f){
-                addCommand(new FertilizeCommand(plant));
+                addCommand(new FertilizeCommand(plant, subject));
             }
         }
     }
 }
 
+
 void HarvestWorker::update()
 {
     if(subject){
+        clearCommandQueue(); 
+
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
+            
             if(plant && plant->isRipe()){
-                addCommand(new HarvestCommand(plant));
+                addCommand(new HarvestCommand(plant, subject));
             }
         }
     }

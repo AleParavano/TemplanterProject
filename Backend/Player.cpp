@@ -4,13 +4,13 @@
 #include <iomanip> 
 #include "../Frontend/InventoryUI.h"
 
-bool Player::safe = true;
+// bool Player::safe = true;
 
 Player::Player()
     : money(100.0f), rating(0), day(1), hour(6), minute(0),
       inventory(nullptr), plot(nullptr)
 {
-    inventory = new Inventory(); // Changed from 15 to 25 slots
+    inventory = new Inventory(25); // Changed from 15 to 25 slots
     plot = new Greenhouse(inventory);
     inventoryUI = new InventoryUI(inventory);
 }
@@ -38,11 +38,6 @@ Player::~Player()
 Inventory *Player::getInventory() const
 {
     return inventory;
-}
-
-Worker *Player::getWorkers() const
-{
-    return workers;
 }
 
 Greenhouse *Player::getPlot() const
@@ -98,22 +93,23 @@ void Player::UpdateGameTime(float dt)
     }
 }
 
-int Player::getRating() const
+float Player::getRating() const
 {
     return rating;
 }
 
-void Player::setRating(int r)
+void Player::setRating(float r)
 {
     rating = r;
 }
 
-void Player::addRating(int r)
+void Player::addRating(float r)
 {
     rating += r;
+    if(rating > 5) rating = 5;
 }
 
-void Player::subtractRating(int r)
+void Player::subtractRating(float r)
 {
     rating -= r;
     if (rating < 0)
@@ -157,15 +153,8 @@ void Player::advanceTime(int minutes)
     }
 }
 
-Inventory *Player::getInventory() const
-{
-    return inventory;
-}
 
-Greenhouse *Player::getPlot() const
-{
-    return plot;
-}
+
 
 
 void Player::addWorker(Worker* worker) {
@@ -204,7 +193,7 @@ int Player::getWorkerCount() const
     return workers.size();
 }
 
-const std::vector<Worker *> &Player::getWorkers() const
+const std::vector<Worker *> &Player::getWorkers()
 {
     return workers;
 }

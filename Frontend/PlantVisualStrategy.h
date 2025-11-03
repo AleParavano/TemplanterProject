@@ -8,6 +8,7 @@
 
 // --- General Constants ---
 #define PI 3.14159265358979323846f
+<<<<<<< HEAD
 #define STATIC_ICON_SIZE 16.0f
 
 // Helper to interpolate colors (Assuming this utility is available globally)
@@ -15,6 +16,15 @@ inline Color ColorLerp(Color c1, Color c2, float t)
 {
     t = fmaxf(0.0f, fminf(1.0f, t));
     return (Color){
+=======
+#define STATIC_ICON_SIZE 32.0f
+
+// Helper to interpolate colors (Assuming this utility is available globally)
+inline Color PlantColorLerp(Color c1, Color c2, float t)
+{
+    t = fmaxf(0.0f, fminf(1.0f, t));
+    return Color{
+>>>>>>> origin/Frontend
         (unsigned char)(c1.r + (c2.r - c1.r) * t),
         (unsigned char)(c1.g + (c2.g - c1.g) * t),
         (unsigned char)(c1.b + (c2.b - c1.b) * t),
@@ -36,7 +46,11 @@ protected:
         if (isCurrentlyDead)
         {
             // Fades color towards a dark, unhealthy brown/black
+<<<<<<< HEAD
             return ColorLerp(baseColor, Color{50, 40, 30, 255}, 0.8f);
+=======
+            return PlantColorLerp(baseColor, Color{50, 40, 30, 255}, 0.8f);
+>>>>>>> origin/Frontend
         }
         return baseColor;
     }
@@ -70,7 +84,11 @@ public:
 
     void drawDetailed(float x, float y) override
     {
+<<<<<<< HEAD
         Color color = applyDeathFilter(ColorLerp(DARKGREEN, LIME, growthProgress * 0.3f + 0.7f));
+=======
+        Color color = applyDeathFilter(PlantColorLerp(DARKGREEN, LIME, growthProgress * 0.3f + 0.7f));
+>>>>>>> origin/Frontend
         DrawCircle(x, y - currentHeight * 0.3f, currentWidth * 0.5f, color);
 
         if (growthProgress > 0.3f)
@@ -100,13 +118,21 @@ public:
 
     void drawDetailed(float x, float y) override
     {
+<<<<<<< HEAD
         Color rootColor = applyDeathFilter(ColorLerp(ORANGE, Color{255, 150, 0, 255}, growthProgress));
+=======
+        Color rootColor = applyDeathFilter(PlantColorLerp(ORANGE, Color{255, 150, 0, 255}, growthProgress));
+>>>>>>> origin/Frontend
         float rootWidth = currentWidth * 0.6f;
         DrawTriangle(Vector2{x - rootWidth / 2, y - currentHeight * 0.7f}, Vector2{x + rootWidth / 2, y - currentHeight * 0.7f}, Vector2{x, y}, rootColor);
 
         if (growthProgress > 0.2f)
         {
+<<<<<<< HEAD
             Color leafColor = applyDeathFilter(ColorLerp(DARKGREEN, LIME, growthProgress * 0.5f));
+=======
+            Color leafColor = applyDeathFilter(PlantColorLerp(DARKGREEN, LIME, growthProgress * 0.5f));
+>>>>>>> origin/Frontend
             for (int i = 0; i < 5; i++)
             {
                 float angle = (i / 5.0f) * 180.0f - 90.0f;
@@ -134,7 +160,11 @@ public:
 
     void drawDetailed(float x, float y) override
     {
+<<<<<<< HEAD
         Color potatoColor = applyDeathFilter(ColorLerp(Color{139, 90, 43, 255}, Color{180, 120, 60, 255}, growthProgress));
+=======
+        Color potatoColor = applyDeathFilter(PlantColorLerp(Color{139, 90, 43, 255}, Color{180, 120, 60, 255}, growthProgress));
+>>>>>>> origin/Frontend
         DrawCircle(x, y, currentWidth * 0.5f, potatoColor);
 
         // Bumpy texture
@@ -150,7 +180,11 @@ public:
         // Green sprouts on top
         if (growthProgress > 0.25f)
         {
+<<<<<<< HEAD
             Color sproutColor = applyDeathFilter(ColorLerp(DARKGREEN, LIME, growthProgress * 0.6f));
+=======
+            Color sproutColor = applyDeathFilter(PlantColorLerp(DARKGREEN, LIME, growthProgress * 0.6f));
+>>>>>>> origin/Frontend
             int sproutCount = 2 + (int)(growthProgress * 3.0f);
             for (int i = 0; i < sproutCount; i++)
             {
@@ -179,7 +213,11 @@ public:
 
     void drawDetailed(float x, float y) override
     {
+<<<<<<< HEAD
         Color cucColor = applyDeathFilter(ColorLerp(DARKGREEN, LIME, growthProgress * 0.4f + 0.6f));
+=======
+        Color cucColor = applyDeathFilter(PlantColorLerp(DARKGREEN, LIME, growthProgress * 0.4f + 0.6f));
+>>>>>>> origin/Frontend
         DrawRectangleRounded(
             Rectangle{x - currentWidth / 2, y - currentHeight, currentWidth, currentHeight}, // Corrected: Only 4 values
             0.5f, 8, cucColor);
@@ -225,7 +263,11 @@ public:
     void drawDetailed(float x, float y) override
     {
         Color stemColor = applyDeathFilter(DARKGREEN);
+<<<<<<< HEAD
         Color fruitColor = applyDeathFilter(ColorLerp(ORANGE, RED, growthProgress * 0.7f + 0.3f));
+=======
+        Color fruitColor = applyDeathFilter(PlantColorLerp(ORANGE, RED, growthProgress * 0.7f + 0.3f));
+>>>>>>> origin/Frontend
 
         DrawLineEx(Vector2{x, y}, Vector2{x, y - currentHeight}, 4.0f, stemColor);
 
@@ -267,7 +309,11 @@ public:
     void drawDetailed(float x, float y) override
     {
         Color stemColor = applyDeathFilter(DARKGREEN);
+<<<<<<< HEAD
         Color pepperColor = applyDeathFilter(ColorLerp(DARKGREEN, Color{255, 165, 0, 255}, growthProgress * 0.8f));
+=======
+        Color pepperColor = applyDeathFilter(PlantColorLerp(DARKGREEN, Color{255, 165, 0, 255}, growthProgress * 0.8f));
+>>>>>>> origin/Frontend
 
         DrawLineEx(Vector2{x, y}, Vector2{x, y - currentHeight * 0.3f}, 3.0f, stemColor);
 
@@ -442,7 +488,11 @@ public:
     void drawDetailed(float x, float y) override
     {
         Color leafColor = applyDeathFilter(DARKGREEN);
+<<<<<<< HEAD
         Color fruitColor = applyDeathFilter(ColorLerp(ORANGE, RED, growthProgress * 0.8f + 0.2f));
+=======
+        Color fruitColor = applyDeathFilter(PlantColorLerp(ORANGE, RED, growthProgress * 0.8f + 0.2f));
+>>>>>>> origin/Frontend
 
         int leafCount = 6 + (int)(growthProgress * 3.0f);
         for (int i = 0; i < leafCount; i++)
@@ -489,7 +539,11 @@ public:
 
     void drawDetailed(float x, float y) override
     {
+<<<<<<< HEAD
         Color pumpkinColor = applyDeathFilter(ColorLerp(ORANGE, Color{255, 100, 0, 255}, growthProgress * 0.5f));
+=======
+        Color pumpkinColor = applyDeathFilter(PlantColorLerp(ORANGE, Color{255, 100, 0, 255}, growthProgress * 0.5f));
+>>>>>>> origin/Frontend
         Color vineColor = applyDeathFilter(DARKGREEN);
         Color leafColor = applyDeathFilter(LIME);
 

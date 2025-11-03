@@ -11,7 +11,6 @@
 #include <atomic>
 #include <vector>
 
-// Forward declaration
 class Greenhouse;
 
 class Worker : public Observer
@@ -28,10 +27,8 @@ public:
     void setSubject(Greenhouse* greenhouse) override;
     void update() override;
     void stop();
-    std::vector<Worker *> hiredWorkers;
-    void addWorker(Worker *worker);
     virtual const char *type() const { return "Manager/Generic Worker"; }
-
+    void clearCommandQueue();
 protected:
     void startPatrol();
     void endPatrol();
@@ -41,7 +38,6 @@ protected:
     std::atomic<bool> running{true};
     std::thread workerThread;
     std::queue<Command *> commandQueue;
-    // not responsible for  memory
     Greenhouse *subject;
     int level = 1;
 };

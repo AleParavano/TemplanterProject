@@ -20,4 +20,9 @@ public:
 
     void saveGame();
     void loadGame();
+<<<<<<< HEAD
 };
+=======
+};
+
+>>>>>>> origin/Frontend
