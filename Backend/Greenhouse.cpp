@@ -1,3 +1,10 @@
+/**
+ * @file Greenhouse.cpp
+ * @brief Implementation of Greenhouse class methods.
+ * 
+ * Contains the logic for plant management and growth calculations.
+ */
+
 #include "Greenhouse.h"
 #include <iostream>
 
@@ -48,51 +55,12 @@ bool Greenhouse::addPlant(Plant *plant)
     return false;
 }
 
-<<<<<<< HEAD
 bool Greenhouse::removePlant(int position)
 {
     if(position >= 0 && position < capacity && plots[position] != nullptr){
         delete plots[position];
         plots[position] = nullptr;
         size--;
-=======
-// bool Greenhouse::removePlant(int position)
-// {
-//     if(position >= 0 && position < capacity && plots[position] != nullptr){
-//         delete plots[position];
-//         plots[position] = nullptr;
-//         size--;
-//         notify();
-//         return true;
-//     }
-//     return false;
-// }
-
-// bool Greenhouse::harvestPlant(int position)
-// {
-//     if(position >= 0 && position < capacity && plots[position] != nullptr && inventory != nullptr){
-//         Plant* plant = plots[position];
-//         plots[position] = nullptr;
-//         size--;
-//         inventory->add(plant);
-//         notify();
-//         return true;
-//     }
-//     return false;
-// }
-
-bool Greenhouse::removePlant(int position)
-{
-    if(position >= 0 && position < capacity && plots[position] != nullptr){
-        
-        delete plots[position];
-        plots[position] = nullptr; 
-        size--;
-        
-       
-        notify();
-        
->>>>>>> origin/Frontend
         return true;
     }
     return false;
@@ -101,30 +69,15 @@ bool Greenhouse::removePlant(int position)
 bool Greenhouse::harvestPlant(int position)
 {
     if(position >= 0 && position < capacity && plots[position] != nullptr && inventory != nullptr){
-<<<<<<< HEAD
         Plant* plant = plots[position];
         plots[position] = nullptr;
         size--;
         inventory->add(plant);
-=======
-        
-        Plant* plant = plots[position];
-        plots[position] = nullptr; 
-        size--;
-        
-        inventory->add(plant); 
-        
-        notify();
-        
->>>>>>> origin/Frontend
         return true;
     }
     return false;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Frontend
 bool Greenhouse::harvestPlant(Plant *plant)
 {
     for(int i = 0; i < capacity; i++){
@@ -132,11 +85,6 @@ bool Greenhouse::harvestPlant(Plant *plant)
             plots[i] = nullptr;
             size--;
             inventory->add(plant);
-<<<<<<< HEAD
-=======
-            notify();
-            
->>>>>>> origin/Frontend
             return true;
         }
     }
@@ -148,19 +96,6 @@ Plant* Greenhouse::getPlant(int position)
     return plots[position];
 }
 
-<<<<<<< HEAD
-=======
-Plant *Greenhouse::getPlantByPointer(Plant *p)
-{
-    for (auto* plotPlant : plots) {
-            if (plotPlant == p) {
-                return p;
-            }
-        }
-    return nullptr;
-}
-
->>>>>>> origin/Frontend
 std::string Greenhouse::getPlot(int position)
 {
     if(position >= 0 && position < capacity && plots[position] != nullptr){
@@ -233,10 +168,7 @@ void Greenhouse::tickAllPlants()
     for(int i = 0; i < capacity; i++){
         if(plots[i] != nullptr){
             plots[i]->tick();
-<<<<<<< HEAD
             std::cout<<"Plant needs"<<std::endl;
-=======
->>>>>>> origin/Frontend
         }
     }
     notify();

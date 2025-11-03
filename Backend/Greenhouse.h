@@ -1,3 +1,10 @@
+/**
+ * @file Greenhouse.h
+ * @brief Greenhouse management system declaration.
+ * 
+ * Defines the Greenhouse class which manages plant storage and growth.
+ */
+
 #pragma once
 #include <vector>
 #include "Plant.h"
@@ -5,6 +12,13 @@
 #include "Subject.h"
 #include "Observer.h"
 
+/**
+ * @class Greenhouse
+ * @brief Manages plant storage and growth conditions.
+ * 
+ * Handles plant inventory, placement, and environmental conditions
+ * affecting plant growth within the greenhouse structure.
+ */
 class Greenhouse : public Subject {
 public:
     Greenhouse(Inventory* inv);
@@ -18,10 +32,6 @@ public:
     bool harvestPlant(Plant* plant);
     
     Plant* getPlant(int position);
-<<<<<<< HEAD
-=======
-    Plant* getPlantByPointer(Plant* p) ;
->>>>>>> origin/Frontend
     std::string getPlot(int position);
     int getSize();
     int getCapacity();

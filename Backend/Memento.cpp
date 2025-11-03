@@ -1,3 +1,10 @@
+/**
+ * @file Memento.cpp
+ * @brief Implementation of the Memento class for game state snapshots.
+ *
+ * Provides accessors for serialized game state previously captured in Memento.h.
+ */
+
 #include "Memento.h"
 
 Memento::Memento(const std::string& inv, const std::string& work, 

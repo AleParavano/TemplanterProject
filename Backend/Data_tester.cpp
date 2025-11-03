@@ -1,3 +1,11 @@
+/**
+ * @file Data_tester.cpp
+ * @brief Test suite for data structures and game logic.
+ * 
+ * Contains unit tests and integration tests for verifying the correct
+ * functionality of game components and data structures.
+ */
+
 #include <iostream>
 #include <fstream>
 #include "Caretaker.h"

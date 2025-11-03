@@ -1,8 +1,25 @@
+/**
+ * @file PlantState.h
+ * @brief Plant state machine declarations (Seed, Growing, Ripe, Dead).
+ *
+ * Defines PlantState abstract base and concrete states used to represent and
+ * transition plant lifecycle stages.
+ *
+ * @pattern State - Encapsulates behavior per growth stage
+ */
+
 #pragma once
 #include <string>
 
 class Plant;
 
+/**
+ * @class PlantState
+ * @brief Abstract base for plant lifecycle states.
+ *
+ * Encapsulates resource levels (growth, water, nutrients) and provides
+ * transition hooks for concrete states.
+ */
 class PlantState
 {
 public:
@@ -20,12 +37,10 @@ public:
     float getWater() const;
     float getNutrients() const;
     
-    // Setters
+    // Setters and resource management
     void setGrowth(float g);
     void setWater(float w);
     void setNutrients(float n);
-    
-    // Resource management
     void consumeResources(float waterConsumption, float nutrientConsumption);
     void addWater(float amount);
     void addNutrients(float amount);
@@ -53,6 +68,7 @@ protected:
     friend class Plant;
 };
 
+// Concrete state classes follow with their own behaviour documentation.
 class SeedState : public PlantState
 {
 public:

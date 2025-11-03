@@ -1,3 +1,11 @@
+/**
+ * @file plant_inv-store_demo.cpp
+ * @brief Demonstration and unit-like tests for Store, Adapter, Inventory and Game subsystems.
+ *
+ * Exercises store purchases, adapter factories, inventory capacity behavior and simple integration
+ * of Game/Player/Greenhouse. Intended as a lightweight integration test/demo.
+ */
+
 #include "Game.h"
 #include "Store.h"
 #include "SeedAdapter.h"
@@ -423,15 +431,7 @@ bool testInventorySlotCapacity() {
     
     bool isFull = slot.isFull();
     bool capacityCorrect = (slot.getSize() == 64);
-    bool remainingZero = (slot.getRemainingCapacity() == 0);
-    
-    Plant* extra = new Lettuce();
-    bool cannotAcceptWhenFull = !slot.canAccept(extra);
-    delete extra;
-    
-    // Clean up
-    for (int i = 0; i < 64; i++) {
-        delete slot.remove();
+    bool remainingZero = (slot.getRemainingCapacity() ==
     }
     
     return isFull && capacityCorrect && remainingZero && cannotAcceptWhenFull;

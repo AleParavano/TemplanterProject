@@ -1,3 +1,10 @@
+/**
+ * @file Game.cpp
+ * @brief Implementation of the Game class methods.
+ * 
+ * Contains the core game loop implementation and game state management logic.
+ */
+
 #include "Game.h"
 
 Game *Game::uniqueInstance = nullptr;

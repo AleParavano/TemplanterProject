@@ -1,3 +1,13 @@
+/**
+ * @file PlantFactory.h
+ * @brief Factory classes for producing Plant instances with visual strategies.
+ *
+ * Concrete factories encapsulate Plant construction and visual strategy wiring.
+ * Also provides RandomPlantFactory for varied plant generation.
+ *
+ * @pattern Factory Method
+ */
+
 #pragma once
 
 #include "Plant.h"

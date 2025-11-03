@@ -1,7 +1,24 @@
+/**
+ * @file Inventory.h
+ * @brief Inventory management system for storing plant items
+ *
+ * Defines the InventorySlot and Inventory classes that handle plant storage
+ * using a slot-based system. Implements capacity limits and type grouping.
+ *
+ * @pattern Composite - Groups plants into slots
+ */
+
 #pragma once
 #include <vector>
 #include "Plant.h"
 
+/**
+ * @class InventorySlot
+ * @brief Container for storing multiple plants of the same type
+ *
+ * Each slot can hold multiple plants of the same type up to a maximum capacity.
+ * Acts as a stack with LIFO ordering for plant removal.
+ */
 class InventorySlot
 {
 public:
@@ -35,6 +52,13 @@ private:
     std::vector<Plant *> items;
 };
 
+/**
+ * @class Inventory 
+ * @brief Main inventory system managing multiple plant storage slots
+ *
+ * Manages a collection of InventorySlot objects, handling plant organization,
+ * addition/removal, and capacity management.
+ */
 class Inventory
 {
 public:

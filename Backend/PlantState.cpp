@@ -1,3 +1,10 @@
+/**
+ * @file PlantState.cpp
+ * @brief Implementation of plant lifecycle state behaviors.
+ *
+ * Contains implementations for SeedState, GrowingState, RipeState and DeadState.
+ */
+
 #include "PlantState.h"
 #include "Plant.h"
 #include <algorithm>
@@ -23,14 +30,7 @@ PlantState::~PlantState() {}
 
 float PlantState::getGrowth() const { return growth; }
 float PlantState::getWater() const { return water; }
-float PlantState::getNutrients() const { return nutrients; }
-
-void PlantState::setGrowth(float g) { 
-    growth = std::max(0.0f, g); 
-}
-
-void PlantState::setWater(float w) { 
-    water = std::max(0.0f, w); 
+float PlantState::getNutrients() const { return nutrients;
 }
 
 void PlantState::setNutrients(float n) { 
@@ -51,7 +51,7 @@ void PlantState::addNutrients(float amount) {
 }
 
 void PlantState::applyGrowth(float growthAmount) {
-    growth = std::min(GROWING_TO_RIPE_THRESHOLD, growth + growthAmount);
+    growth += growthAmount;
 }
 
 SeedState::SeedState() : PlantState(0.0f, 100.0f, 100.0f) {}

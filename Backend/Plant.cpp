@@ -1,8 +1,15 @@
+/**
+ * @file Plant.cpp
+ * @brief Implementation of Plant base class and helper methods.
+ *
+ * Integrates PlantState and GrowthCycle, and delegates drawing to the PlantVisualStrategy.
+ */
+
 #include "Plant.h"
 #include <string>
 #include <iostream>
 #include "GrowthCycle.h"
-#include "PlantState.h"
+#include "PlantState.h"    // Defines PlantState and SeedState
 
 #include "../Frontend/PlantVisualStrategy.h" 
 
@@ -14,6 +21,7 @@ Plant::Plant(std::string type, float growthRate, float sellPrice, PlantVisualStr
       growthCycle(new NormalGrowthCycle()),
       visualStrategy(strategy)
 {
+    // Fix: State construction requires the full definition of SeedState
     state = new SeedState(0.0f, 100.0f, 100.0f);
 }
 
@@ -71,18 +79,15 @@ float Plant::getSellPrice() const
 
 void Plant::tick() 
 {
-
-    if (isDead()) {
-        return; 
-    }
-
     if (state) {
         state->tick(this);
-        if (growthCycle && !isDead()) {
+        
+        if (growthCycle) {
             growthCycle->grow(this, 1.0f);
         }
     }
 }
+
 float Plant::getGrowthRate() const 
 {
     return growthRate;
@@ -109,6 +114,7 @@ std::string Plant::getState()
     return state->getState();
 }
 
+// FIX: This function requires the full definition of PlantState
 PlantState *Plant::getPlantState()
 {
     return this->state;

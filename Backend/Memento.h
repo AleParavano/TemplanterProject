@@ -1,6 +1,23 @@
+/**
+ * @file Memento.h
+ * @brief Game state snapshot system using the Memento pattern
+ *
+ * Implements the Memento pattern to capture and restore game state including
+ * inventory, greenhouse, workers, and player attributes.
+ *
+ * @pattern Memento - Captures game state for save/restore
+ */
+
 #pragma once
 #include <string>
 
+/**
+ * @class Memento
+ * @brief Stores a snapshot of the game state
+ *
+ * Contains serialized data for all major game components and player stats.
+ * Used in conjunction with Caretaker for save/load functionality.
+ */
 class Memento 
 {
 public:
