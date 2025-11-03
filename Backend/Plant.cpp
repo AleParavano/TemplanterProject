@@ -72,15 +72,18 @@ float Plant::getSellPrice() const
 
 void Plant::tick() 
 {
+
+    if (isDead()) {
+        return; 
+    }
+
     if (state) {
         state->tick(this);
-        
-        if (growthCycle) {
+        if (growthCycle && !isDead()) {
             growthCycle->grow(this, 1.0f);
         }
     }
 }
-
 float Plant::getGrowthRate() const 
 {
     return growthRate;

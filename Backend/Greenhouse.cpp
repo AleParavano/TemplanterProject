@@ -54,6 +54,7 @@ bool Greenhouse::removePlant(int position)
         delete plots[position];
         plots[position] = nullptr;
         size--;
+        notify();
         return true;
     }
     return false;
@@ -66,6 +67,7 @@ bool Greenhouse::harvestPlant(int position)
         plots[position] = nullptr;
         size--;
         inventory->add(plant);
+        notify();
         return true;
     }
     return false;
@@ -78,6 +80,7 @@ bool Greenhouse::harvestPlant(Plant *plant)
             plots[i] = nullptr;
             size--;
             inventory->add(plant);
+            
             return true;
         }
     }
@@ -87,6 +90,16 @@ bool Greenhouse::harvestPlant(Plant *plant)
 Plant* Greenhouse::getPlant(int position)
 {
     return plots[position];
+}
+
+Plant *Greenhouse::getPlantByPointer(Plant *p)
+{
+    for (auto* plotPlant : plots) {
+            if (plotPlant == p) {
+                return p;
+            }
+        }
+    return nullptr;
 }
 
 std::string Greenhouse::getPlot(int position)

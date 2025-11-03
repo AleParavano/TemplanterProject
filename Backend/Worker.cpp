@@ -123,7 +123,7 @@ void WaterWorker::update()
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
             if(plant && plant->getWater() <= 20.0f){
-                addCommand(new WaterCommand(plant));
+                addCommand(new WaterCommand(plant, subject));
             }
         }
     }
@@ -135,7 +135,7 @@ void FertiliserWorker::update()
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
             if(plant && plant->getNutrients() <= 20.0f){
-                addCommand(new FertilizeCommand(plant));
+                addCommand(new FertilizeCommand(plant,subject));
             }
         }
     }
@@ -147,7 +147,7 @@ void HarvestWorker::update()
         for(int i = 0; i < subject->getCapacity(); i++){
             Plant* plant = subject->getPlant(i);
             if(plant && plant->isRipe()){
-                addCommand(new HarvestCommand(plant));
+                addCommand(new HarvestCommand(plant,subject));
             }
         }
     }

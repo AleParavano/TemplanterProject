@@ -2,6 +2,7 @@
 #include "Plant.h"
 #include "Customer.h"
 #include "Greenhouse.h"
+
 class Command {
 public:
     virtual ~Command() {}
@@ -12,26 +13,29 @@ public:
 class WaterCommand : public Command {
 public:
     void execute() override;
-    WaterCommand(Plant* plant);
-    private:
+    WaterCommand(Plant* plant, Greenhouse* gh); 
+private:
     Plant* targetPlant;
+    Greenhouse* subject; 
 };
+
 class FertilizeCommand : public Command {
 public:
     void execute() override;
-    FertilizeCommand(Plant* plant);
-    private:
+   
+    FertilizeCommand(Plant* plant, Greenhouse* gh);
+private:
     Plant* targetPlant;
-    
-
+    Greenhouse* subject; 
 };
 
 class HarvestCommand : public Command {
 public:
     void execute() override;
-    HarvestCommand(Plant* plant);
-    private:
+    HarvestCommand(Plant* plant, Greenhouse* gh);
+private:
     Plant* targetPlant;
+    Greenhouse* subject;
 };
 
 class PatrolCommand : public Command {
@@ -39,7 +43,7 @@ public:
     void execute() override;
     PatrolCommand(){}
     bool isPatrol() const override { return true; }
-    private:
+private:
 };
 
 class ServeCommand : public Command {
