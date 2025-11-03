@@ -121,11 +121,10 @@ void InventoryUI::update()
     timeSinceLastUpdate += GetFrameTime();
 
     // Only refresh slot data every 1 second
-    if (timeSinceLastUpdate >= 2.0f)
+    if (timeSinceLastUpdate >= 0.0f)
     {
         for (int i = 0; i < slotVector.size(); i++)
         {
-            std::cout << "DEBUG: InventoryUI checking slot index " << i << std::endl;
             slotVector[i].slot = inventory->getSlot(i);
         }
         timeSinceLastUpdate = 0.0f; // Reset timer

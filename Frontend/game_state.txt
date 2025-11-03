@@ -1,8 +1,0 @@
-INVENTORY:Carrot|1.4|25|Ripe|100|88|54|Carrot|1.4|25|Ripe|100|88|54|Lettuce|1.6|15|Ripe|100|29|64.5|Lettuce|1.6|15|Ripe|100|29|64.5|Lettuce|1.6|15|Ripe|100|23.6|61.8|Tomato|1|55|Ripe|100|84|92|Potato|1.2|35|Ripe|100|94|38.5|Potato|1.2|35|Ripe|100|99.4|38.2|Cucumber|1.1|45|Ripe|100|46|27
-GREENHOUSE:10,56|Cucumber|1.1|45|Growing|65.34|14|57|Corn|0.6|120|Dead|61.2001|0|46|Cucumber|1.1|45|Growing|62.92|18|59|Sunflower|0.8|80|Growing|28.8|51|75.5|Carrot|1.4|25|Growing|80.36|32|66|Strawberry|0.7|100|Dead|76.44|0|50|Sunflower|0.8|80|Dead|95.9999|0|50|NULL|NULL|Corn|0.6|120|Growing|42.48|92|98|NULL|NULL|NULL|Pumpkin|0.5|200|Dead|24.75|0|50|Pumpkin|0.5|200|Dead|24.75|0|50|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL|NULL
-WORKERS:Water Worker|Water Worker|Water Worker|Water Worker|Water Worker|Fertiliser Worker|Fertiliser Worker|Fertiliser Worker|Harvest Worker|Harvest Worker|Harvest Worker|Water Worker|Harvest Worker|Fertiliser Worker
-MONEY:4320
-RATING:0
-DAY:1
-HOUR:8
-MINUTE:52

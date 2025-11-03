@@ -2,7 +2,6 @@
 #include "../Backend/Player.h"
 #include <iostream>
 
-
 StoreScene::StoreScene()
     : player(nullptr),
       showModal(false),
@@ -17,37 +16,86 @@ StoreScene::StoreScene()
 {
     backendStore = new Store();
     customerManager = new CustomerManager({1270, 0}, {1200, 580});
-    // storageInventory is no longer initialized here
 }
 
 StoreScene::~StoreScene()
 {
     delete backendStore;
     delete customerManager;
-    // storageInventory is no longer deleted here
 }
 
 void StoreScene::Init()
 {
-    // Initialize scene resources
     showModal = false;
     selectedPlantFromGrid = false;
     selectedGridX = -1;
     selectedGridY = -1;
     storeOpen = false;
+    
     // Ensure inventory is closed on scene entry
     if (player && player->getInventoryUI()->isInventoryOpen()) {
         player->getInventoryUI()->toggle();
     }
 }
 
+void StoreScene::UpdateStoreHours()
+{
+    if (!player || !customerManager) return;
+    
+    int currentHour = player->getHour();
+    
+    // Automatically close store if it's outside business hours (7:00 - 18:00)
+    if (storeOpen && (currentHour >= 18 || currentHour < 7))
+    {
+        storeOpen = false;
+        
+        // Dismiss all customers when closing
+        customerManager->dismissAllCustomers();
+        
+    }
+}
+
+bool StoreScene::canOpenStore() const
+{
+    if (!player) return false;
+    
+    int currentHour = player->getHour();
+    
+    // Store can only be open between 7:00 and 18:00
+    return (currentHour >= 7 && currentHour < 18);
+}
+
+void StoreScene::toggleOpen()
+{
+    if (storeOpen)
+    {
+        // Can always close the store
+        storeOpen = false;
+    }
+    else
+    {
+        // Can only open during business hours
+        if (canOpenStore())
+        {
+            storeOpen = true;
+        }
+        else
+        {
+        }
+    }
+}
+
 void StoreScene::Update(float dt)
 {
-    // Update customers
     if (player)
     {
+        // Check and enforce store hours every frame
+        UpdateStoreHours();
+        
+        // Update customers
         UpdateCustomers(dt);
-        // CRITICAL: Update the InventoryUI logic every frame to handle clicks/selection
+        
+        // Update the InventoryUI logic every frame
         player->getInventoryUI()->update();
     }
 }
@@ -92,7 +140,7 @@ void StoreScene::HandleInput()
             }
         }
 
-        // Toggle store open/closed button
+        // Toggle store open/closed button (with time constraints)
         if (CheckCollisionPointRec(mouse, openNClose))
         {
             toggleOpen();
@@ -121,14 +169,12 @@ void StoreScene::HandleInput()
                             Plant *plant = player->getInventory()->removeItem(plantType);
                             if (plant)
                             {
-                                //add money when you make a sell;
                                 float salePrice = plant->getSellPrice();
                                 player->addMoney(salePrice);
                                 player->addRating(0.4);
                                 delete plant; 
                             }
                             player->getInventoryUI()->clearSlotSelection();
-                            // TODO: Add money to player for successful sale
                         }
                     }
                     else
@@ -139,9 +185,8 @@ void StoreScene::HandleInput()
                 else
                 {
                     customerManager->dismissCustomer(clickedCustomer);
-                    // player->subtractRating(0.2);
                 }
-                return; // Input consumed
+                return;
             }
         }
     }
@@ -152,7 +197,6 @@ void StoreScene::UpdateCustomers(float deltaTime)
     if (!customerManager || !player)
         return;
 
-    // Update customer manager (spawning, movement, etc)
     customerManager->update(deltaTime, storeOpen);
 }
 
@@ -205,7 +249,7 @@ void StoreScene::Draw()
     DrawText("Manage Plants", 350, 385, 18, WHITE);
     DrawRectangleRec(manageToggle, Color{255, 255, 255, 100});
 
-    // Draw store open/closed status
+    // Draw store open/closed status with visual feedback
     if (storeOpen)
     {
         DrawText("Open", 1030, 10, 20, RED);
@@ -214,9 +258,20 @@ void StoreScene::Draw()
     }
     else
     {
-        DrawText("Closed", 1020, 10, 20, RED);
+        // Show different color if outside business hours
+        bool canOpen = canOpenStore();
+        Color statusColor = canOpen ? RED : DARKGRAY;
+        Color buttonTint = canOpen ? Color{255, 0, 0, 100} : Color{100, 100, 100, 100};
+        
+        DrawText("Closed", 1020, 10, 20, statusColor);
         openNClose = {1018, 8, 70, 22};
-        DrawRectangleRec(openNClose, Color{255, 0, 0, 100});
+        DrawRectangleRec(openNClose, buttonTint);
+        
+        // Optional: Show business hours when closed outside hours
+        if (!canOpen && player)
+        {
+            DrawText("Business Hours: 6:00 - 18:00", 880, 40, 14, DARKGRAY);
+        }
     }
 
     // Render customers
@@ -225,7 +280,7 @@ void StoreScene::Draw()
         customerManager->render();
     }
     
-    // CRITICAL FIX: RENDER THE INVENTORY UI MODAL LAST
+    // Render the Inventory UI modal last
     if (player && player->getInventoryUI()->isInventoryOpen()) {
         player->getInventoryUI()->render();
     }

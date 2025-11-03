@@ -243,7 +243,7 @@ void GreenHouseScene::HandleInput()
                         if (CheckCollisionPointRec(mousePos, rect))
                         {
                             selectedPlotIndex = (selectedPlotIndex == plotIndex) ? -1 : plotIndex;
-                            std::cout << "LOG: Clicked plot index: " << selectedPlotIndex << std::endl;
+                            // std::cout << "LOG: Clicked plot index: " << selectedPlotIndex << std::endl;
                             return; // Stop checking other plots
                         }
                         plotIndex++;
@@ -452,13 +452,13 @@ void GreenHouseScene::DrawSeedShop()
         {
             if (!canAfford)
             {
-                std::cout << "LOG: Insufficient funds to buy " << type << std::endl;
+                // std::cout << "LOG: Insufficient funds to buy " << type << std::endl;
             }
             else
             {
                 if (greenhouse->getSize() >= greenhouse->getCapacity())
                 {
-                    std::cout << "LOG: All plots are currently occupied. Clear a plot first." << std::endl;
+                    // std::cout << "LOG: All plots are currently occupied. Clear a plot first." << std::endl;
                 }
                 else
                 {
@@ -468,12 +468,12 @@ void GreenHouseScene::DrawSeedShop()
                     {
                         player->getPlot()->notify();
                         player->setMoney(player->getMoney() - price);
-                        std::cout << "LOG: Bought and planted " << type << " seed directly into plot." << std::endl;
+                        // std::cout << "LOG: Bought and planted " << type << " seed directly into plot." << std::endl;
                     }
                     else
                     {
                         delete newPlant;
-                        std::cout << "LOG: Failed to find an empty plot slot." << std::endl;
+                        // std::cout << "LOG: Failed to find an empty plot slot." << std::endl;
                     }
                 }
             }
@@ -558,13 +558,13 @@ void GreenHouseScene::DrawHireShop()
                     // Add worker to the manager
                     player->addWorker(newWorker);
 
-                    std::cout << "LOG: Hired and assigned " << data.type << " worker." << std::endl;
+                    // std::cout << "LOG: Hired and assigned " << data.type << " worker." << std::endl;
                     isHireShopOpen = false;
                 }
             }
             else
             {
-                std::cout << "LOG: Cannot hire. Insufficient funds." << std::endl;
+                // std::cout << "LOG: Cannot hire. Insufficient funds." << std::endl;
             }
         }
 
@@ -676,7 +676,7 @@ void GreenHouseScene::DrawPlantInspector(Plant *plant, Vector2 drawPos)
             selectedPlotIndex = -1;
             plant = nullptr; // <--- ADDED: Manually invalidate the local plant pointer
             selectedPlotIndex = -1;
-            std::cout << "LOG: Harvested plot " << targetPlot << std::endl;
+            // std::cout << "LOG: Harvested plot " << targetPlot << std::endl;
         }
     }
     else if (plant->isDead())
@@ -688,7 +688,7 @@ void GreenHouseScene::DrawPlantInspector(Plant *plant, Vector2 drawPos)
             greenhouse->removePlant(targetPlot);
             plant = nullptr; // Manually invalidate the local plant pointer
             selectedPlotIndex = -1;
-            std::cout << "LOG: Derooted dead plant from plot " << targetPlot << std::endl;
+            // std::cout << "LOG: Derooted dead plant from plot " << targetPlot << std::endl;
         }
     }
     else
