@@ -6,11 +6,11 @@
 #include "../Backend/Game.h"
 #include "../Backend/Player.h"
 #include "../Backend/Plant.h"
-#include "../Backend/PlantFactory.h" 
-#include "../Backend/Inventory.h" 
+#include "../Backend/PlantFactory.h"
+#include "../Backend/Inventory.h"
 #include "PlantVisualStrategy.h"
 #include "../Backend/Worker.h"
-#include "UI.h" 
+#include "UI.h"
 #include <map>
 #include <vector>
 #include <iostream>
@@ -32,7 +32,6 @@
 #define SHOP_Y ((SCREEN_HEIGHT - SHOP_HEIGHT) / 2)
 #define ITEM_ROW_HEIGHT 60
 
-
 class GreenHouseScene : public Scene {
 private:
     PlantVisual plants[MAX_PLANTS];
@@ -44,10 +43,8 @@ private:
     bool isHireShopOpen;
     float simTimeAccumulator;
 
-    SceneType nextScene; 
-    
-    
-    
+    SceneType nextScene;
+
     void InitPlants();
     void InitPaths();
     void DrawPlantDetailed(PlantVisual p);
