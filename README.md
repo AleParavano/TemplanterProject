@@ -6,28 +6,27 @@
 
 ---
 
-🎮 **A 2D Greenhouse Management Simulation built with C++ & Raylib**  
-🏛️ Simulation & management game featuring 10 software design patterns, where you grow plants, manage workers, and serve customers.  
+**A 2D Greenhouse Management Simulation built with C++ & Raylib**  
+Simulation & management game featuring 10 software design patterns, where you grow plants, manage workers, and serve customers.  
 
 ---
 
-## 🎯 Features
+## Features
 
-- 🌿 **10 Plant Types** — from Carrots to Cucumber 
-- 👨‍🌾 **Worker Skill System** — train workers from rookies to 5-star experts  
-- 🕓 **Dynamic Day/Night Cycle** — affects plant growth and productivity  
-- 💬 **Customer System** — manage ratings, serve clients, and handle robberies  
-- 💾 **Save System** — manual save/load with multiple slots  
+- **10 Plant Types** — from Carrots to Cucumber 
+- **Worker Skill System** — train workers from rookies to 5-star experts  
+- **Dynamic Day/Night Cycle** — affects plant growth and productivity  
+- **Customer System** — manage ratings, serve clients, and handle robberies  
+- **Save System** — manual save/load with multiple slots  
 
 ---
 
-## 🧩 Design Patterns Implemented
+## Design Patterns Implemented
 
-Singleton | Observer | Mediator | Memento | Factory | Prototype | Template Method | Decorator | Strategy | State | Facade | Iterator | Command | Visitor | Flyweight  
+Singleton | Observer | Memento | Factory | Prototype | Template Method | Decorator | Strategy | State | Facade | Iterator | Command | Flyweight  
 
 - **Singleton** — Game, Time & Save Managers  
 - **Observer** — Plant watering notifications  
-- **Mediator** — Worker scheduling & coordination  
 - **Memento** — Save/load game state  
 - **Factory** — Plant, customer & product creation  
 - **Prototype** — Clone plant configurations  
@@ -38,7 +37,6 @@ Singleton | Observer | Mediator | Memento | Factory | Prototype | Template Metho
 - **Facade** — Storage hierarchy  
 - **Iterator** — Time & stock iteration  
 - **Command** — Worker task queue  
-- **Visitor** — Customer behavior & ratings  
 - **Flyweight** — Memory optimization for plants  
 
 ---
@@ -57,11 +55,11 @@ Singleton | Observer | Mediator | Memento | Factory | Prototype | Template Metho
 
 | 👤 Name | 🎯 Role |
 |----------|---------|
-| Mr. Paul Hofmeyr | u24
-| Miss Jo Reardon | u24597652
-| Mr. Finnley Wyllie | u24
-| Mr. Alessandro Paravano | u24
-| Mr. Mutombo Kabau | u24
+| Jo Reardon | u24597652
+| Paul Hoffmeyer | u24618391
+| Finnley Wyllie | u24754120
+| Mutombo Kabau | u24957102
+| Alessandro Paravano | u24713122
 
 ---
 <p align="center">
