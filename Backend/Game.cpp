@@ -1,106 +1,92 @@
+/**
+ * @file Game.cpp
+ * @brief Implementation of Game class singleton and core game loop.
+ */
+
 #include "Game.h"
-#include "Memento.h"
-#include <iostream>
 
-// Note: Using the time constants defined in OutdoorScene.h for consistency
-#define GAME_MINUTE_PER_SECOND 1.0f 
-#define NIGHT_START_HOUR 19
-#define NIGHT_END_HOUR 7
-
+// Initialize static singleton instance
 Game* Game::uniqueInstance = nullptr;
 
-Game::Game() 
-    : player(), 
-      // Initialize time state in Game
-      gameMinute(0), gameHour(7), gameDay(1), timeAccumulator(0.0f) 
-{}
+/**
+ * @brief Construct game state with default player and caretaker
+ */
+Game::Game() : player(), caretaker("game_state.txt") {}
 
+/**
+ * @brief Clean up game resources
+ */
 Game::~Game() {}
 
-Game* Game::getInstance() 
+/**
+ * @brief Get or create singleton game instance
+ * @return Pointer to singleton game instance
+ */
+Game* Game::getInstance()
 {
-    if (uniqueInstance == nullptr) 
+    if (uniqueInstance == nullptr)
     {
         uniqueInstance = new Game();
     }
     return uniqueInstance;
 }
 
-Player& Game::getPlayer() 
+/**
+ * @brief Update game time based on real time delta
+ * @param dt Delta time in seconds
+ *
+ * Updates game time accounting for day/night cycles and protection status.
+ * Time advances faster at night (20:00-06:00) or when protected.
+ */
+void Game::UpdateGameTime(float dt)
 {
-    return player;
-}
+    const float REAL_SECONDS_PER_GAME_MINUTE = 1.0f;
+    int speedMultiplier = 1;
+    int currentHour = player.getHour();
 
-Player *Game::getPlayerPtr()
-{
-  
-    return &player;
-}
-
-void Game::UpdateGameTime(float dt) {
-    // Determine the acceleration multiplier
-    float timeMultiplier = GAME_MINUTE_PER_SECOND; // Day speed: 1 real second = 1 game minute
-    
-    // Check for night cycle (19:00 to 07:00)
-    if (gameHour >= NIGHT_START_HOUR || gameHour < NIGHT_END_HOUR) {
-        // Night speed: 6x faster than day speed (compresses 12 hours into 2 real minutes)
-        timeMultiplier = 6.0f; 
+    if (currentHour >= 20 || currentHour < 6 || player.isProtected())
+    {
+        speedMultiplier = 10;
     }
-    
-    // Accumulate time
-    timeAccumulator += dt * timeMultiplier;
-    
-    // Process full game minutes
-    while (timeAccumulator >= 1.0f) {
-        timeAccumulator -= 1.0f;
-        gameMinute++;
+    else
+    {
+        speedMultiplier = 1;
+    }
 
-        if (gameMinute >= 60) {
-            gameMinute = 0;
-            gameHour++;
+    timeAccumulator += dt * (float)speedMultiplier;
 
-            if (gameHour >= 24) {
-                gameHour = 0;
-                gameDay++;
-            }
+    if (timeAccumulator >= REAL_SECONDS_PER_GAME_MINUTE)
+    {
+        int minutesToAdvance = (int)(timeAccumulator / REAL_SECONDS_PER_GAME_MINUTE);
+
+        if (minutesToAdvance > 0)
+        {
+            player.advanceTime(minutesToAdvance);
+            timeAccumulator -= (float)minutesToAdvance * REAL_SECONDS_PER_GAME_MINUTE;
         }
     }
-    
-    // Update the Player's state (Originator for Memento, the final source of truth)
-    player.setDay(gameDay);
-    player.setHour(gameHour);
-    player.setMinute(gameMinute);
 }
 
+/**
+ * @brief Save current game state using Memento pattern
+ */
 void Game::saveGame()
 {
-    //Originator (Player) to create a Memento
-    Memento* memento = player.createMemento();
 
-    //Store the Memento in the Caretaker
+    Memento *memento = player.createMemento();
+
     caretaker.addMemento(memento);
-
-    std::cout << "[GAME] State saved! Total saves: " << caretaker.getMementoCount() << std::endl;
 }
 
+/**
+ * @brief Load saved game state if available
+ */
 void Game::loadGame()
 {
-    //Used to get the most recent state
-    Memento* memento = caretaker.undo();
 
-    if (memento) {
-        //Restore the Originator (Player) state from the Memento
+    Memento *memento = caretaker.getMemento();
+    if (memento)
+    {
         player.setMemento(memento);
-
-        //Synchronize the global time state with the loaded Memento data
-        gameDay = player.getDay();
-        gameHour = player.getHour();
-        gameMinute = player.getMinute();
-
-        std::cout << "[GAME] State loaded successfully! Day: " << gameDay 
-                  << ", Time: " << player.getTimeString() << std::endl;
-    }else {
-        std::cout << "[GAME] ERROR: No saved state found to load." << std::endl;
     }
-
 }

@@ -1,3 +1,10 @@
+/**
+ * @file GrowthCycle.cpp
+ * @brief Implementation of GrowthCycle class methods.
+ * 
+ * Contains the logic for managing plant growth stages and progression.
+ */
+
 #include "GrowthCycle.h"
 #include "Plant.h"
 GrowthCycle::GrowthCycle() {}

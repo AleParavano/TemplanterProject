@@ -1,4 +1,12 @@
-
+/**
+ * @file Plant.h
+ * @brief Plant base class and concrete plant types declarations.
+ *
+ * Defines Plant core interface, state integration and visual strategy dependency.
+ * Concrete plant types are lightweight wrappers providing default parameters.
+ *
+ * @pattern State, Strategy, Template Method (via GrowthCycle)
+ */
 
 #pragma once
 
@@ -9,24 +17,71 @@
 // Forward declarations
 class GrowthCycle;
 
-
+/**
+ * @class Plant
+ * @brief Represents a plant with growth state, growth cycle and visual strategy.
+ *
+ * Responsible for ticking, state transitions and exposing attributes used by other systems
+ * (inventory, greenhouse, workers, serializer).
+ */
 class Plant
 {
 public:
-    // MODIFIED BASE CONSTRUCTOR
+    /**
+     * @brief Construct a new Plant object.
+     * @param type Plant type name
+     * @param growthRate Base growth multiplier
+     * @param sellPrice Sell price when harvested
+     * @param strategy Visual strategy used by frontend
+     */
     Plant(std::string type, float growthRate, float sellPrice, PlantVisualStrategy* strategy);
+
+    /**
+     * @brief Copy constructor.
+     */
+    Plant(const Plant &other);
+
+    /**
+     * @brief Destroy the Plant object.
+     */
     virtual ~Plant();
     
-    // GrowthCycle integration
+    /**
+     * @brief Assign a GrowthCycle controller.
+     * @param gc GrowthCycle pointer (ownership transferred)
+     */
     void setGrowthCycle(GrowthCycle* gc);
+
+    /**
+     * @brief Apply growth delta to the underlying PlantState.
+     * @param growth Growth amount to apply (scaled internally)
+     */
     void applyGrowthToState(float growth);
+
+    /**
+     * @brief Get base growth rate of the plant.
+     * @return float
+     */
     float getBaseGrowthRate() const;
     
-    // State management
+    /**
+     * @brief Advance the plant state for one tick.
+     */
     void tick();
+
+    /**
+     * @brief Replace the current PlantState with a new one.
+     * @param newState New PlantState instance (ownership transferred)
+     */
     void setState(PlantState* newState);
     
-    // NEW: Draw method
+    /**
+     * @brief Draw the plant using the visual strategy.
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param initialWidth Base width
+     * @param initialHeight Base height
+     */
     void draw(float x, float y, float initialWidth, float initialHeight) const;
     
     // Getters
@@ -58,12 +113,9 @@ protected:
     PlantVisualStrategy* visualStrategy; 
 };
 
-
-// --- Derived Plant Classes (MODIFIED to accept and pass the strategy) ---
-
+// Derived plant classes provide default parameterization and keep documentation minimal.
 class Lettuce : public Plant {
 public:
-    // Accepts strategy from the Factory
     Lettuce(PlantVisualStrategy* strategy) : Plant("Lettuce", 1.6f, 15.0f, strategy) {} 
 };
 

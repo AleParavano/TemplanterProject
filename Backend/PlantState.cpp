@@ -1,8 +1,19 @@
+/**
+ * @file PlantState.cpp
+ * @brief Implementation of plant state behaviors
+ *
+ * Contains state transition logic and resource management for different
+ * plant growth stages.
+ *
+ * @pattern State - Plant lifecycle management
+ */
+
 #include "PlantState.h"
 #include "Plant.h"
 #include <algorithm>
 #include <iostream>
 
+// State constants
 const float PlantState::SEED_TO_GROWING_THRESHOLD = 25.0f;
 const float PlantState::GROWING_TO_RIPE_THRESHOLD = 100.0f;
 const float PlantState::DEATH_WATER_THRESHOLD = 0.0f;
@@ -11,26 +22,35 @@ const float PlantState::WATER_CONSUMPTION_RATE = 2.0f;
 const float PlantState::NUTRIENT_CONSUMPTION_RATE = 1.0f; 
 const float PlantState::GROWTH_PER_TICK = 3.0f;
 
-PlantState::PlantState() : growth(0.0f), water(100.0f), nutrients(100.0f) {}
+/**
+ * @brief Initialize state with default values
+ */
+PlantState::PlantState() 
+    : growth(0.0f), water(100.0f), nutrients(100.0f) {}
 
+/**
+ * @brief Initialize state with specific values
+ * @param gr Growth percentage
+ * @param wa Water level
+ * @param nu Nutrient level
+ */
 PlantState::PlantState(float gr, float wa, float nu) 
     : growth(gr), water(wa), nutrients(nu) {}
 
+/**
+ * @brief Copy constructor
+ */
 PlantState::PlantState(const PlantState& other) 
     : growth(other.growth), water(other.water), nutrients(other.nutrients) {}
 
+/**
+ * @brief Destructor
+ */
 PlantState::~PlantState() {}
 
 float PlantState::getGrowth() const { return growth; }
 float PlantState::getWater() const { return water; }
-float PlantState::getNutrients() const { return nutrients; }
-
-void PlantState::setGrowth(float g) { 
-    growth = std::max(0.0f, g); 
-}
-
-void PlantState::setWater(float w) { 
-    water = std::max(0.0f, w); 
+float PlantState::getNutrients() const { return nutrients;
 }
 
 void PlantState::setNutrients(float n) { 
@@ -50,10 +70,17 @@ void PlantState::addNutrients(float amount) {
     nutrients = std::min(100.0f, nutrients + amount);
 }
 
+/**
+ * @brief Apply growth while maintaining valid range
+ * @param growthAmount Amount of growth to add
+ */
 void PlantState::applyGrowth(float growthAmount) {
     growth += growthAmount;
 }
 
+/**
+ * @brief Concrete state class for Seed state
+ */
 SeedState::SeedState() : PlantState(0.0f, 100.0f, 100.0f) {}
 SeedState::SeedState(float gr, float wa, float nu) : PlantState(gr, wa, nu) {}
 SeedState::SeedState(const SeedState& other) : PlantState(other) {}
@@ -96,6 +123,9 @@ std::string SeedState::getState() {
     return "Seed";
 }
 
+/**
+ * @brief Concrete state class for Growing state
+ */
 GrowingState::GrowingState() : PlantState(25.0f, 100.0f, 100.0f) {}
 GrowingState::GrowingState(float gr, float wa, float nu) : PlantState(gr, wa, nu) {}
 GrowingState::GrowingState(const GrowingState& other) : PlantState(other) {}
@@ -137,6 +167,10 @@ void GrowingState::tick(Plant* plant) {
 std::string GrowingState::getState() {
     return "Growing";
 }
+
+/**
+ * @brief Concrete state class for Ripe state
+ */
 RipeState::RipeState() : PlantState(100.0f, 100.0f, 100.0f) {}
 RipeState::RipeState(float gr, float wa, float nu) : PlantState(gr, wa, nu) {}
 RipeState::RipeState(const RipeState& other) : PlantState(other) {}
@@ -173,6 +207,9 @@ std::string RipeState::getState() {
     return "Ripe";
 }
 
+/**
+ * @brief Concrete state class for Dead state
+ */
 DeadState::DeadState() : PlantState(0.0f, 0.0f, 0.0f) {}
 DeadState::DeadState(float gr, float wa, float nu) : PlantState(gr, wa, nu) {}
 DeadState::DeadState(const DeadState& other) : PlantState(other) {}

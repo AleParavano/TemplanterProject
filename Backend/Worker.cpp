@@ -1,3 +1,11 @@
+/**
+ * @file Worker.cpp
+ * @brief Implementation of Worker class behaviors and command processing
+ *
+ * Contains thread management, command queue processing, and specialized 
+ * worker type implementations.
+ */
+
 #include "Worker.h"
 #include "Greenhouse.h"
 #include <iostream>
@@ -5,6 +13,9 @@
 #include "Player.h"
 #include "Game.h"
 
+/**
+     * @brief Construct worker and start command thread
+     */
 Worker::Worker() : Observer()
 {
     subject = nullptr;
@@ -39,7 +50,7 @@ void Worker::executeCommand()
         if(!command->isPatrol()){
             endPatrol();
         }
-        
+        //command starts
         std::cout << "Executing command" << std::endl;
         switch(level){
             case 1:
@@ -70,29 +81,7 @@ void Worker::setSubject(Greenhouse* greenhouse)
     this->subject = greenhouse;
 }
 
-void Worker::update(Plant *changedPlant)
-{
-    // Base worker checks all plants and generates appropriate commands
-    if(subject){
-        for(int i = 0; i < subject->getCapacity(); i++){
-            Plant* plant = subject->getPlant(i);
-            if(plant){
-                if(plant->getNutrients() <= 20.0f){
-                    addCommand(new FertilizeCommand(plant));
-                }
-                else if(plant->getWater() <= 20.0f){
-                    addCommand(new WaterCommand(plant));
-                }
-                else if(plant->isRipe()){
-                    addCommand(new HarvestCommand(plant));
-                }
-                else{
-                    addCommand(new PatrolCommand());
-                }
-            }
-        }
-    }
-}
+
 
 void Worker::stop()
 {
@@ -133,17 +122,9 @@ void Worker::setLevel(int level)
         this->level = level;
     }
 }
-
-void Worker::attachToAllPlants(Plant *plant)
+void Worker::update()
 {
-    if(subject){
-        for(int i = 0; i < subject->getCapacity(); i++){
-            Plant* plant = subject->getPlant(i);
-            if(plant && plant->getWater() <= 20.0f){
-                addCommand(new WaterCommand(plant));
-            }
-        }
-    }
+    return;
 }
 
 void WaterWorker::update()
