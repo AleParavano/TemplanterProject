@@ -53,7 +53,7 @@ Singleton | Observer | Memento | Factory | Prototype | Template Method | Decorat
 
 > *“The team making TEMPLANTER.”*  
 
-| 👤 Name | 🎯 Role |
+| Name | Role |
 |----------|---------|
 | Jo Reardon | u24597652
 | Paul Hoffmeyer | u24618391
