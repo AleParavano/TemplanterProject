@@ -1,3 +1,15 @@
+/**
+ * @file Player.cpp
+ * @brief Implementation of Player state and resource management
+ *
+ * Contains logic for:
+ * - Resource management (money, rating)
+ * - Time progression
+ * - Worker management
+ * - Inventory/Greenhouse integration
+ * - Save state creation/restoration
+ */
+
 #include "Player.h"
 #include "Serializer.h"
 #include <sstream>

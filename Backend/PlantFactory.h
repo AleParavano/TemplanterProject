@@ -1,11 +1,12 @@
 /**
  * @file PlantFactory.h
- * @brief Factory classes for producing Plant instances with visual strategies.
+ * @brief Factory classes for producing Plant instances
  *
- * Concrete factories encapsulate Plant construction and visual strategy wiring.
- * Also provides RandomPlantFactory for varied plant generation.
+ * Provides concrete factories for creating specific plant types with
+ * appropriate visual strategies.
  *
- * @pattern Factory Method
+ * @pattern Factory Method - Plant creation
+ * @pattern Strategy - Visual rendering
  */
 
 #pragma once
@@ -14,6 +15,10 @@
 #include <random>
 #include "../Frontend/PlantVisualStrategy.h"
 
+/**
+ * @class PlantFactory
+ * @brief Abstract base factory for creating plants
+ */
 class PlantFactory
 {
 public:
@@ -22,6 +27,10 @@ public:
     virtual Plant *produce() = 0;
 };
 
+/**
+ * @class CarrotFactory
+ * @brief Creates Carrot plants with appropriate visual strategy
+ */
 class CarrotFactory : public PlantFactory
 {
 public:
@@ -30,6 +39,10 @@ public:
     }
 };
 
+/**
+ * @class TomatoFactory
+ * @brief Creates Tomato plants with appropriate visual strategy
+ */
 class TomatoFactory : public PlantFactory
 {
 public:
@@ -38,7 +51,12 @@ public:
     }
 };
 
-class LettuceFactory : public PlantFactory {
+/**
+ * @class LettuceFactory
+ * @brief Creates Lettuce plants with appropriate visual strategy
+ */
+class LettuceFactory : public PlantFactory
+{
 public:
     Plant* produce() override {
         return new Lettuce(new LettuceVisualStrategy(20.0f, 15.0f));
@@ -47,13 +65,22 @@ public:
 
 // --- You will need to complete the rest of these factories ---
 
-class SunflowerFactory : public PlantFactory {
+/**
+ * @class SunflowerFactory
+ * @brief Creates Sunflower plants with appropriate visual strategy
+ */
+class SunflowerFactory : public PlantFactory
+{
 public:
     Plant* produce() override {
         return new Sunflower(new SunflowerVisualStrategy(25.0f, 50.0f));
     }
 };
 
+/**
+ * @class PotatoFactory
+ * @brief Creates Potato plants with appropriate visual strategy
+ */
 class PotatoFactory : public PlantFactory
 {
 public:
@@ -62,6 +89,10 @@ public:
     }
 };
 
+/**
+ * @class CucumberFactory
+ * @brief Creates Cucumber plants with appropriate visual strategy
+ */
 class CucumberFactory : public PlantFactory
 {
 public:
@@ -70,6 +101,10 @@ public:
     }
 };
 
+/**
+ * @class PepperFactory
+ * @brief Creates Pepper plants with appropriate visual strategy
+ */
 class PepperFactory : public PlantFactory
 {
 public:
@@ -78,6 +113,10 @@ public:
     }
 };
 
+/**
+ * @class StrawberryFactory
+ * @brief Creates Strawberry plants with appropriate visual strategy
+ */
 class StrawberryFactory : public PlantFactory
 {
 public:
@@ -86,6 +125,10 @@ public:
     }
 };
 
+/**
+ * @class CornFactory
+ * @brief Creates Corn plants with appropriate visual strategy
+ */
 class CornFactory : public PlantFactory
 {
 public:
@@ -94,6 +137,10 @@ public:
     }
 };
 
+/**
+ * @class PumpkinFactory
+ * @brief Creates Pumpkin plants with appropriate visual strategy
+ */
 class PumpkinFactory : public PlantFactory
 {
 public:
@@ -102,6 +149,13 @@ public:
     }
 };
 
+/**
+ * @class RandomPlantFactory
+ * @brief Creates random plant types with weighted distribution
+ *
+ * Randomly selects and creates plants with appropriate visual strategies.
+ * Uses seeded RNG for reproducible results.
+ */
 class RandomPlantFactory : public PlantFactory
 {
 public:

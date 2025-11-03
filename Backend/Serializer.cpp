@@ -1,3 +1,11 @@
+/**
+ * @file Serializer.cpp
+ * @brief Implementation of game state serialization functionality
+ *
+ * Contains methods to convert game objects to/from string format for
+ * save game functionality.
+ */
+
 #include "Serializer.h"
 #include "Inventory.h"
 #include "Greenhouse.h"
@@ -7,6 +15,12 @@
 #include <sstream>
 #include <algorithm>
 
+/**
+ * @brief Split string by delimiter
+ * @param str String to split
+ * @param delimiter Character to split on
+ * @return Vector of split string parts
+ */
 std::vector<std::string> Serializer::split(const std::string& str, char delimiter) {
     std::vector<std::string> tokens;
     std::stringstream ss(str);
@@ -19,6 +33,12 @@ std::vector<std::string> Serializer::split(const std::string& str, char delimite
     return tokens;
 }
 
+/**
+ * @brief Join string vector with delimiter
+ * @param parts Vector of strings to join
+ * @param delimiter Character to join with
+ * @return Joined string
+ */
 std::string Serializer::join(const std::vector<std::string>& parts, char delimiter) {
     std::string result;
     for (size_t i = 0; i < parts.size(); ++i) {
@@ -30,6 +50,11 @@ std::string Serializer::join(const std::vector<std::string>& parts, char delimit
     return result;
 }
 
+/**
+ * @brief Serialize a Plant object to string
+ * @param plant Plant to serialize
+ * @return Serialized plant data string
+ */
 std::string Serializer::serializePlant(Plant* plant) {
     if (!plant) return "NULL";
     
@@ -99,6 +124,11 @@ Plant* Serializer::deserializePlant(const std::string& plantData) {
     }
 }
 
+/**
+ * @brief Serialize an Inventory object to string
+ * @param inventory Inventory to serialize
+ * @return Serialized inventory data string
+ */
 std::string Serializer::serializeInventory(Inventory* inventory) {
     if (!inventory) return "";
     
@@ -151,6 +181,11 @@ void Serializer::deserializeInventory(Inventory* inventory, const std::string& d
     }
 }
 
+/**
+ * @brief Serialize a Greenhouse object to string
+ * @param greenhouse Greenhouse to serialize
+ * @return Serialized greenhouse data string
+ */
 std::string Serializer::serializeGreenhouse(Greenhouse* greenhouse) {
     if (!greenhouse) return "";
     
@@ -209,6 +244,11 @@ void Serializer::deserializeGreenhouse(Greenhouse* greenhouse, const std::string
     }
 }
 
+/**
+ * @brief Serialize a vector of Worker objects to string
+ * @param workers Vector of workers to serialize
+ * @return Serialized worker data string
+ */
 std::string Serializer::serializeWorkers(const std::vector<Worker*>& workers) {
     if (workers.empty()) return "";
     

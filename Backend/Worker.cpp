@@ -1,3 +1,11 @@
+/**
+ * @file Worker.cpp
+ * @brief Implementation of Worker class behaviors and command processing
+ *
+ * Contains thread management, command queue processing, and specialized 
+ * worker type implementations.
+ */
+
 #include "Worker.h"
 #include "Greenhouse.h"
 #include <iostream>
@@ -5,7 +13,9 @@
 #include "Player.h"
 #include "Game.h"
 
-
+/**
+     * @brief Construct worker and start command thread
+     */
 Worker::Worker() : Observer()
 {
     subject = nullptr;

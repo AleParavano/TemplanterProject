@@ -6,6 +6,6 @@
  * all implementations are in the header file (Customer.h), so this file
  * only includes the header.
  * 
- * @pattern Visitor - Customers visit plants to evaluate and rate them
+ * @pattern Customers visit plants to evaluate and rate them
  */
 #include "Customer.h"

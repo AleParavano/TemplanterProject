@@ -1,15 +1,39 @@
 /**
  * @file Data_tester.cpp
- * @brief Test suite for data structures and game logic.
- * 
- * Contains unit tests and integration tests for verifying the correct
- * functionality of game components and data structures.
+ * @brief Test suite for core game systems
+ *
+ * Provides comprehensive testing of:
+ * - Save/Load functionality
+ * - Inventory management
+ * - Plant growth system
+ * - Worker automation
+ * - Store transactions
+ *
+ * @note Uses informal test framework with pass/fail reporting
  */
 
 #include <iostream>
 #include <fstream>
 #include "Caretaker.h"
 #include "Memento.h"
+
+/**
+ * @class MementoTester
+ * @brief Testing utility class
+ *
+ * Provides test tracking and result formatting
+ */
+class MementoTester {
+    // ...existing code...
+};
+
+/**
+ * @brief Test adapter pattern implementation
+ * @return true if all adapter tests pass
+ */
+bool testAdapterPattern() {
+    // ...existing code...
+}
 
 int main() {
     std::cout << "\n=== Simple Caretaker with File Persistence ===\n" << std::endl;

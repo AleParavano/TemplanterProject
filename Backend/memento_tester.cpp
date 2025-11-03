@@ -1,3 +1,13 @@
+/**
+ * @file memento_tester.cpp
+ * @brief Comprehensive test suite for Memento pattern implementation
+ *
+ * Tests save/load functionality, state persistence, and Caretaker integration
+ * for the game's Memento pattern implementation.
+ *
+ * @pattern Memento - Tests state capture and restoration
+ */
+
 #include <iostream>
 #include <cassert>
 #include <iomanip>

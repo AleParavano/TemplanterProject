@@ -1,17 +1,28 @@
 /**
  * @file Game.cpp
- * @brief Implementation of the Game class methods.
- * 
- * Contains the core game loop implementation and game state management logic.
+ * @brief Implementation of Game class singleton and core game loop.
  */
 
 #include "Game.h"
 
-Game *Game::uniqueInstance = nullptr;
+// Initialize static singleton instance
+Game* Game::uniqueInstance = nullptr;
 
+/**
+ * @brief Construct game state with default player and caretaker
+ */
 Game::Game() : player(), caretaker("game_state.txt") {}
+
+/**
+ * @brief Clean up game resources
+ */
 Game::~Game() {}
-Game *Game::getInstance()
+
+/**
+ * @brief Get or create singleton game instance
+ * @return Pointer to singleton game instance
+ */
+Game* Game::getInstance()
 {
     if (uniqueInstance == nullptr)
     {
@@ -19,15 +30,14 @@ Game *Game::getInstance()
     }
     return uniqueInstance;
 }
-Player &Game::getPlayer()
-{
-    return player;
-}
-Player *Game::getPlayerPtr()
-{
-    return &player;
-}
 
+/**
+ * @brief Update game time based on real time delta
+ * @param dt Delta time in seconds
+ *
+ * Updates game time accounting for day/night cycles and protection status.
+ * Time advances faster at night (20:00-06:00) or when protected.
+ */
 void Game::UpdateGameTime(float dt)
 {
     const float REAL_SECONDS_PER_GAME_MINUTE = 1.0f;
@@ -57,6 +67,9 @@ void Game::UpdateGameTime(float dt)
     }
 }
 
+/**
+ * @brief Save current game state using Memento pattern
+ */
 void Game::saveGame()
 {
 
@@ -65,6 +78,9 @@ void Game::saveGame()
     caretaker.addMemento(memento);
 }
 
+/**
+ * @brief Load saved game state if available
+ */
 void Game::loadGame()
 {
 
