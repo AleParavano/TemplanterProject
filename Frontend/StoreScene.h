@@ -14,11 +14,10 @@
 // class StoreScene : public Scene
 // {
 // private:
-
 //     std::vector<Slot> storageSlots;
 //     Store *backendStore;
 //     CustomerManager* customerManager;
-//     Inventory* storageInventory;  // StoreScene owns the storage inventory!
+//     Player* player;
 
 //     // Modal state
 //     bool showModal;
@@ -32,36 +31,40 @@
 //     int selectedStorageSlot;
 //     bool storeOpen = false;
 
+//     // Helper methods
+//     void UpdateCustomers(float deltaTime);
+//     void UpdateStoreHours(); // NEW: Check and enforce store hours
+
 // public:
 //     // Collision rectangles
 //     Rectangle counterHitBox;
 //     Rectangle sDoor;
 //     Rectangle plotHitBox;
 //     Rectangle boundaryWall;
-//     InventoryUI invUI;
     
 //     StoreScene();
 //     ~StoreScene();
 
-//     void update(Player *player = nullptr);
-//     void render();
-//     void updateCustomers(float deltaTime, Player *player);
+//     // Scene interface implementation
+//     void Init() override;
+//     void Update(float dt) override;
+//     void Draw() override;
+//     void HandleInput() override;
+//     SceneType GetSceneType() const override;
     
-//     std::string getType();
+//     // Scene-specific methods
+//     void SetPlayer(Player* p) { player = p; }
 //     int *getSelectedStorageSlot() { return &selectedStorageSlot; }
 //     bool getShowModal() { return showModal; }
-//     void toggleOpen() { storeOpen = !storeOpen; }
+//     void toggleOpen();  // Modified to check time constraints
+//     bool canOpenStore() const; // NEW: Check if store can be opened
 
-//     Inventory *getStorage() { return storageInventory; }
 //     Store *getBackendStore() { return backendStore; }
 //     CustomerManager* getCustomerManager() { return customerManager; }
 // };
 
 // #endif
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/Frontend
 #ifndef STORESCENE_H
 #define STORESCENE_H
 
@@ -81,12 +84,7 @@ private:
     std::vector<Slot> storageSlots;
     Store *backendStore;
     CustomerManager* customerManager;
-<<<<<<< HEAD
-    Inventory* storageInventory;  // StoreScene owns the storage inventory!
-=======
-    // Inventory* storageInventory;  <<< REMOVED: No longer local >>>
->>>>>>> origin/Frontend
-    Player* player;  // Store player reference for use across methods
+    Player* player;
 
     // Modal state
     bool showModal;
@@ -102,6 +100,7 @@ private:
 
     // Helper methods
     void UpdateCustomers(float deltaTime);
+    void UpdateStoreHours(); // NEW: Check and enforce store hours
 
 public:
     // Collision rectangles
@@ -109,10 +108,6 @@ public:
     Rectangle sDoor;
     Rectangle plotHitBox;
     Rectangle boundaryWall;
-<<<<<<< HEAD
-    InventoryUI invUI;
-=======
->>>>>>> origin/Frontend
     
     StoreScene();
     ~StoreScene();
@@ -128,13 +123,9 @@ public:
     void SetPlayer(Player* p) { player = p; }
     int *getSelectedStorageSlot() { return &selectedStorageSlot; }
     bool getShowModal() { return showModal; }
-    void toggleOpen() { storeOpen = !storeOpen; }
+    void toggleOpen();  // Modified to check time constraints
+    bool canOpenStore() const; // NEW: Check if store can be opened
 
-<<<<<<< HEAD
-    Inventory *getStorage() { return storageInventory; }
-=======
-    // Inventory *getStorage() { return storageInventory; } <<< REMOVED: Use player->getInventory() >>>
->>>>>>> origin/Frontend
     Store *getBackendStore() { return backendStore; }
     CustomerManager* getCustomerManager() { return customerManager; }
 };

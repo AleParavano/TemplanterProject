@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-
-
 SceneManager::SceneManager() : currentScene(SCENE_OUTDOOR), nextScene(SCENE_OUTDOOR), shouldExit(false) {
     // Create all scenes
     scenes[SCENE_OUTDOOR] = new OutdoorScene();
@@ -66,10 +64,8 @@ void SceneManager::HandleInput() {
 
         if (CheckCollisionPointRec(mousePos, saveBtn)) {
             Game::getInstance()->saveGame(); 
-            std::cout<<"save button clicked"<< std::endl;
         } else if (CheckCollisionPointRec(mousePos, loadBtn)) {
             Game::getInstance()->loadGame();
-            std::cout<<"load button clicked"<< std::endl;
         }
     }
 
@@ -109,3 +105,4 @@ void SceneManager::Draw() {
 bool SceneManager::IsDone() const {
     return shouldExit;
 }
+
