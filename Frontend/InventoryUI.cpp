@@ -11,7 +11,7 @@
 extern std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> plantCatalog;
 
 InventoryUI::InventoryUI(Inventory* inv)
-    : inventory(inv), isOpen(false), selectedSlotIndex(-1)
+    : inventory(inv), isOpen(false), selectedSlotIndex(-1), timeSinceLastUpdate(0.0f)
 {
 }
 
@@ -23,6 +23,7 @@ void InventoryUI::toggle()
     {
         slotVector.clear(); 
         selectedSlotIndex = -1;
+        timeSinceLastUpdate = 0.0f; // Reset timer when opening
         
         int invPos = 0;
 
@@ -116,13 +117,18 @@ void InventoryUI::update()
     if (!isOpen)
         return;
 
-    // Refresh slot data to reflect any changes
-    for (int i = 0; i < slotVector.size(); i++)
+    // Accumulate time since last update
+    timeSinceLastUpdate += GetFrameTime();
+
+    // Only refresh slot data every 1 second
+    if (timeSinceLastUpdate >= 2.0f)
     {
-        // <<< DEBUGGING STATEMENT ADDED HERE >>>
-        std::cout << "DEBUG: InventoryUI checking slot index " << i;
-        slotVector[i].slot = inventory->getSlot(i);
-        // <<< END DEBUGGING >>>
+        for (int i = 0; i < slotVector.size(); i++)
+        {
+            std::cout << "DEBUG: InventoryUI checking slot index " << i << std::endl;
+            slotVector[i].slot = inventory->getSlot(i);
+        }
+        timeSinceLastUpdate = 0.0f; // Reset timer
     }
 
     Vector2 mouse = GetMousePosition();

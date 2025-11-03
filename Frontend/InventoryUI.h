@@ -11,6 +11,7 @@ private:
     bool isOpen;
     std::vector<Slot> slotVector;
     int selectedSlotIndex;
+    float timeSinceLastUpdate;
 
 public:
     InventoryUI(Inventory* inv);
