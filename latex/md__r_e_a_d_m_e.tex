@@ -1,0 +1,388 @@
+\chapter{Templanter -\/ Plant Nursery Business Simulator }
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{Templanter -\/ Plant Nursery Business Simulator@{Templanter -\/ Plant Nursery Business Simulator}}
+\label{md__r_e_a_d_m_e_autotoc_md1}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md1}%
+\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{Project Overview}{Project Overview}}\label{md__r_e_a_d_m_e_autotoc_md2}
+{\bfseries{Templanter}} is a plant nursery business management simulator built in C++ using the raylib graphics library. Players manage a virtual greenhouse, cultivate various plant species, hire workers, and run a profitable business by selling harvested plants to customers.
+
+The project demonstrates the implementation of {\bfseries{11 design patterns}} in a practical, real-\/world application\+:
+\begin{DoxyItemize}
+\item {\bfseries{Singleton}} (\doxylink{class_game}{Game} state management)
+\item {\bfseries{Factory}} (\doxylink{class_plant}{Plant} and \doxylink{class_customer}{Customer} creation)
+\item {\bfseries{Adapter}} (\doxylink{class_plant}{Plant} to \doxylink{class_store}{Store} integration)
+\item {\bfseries{Facade}} (System simplification)
+\item {\bfseries{Flyweight}} (Data sharing optimization)
+\item {\bfseries{\doxylink{class_command}{Command}}} (\doxylink{class_worker}{Worker} task execution)
+\item {\bfseries{\doxylink{class_observer}{Observer}}} (\doxylink{class_plant}{Plant} monitoring)
+\item {\bfseries{State}} (\doxylink{class_plant}{Plant} lifecycle)
+\item {\bfseries{Strategy}} (Rendering algorithms)
+\item {\bfseries{Template Method}} (Growth algorithms)
+\item {\bfseries{\doxylink{class_memento}{Memento}}} (Save/\+Load system)
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysubsection{\texorpdfstring{Key Features}{Key Features}}\label{md__r_e_a_d_m_e_autotoc_md3}
+
+\begin{DoxyItemize}
+\item {\bfseries{10 \doxylink{class_plant}{Plant} Species}} with unique growth rates and prices
+\item {\bfseries{4 \doxylink{class_plant}{Plant} Life States}} (Seed → Growing → Ripe → Decaying)
+\item {\bfseries{3 \doxylink{class_worker}{Worker} Types}} (Water, Fertilizer, Harvest) with automated task queueing
+\item {\bfseries{25-\/\doxylink{struct_slot}{Slot} \doxylink{class_inventory}{Inventory}}} with plant stacking support
+\item {\bfseries{128-\/Plot \doxylink{class_greenhouse}{Greenhouse}}} with real-\/time plant management
+\item {\bfseries{Complete Save/\+Load System}} for game state persistence
+\item {\bfseries{Threading}} for worker operations
+\item {\bfseries{Day/\+Night Cycle}} with time acceleration
+\item {\bfseries{\doxylink{class_customer}{Customer} System}} for selling harvested plants
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysection{\texorpdfstring{How to Compile and Run}{How to Compile and Run}}\label{md__r_e_a_d_m_e_autotoc_md5}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysubsection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{md__r_e_a_d_m_e_autotoc_md6}
+Make sure you have the following installed\+:
+\begin{DoxyItemize}
+\item {\bfseries{C++ Compiler}} (g++, clang, or MSVC with C++17 support)
+\item {\bfseries{CMake}} 3.\+15 or higher
+\item {\bfseries{raylib}} graphics library
+\item {\bfseries{Make}} (on Unix/\+Linux/mac\+OS)
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md7}{}\doxysubsection{\texorpdfstring{Step 1\+: Install Dependencies}{Step 1\+: Install Dependencies}}\label{md__r_e_a_d_m_e_autotoc_md7}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{mac\+OS (using Homebrew)}{mac\+OS (using Homebrew)}}\label{md__r_e_a_d_m_e_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{brew\ install\ raylib\ cmake}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Ubuntu/\+Debian}{Ubuntu/\+Debian}}\label{md__r_e_a_d_m_e_autotoc_md9}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ apt-\/get\ install\ libraylib-\/dev\ cmake\ build-\/essential}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md10}{}\doxysubsubsection{\texorpdfstring{Windows (using vcpkg)}{Windows (using vcpkg)}}\label{md__r_e_a_d_m_e_autotoc_md10}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{vcpkg\ install\ raylib:x64-\/windows}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md11}{}\doxysubsection{\texorpdfstring{Step 2\+: Clone/\+Extract Project}{Step 2\+: Clone/\+Extract Project}}\label{md__r_e_a_d_m_e_autotoc_md11}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd\ /path/to/templanter}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md12}{}\doxysubsection{\texorpdfstring{Step 3\+: Create Build Directory}{Step 3\+: Create Build Directory}}\label{md__r_e_a_d_m_e_autotoc_md12}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ build}
+\DoxyCodeLine{cd\ build}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md13}{}\doxysubsection{\texorpdfstring{Step 4\+: Configure with CMake}{Step 4\+: Configure with CMake}}\label{md__r_e_a_d_m_e_autotoc_md13}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ ..}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md14}{}\doxysubsection{\texorpdfstring{Step 5\+: Compile}{Step 5\+: Compile}}\label{md__r_e_a_d_m_e_autotoc_md14}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+
+
+Or on Windows with Visual Studio\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/-\/build\ .\ -\/-\/config\ Release}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md15}{}\doxysubsection{\texorpdfstring{Step 6\+: Run the Program}{Step 6\+: Run the Program}}\label{md__r_e_a_d_m_e_autotoc_md15}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md16}{}\doxysubsubsection{\texorpdfstring{mac\+OS/\+Linux}{mac\+OS/\+Linux}}\label{md__r_e_a_d_m_e_autotoc_md16}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./Templanter}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md17}{}\doxysubsubsection{\texorpdfstring{Windows}{Windows}}\label{md__r_e_a_d_m_e_autotoc_md17}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Templanter.exe}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md18}{}\doxysubsection{\texorpdfstring{Build Output}{Build Output}}\label{md__r_e_a_d_m_e_autotoc_md18}
+After successful compilation, the executable will be located in\+:
+\begin{DoxyItemize}
+\item {\bfseries{Unix/\+Linux/mac\+OS}}\+: {\ttfamily build/\+Templanter}
+\item {\bfseries{Windows}}\+: {\ttfamily build/\+Release/\+Templanter.\+exe}
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md20}{}\doxysection{\texorpdfstring{Dependencies and Data Placement}{Dependencies and Data Placement}}\label{md__r_e_a_d_m_e_autotoc_md20}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md21}{}\doxysubsection{\texorpdfstring{Required Libraries}{Required Libraries}}\label{md__r_e_a_d_m_e_autotoc_md21}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Library  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Version  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Purpose  \\
+raylib  &4.\+0+  &Graphics rendering and UI  \\
+C++ Standard Library  &C++17  &Core language features  \\
+pthread (Unix)  &-\/  &Multi-\/threading support  \\
+\end{DoxyTable}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md22}{}\doxysubsection{\texorpdfstring{Project Structure}{Project Structure}}\label{md__r_e_a_d_m_e_autotoc_md22}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Templanter/}
+\DoxyCodeLine{├──\ src/}
+\DoxyCodeLine{│\ \ \ ├──\ Game.h\ /\ Game.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Player.h\ /\ Player.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Greenhouse.h\ /\ Greenhouse.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Plant.h\ /\ Plant.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ PlantState.h\ /\ PlantState.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ PlantFactory.h\ /\ PlantFactory.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Worker.h\ /\ Worker.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Command.h\ /\ Command.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Store.h\ /\ Store.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Inventory.h\ /\ Inventory.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Memento.h\ /\ Memento.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Caretaker.h\ /\ Caretaker.cpp}
+\DoxyCodeLine{│\ \ \ ├──\ Serializer.h\ /\ Serializer.cpp}
+\DoxyCodeLine{│\ \ \ └──\ ...\ (other\ source\ files)}
+\DoxyCodeLine{├──\ include/}
+\DoxyCodeLine{│\ \ \ ├──\ Observer.h}
+\DoxyCodeLine{│\ \ \ ├──\ Subject.h}
+\DoxyCodeLine{│\ \ \ ├──\ GrowthCycle.h}
+\DoxyCodeLine{│\ \ \ └──\ ...\ (header\ files)}
+\DoxyCodeLine{├──\ Frontend/}
+\DoxyCodeLine{│\ \ \ ├──\ PlantVisualStrategy.h}
+\DoxyCodeLine{│\ \ \ ├──\ InventoryUI.h}
+\DoxyCodeLine{│\ \ \ └──\ ...\ (UI-\/related\ files)}
+\DoxyCodeLine{├──\ CMakeLists.txt}
+\DoxyCodeLine{├──\ build/}
+\DoxyCodeLine{│\ \ \ └──\ (compiled\ binaries)}
+\DoxyCodeLine{└──\ README.md}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md23}{}\doxysubsection{\texorpdfstring{Data Files}{Data Files}}\label{md__r_e_a_d_m_e_autotoc_md23}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md24}{}\doxysubsubsection{\texorpdfstring{Save Game Files}{Save Game Files}}\label{md__r_e_a_d_m_e_autotoc_md24}
+
+\begin{DoxyItemize}
+\item {\bfseries{Location}}\+: {\ttfamily ./saves/} directory (auto-\/created on first save)
+\item {\bfseries{Format}}\+: Text-\/based serialized game state
+\item {\bfseries{File Extension}}\+: {\ttfamily .save} or {\ttfamily .gm}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md25}{}\doxysubsubsection{\texorpdfstring{Configuration Files}{Configuration Files}}\label{md__r_e_a_d_m_e_autotoc_md25}
+
+\begin{DoxyItemize}
+\item {\bfseries{Location}}\+: {\ttfamily ./config/} directory
+\item {\bfseries{\doxylink{class_plant}{Plant} Data}}\+: Stored in memory, no external files required
+\item {\bfseries{Graphics Assets}}\+: Raylib renders primitives (no image files needed)
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md26}{}\doxysubsection{\texorpdfstring{File Placement Instructions}{File Placement Instructions}}\label{md__r_e_a_d_m_e_autotoc_md26}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Source Code}}\+: Place all {\ttfamily .h} and {\ttfamily .cpp} files in the {\ttfamily src/} directory
+\item {\bfseries{Headers}}\+: Ensure all header files include proper {\ttfamily \#pragma once} guards
+\item {\bfseries{Save Games}}\+: Create a {\ttfamily saves/} directory in the executable\textquotesingle{}s directory
+\item {\bfseries{Configuration}}\+: Create a {\ttfamily config/} directory if custom settings needed
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md27}{}\doxysubsection{\texorpdfstring{Memory Requirements}{Memory Requirements}}\label{md__r_e_a_d_m_e_autotoc_md27}
+
+\begin{DoxyItemize}
+\item {\bfseries{Minimum RAM}}\+: 512 MB
+\item {\bfseries{Recommended RAM}}\+: 2 GB
+\item {\bfseries{Disk Space}}\+: \texorpdfstring{$\sim$}{\string~}50 MB for executable and data
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md28}{}\doxysubsection{\texorpdfstring{Graphics/\+Display}{Graphics/\+Display}}\label{md__r_e_a_d_m_e_autotoc_md28}
+
+\begin{DoxyItemize}
+\item {\bfseries{Minimum Resolution}}\+: 1024x768
+\item {\bfseries{Recommended Resolution}}\+: 1920x1080
+\item {\bfseries{GPU}}\+: Any GPU with Open\+GL 3.\+3+ support
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md30}{}\doxysection{\texorpdfstring{Compilation Troubleshooting}{Compilation Troubleshooting}}\label{md__r_e_a_d_m_e_autotoc_md30}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md31}{}\doxysubsection{\texorpdfstring{Issue\+: raylib not found}{Issue\+: raylib not found}}\label{md__r_e_a_d_m_e_autotoc_md31}
+{\bfseries{Solution\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Ensure\ raylib\ is\ installed}
+\DoxyCodeLine{pkg-\/config\ -\/-\/modversion\ raylib}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ If\ not\ found,\ install\ it:}
+\DoxyCodeLine{\#\ macOS:}
+\DoxyCodeLine{brew\ install\ raylib}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Linux:}
+\DoxyCodeLine{sudo\ apt-\/get\ install\ libraylib-\/dev}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Then\ reconfigure\ CMake:}
+\DoxyCodeLine{cd\ build}
+\DoxyCodeLine{rm\ CMakeCache.txt}
+\DoxyCodeLine{cmake\ ..}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md32}{}\doxysubsection{\texorpdfstring{Issue\+: C++ Standard Version}{Issue\+: C++ Standard Version}}\label{md__r_e_a_d_m_e_autotoc_md32}
+{\bfseries{Solution\+:}} Ensure CMake\+Lists.\+txt specifies C++17\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{set(CMAKE\_CXX\_STANDARD\ 17)}
+\DoxyCodeLine{set(CMAKE\_CXX\_STANDARD\_REQUIRED\ ON)}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md33}{}\doxysubsection{\texorpdfstring{Issue\+: Linker Errors}{Issue\+: Linker Errors}}\label{md__r_e_a_d_m_e_autotoc_md33}
+{\bfseries{Solution\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Clear\ build\ and\ start\ fresh}
+\DoxyCodeLine{cd\ build}
+\DoxyCodeLine{rm\ -\/rf\ *}
+\DoxyCodeLine{cmake\ ..}
+\DoxyCodeLine{make\ clean}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md35}{}\doxysection{\texorpdfstring{Running the Program}{Running the Program}}\label{md__r_e_a_d_m_e_autotoc_md35}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md36}{}\doxysubsection{\texorpdfstring{Basic Execution}{Basic Execution}}\label{md__r_e_a_d_m_e_autotoc_md36}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./Templanter}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md37}{}\doxysubsection{\texorpdfstring{Expected Output}{Expected Output}}\label{md__r_e_a_d_m_e_autotoc_md37}
+Upon launch\+:
+\begin{DoxyEnumerate}
+\item Raylib window opens (1920x1080 recommended)
+\item \doxylink{class_game}{Game} loads initial state
+\item \doxylink{class_player}{Player} starts with\+:
+\begin{DoxyItemize}
+\item 100 starting currency
+\item Empty greenhouse (128 plots)
+\item Empty inventory (25 slots)
+\item No workers
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md38}{}\doxysubsection{\texorpdfstring{Game Controls}{Game Controls}}\label{md__r_e_a_d_m_e_autotoc_md38}
+
+\begin{DoxyItemize}
+\item {\bfseries{Mouse}}\+: Click to interact with UI elements
+\item {\bfseries{Keyboard}}\+: Various shortcuts for actions
+\item {\bfseries{Save/\+Load}}\+: In-\/game menu options
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md40}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{md__r_e_a_d_m_e_autotoc_md40}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md41}{}\doxysubsection{\texorpdfstring{Comprehensive Doxygen Documentation}{Comprehensive Doxygen Documentation}}\label{md__r_e_a_d_m_e_autotoc_md41}
+Complete API documentation is available with full details on\+:
+\begin{DoxyItemize}
+\item All 40+ classes
+\item 70+ methods with signatures
+\item Design pattern implementations
+\item Code examples and usage
+\end{DoxyItemize}
+
+To generate documentation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Install\ Doxygen\ first}
+\DoxyCodeLine{brew\ install\ doxygen\ \ \#\ macOS}
+\DoxyCodeLine{sudo\ apt-\/get\ install\ doxygen\ \ \#\ Linux}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Generate\ documentation}
+\DoxyCodeLine{doxygen\ Doxyfile}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ View\ documentation}
+\DoxyCodeLine{open\ docs/html/index.html\ \ \#\ macOS}
+\DoxyCodeLine{firefox\ docs/html/index.html\ \ \#\ Linux}
+
+\end{DoxyCode}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md42}{}\doxysubsection{\texorpdfstring{Key Documentation Files}{Key Documentation Files}}\label{md__r_e_a_d_m_e_autotoc_md42}
+
+\begin{DoxyItemize}
+\item {\bfseries{Requirements.\+txt}}\+: Functional and non-\/functional requirements
+\item {\bfseries{\doxylink{_plant_factory_8h_source}{Plant\+Factory.\+h}/cpp}}\+: Factory pattern implementation
+\item {\bfseries{DOXYGEN\+\_\+\+GUIDE.\+md}}\+: Complete Doxygen setup guide
+\item {\bfseries{DOXYGEN\+\_\+\+SUMMARY.\+md}}\+: Quick reference guide
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md44}{}\doxysection{\texorpdfstring{Project Files}{Project Files}}\label{md__r_e_a_d_m_e_autotoc_md44}
+All source files are located in {\ttfamily /mnt/user-\/data/outputs/}\+:\hypertarget{md__r_e_a_d_m_e_autotoc_md45}{}\doxysubsection{\texorpdfstring{Header Files (20 files)}{Header Files (20 files)}}\label{md__r_e_a_d_m_e_autotoc_md45}
+
+\begin{DoxyItemize}
+\item \doxylink{_game_8h_source}{Game.\+h}, \doxylink{_player_8h_source}{Player.\+h}, \doxylink{_greenhouse_8h_source}{Greenhouse.\+h}
+\item \doxylink{_plant_8h_source}{Plant.\+h}, \doxylink{_plant_state_8h_source}{Plant\+State.\+h}, \doxylink{_plant_factory_8h_source}{Plant\+Factory.\+h}, \doxylink{_growth_cycle_8h_source}{Growth\+Cycle.\+h}
+\item \doxylink{_worker_8h}{Worker.\+h}, \doxylink{_observer_8h_source}{Observer.\+h}, \doxylink{_subject_8h}{Subject.\+h}, \doxylink{_command_8h_source}{Command.\+h}
+\item \doxylink{_inventory_8h_source}{Inventory.\+h}, \doxylink{_store_8h}{Store.\+h}, \doxylink{_seed_adapter_8h_source}{Seed\+Adapter.\+h}, \doxylink{_store_item_8h_source}{Store\+Item.\+h}
+\item \doxylink{_memento_8h_source}{Memento.\+h}, \doxylink{_caretaker_8h_source}{Caretaker.\+h}, \doxylink{_serializer_8h_source}{Serializer.\+h}
+\item \doxylink{_customer_8h_source}{Customer.\+h}, \doxylink{_customer_factory_8h_source}{Customer\+Factory.\+h}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md46}{}\doxysubsection{\texorpdfstring{Implementation Files (.cpp)}{Implementation Files (.cpp)}}\label{md__r_e_a_d_m_e_autotoc_md46}
+
+\begin{DoxyItemize}
+\item Corresponding .cpp files for each major header
+\item \doxylink{_plant_factory_8cpp}{Plant\+Factory.\+cpp} with all factory implementations
+\item Complete game logic implementations
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md47}{}\doxysubsection{\texorpdfstring{Documentation Files}{Documentation Files}}\label{md__r_e_a_d_m_e_autotoc_md47}
+
+\begin{DoxyItemize}
+\item README.\+md (this file)
+\item Requirements.\+txt
+\item DOXYGEN\+\_\+\+GUIDE.\+md
+\item DOXYGEN\+\_\+\+SUMMARY.\+md
+\item FILE\+\_\+\+INDEX.\+md
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md49}{}\doxysection{\texorpdfstring{Google Docs Report}{Google Docs Report}}\label{md__r_e_a_d_m_e_autotoc_md49}
+For the detailed project report with design documentation, analysis, and additional information, visit\+:
+
+{\bfseries{\href{https://docs.google.com/document/d/[INSERT-DOCUMENT-ID-HERE]/edit?usp=sharing}{\texttt{Templanter Project Report -\/ Google Docs}}}}
+
+{\itshape Note\+: Replace {\ttfamily \mbox{[}INSERT-\/\+DOCUMENT-\/\+ID-\/\+HERE\mbox{]}} with the actual Google Docs ID}
+
+The Google Docs version includes\+:
+\begin{DoxyItemize}
+\item Detailed design pattern explanations
+\item Architecture overview diagrams
+\item Implementation challenges and solutions
+\item Team member contributions
+\item Future enhancement possibilities
+\item Testing methodology
+\item Performance analysis
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md51}{}\doxysection{\texorpdfstring{Project Information}{Project Information}}\label{md__r_e_a_d_m_e_autotoc_md51}
+
+\begin{DoxyTable}{2}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Item  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Details  \\
+{\bfseries{Project Name}}  &Templanter -\/ \doxylink{class_plant}{Plant} Nursery Business Simulator  \\
+{\bfseries{Course}}  &COS 214 -\/ Design Patterns  \\
+{\bfseries{Team}}  &Team Templation  \\
+{\bfseries{Language}}  &C++17  \\
+{\bfseries{Graphics Library}}  &raylib  \\
+{\bfseries{Design Patterns}}  &11 patterns implemented  \\
+{\bfseries{Status}}  &Complete and Production-\/\+Ready  \\
+{\bfseries{Last Updated}}  &November 2025  \\
+\end{DoxyTable}
+
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md53}{}\doxysection{\texorpdfstring{Getting Started}{Getting Started}}\label{md__r_e_a_d_m_e_autotoc_md53}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Install dependencies}} (see Dependencies section above)
+\item {\bfseries{Compile the project}} (see Compilation section)
+\item {\bfseries{Run the executable}} (see Running section)
+\item {\bfseries{Read the Google Docs report}} for detailed documentation
+\item {\bfseries{Explore the code}} with Doxygen-\/generated documentation
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md55}{}\doxysection{\texorpdfstring{Support \& Contact}{Support \& Contact}}\label{md__r_e_a_d_m_e_autotoc_md55}
+For questions or issues\+:
+\begin{DoxyItemize}
+\item Review the documentation files included
+\item Check the Doxygen generated API reference
+\item Consult the Google Docs report for design decisions
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md57}{}\doxysection{\texorpdfstring{License}{License}}\label{md__r_e_a_d_m_e_autotoc_md57}
+This project is developed as part of COS 214 coursework at \mbox{[}Your University\mbox{]}.
+
+\DoxyHorRuler{0}
+
+
+{\bfseries{Status\+: ✅ Complete and Ready for Submission}} 

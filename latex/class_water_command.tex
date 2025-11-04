@@ -1,0 +1,81 @@
+\doxysection{Water\+Command Class Reference}
+\hypertarget{class_water_command}{}\label{class_water_command}\index{WaterCommand@{WaterCommand}}
+
+
+A concrete command to water a specific \doxylink{class_plant}{Plant}.  
+
+
+
+
+{\ttfamily \#include $<$Command.\+h$>$}
+
+Inheritance diagram for Water\+Command\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_water_command}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_water_command_ac54756aa1829ff85a6cc05804a169ebc}{execute}} () override
+\begin{DoxyCompactList}\small\item\em Executes the watering action on the target plant. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_water_command_a2686ac850ae9934e79630452a5452361}{Water\+Command}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant, \mbox{\hyperlink{class_greenhouse}{Greenhouse}} \texorpdfstring{$\ast$}{*}gh)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_water_command}{Water\+Command}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the base class. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_command_ad192d5e38fd39f98d7004a757be4a871}{is\+Patrol}} () const
+\begin{DoxyCompactList}\small\item\em A flag to identify if a command is a \textquotesingle{}Patrol\textquotesingle{} command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A concrete command to water a specific \doxylink{class_plant}{Plant}. 
+
+\label{doc-constructors}
+\Hypertarget{class_water_command_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_water_command_a2686ac850ae9934e79630452a5452361}\index{WaterCommand@{WaterCommand}!WaterCommand@{WaterCommand}}
+\index{WaterCommand@{WaterCommand}!WaterCommand@{WaterCommand}}
+\doxysubsubsection{\texorpdfstring{WaterCommand()}{WaterCommand()}}
+{\footnotesize\ttfamily \label{class_water_command_a2686ac850ae9934e79630452a5452361} 
+Water\+Command\+::\+Water\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{, }\item[{\mbox{\hyperlink{class_greenhouse}{Greenhouse}} \texorpdfstring{$\ast$}{*}}]{gh}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_water_command}{Water\+Command}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & The \doxylink{class_plant}{Plant} object to be watered. \\
+\hline
+{\em gh} & The \doxylink{class_greenhouse}{Greenhouse} context needed for the operation. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_water_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_water_command_ac54756aa1829ff85a6cc05804a169ebc}\index{WaterCommand@{WaterCommand}!execute@{execute}}
+\index{execute@{execute}!WaterCommand@{WaterCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_water_command_ac54756aa1829ff85a6cc05804a169ebc} 
+void Water\+Command\+::execute (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the watering action on the target plant. 
+
+
+
+Implements \mbox{\hyperlink{class_command_a6fd7d9bd8df8bfc881e4d6c7cd1878b7}{Command}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Command.\+h\item 
+Backend/Command.\+cpp\end{DoxyCompactItemize}

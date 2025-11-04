@@ -1,0 +1,90 @@
+\doxysection{Harvest\+Worker Class Reference}
+\hypertarget{class_harvest_worker}{}\label{class_harvest_worker}\index{HarvestWorker@{HarvestWorker}}
+
+
+Specialized \doxylink{class_worker}{Worker} responsible for harvesting mature plants.  
+
+
+
+
+{\ttfamily \#include $<$Worker.\+h$>$}
+
+Inheritance diagram for Harvest\+Worker\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_harvest_worker}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_worker}{Worker}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}} ()
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{class_worker}{Worker} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_worker_a1f229eb8319b17209b81411e9808b0f2}{Worker}} (const \mbox{\hyperlink{class_worker}{Worker}} \&worker)
+\begin{DoxyCompactList}\small\item\em Copy constructor for the \doxylink{class_worker}{Worker} class. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_worker_aa8e4543ef1e93fd9d884269ba30c5bfe}{\texorpdfstring{$\sim$}{\string~}\+Worker}} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_worker}{Worker} base class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_worker_a053e21528a912633dbe3ef347a1b303b}{set\+Level}} (int \mbox{\hyperlink{class_worker_a7a1628042f0401d86aaf924180a6d05e}{level}})
+\begin{DoxyCompactList}\small\item\em Sets the worker\textquotesingle{}s proficiency level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_worker_a05e9e19692488aa3dd4cb080f7e2723a}{execute\+Command}} ()
+\begin{DoxyCompactList}\small\item\em Executes the next command in the command queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_worker_ab33c6ad58e1391ba4f10cdae7b264444}{add\+Command}} (\mbox{\hyperlink{class_command}{Command}} \texorpdfstring{$\ast$}{*}command)
+\begin{DoxyCompactList}\small\item\em Adds a command to the worker\textquotesingle{}s execution queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_worker_a550bf3ec6d957e63ca6364311fffa01f}{set\+Subject}} (\mbox{\hyperlink{class_greenhouse}{Greenhouse}} \texorpdfstring{$\ast$}{*}greenhouse) override
+\begin{DoxyCompactList}\small\item\em Sets the \doxylink{class_greenhouse}{Greenhouse} object this \doxylink{class_worker}{Worker} observes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_worker_ad501cef52abc11a776ae6a5b7d194a43}{update}} () override
+\begin{DoxyCompactList}\small\item\em Called by the \doxylink{class_subject}{Subject} (\doxylink{class_greenhouse}{Greenhouse}) when its state changes. \end{DoxyCompactList}\item 
+void {\bfseries stop} ()
+\begin{DoxyCompactList}\small\item\em Signals the worker thread to stop execution and attempts to join the thread. \end{DoxyCompactList}\item 
+void {\bfseries clear\+Command\+Queue} ()
+\begin{DoxyCompactList}\small\item\em Clears all pending commands from the worker\textquotesingle{}s queue and handles their memory cleanup. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_observer}{Observer}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_observer_a19c43f80a38a332a6f694783df3c9835}{Observer}} ()
+\begin{DoxyCompactList}\small\item\em Constructs an \doxylink{class_observer}{Observer} object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Observer} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_observer_a193fdb4f62142494428b498dad583b70}{operator==}} (\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}observer)
+\begin{DoxyCompactList}\small\item\em Overloads the equality operator to compare two \doxylink{class_observer}{Observer} pointers based on their ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_worker}{Worker}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries start\+Patrol} ()
+\begin{DoxyCompactList}\small\item\em Initiates the worker\textquotesingle{}s thread activity, often referred to as \textquotesingle{}patrolling\textquotesingle{} or \textquotesingle{}monitoring\textquotesingle{}. \end{DoxyCompactList}\item 
+void {\bfseries end\+Patrol} ()
+\begin{DoxyCompactList}\small\item\em Stops the worker\textquotesingle{}s thread activity and attempts to join the thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_worker}{Worker}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries current\+Task\+Description}
+\begin{DoxyCompactList}\small\item\em A string describing the worker\textquotesingle{}s current activity or command being executed. \end{DoxyCompactList}\item 
+std\+::mutex {\bfseries mtx}
+\begin{DoxyCompactList}\small\item\em Mutex used to protect shared resources, particularly the command queue, from concurrent access. \end{DoxyCompactList}\item 
+std\+::condition\+\_\+variable {\bfseries condition}
+\begin{DoxyCompactList}\small\item\em Condition variable used to signal the worker thread when a new command is available. \end{DoxyCompactList}\item 
+std\+::atomic$<$ bool $>$ {\bfseries running} \{true\}
+\begin{DoxyCompactList}\small\item\em Atomic flag indicating whether the worker thread should continue running. \end{DoxyCompactList}\item 
+std\+::thread {\bfseries worker\+Thread}
+\begin{DoxyCompactList}\small\item\em The thread on which the worker executes its commands. \end{DoxyCompactList}\item 
+std\+::queue$<$ \mbox{\hyperlink{class_command}{Command}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries command\+Queue}
+\begin{DoxyCompactList}\small\item\em Queue of commands to be executed by the worker thread. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_greenhouse}{Greenhouse}} \texorpdfstring{$\ast$}{*} {\bfseries subject}
+\begin{DoxyCompactList}\small\item\em Pointer to the \doxylink{class_greenhouse}{Greenhouse} object being observed. The \doxylink{class_worker}{Worker} is not responsible for its memory. \end{DoxyCompactList}\item 
+int {\bfseries level} = 1
+\begin{DoxyCompactList}\small\item\em The proficiency level of the worker. Default is 1. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_observer}{Observer}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries id}
+\begin{DoxyCompactList}\small\item\em A unique identifier for the observer object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Specialized \doxylink{class_worker}{Worker} responsible for harvesting mature plants. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/\mbox{\hyperlink{_worker_8h}{Worker.\+h}}\item 
+Backend/Worker.\+cpp\end{DoxyCompactItemize}

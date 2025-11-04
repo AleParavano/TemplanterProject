@@ -1,0 +1,54 @@
+\doxysection{Warehouse\+Scene.\+h}
+\hypertarget{_warehouse_scene_8h_source}{}\label{_warehouse_scene_8h_source}\index{Frontend/WarehouseScene.h@{Frontend/WarehouseScene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ =====\ WarehouseScene.h\ =====}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ WAREHOUSESCENE\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ WAREHOUSESCENE\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Scene.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Slot.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}InventoryUI.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Backend/Inventory.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Forward\ declarations\ to\ access\ other\ scene/game\ components\ if\ needed}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_player}{Player}};}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game}{Game}};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_warehouse_scene_a1d30786f5adcfccfaffc6a2960927173}{WarehouseScene}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_scene}{Scene}}\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ std::vector<Slot>\ shelfSlots;}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_player}{Player}}*\ player;}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ Rectangle\ exitDoor;}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ SceneType\ nextScene;}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ Private\ helper\ methods}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ InitShelves();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_warehouse_scene_a1d30786f5adcfccfaffc6a2960927173}{WarehouseScene}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00047\ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{class_warehouse_scene_a1b4d4c8a4f3f78695b620b42a7a71096}{\string~WarehouseScene}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ Scene\ interface\ implementation}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_warehouse_scene_a5d4d863d80c8ea47c7b4a41974dd0b0b}{Init}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00058\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_warehouse_scene_a7259bb8e3366361493d3707fe47fc7ee}{Update}}(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00064\ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_warehouse_scene_a52b884e086245abfdc905632edb95586}{Draw}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00069\ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_warehouse_scene_aba82ae2d4858898e91f02cc1c967ea59}{HandleInput}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00074\ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_warehouse_scene_a9375116b15df749b5b4bd41e27e0c9b6}{GetSceneType}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ SCENE\_WAREHOUSE;\ \}}
+\DoxyCodeLine{00080\ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_warehouse_scene_ad1e04b0e2af06c4dcd877361428fa51a}{CheckExit}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_warehouse_scene_a3f48968e2e6161eb3b3a75582e0114ef}{SetPlayer}}(\mbox{\hyperlink{class_player}{Player}}*\ p)\ \{\ player\ =\ p;\ \}}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WAREHOUSESCENE\_H}}
+
+\end{DoxyCode}

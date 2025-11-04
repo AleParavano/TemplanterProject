@@ -1,0 +1,40 @@
+\doxysection{Serializer.\+h}
+\hypertarget{_serializer_8h_source}{}\label{_serializer_8h_source}\index{Backend/Serializer.h@{Backend/Serializer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SERIALIZER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SERIALIZER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_inventory}{Inventory}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_greenhouse}{Greenhouse}};}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_worker}{Worker}};}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_plant}{Plant}};}
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_plant_state}{PlantState}};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_serializer}{Serializer}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ serializeInventory(\mbox{\hyperlink{class_inventory}{Inventory}}*\ inventory);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ serializeGreenhouse(\mbox{\hyperlink{class_greenhouse}{Greenhouse}}*\ greenhouse);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ serializeWorkers(\textcolor{keyword}{const}\ std::vector<Worker*>\&\ workers);}
+\DoxyCodeLine{00018\ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deserializeInventory(\mbox{\hyperlink{class_inventory}{Inventory}}*\ inventory,\ \textcolor{keyword}{const}\ std::string\&\ data);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deserializeGreenhouse(\mbox{\hyperlink{class_greenhouse}{Greenhouse}}*\ greenhouse,\ \textcolor{keyword}{const}\ std::string\&\ data);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ deserializeWorkers(std::vector<Worker*>\&\ workers,\ \textcolor{keyword}{const}\ std::string\&\ data);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ serializePlant(\mbox{\hyperlink{class_plant}{Plant}}*\ plant);}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_plant}{Plant}}*\ deserializePlant(\textcolor{keyword}{const}\ std::string\&\ plantData);}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ serializePlantState(\mbox{\hyperlink{class_plant_state}{PlantState}}*\ state);}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_plant_state}{PlantState}}*\ deserializePlantState(\textcolor{keyword}{const}\ std::string\&\ stateData);}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<std::string>\ split(\textcolor{keyword}{const}\ std::string\&\ str,\ \textcolor{keywordtype}{char}\ delimiter);}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ join(\textcolor{keyword}{const}\ std::vector<std::string>\&\ parts,\ \textcolor{keywordtype}{char}\ delimiter);}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

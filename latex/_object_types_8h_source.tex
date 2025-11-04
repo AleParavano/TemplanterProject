@@ -1,0 +1,95 @@
+\doxysection{Object\+Types.\+h}
+\hypertarget{_object_types_8h_source}{}\label{_object_types_8h_source}\index{Frontend/ObjectTypes.h@{Frontend/ObjectTypes.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ OBJECTTYPES\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ OBJECTTYPES\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ -\/-\/-\/\ Road/Path\ Structure\ (shared)\ -\/-\/-\/}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00014\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_road_a586e5b5dbc8ce8318920e9b96da22417}{start}};}
+\DoxyCodeLine{00016\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_road_afcdd4ad67837e20a1a402e0b222dba7a}{end}};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_road_a9845c0eb78a2499237ec8be435959e71}{width}};}
+\DoxyCodeLine{00019\ \}\ \mbox{\hyperlink{struct_road}{Road}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ -\/-\/-\/\ Plant\ Structure\ (shared)\ -\/-\/-\/}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00030\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_plant_visual_ae217ee9d6ff95084027a45a899975ca3}{position}};}
+\DoxyCodeLine{00032\ \ \ \ \ Color\ \mbox{\hyperlink{struct_plant_visual_a6dec07feb6617f63da30c9dda44c8a1a}{color}};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_plant_visual_aa9eb04389ca5dfdd89bd462646be36d3}{size}};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_plant_visual_aa15b7a3c1ed5d2ed732976dcc30e7ad0}{type}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_plant_visual_a2d510f60cfb9094711d4cd85330fbc0a}{growthStage}};}
+\DoxyCodeLine{00039\ \}\ \mbox{\hyperlink{struct_plant_visual}{PlantVisual}};\ \textcolor{comment}{//\ Renamed\ from\ Plant}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ -\/-\/-\/\ Building\ Structure\ -\/-\/-\/}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00048\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_building_a2f2b0ab3404883377af7b1075edf12f1}{position}};}
+\DoxyCodeLine{00050\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_building_a1d18e0e84876172c9a2ee365eab634f4}{size}};}
+\DoxyCodeLine{00052\ \ \ \ \ Color\ \mbox{\hyperlink{struct_building_afbce312472c20315fe4deffb99c33f8e}{color}};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct_building_a2338a26d85eb80d454ca0374bfd1ff5a}{label}};}
+\DoxyCodeLine{00055\ \}\ \mbox{\hyperlink{struct_building}{Building}};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ -\/-\/-\/\ House\ Structure\ -\/-\/-\/}}
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00064\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_house_ae09a8be3fa2bee629ae3cbe068028347}{position}};}
+\DoxyCodeLine{00066\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_house_a54d3a99b9a6da5bf515e8ecd79c180b8}{size}};}
+\DoxyCodeLine{00068\ \ \ \ \ Color\ \mbox{\hyperlink{struct_house_afa01e38b1b3e9e6f3e9b1775c3bf135c}{wallColor}};}
+\DoxyCodeLine{00070\ \ \ \ \ Color\ \mbox{\hyperlink{struct_house_aed6d4638cc26f6e2d98722b039de2e66}{roofColor}};}
+\DoxyCodeLine{00071\ \}\ \mbox{\hyperlink{struct_house}{House}};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ -\/-\/-\/\ Tree\ Structure\ -\/-\/-\/}}
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00080\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_tree_aa5ad257853e08b7458a3111426e4d530}{position}};}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_tree_a3efe08855db4e0fd6224ec6d537be024}{radius}};}
+\DoxyCodeLine{00084\ \ \ \ \ Color\ \mbox{\hyperlink{struct_tree_a12ec52e03aaf567842f7c73233288fb8}{foliageColor}};}
+\DoxyCodeLine{00086\ \ \ \ \ Color\ \mbox{\hyperlink{struct_tree_abee580c143185ed6a82f421ec7beb75f}{trunkColor}};}
+\DoxyCodeLine{00087\ \}\ \mbox{\hyperlink{struct_tree}{Tree}};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ -\/-\/-\/\ Person\ Structure\ -\/-\/-\/}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_person_a9b80fcedb9764527cb0ab6e9a3374a43}{position}};}
+\DoxyCodeLine{00098\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_person_ae8fadb989a18cb3c293d081a93ba47b1}{target}};}
+\DoxyCodeLine{00100\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_person_a06019be60fd7ab2ee4c2d9dacc1c457b}{home}};}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_person_ae5469c578d5fd5feeac3a2214c7abcf4}{speed}};}
+\DoxyCodeLine{00104\ \ \ \ \ Color\ \mbox{\hyperlink{struct_person_aeaf212979bb3565a50176b2932f3279e}{shirtColor}};}
+\DoxyCodeLine{00106\ \ \ \ \ Color\ \mbox{\hyperlink{struct_person_add0754f280fd1b251df945a1eb2e12f2}{pantsColor}};}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_person_ad4ef243b7f1efdfbc14f16c35f90333d}{goingToStore}};}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_person_a5191935f356e2e40e02f9cbd6d86a78d}{waitTimer}};}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_person_a3fc3415018db6c6a340193f1d72b02f7}{walkCycle}};}
+\DoxyCodeLine{00114\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_person_ac08adc57caf243a1d59d6d3af725ebe8}{shadowOffset}};}
+\DoxyCodeLine{00115\ \}\ \mbox{\hyperlink{struct_person}{Person}};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{//\ -\/-\/-\/\ Car\ Structure\ -\/-\/-\/}}
+\DoxyCodeLine{00122\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00124\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_car_a14854eaecdc7a1f013732e7890c5cf10}{position}};}
+\DoxyCodeLine{00126\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_car_a733759215209fc75b0a8a1c837df90ca}{size}};}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_car_ad254cfa00ac787e6176a5a2273b76979}{currentWaypoint}};}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_car_a518885039307e42a5c13fd8a96f1d5d1}{speed}};}
+\DoxyCodeLine{00132\ \ \ \ \ Color\ \mbox{\hyperlink{struct_car_a0f08f78d4fa24f9d2131abc30e3b4ef4}{bodyColor}};}
+\DoxyCodeLine{00134\ \ \ \ \ Color\ \mbox{\hyperlink{struct_car_ad47ccf336d0734edfcfde021123d3a89}{windowColor}};}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_car_aecfaa495a115dd07db9601e21b84d3a0}{forward}};}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_car_a2ffaa469c3de4a096d19c8b2862997e3}{parked}};}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_car_a09e1f809955b4e13fadc7d89bea0e8af}{parkTimer}};}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_car_aa5852dc4401011c21d091d44580446b2}{targetSpot}};}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_car_ac214c5acb016ff984f4337dc45368e5f}{angle}};}
+\DoxyCodeLine{00146\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_car_aea0ae5de7df8abe3f25207068b38fd66}{shadowOffset}};}
+\DoxyCodeLine{00147\ \}\ \mbox{\hyperlink{struct_car}{Car}};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{comment}{//\ -\/-\/-\/\ Parking\ Spot\ Structure\ -\/-\/-\/}}
+\DoxyCodeLine{00154\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00156\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_parking_spot_ac991b4dd8446056322291ef10dac999c}{position}};}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_parking_spot_a38bff37fa72c7625e593de22132a49a0}{occupied}};}
+\DoxyCodeLine{00159\ \}\ \mbox{\hyperlink{struct_parking_spot}{ParkingSpot}};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_worker_data}{WorkerData}}\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_worker_data_a17849515fa200626034c1890300298db}{type}};}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_worker_data_a59d516ecbaf11dd2c1bd4ffa835b5be3}{cost}};}
+\DoxyCodeLine{00171\ \ \ \ \ Color\ \mbox{\hyperlink{struct_worker_data_a153185dbda7302cbe7fe7c7754a49ab8}{shirtColor}};}
+\DoxyCodeLine{00172\ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ TYPES\_H}}
+
+\end{DoxyCode}

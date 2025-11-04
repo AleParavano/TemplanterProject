@@ -1,0 +1,111 @@
+\doxysection{Caretaker Class Reference}
+\hypertarget{class_caretaker}{}\label{class_caretaker}\index{Caretaker@{Caretaker}}
+
+
+Manages the stored Mementos, acting as a save-\/game manager.  
+
+
+
+
+{\ttfamily \#include $<$Caretaker.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_caretaker_a3fa6fde4eeedbff4fd699020892c3e95}{Caretaker}} (const std\+::string \&filename="{}game\+\_\+state.\+txt"{})
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_caretaker}{Caretaker}. \end{DoxyCompactList}\item 
+\Hypertarget{class_caretaker_a66b14e6d4b79fe9e45051217cee105e8}\label{class_caretaker_a66b14e6d4b79fe9e45051217cee105e8} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Caretaker} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_caretaker}{Caretaker}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_caretaker_ab2f6e9284195ed43759b75429fbd1bcf}{add\+Memento}} (\mbox{\hyperlink{class_memento}{Memento}} \texorpdfstring{$\ast$}{*}memento)
+\begin{DoxyCompactList}\small\item\em Stores a new \doxylink{class_memento}{Memento} and automatically saves it to the designated file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_memento}{Memento}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_caretaker_ab4e20186fba369f445b03cce80de8e4f}{get\+Memento}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the currently managed \doxylink{class_memento}{Memento}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_caretaker_a647c49f1399f3376bad9f26c6c6044de}{load\+From\+File}} ()
+\begin{DoxyCompactList}\small\item\em Loads the last saved \doxylink{class_memento}{Memento} state from the file. \end{DoxyCompactList}\item 
+\Hypertarget{class_caretaker_a8a2d797d5a4de3e2c410f60a728c7365}\label{class_caretaker_a8a2d797d5a4de3e2c410f60a728c7365} 
+void {\bfseries delete\+Data} ()
+\begin{DoxyCompactList}\small\item\em Deletes the persistent save file and clears the current \doxylink{class_memento}{Memento}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the stored Mementos, acting as a save-\/game manager. 
+
+
+\begin{DoxyItemize}
+\item The \doxylink{class_caretaker}{Caretaker} is responsible for keeping the \doxylink{class_memento}{Memento} objects safe, but it never operates on or examines the content of the Mementos. In this implementation, it manages a single "{}current"{} \doxylink{class_memento}{Memento} and handles its persistence by saving and loading it from a file. 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_caretaker_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_caretaker_a3fa6fde4eeedbff4fd699020892c3e95}\index{Caretaker@{Caretaker}!Caretaker@{Caretaker}}
+\index{Caretaker@{Caretaker}!Caretaker@{Caretaker}}
+\doxysubsubsection{\texorpdfstring{Caretaker()}{Caretaker()}}
+{\footnotesize\ttfamily \label{class_caretaker_a3fa6fde4eeedbff4fd699020892c3e95} 
+Caretaker\+::\+Caretaker (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{ = {\ttfamily "{}game\+\_\+state.txt"{}}}\end{DoxyParamCaption})}
+
+
+
+Constructor for the \doxylink{class_caretaker}{Caretaker}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The name of the file to use for persistence (default is "{}game\+\_\+state.\+txt"{}). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_caretaker_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_caretaker_ab2f6e9284195ed43759b75429fbd1bcf}\index{Caretaker@{Caretaker}!addMemento@{addMemento}}
+\index{addMemento@{addMemento}!Caretaker@{Caretaker}}
+\doxysubsubsection{\texorpdfstring{addMemento()}{addMemento()}}
+{\footnotesize\ttfamily \label{class_caretaker_ab2f6e9284195ed43759b75429fbd1bcf} 
+void Caretaker\+::add\+Memento (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_memento}{Memento}} \texorpdfstring{$\ast$}{*}}]{memento}{}\end{DoxyParamCaption})}
+
+
+
+Stores a new \doxylink{class_memento}{Memento} and automatically saves it to the designated file. 
+
+
+\begin{DoxyItemize}
+\item If there was an existing \doxylink{class_memento}{Memento}, it is deleted before the new one is stored. 
+\begin{DoxyParams}{Parameters}
+{\em memento} & A pointer to the \doxylink{class_memento}{Memento} object to be stored. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\Hypertarget{class_caretaker_ab4e20186fba369f445b03cce80de8e4f}\index{Caretaker@{Caretaker}!getMemento@{getMemento}}
+\index{getMemento@{getMemento}!Caretaker@{Caretaker}}
+\doxysubsubsection{\texorpdfstring{getMemento()}{getMemento()}}
+{\footnotesize\ttfamily \label{class_caretaker_ab4e20186fba369f445b03cce80de8e4f} 
+\mbox{\hyperlink{class_memento}{Memento}} \texorpdfstring{$\ast$}{*} Caretaker\+::get\+Memento (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the currently managed \doxylink{class_memento}{Memento}. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the current \doxylink{class_memento}{Memento}. 
+\end{DoxyReturn}
+\Hypertarget{class_caretaker_a647c49f1399f3376bad9f26c6c6044de}\index{Caretaker@{Caretaker}!loadFromFile@{loadFromFile}}
+\index{loadFromFile@{loadFromFile}!Caretaker@{Caretaker}}
+\doxysubsubsection{\texorpdfstring{loadFromFile()}{loadFromFile()}}
+{\footnotesize\ttfamily \label{class_caretaker_a647c49f1399f3376bad9f26c6c6044de} 
+void Caretaker\+::load\+From\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Loads the last saved \doxylink{class_memento}{Memento} state from the file. 
+
+
+\begin{DoxyItemize}
+\item If a \doxylink{class_memento}{Memento} is successfully loaded, the existing current\+Memento is replaced. 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Caretaker.\+h\item 
+Backend/Caretaker.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,74 @@
+\doxysection{Customer\+Flyweight.\+h}
+\hypertarget{_customer_flyweight_8h_source}{}\label{_customer_flyweight_8h_source}\index{Frontend/CustomerFlyweight.h@{Frontend/CustomerFlyweight.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_customer_image_a45c8997bac634514c8fcc602aefeb105}{CustomerImage}}\ }
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ Texture2D\ \mbox{\hyperlink{class_customer_image_ac438c889132ddde453aa6920d793a4b2}{texture}};}
+\DoxyCodeLine{00023\ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ std::string\ \mbox{\hyperlink{class_customer_image_add22aeb4848b187992c9bb98fbac6672}{customerType}};}
+\DoxyCodeLine{00028\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_customer_image_a45c8997bac634514c8fcc602aefeb105}{CustomerImage}}(\textcolor{keyword}{const}\ std::string\&\ type,\ \textcolor{keyword}{const}\ std::string\&\ imagePath)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_customer_image_add22aeb4848b187992c9bb98fbac6672}{customerType}}(type)}
+\DoxyCodeLine{00036\ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Load\ texture\ from\ assets\ folder}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_customer_image_ac438c889132ddde453aa6920d793a4b2}{texture}}\ =\ LoadTexture(imagePath.c\_str());}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_customer_image_a00683f9e3f13513af227b631a8a52c7a}{\string~CustomerImage}}()}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_customer_image_ac438c889132ddde453aa6920d793a4b2}{texture}}.id\ !=\ 0)}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ UnloadTexture(\mbox{\hyperlink{class_customer_image_ac438c889132ddde453aa6920d793a4b2}{texture}});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ Delete\ copy\ operations\ -\/\ textures\ shouldn't\ be\ copied}}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_customer_image_a45c8997bac634514c8fcc602aefeb105}{CustomerImage}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_customer_image}{CustomerImage}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{class_customer_image}{CustomerImage}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_customer_image}{CustomerImage}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00057\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_image_a4024dbafa39b44f2527ae20030fba50c}{render}}(Vector2\ position,\ \textcolor{keywordtype}{float}\ radius)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_customer_image_ac438c889132ddde453aa6920d793a4b2}{texture}}.id\ ==\ 0)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ texture\ centered\ at\ position,\ scaled\ to\ radius\ size}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ scale\ =\ (radius\ *\ 2.0f)\ /\ \mbox{\hyperlink{class_customer_image_ac438c889132ddde453aa6920d793a4b2}{texture}}.width;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ DrawTextureEx(\mbox{\hyperlink{class_customer_image_ac438c889132ddde453aa6920d793a4b2}{texture}},\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{position.x\ -\/\ radius,\ position.y\ -\/\ radius\},}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.0f,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scale,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WHITE);}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{class\ }CustomerImageFactory\ }
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{static}\ CustomerImageFactory\&\ \mbox{\hyperlink{class_customer_image_factory_a145e63369d43f43e8aa31bc323aede23}{getInstance}}();}
+\DoxyCodeLine{00093\ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ std::shared\_ptr<CustomerImage>\ \mbox{\hyperlink{class_customer_image_factory_aeab11b7fe8491f061f96351e43caf1b9}{getImage}}(\textcolor{keyword}{const}\ std::string\&\ customerType);}
+\DoxyCodeLine{00103\ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_image_factory_a8fd80d73771973d3bb4620fe951d615b}{renderCustomer}}(\textcolor{keyword}{const}\ std::string\&\ customerType,\ Vector2\ position,\ \textcolor{keywordtype}{float}\ radius);}
+\DoxyCodeLine{00111\ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_image_factory_aebb51b5e8f936af370eec04ebdfdb84f}{cleanup}}();}
+\DoxyCodeLine{00118\ \ \ \ \ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00123\ \ \ \ \ CustomerImageFactory()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00124\ \ \ \ \ }
+\DoxyCodeLine{00126\ \ \ \ \ std::unordered\_map<std::string,\ std::shared\_ptr<CustomerImage>>\ images;}
+\DoxyCodeLine{00127\ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ std::string\ getAssetPath(\textcolor{keyword}{const}\ std::string\&\ customerType);}
+\DoxyCodeLine{00136\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ Note:\ If\ this\ file\ is\ intended\ to\ be\ included\ in\ a\ namespace,\ }}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ the\ closing\ brace\ for\ that\ namespace\ is\ missing\ at\ the\ end.}}
+
+\end{DoxyCode}

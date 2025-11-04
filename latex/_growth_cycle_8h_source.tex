@@ -1,0 +1,45 @@
+\doxysection{Growth\+Cycle.\+h}
+\hypertarget{_growth_cycle_8h_source}{}\label{_growth_cycle_8h_source}\index{Backend/GrowthCycle.h@{Backend/GrowthCycle.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Forward\ declaration\ instead\ of\ include\ to\ avoid\ circular\ dependency}}
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_plant}{Plant}};}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_growth_cycle_a70aa163cd75a45384bc663e0246ea73e}{GrowthCycle}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_growth_cycle_a70aa163cd75a45384bc663e0246ea73e}{GrowthCycle}}();}
+\DoxyCodeLine{00017\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_growth_cycle_a79d6a5405d40992859d5b60c63ca1fae}{\string~GrowthCycle}}();}
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_growth_cycle_aab7b783217e9950fa403d7f794ecc1e1}{grow}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant,\ \textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{00031\ \ \ \ \ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_growth_cycle_a96aa1923c05c855042c4bd2f50456073}{calculateGrowthRate}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant)\ =\ 0;}
+\DoxyCodeLine{00039\ \ \ \ \ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ applyGrowth(\mbox{\hyperlink{class_plant}{Plant}}*\ plant,\ \textcolor{keywordtype}{float}\ growth)\ =\ 0;}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ -\/-\/-\/\ Concrete\ Strategy\ Implementations\ -\/-\/-\/}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_boosted_growth_cycle}{BoostedGrowthCycle}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_growth_cycle_a70aa163cd75a45384bc663e0246ea73e}{GrowthCycle}}\ \{}
+\DoxyCodeLine{00057\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_boosted_growth_cycle_a8cf3e249fff8a80bd3e562b3dd5a6857}{calculateGrowthRate}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00064\ \ \ \ \ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ applyGrowth(\mbox{\hyperlink{class_plant}{Plant}}*\ plant,\ \textcolor{keywordtype}{float}\ growth)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00072\ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ BOOST\_MULTIPLIER;}
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_normal_growth_cycle}{NormalGrowthCycle}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_growth_cycle_a70aa163cd75a45384bc663e0246ea73e}{GrowthCycle}}\ \{}
+\DoxyCodeLine{00084\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_normal_growth_cycle_a9fef557a52d5e14a483b8dc81c89003e}{calculateGrowthRate}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00091\ \ \ \ \ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ applyGrowth(\mbox{\hyperlink{class_plant}{Plant}}*\ plant,\ \textcolor{keywordtype}{float}\ growth)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00099\ \};}
+
+\end{DoxyCode}

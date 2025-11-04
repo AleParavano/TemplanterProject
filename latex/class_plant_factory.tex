@@ -1,0 +1,66 @@
+\doxysection{Plant\+Factory Class Reference}
+\hypertarget{class_plant_factory}{}\label{class_plant_factory}\index{PlantFactory@{PlantFactory}}
+
+
+The Abstract Factory (Creator) class in the Factory Method design pattern.  
+
+
+
+
+{\ttfamily \#include $<$Plant\+Factory.\+h$>$}
+
+Inheritance diagram for Plant\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{class_plant_factory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}\label{class_plant_factory_ae91e2cccbb28fe8079534c175649d123} 
+{\bfseries Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant_factory}{Plant\+Factory} object. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_factory_aaa9e963946bd91314941d259f7eec9bd}\label{class_plant_factory_aaa9e963946bd91314941d259f7eec9bd} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant_factory}{Plant\+Factory} class. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}{produce}} ()=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method for creating a \doxylink{class_plant}{Plant} product. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The Abstract Factory (Creator) class in the Factory Method design pattern. 
+
+
+\begin{DoxyItemize}
+\item It declares the interface for methods that return new \doxylink{class_plant}{Plant} objects. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_plant_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}\index{PlantFactory@{PlantFactory}!produce@{produce}}
+\index{produce@{produce}!PlantFactory@{PlantFactory}}
+\doxysubsubsection{\texorpdfstring{produce()}{produce()}}
+{\footnotesize\ttfamily \label{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20} 
+virtual \mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Plant\+Factory\+::produce (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method for creating a \doxylink{class_plant}{Plant} product. 
+
+
+\begin{DoxyItemize}
+\item Concrete factories must implement this method to produce a specific plant type. \begin{DoxyReturn}{Returns}
+A pointer to the newly created \doxylink{class_plant}{Plant} object. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Implemented in \mbox{\hyperlink{class_carrot_factory_a31ce5fa8997381300d5b1ba3a49962cd}{Carrot\+Factory}}, \mbox{\hyperlink{class_corn_factory_aaf4dc1c1344120ca0e055f4df29c11c0}{Corn\+Factory}}, \mbox{\hyperlink{class_cucumber_factory_a3f5766a0f97be7f16ac1d8e2c0c19acf}{Cucumber\+Factory}}, \mbox{\hyperlink{class_lettuce_factory_af97add4174177163a8a90720b3085628}{Lettuce\+Factory}}, \mbox{\hyperlink{class_pepper_factory_abf19047e79ef6d89a05706da42879c9e}{Pepper\+Factory}}, \mbox{\hyperlink{class_potato_factory_a67045c3f8e45f672863f5aeaaec2faf6}{Potato\+Factory}}, \mbox{\hyperlink{class_pumpkin_factory_a854f7c6988034a9dc04e916f23a363c1}{Pumpkin\+Factory}}, \mbox{\hyperlink{class_random_plant_factory_ac2a633a2610ce201f4b9451951c227e3}{Random\+Plant\+Factory}}, \mbox{\hyperlink{class_strawberry_factory_a0cee3d48eeb44257eb9d534eafdce82c}{Strawberry\+Factory}}, \mbox{\hyperlink{class_sunflower_factory_a18fa839ca7d74b600aa6ab60e07ef514}{Sunflower\+Factory}}, and \mbox{\hyperlink{class_tomato_factory_a3ab46c5483ca94b47b7f37771f9c0809}{Tomato\+Factory}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant\+Factory.\+h\end{DoxyCompactItemize}

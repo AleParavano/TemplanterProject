@@ -1,0 +1,154 @@
+\doxysection{Outdoor\+Scene.\+h}
+\hypertarget{_outdoor_scene_8h_source}{}\label{_outdoor_scene_8h_source}\index{Frontend/OutdoorScene.h@{Frontend/OutdoorScene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ OUTDOORSCENE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ OUTDOORSCENE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Scene.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}ObjectTypes.h"{}}\ \textcolor{comment}{//\ Includes\ Road,\ Building,\ Person,\ Tree,\ etc.}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Backend/Player.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../Backend/Game.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ -\/-\/-\/\ Defines\ -\/-\/-\/}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ MAX\_PEOPLE\ 15}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MAX\_HOUSES\ 6}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ PERSON\_SPEED\ 40.0f}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MAX\_TREES\ 50}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MAX\_PARKING\_SPOTS\ 6}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ MAX\_PARKING\_SPOTS\_WAREHOUSE\ 6}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MAX\_PLANTS\ 250}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ MAX\_WAYPOINTS\ 10}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ -\/-\/-\/\ OutdoorScene\ Class\ -\/-\/-\/}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_outdoor_scene_ab864e2ec879798d42722422f1d2a090f}{OutdoorScene}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_scene}{Scene}}\ \{}
+\DoxyCodeLine{00039\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Buildings\ and\ structures}}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{struct_building}{Building}}\ greenhouse;}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{struct_building}{Building}}\ store;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{struct_building}{Building}}\ inventory;}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{struct_house}{House}}\ houses[MAX\_HOUSES];}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{struct_person}{Person}}\ people[MAX\_PEOPLE];}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{struct_road}{Road}}\ roads[8];}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{struct_tree}{Tree}}\ trees[MAX\_TREES];}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{struct_parking_spot}{ParkingSpot}}\ parkingSpots[MAX\_PARKING\_SPOTS];}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{struct_parking_spot}{ParkingSpot}}\ warehouseParkingSpots[MAX\_PARKING\_SPOTS\_WAREHOUSE];}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{struct_plant_visual}{PlantVisual}}\ greenhousePlants[MAX\_PLANTS];}
+\DoxyCodeLine{00061\ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ UI\ and\ game\ state}}
+\DoxyCodeLine{00065\ \ \ \ \ Vector2\ storeEntrance;}
+\DoxyCodeLine{00067\ \ \ \ \ Vector2\ greenhouseEntrance;}
+\DoxyCodeLine{00069\ \ \ \ \ Vector2\ inventoryEntrance;}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{float}\ timeOfDay;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ isPaused;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ numRoads;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{int}\ numTrees;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ numPlants;}
+\DoxyCodeLine{00080\ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{comment}{//\ New\ game\ state\ variables}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{float}\ playerMoney;}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{int}\ playerRating;}
+\DoxyCodeLine{00086\ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ Click\ detection\ areas}}
+\DoxyCodeLine{00089\ \ \ \ \ Rectangle\ greenhouseClickArea;}
+\DoxyCodeLine{00091\ \ \ \ \ Rectangle\ storeClickArea;}
+\DoxyCodeLine{00093\ \ \ \ \ Rectangle\ warehouseClickArea;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00096\ \ \ \ \ SceneType\ nextScene;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{//\ Helper\ functions}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ InitBuildings();}
+\DoxyCodeLine{00103\ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ InitRoads();}
+\DoxyCodeLine{00108\ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ InitHouses();}
+\DoxyCodeLine{00113\ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ InitTrees();}
+\DoxyCodeLine{00118\ \ \ \ \ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ InitPeople();}
+\DoxyCodeLine{00123\ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ InitParkingSpots();}
+\DoxyCodeLine{00128\ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ InitGreenhousePlants();}
+\DoxyCodeLine{00133\ \ \ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ InitCarPaths();}
+\DoxyCodeLine{00138\ \ \ \ \ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ InitClickAreas();}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ Update\ functions}}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdatePeople(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00150\ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{bool}\ CheckCollision(Vector2\ pos,\ \textcolor{keywordtype}{float}\ radius);}
+\DoxyCodeLine{00158\ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{void}\ AssignPersonDestination(\mbox{\hyperlink{struct_person}{Person}}\&\ person);}
+\DoxyCodeLine{00164\ \ \ \ \ }
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordtype}{void}\ HandleBuildingClicks();}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{comment}{//\ Draw\ functions}}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawTiledBackground(Color\ baseColor,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00178\ \ \ \ \ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawSimpleHorizontalRoad(\mbox{\hyperlink{struct_road}{Road}}\ r);}
+\DoxyCodeLine{00184\ \ \ \ \ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawSimpleVerticalRoad(\mbox{\hyperlink{struct_road}{Road}}\ r);}
+\DoxyCodeLine{00190\ \ \ \ \ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawBuildingWithDetails(\mbox{\hyperlink{struct_building}{Building}}\ b);}
+\DoxyCodeLine{00196\ \ \ \ \ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawHouseDetailed(\mbox{\hyperlink{struct_house}{House}}\ h);}
+\DoxyCodeLine{00202\ \ \ \ \ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawTreeDetailed(\mbox{\hyperlink{struct_tree}{Tree}}\ t);}
+\DoxyCodeLine{00208\ \ \ \ \ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawPersonDetailed(\mbox{\hyperlink{struct_person}{Person}}\ p);}
+\DoxyCodeLine{00214\ \ \ \ \ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawCarDetailed(\mbox{\hyperlink{struct_car}{Car}}\ c);}
+\DoxyCodeLine{00220\ \ \ \ \ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawPlantDetailed(\ \mbox{\hyperlink{struct_plant_visual}{PlantVisual}}\ p);}
+\DoxyCodeLine{00226\ \ \ \ \ }
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawGreenhouseGarden();}
+\DoxyCodeLine{00231\ \ \ \ \ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawUI();}
+\DoxyCodeLine{00236\ \ \ \ \ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawMoneyCounter();}
+\DoxyCodeLine{00241\ \ \ \ \ }
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawRatingStars();}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{comment}{//\ Utility\ functions}}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordtype}{float}\ Distance(Vector2\ a,\ Vector2\ b);}
+\DoxyCodeLine{00255\ \ \ \ \ }
+\DoxyCodeLine{00260\ \ \ \ \ Color\ GetSkyColor();}
+\DoxyCodeLine{00261\ \ \ \ \ }
+\DoxyCodeLine{00266\ \ \ \ \ Color\ GetGrassColor();}
+\DoxyCodeLine{00267\ \ \ \ \ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordtype}{int}\ ClampValue(\textcolor{keywordtype}{int}\ value,\ \textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max);}
+\DoxyCodeLine{00276\ \ \ \ \ }
+\DoxyCodeLine{00282\ \ \ \ \ Vector2\ GetBuildingEntrance(\mbox{\hyperlink{struct_building}{Building}}\ b);}
+\DoxyCodeLine{00283\ \ \ \ \ }
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{comment}{//\ Save/Load\ hooks}}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordtype}{void}\ SaveGame();}
+\DoxyCodeLine{00289\ \ \ \ \ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordtype}{void}\ LoadGame();}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00299\ \ \ \ \ \mbox{\hyperlink{class_outdoor_scene_ab864e2ec879798d42722422f1d2a090f}{OutdoorScene}}();}
+\DoxyCodeLine{00300\ \ \ \ \ }
+\DoxyCodeLine{00304\ \ \ \ \ \mbox{\hyperlink{class_outdoor_scene_ab0bf51cb3788305594ef08946930efcf}{\string~OutdoorScene}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_outdoor_scene_afbb0010ed30c57f728dbca3e93f3d297}{Init}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00310\ \ \ \ \ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_outdoor_scene_a684c83f8fa193b0ad9ab15e48e4803cf}{Update}}(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00316\ \ \ \ \ }
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_outdoor_scene_a0da9d7fdc1a22042afa4c7801cf0ff67}{Draw}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00321\ \ \ \ \ }
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_outdoor_scene_a9ee9fa1165a888639944d5246aeee9e6}{HandleInput}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00326\ \ \ \ \ }
+\DoxyCodeLine{00331\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_outdoor_scene_ab004510539e966ed269775affb1be1c3}{GetSceneType}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ SCENE\_OUTDOOR;\ \}}
+\DoxyCodeLine{00332\ \ \ \ \ }
+\DoxyCodeLine{00337\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_outdoor_scene_ab060d9b0285779f352fe2954d3180c86}{CheckExit}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00338\ \};}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ OUTDOORSCENE\_H}}
+
+\end{DoxyCode}

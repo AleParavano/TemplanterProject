@@ -1,0 +1,254 @@
+\doxysection{Store\+Scene Class Reference}
+\hypertarget{class_store_scene}{}\label{class_store_scene}\index{StoreScene@{StoreScene}}
+
+
+Represents the internal store environment where the player serves customers and manages inventory display.  
+
+
+
+
+{\ttfamily \#include $<$Store\+Scene.\+h$>$}
+
+Inheritance diagram for Store\+Scene\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_store_scene}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_store_scene_a519d9e943b94fe4cfc7cfcd252602b6a}\label{class_store_scene_a519d9e943b94fe4cfc7cfcd252602b6a} 
+{\bfseries Store\+Scene} ()
+\begin{DoxyCompactList}\small\item\em Constructor. Initializes member variables and collision rectangles. \end{DoxyCompactList}\item 
+\Hypertarget{class_store_scene_ada3b99d107fd8e40d7d9cc454a5e4ba1}\label{class_store_scene_ada3b99d107fd8e40d7d9cc454a5e4ba1} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Store\+Scene} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Cleans up dynamically allocated resources, particularly the \doxylink{class_customer_manager}{Customer\+Manager}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_store_scene_a91598f75e5a46b4a1f4748d063902152}{Init}} () override
+\begin{DoxyCompactList}\small\item\em Initializes scene resources, including loading the \doxylink{class_customer_manager}{Customer\+Manager} and synchronizing storage slots. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_store_scene_a3432fbfd1f4717e39a0fa352e587bce6}{Update}} (float dt) override
+\begin{DoxyCompactList}\small\item\em Updates the scene logic, customer state, store hours, and player interaction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_store_scene_a0ae0afcf12440616f2dc6f6b3f78bf86}{Draw}} () override
+\begin{DoxyCompactList}\small\item\em Renders the store environment, customers, the display counter, and any active modals. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_store_scene_a7f1862968f4e56b06a68146c8ec7a7c2}{Handle\+Input}} () override
+\begin{DoxyCompactList}\small\item\em Processes player input specific to the store (e.\+g., clicking the counter, serving customers). \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_store_scene_a4709c44edbbfba38d23fa671b8e58473}{Get\+Scene\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the constant type of this scene. \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_store_scene_ad71342e06c0b87304acc3df3eb9556b8}{Check\+Exit}} () override
+\begin{DoxyCompactList}\small\item\em Checks if conditions for exiting the scene are met (e.\+g., player clicks the door). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_store_scene_a96e879cbaddae467701ed36279d58aa5}{Set\+Player}} (\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Links the scene to the primary \doxylink{class_player}{Player} object instance. \end{DoxyCompactList}\item 
+int \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_store_scene_a8fa3633ee8bc596fad3fe08d01989d44}{get\+Selected\+Storage\+Slot}} ()
+\begin{DoxyCompactList}\small\item\em Provides a mutable pointer to the currently selected storage slot index. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_store_scene_aac47cf9795b0c7d222d8fa362e331b90}{get\+Show\+Modal}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current state of the interaction modal. \end{DoxyCompactList}\item 
+\Hypertarget{class_store_scene_a6e0d4cbf1542ba8bea0daf89503e4683}\label{class_store_scene_a6e0d4cbf1542ba8bea0daf89503e4683} 
+void {\bfseries toggle\+Open} ()
+\begin{DoxyCompactList}\small\item\em Toggles the open/closed state of the store, starting/stopping customer spawning. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_store_scene_afc9e723a773b569a1e898e61ab543055}{can\+Open\+Store}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the current in-\/game time allows the store to be open. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_store_scene_a2321e98bce65a17667a6fa4fe3780761}{is\+Store\+Open}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current operational status of the store. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_scene}{Scene}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of resources in derived classes. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_abe448df6f81609819ce49ab8b1d8040b}{Draw\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Renders any scene-\/specific menu or persistent sidebar UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_store_scene_adbd7a98b1caacf0d2359c5133deee864}\label{class_store_scene_adbd7a98b1caacf0d2359c5133deee864} 
+Rectangle {\bfseries counter\+Hit\+Box}
+\begin{DoxyCompactList}\small\item\em Collision area for the main service counter. \end{DoxyCompactList}\item 
+\Hypertarget{class_store_scene_a6306195d759947dc89b681322a8ad113}\label{class_store_scene_a6306195d759947dc89b681322a8ad113} 
+Scene\+Type {\bfseries next\+Scene}
+\item 
+\Hypertarget{class_store_scene_ae3b1237f839aef6fd10618b97c0b0c25}\label{class_store_scene_ae3b1237f839aef6fd10618b97c0b0c25} 
+Rectangle {\bfseries s\+Door}
+\begin{DoxyCompactList}\small\item\em Collision area for the scene\textquotesingle{}s exit door. \end{DoxyCompactList}\item 
+\Hypertarget{class_store_scene_a420998293a7089347e9bb24753f11f2c}\label{class_store_scene_a420998293a7089347e9bb24753f11f2c} 
+Rectangle {\bfseries plot\+Hit\+Box}
+\begin{DoxyCompactList}\small\item\em Collision area defining the plot/grid where items are displayed for sale. \end{DoxyCompactList}\item 
+\Hypertarget{class_store_scene_a4cad324cc3d688ffe14d14a6f45754e1}\label{class_store_scene_a4cad324cc3d688ffe14d14a6f45754e1} 
+Rectangle {\bfseries boundary\+Wall}
+\begin{DoxyCompactList}\small\item\em Collision area for the boundary/walls of the store. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the internal store environment where the player serves customers and manages inventory display. 
+
+This scene handles the store\textquotesingle{}s open/close state, customer flow, collision detection for the counter, and the interaction with the storage grid/display areas. 
+
+\label{doc-func-members}
+\Hypertarget{class_store_scene_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_store_scene_afc9e723a773b569a1e898e61ab543055}\index{StoreScene@{StoreScene}!canOpenStore@{canOpenStore}}
+\index{canOpenStore@{canOpenStore}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{canOpenStore()}{canOpenStore()}}
+{\footnotesize\ttfamily \label{class_store_scene_afc9e723a773b569a1e898e61ab543055} 
+bool Store\+Scene\+::can\+Open\+Store (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the current in-\/game time allows the store to be open. 
+
+\begin{DoxyReturn}{Returns}
+true if within operating hours, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_store_scene_ad71342e06c0b87304acc3df3eb9556b8}\index{StoreScene@{StoreScene}!CheckExit@{CheckExit}}
+\index{CheckExit@{CheckExit}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{CheckExit()}{CheckExit()}}
+{\footnotesize\ttfamily \label{class_store_scene_ad71342e06c0b87304acc3df3eb9556b8} 
+Scene\+Type Store\+Scene\+::\+Check\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Checks if conditions for exiting the scene are met (e.\+g., player clicks the door). 
+
+\begin{DoxyReturn}{Returns}
+SCENE\+\_\+\+OUTDOOR if exiting, otherwise SCENE\+\_\+\+STORE. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_scene_a2908f47812428dd3071c7dfcdd399990}{Scene}}.
+
+\Hypertarget{class_store_scene_a0ae0afcf12440616f2dc6f6b3f78bf86}\index{StoreScene@{StoreScene}!Draw@{Draw}}
+\index{Draw@{Draw}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_store_scene_a0ae0afcf12440616f2dc6f6b3f78bf86} 
+void Store\+Scene\+::\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Renders the store environment, customers, the display counter, and any active modals. 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a8680672fd30bb4b345e6fab918e31ecd}{Scene}}.
+
+\Hypertarget{class_store_scene_a4709c44edbbfba38d23fa671b8e58473}\index{StoreScene@{StoreScene}!GetSceneType@{GetSceneType}}
+\index{GetSceneType@{GetSceneType}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{GetSceneType()}{GetSceneType()}}
+{\footnotesize\ttfamily \label{class_store_scene_a4709c44edbbfba38d23fa671b8e58473} 
+Scene\+Type Store\+Scene\+::\+Get\+Scene\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the constant type of this scene. 
+
+\begin{DoxyReturn}{Returns}
+SCENE\+\_\+\+STORE. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}{Scene}}.
+
+\Hypertarget{class_store_scene_a8fa3633ee8bc596fad3fe08d01989d44}\index{StoreScene@{StoreScene}!getSelectedStorageSlot@{getSelectedStorageSlot}}
+\index{getSelectedStorageSlot@{getSelectedStorageSlot}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{getSelectedStorageSlot()}{getSelectedStorageSlot()}}
+{\footnotesize\ttfamily \label{class_store_scene_a8fa3633ee8bc596fad3fe08d01989d44} 
+int \texorpdfstring{$\ast$}{*} Store\+Scene\+::get\+Selected\+Storage\+Slot (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Provides a mutable pointer to the currently selected storage slot index. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the selected\+Storage\+Slot integer. 
+\end{DoxyReturn}
+\Hypertarget{class_store_scene_aac47cf9795b0c7d222d8fa362e331b90}\index{StoreScene@{StoreScene}!getShowModal@{getShowModal}}
+\index{getShowModal@{getShowModal}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{getShowModal()}{getShowModal()}}
+{\footnotesize\ttfamily \label{class_store_scene_aac47cf9795b0c7d222d8fa362e331b90} 
+bool Store\+Scene\+::get\+Show\+Modal (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current state of the interaction modal. 
+
+\begin{DoxyReturn}{Returns}
+true if the modal is being shown, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_store_scene_a7f1862968f4e56b06a68146c8ec7a7c2}\index{StoreScene@{StoreScene}!HandleInput@{HandleInput}}
+\index{HandleInput@{HandleInput}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{HandleInput()}{HandleInput()}}
+{\footnotesize\ttfamily \label{class_store_scene_a7f1862968f4e56b06a68146c8ec7a7c2} 
+void Store\+Scene\+::\+Handle\+Input (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Processes player input specific to the store (e.\+g., clicking the counter, serving customers). 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a857a1635b2fec4aadcaef182ac55870b}{Scene}}.
+
+\Hypertarget{class_store_scene_a91598f75e5a46b4a1f4748d063902152}\index{StoreScene@{StoreScene}!Init@{Init}}
+\index{Init@{Init}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_store_scene_a91598f75e5a46b4a1f4748d063902152} 
+void Store\+Scene\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Initializes scene resources, including loading the \doxylink{class_customer_manager}{Customer\+Manager} and synchronizing storage slots. 
+
+
+
+Implements \mbox{\hyperlink{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}{Scene}}.
+
+\Hypertarget{class_store_scene_a2321e98bce65a17667a6fa4fe3780761}\index{StoreScene@{StoreScene}!isStoreOpen@{isStoreOpen}}
+\index{isStoreOpen@{isStoreOpen}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{isStoreOpen()}{isStoreOpen()}}
+{\footnotesize\ttfamily \label{class_store_scene_a2321e98bce65a17667a6fa4fe3780761} 
+bool Store\+Scene\+::is\+Store\+Open (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current operational status of the store. 
+
+\begin{DoxyReturn}{Returns}
+true if the store is open, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_store_scene_a96e879cbaddae467701ed36279d58aa5}\index{StoreScene@{StoreScene}!SetPlayer@{SetPlayer}}
+\index{SetPlayer@{SetPlayer}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{SetPlayer()}{SetPlayer()}}
+{\footnotesize\ttfamily \label{class_store_scene_a96e879cbaddae467701ed36279d58aa5} 
+void Store\+Scene\+::\+Set\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Links the scene to the primary \doxylink{class_player}{Player} object instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & A pointer to the \doxylink{class_player}{Player} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_store_scene_a3432fbfd1f4717e39a0fa352e587bce6}\index{StoreScene@{StoreScene}!Update@{Update}}
+\index{Update@{Update}!StoreScene@{StoreScene}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_store_scene_a3432fbfd1f4717e39a0fa352e587bce6} 
+void Store\+Scene\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the scene logic, customer state, store hours, and player interaction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The delta time since the last frame. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_scene_a7cd484a12593952a999edfd20309b8fb}{Scene}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Store\+Scene.\+h\item 
+Frontend/Store\+Scene.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,407 @@
+\doxysection{Plant Class Reference}
+\hypertarget{class_plant}{}\label{class_plant}\index{Plant@{Plant}}
+
+
+Represents a general plant entity in the game, managing its state, growth, and visualization strategy.  
+
+
+
+
+{\ttfamily \#include $<$Plant.\+h$>$}
+
+Inheritance diagram for Plant\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=11.000000cm]{class_plant}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant_ac05840d98bb0b63c902e496a3ac3f860}{Plant}} (std\+::string \mbox{\hyperlink{class_plant_ab1aed0f38adc8518ce0fff9b61eb5305}{type}}, float \mbox{\hyperlink{class_plant_a3e0a3a4109fe0ce37eb56576cb06c2aa}{growth\+Rate}}, float \mbox{\hyperlink{class_plant_a15569fc1281881ccf9fa38208db86cc5}{sell\+Price}}, \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}} \texorpdfstring{$\ast$}{*}strategy)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant}{Plant} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant_a3e454c81c5a9120c4b321614b22621c1}{Plant}} (const \mbox{\hyperlink{class_plant}{Plant}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy constructor for the \doxylink{class_plant}{Plant} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_ab0effb2b143e6da7b65ebd13a3b1fc29}\label{class_plant_ab0effb2b143e6da7b65ebd13a3b1fc29} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant}{Plant} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_ae5de8d61ec24fb21f7e72f0234496dfb}{set\+Growth\+Cycle}} (\mbox{\hyperlink{class_growth_cycle}{Growth\+Cycle}} \texorpdfstring{$\ast$}{*}gc)
+\begin{DoxyCompactList}\small\item\em Sets the \doxylink{class_growth_cycle}{Growth\+Cycle} component responsible for managing the plant\textquotesingle{}s growth over time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a5d3758563617bc20eb4f43af746cd80b}{apply\+Growth\+To\+State}} (float growth)
+\begin{DoxyCompactList}\small\item\em Applies a given amount of growth to the current state of the plant. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a3fad7090d7382f83a00e09e18eef8fed}{get\+Base\+Growth\+Rate}} () const
+\begin{DoxyCompactList}\small\item\em Gets the base growth rate defined for this plant type. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_a711fff2f62a9d0df1ea1c7cd0884c033}\label{class_plant_a711fff2f62a9d0df1ea1c7cd0884c033} 
+void {\bfseries tick} ()
+\begin{DoxyCompactList}\small\item\em Executes a single time step (tick) for the plant, updating its growth and state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a8a2563e6b6c1da65d9af725cf97f2719}{set\+State}} (\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*}new\+State)
+\begin{DoxyCompactList}\small\item\em Transitions the plant to a new state (part of the State pattern). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a1359d8e72452eeae92d1ece03809586b}{draw}} (float x, float y, float initial\+Width, float initial\+Height) const
+\begin{DoxyCompactList}\small\item\em Draws the plant using its assigned \doxylink{class_plant_visual_strategy}{Plant\+Visual\+Strategy} (part of the Strategy pattern). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_plant_a2a030e9cb225f03f41d1855e4e06b638}{get\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Gets the species type of the plant. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_plant_a988ab750a919af0800dbb2508438c880}{get\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets a string representation of the plant\textquotesingle{}s current state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_plant_aa979ce6ecfc6c9e8bced9cdc4c18d9d0}{get\+Plant\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets a pointer to the current \doxylink{class_plant_state}{Plant\+State} object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_plant_a57c1bd45d15aa5f99fbf413d8b4043d4}{get\+State\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Gets the name of the plant\textquotesingle{}s current state. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_ac27a5148abd8ec34c6a6298d9ff46bcd}{get\+Growth\+Rate}} () const
+\begin{DoxyCompactList}\small\item\em Gets the plant\textquotesingle{}s effective current growth rate. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a99cb9dbda8751c18222149a9026d313d}{get\+Water}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current water level of the plant. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a35aceeec2404f4e25338d07a30cf2ff5}{get\+Nutrients}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current nutrient level of the plant. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_aac8b9e1f656a559b2db54784821e7f50}{get\+Growth}} () const
+\begin{DoxyCompactList}\small\item\em Gets the plant\textquotesingle{}s current growth progress (0.\+0 to 1.\+0). \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a65a13c1f207afd3012f477ef4f6678bd}{get\+Sell\+Price}} () const
+\begin{DoxyCompactList}\small\item\em Gets the base sell price of the plant. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_plant_a708fc571040248e716bd2cd0ba23d7b1}{is\+Ripe}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the plant is in the ripe state. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_plant_a2bc28a3ac802f3c929135732b06ff943}{is\+Dead}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the plant is in the dead state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_ac67b482e4def16d83920e649c227857c}{fertilize}} (float amount)
+\begin{DoxyCompactList}\small\item\em Applies fertilizer to the plant (part of the \doxylink{class_command}{Command} pattern). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a34646eb141391cb6798699264344bcef}{water}} (float amount)
+\begin{DoxyCompactList}\small\item\em Applies water to the plant (part of the \doxylink{class_command}{Command} pattern). \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_a176ac4c9912c15bf0d7cb74dafa95cc8}\label{class_plant_a176ac4c9912c15bf0d7cb74dafa95cc8} 
+void {\bfseries print\+Status} () const
+\begin{DoxyCompactList}\small\item\em Prints the current status details of the plant to the console. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_af36448fdbbe126eec23963ed9873bdf6}\label{class_plant_af36448fdbbe126eec23963ed9873bdf6} 
+\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*} {\bfseries state}
+\begin{DoxyCompactList}\small\item\em The current state of the plant (State pattern context). \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_a105258a13a5fa3d3d1a1cb76a092bedc}\label{class_plant_a105258a13a5fa3d3d1a1cb76a092bedc} 
+\mbox{\hyperlink{class_growth_cycle}{Growth\+Cycle}} \texorpdfstring{$\ast$}{*} {\bfseries growth\+Cycle}
+\begin{DoxyCompactList}\small\item\em Component handling the plant\textquotesingle{}s growth logic. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_ab1aed0f38adc8518ce0fff9b61eb5305}\label{class_plant_ab1aed0f38adc8518ce0fff9b61eb5305} 
+std\+::string {\bfseries type}
+\begin{DoxyCompactList}\small\item\em The species type of the plant (e.\+g., "{}\+Lettuce"{}). \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_a3e0a3a4109fe0ce37eb56576cb06c2aa}\label{class_plant_a3e0a3a4109fe0ce37eb56576cb06c2aa} 
+float {\bfseries growth\+Rate}
+\begin{DoxyCompactList}\small\item\em The base growth rate of the plant. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_a15569fc1281881ccf9fa38208db86cc5}\label{class_plant_a15569fc1281881ccf9fa38208db86cc5} 
+float {\bfseries sell\+Price}
+\begin{DoxyCompactList}\small\item\em The base sell price of the plant when ripe. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_a9fba9b3f1c26ae8045c65f6b006584dc}\label{class_plant_a9fba9b3f1c26ae8045c65f6b006584dc} 
+\mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}} \texorpdfstring{$\ast$}{*} {\bfseries visual\+Strategy}
+\begin{DoxyCompactList}\small\item\em The strategy for visualizing the plant (Strategy pattern reference). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a general plant entity in the game, managing its state, growth, and visualization strategy. 
+
+Forward declaration for the Context class (\doxylink{class_plant}{Plant}).
+
+
+\begin{DoxyItemize}
+\item This class implements the Context for the {\bfseries{State}} pattern (using \doxylink{class_plant_state}{Plant\+State}) and holds a reference to the {\bfseries{Strategy}} pattern (\doxylink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}) for its rendering logic. 
+\end{DoxyItemize}\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_psmho_2_desktop_2_projects_22nd_01_year_2_c_o_s214_2_templanter_project_2_backend_2_plant_factory_8cpp-example}{C\+:/\+Users/\+Psmho/\+Desktop/\+Projects/2nd Year/\+COS214/\+Templanter\+Project/\+Backend/\+Plant\+Factory.\+cpp}}.\end{Desc}
+
+
+\label{doc-constructors}
+\Hypertarget{class_plant_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_plant_ac05840d98bb0b63c902e496a3ac3f860}\index{Plant@{Plant}!Plant@{Plant}}
+\index{Plant@{Plant}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{Plant()}{Plant()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_plant_ac05840d98bb0b63c902e496a3ac3f860} 
+Plant\+::\+Plant (\begin{DoxyParamCaption}\item[{std\+::string}]{type}{, }\item[{float}]{growth\+Rate}{, }\item[{float}]{sell\+Price}{, }\item[{\mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}} \texorpdfstring{$\ast$}{*}}]{strategy}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_plant}{Plant} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The species name of the plant (e.\+g., "{}\+Lettuce"{}). \\
+\hline
+{\em growth\+Rate} & The base rate at which this plant grows. \\
+\hline
+{\em sell\+Price} & The base price for which a ripe plant can be sold. \\
+\hline
+{\em strategy} & A pointer to the specific visualization strategy for this plant. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_a3e454c81c5a9120c4b321614b22621c1}\index{Plant@{Plant}!Plant@{Plant}}
+\index{Plant@{Plant}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{Plant()}{Plant()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_plant_a3e454c81c5a9120c4b321614b22621c1} 
+Plant\+::\+Plant (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_plant}{Plant}} \&}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Copy constructor for the \doxylink{class_plant}{Plant} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The \doxylink{class_plant}{Plant} object to copy. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_plant_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_plant_a5d3758563617bc20eb4f43af746cd80b}\index{Plant@{Plant}!applyGrowthToState@{applyGrowthToState}}
+\index{applyGrowthToState@{applyGrowthToState}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{applyGrowthToState()}{applyGrowthToState()}}
+{\footnotesize\ttfamily \label{class_plant_a5d3758563617bc20eb4f43af746cd80b} 
+void Plant\+::apply\+Growth\+To\+State (\begin{DoxyParamCaption}\item[{float}]{growth}{}\end{DoxyParamCaption})}
+
+
+
+Applies a given amount of growth to the current state of the plant. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em growth} & The amount of growth to apply. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_a1359d8e72452eeae92d1ece03809586b}\index{Plant@{Plant}!draw@{draw}}
+\index{draw@{draw}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily \label{class_plant_a1359d8e72452eeae92d1ece03809586b} 
+void Plant\+::draw (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{initial\+Width}{, }\item[{float}]{initial\+Height}{}\end{DoxyParamCaption}) const}
+
+
+
+Draws the plant using its assigned \doxylink{class_plant_visual_strategy}{Plant\+Visual\+Strategy} (part of the Strategy pattern). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/coordinate for drawing. \\
+\hline
+{\em y} & The y-\/coordinate for drawing. \\
+\hline
+{\em initial\+Width} & The initial base width for scaling. \\
+\hline
+{\em initial\+Height} & The initial base height for scaling. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_ac67b482e4def16d83920e649c227857c}\index{Plant@{Plant}!fertilize@{fertilize}}
+\index{fertilize@{fertilize}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{fertilize()}{fertilize()}}
+{\footnotesize\ttfamily \label{class_plant_ac67b482e4def16d83920e649c227857c} 
+void Plant\+::fertilize (\begin{DoxyParamCaption}\item[{float}]{amount}{}\end{DoxyParamCaption})}
+
+
+
+Applies fertilizer to the plant (part of the \doxylink{class_command}{Command} pattern). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & The amount of fertilizer to apply. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_a3fad7090d7382f83a00e09e18eef8fed}\index{Plant@{Plant}!getBaseGrowthRate@{getBaseGrowthRate}}
+\index{getBaseGrowthRate@{getBaseGrowthRate}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getBaseGrowthRate()}{getBaseGrowthRate()}}
+{\footnotesize\ttfamily \label{class_plant_a3fad7090d7382f83a00e09e18eef8fed} 
+float Plant\+::get\+Base\+Growth\+Rate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the base growth rate defined for this plant type. 
+
+\begin{DoxyReturn}{Returns}
+The base growth rate as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_aac8b9e1f656a559b2db54784821e7f50}\index{Plant@{Plant}!getGrowth@{getGrowth}}
+\index{getGrowth@{getGrowth}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getGrowth()}{getGrowth()}}
+{\footnotesize\ttfamily \label{class_plant_aac8b9e1f656a559b2db54784821e7f50} 
+float Plant\+::get\+Growth (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the plant\textquotesingle{}s current growth progress (0.\+0 to 1.\+0). 
+
+\begin{DoxyReturn}{Returns}
+The growth progress as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_ac27a5148abd8ec34c6a6298d9ff46bcd}\index{Plant@{Plant}!getGrowthRate@{getGrowthRate}}
+\index{getGrowthRate@{getGrowthRate}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getGrowthRate()}{getGrowthRate()}}
+{\footnotesize\ttfamily \label{class_plant_ac27a5148abd8ec34c6a6298d9ff46bcd} 
+float Plant\+::get\+Growth\+Rate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the plant\textquotesingle{}s effective current growth rate. 
+
+\begin{DoxyReturn}{Returns}
+The growth rate as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a35aceeec2404f4e25338d07a30cf2ff5}\index{Plant@{Plant}!getNutrients@{getNutrients}}
+\index{getNutrients@{getNutrients}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getNutrients()}{getNutrients()}}
+{\footnotesize\ttfamily \label{class_plant_a35aceeec2404f4e25338d07a30cf2ff5} 
+float Plant\+::get\+Nutrients (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current nutrient level of the plant. 
+
+\begin{DoxyReturn}{Returns}
+The nutrient level as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_aa979ce6ecfc6c9e8bced9cdc4c18d9d0}\index{Plant@{Plant}!getPlantState@{getPlantState}}
+\index{getPlantState@{getPlantState}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getPlantState()}{getPlantState()}}
+{\footnotesize\ttfamily \label{class_plant_aa979ce6ecfc6c9e8bced9cdc4c18d9d0} 
+\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*} Plant\+::get\+Plant\+State (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets a pointer to the current \doxylink{class_plant_state}{Plant\+State} object. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the current \doxylink{class_plant_state}{Plant\+State}. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a65a13c1f207afd3012f477ef4f6678bd}\index{Plant@{Plant}!getSellPrice@{getSellPrice}}
+\index{getSellPrice@{getSellPrice}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getSellPrice()}{getSellPrice()}}
+{\footnotesize\ttfamily \label{class_plant_a65a13c1f207afd3012f477ef4f6678bd} 
+float Plant\+::get\+Sell\+Price (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the base sell price of the plant. 
+
+\begin{DoxyReturn}{Returns}
+The sell price as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a988ab750a919af0800dbb2508438c880}\index{Plant@{Plant}!getState@{getState}}
+\index{getState@{getState}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getState()}{getState()}}
+{\footnotesize\ttfamily \label{class_plant_a988ab750a919af0800dbb2508438c880} 
+std\+::string Plant\+::get\+State (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets a string representation of the plant\textquotesingle{}s current state. 
+
+\begin{DoxyReturn}{Returns}
+The state as a string. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a57c1bd45d15aa5f99fbf413d8b4043d4}\index{Plant@{Plant}!getStateName@{getStateName}}
+\index{getStateName@{getStateName}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getStateName()}{getStateName()}}
+{\footnotesize\ttfamily \label{class_plant_a57c1bd45d15aa5f99fbf413d8b4043d4} 
+std\+::string Plant\+::get\+State\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the name of the plant\textquotesingle{}s current state. 
+
+\begin{DoxyReturn}{Returns}
+The state name as a constant string reference. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a2a030e9cb225f03f41d1855e4e06b638}\index{Plant@{Plant}!getType@{getType}}
+\index{getType@{getType}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \label{class_plant_a2a030e9cb225f03f41d1855e4e06b638} 
+std\+::string Plant\+::get\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the species type of the plant. 
+
+\begin{DoxyReturn}{Returns}
+The plant type as a string. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a99cb9dbda8751c18222149a9026d313d}\index{Plant@{Plant}!getWater@{getWater}}
+\index{getWater@{getWater}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{getWater()}{getWater()}}
+{\footnotesize\ttfamily \label{class_plant_a99cb9dbda8751c18222149a9026d313d} 
+float Plant\+::get\+Water (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current water level of the plant. 
+
+\begin{DoxyReturn}{Returns}
+The water level as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a2bc28a3ac802f3c929135732b06ff943}\index{Plant@{Plant}!isDead@{isDead}}
+\index{isDead@{isDead}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{isDead()}{isDead()}}
+{\footnotesize\ttfamily \label{class_plant_a2bc28a3ac802f3c929135732b06ff943} 
+bool Plant\+::is\+Dead (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the plant is in the dead state. 
+
+\begin{DoxyReturn}{Returns}
+true if the plant is dead, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_a708fc571040248e716bd2cd0ba23d7b1}\index{Plant@{Plant}!isRipe@{isRipe}}
+\index{isRipe@{isRipe}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{isRipe()}{isRipe()}}
+{\footnotesize\ttfamily \label{class_plant_a708fc571040248e716bd2cd0ba23d7b1} 
+bool Plant\+::is\+Ripe (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the plant is in the ripe state. 
+
+\begin{DoxyReturn}{Returns}
+true if the plant is ripe, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_ae5de8d61ec24fb21f7e72f0234496dfb}\index{Plant@{Plant}!setGrowthCycle@{setGrowthCycle}}
+\index{setGrowthCycle@{setGrowthCycle}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{setGrowthCycle()}{setGrowthCycle()}}
+{\footnotesize\ttfamily \label{class_plant_ae5de8d61ec24fb21f7e72f0234496dfb} 
+void Plant\+::set\+Growth\+Cycle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_growth_cycle}{Growth\+Cycle}} \texorpdfstring{$\ast$}{*}}]{gc}{}\end{DoxyParamCaption})}
+
+
+
+Sets the \doxylink{class_growth_cycle}{Growth\+Cycle} component responsible for managing the plant\textquotesingle{}s growth over time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gc} & A pointer to the \doxylink{class_growth_cycle}{Growth\+Cycle} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_a8a2563e6b6c1da65d9af725cf97f2719}\index{Plant@{Plant}!setState@{setState}}
+\index{setState@{setState}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{setState()}{setState()}}
+{\footnotesize\ttfamily \label{class_plant_a8a2563e6b6c1da65d9af725cf97f2719} 
+void Plant\+::set\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*}}]{new\+State}{}\end{DoxyParamCaption})}
+
+
+
+Transitions the plant to a new state (part of the State pattern). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+State} & A pointer to the new \doxylink{class_plant_state}{Plant\+State} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_a34646eb141391cb6798699264344bcef}\index{Plant@{Plant}!water@{water}}
+\index{water@{water}!Plant@{Plant}}
+\doxysubsubsection{\texorpdfstring{water()}{water()}}
+{\footnotesize\ttfamily \label{class_plant_a34646eb141391cb6798699264344bcef} 
+void Plant\+::water (\begin{DoxyParamCaption}\item[{float}]{amount}{}\end{DoxyParamCaption})}
+
+
+
+Applies water to the plant (part of the \doxylink{class_command}{Command} pattern). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & The amount of water to apply. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant.\+h\item 
+Backend/Plant.\+cpp\end{DoxyCompactItemize}

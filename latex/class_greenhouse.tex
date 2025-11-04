@@ -1,0 +1,394 @@
+\doxysection{Greenhouse Class Reference}
+\hypertarget{class_greenhouse}{}\label{class_greenhouse}\index{Greenhouse@{Greenhouse}}
+
+
+Manages a collection of \doxylink{class_plant}{Plant} objects and acts as the central \doxylink{class_subject}{Subject}.  
+
+
+
+
+{\ttfamily \#include $<$Greenhouse.\+h$>$}
+
+Inheritance diagram for Greenhouse\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_greenhouse}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_greenhouse_a7fdfc136d9855dc84cff2e6f9d92679a}{Greenhouse}} (\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}inv)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_greenhouse}{Greenhouse} with an existing \doxylink{class_inventory}{Inventory}. \end{DoxyCompactList}\item 
+\Hypertarget{class_greenhouse_a41634b46745d27cb03b0ab3acec64a33}\label{class_greenhouse_a41634b46745d27cb03b0ab3acec64a33} 
+{\bfseries Greenhouse} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \doxylink{class_greenhouse}{Greenhouse}. \end{DoxyCompactList}\item 
+\Hypertarget{class_greenhouse_ac7f700007b476ae8b44e63e044d24397}\label{class_greenhouse_ac7f700007b476ae8b44e63e044d24397} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Greenhouse} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_greenhouse}{Greenhouse}. Responsible for cleaning up plant pointers. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greenhouse_aabb55425fcc4a2ec793b0270bfc7b4e7}{add\+Plant}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant, int position)
+\begin{DoxyCompactList}\small\item\em Adds a plant to a specific plot position if the plot is empty and within capacity. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greenhouse_a3f1d38d904f4ad0f174305d5fcf929c9}{add\+Plant}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant)
+\begin{DoxyCompactList}\small\item\em Adds a plant to the first available plot position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greenhouse_a85fa458e5f35997b13d77d38690fa5b9}{remove\+Plant}} (int position)
+\begin{DoxyCompactList}\small\item\em Removes a plant at a specific position, clearing the plot. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greenhouse_a4c98672c04f748dc6f7872ade0c97aee}{harvest\+Plant}} (int position)
+\begin{DoxyCompactList}\small\item\em Harvests the plant at a specific position, adding its yield to the \doxylink{class_inventory}{Inventory}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greenhouse_aeec298457b8ea05c641fc02bdffcca4c}{harvest\+Plant}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant)
+\begin{DoxyCompactList}\small\item\em Finds and harvests a plant based on its pointer, adding its yield to the \doxylink{class_inventory}{Inventory}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_greenhouse_a98f6ea9623a8182dff8d57a8a840fac6}{get\+Plant}} (int position)
+\begin{DoxyCompactList}\small\item\em Gets the \doxylink{class_plant}{Plant} object at a specific plot position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_greenhouse_a91858f7812037f45e742c375fe62740b}{get\+Plant\+By\+Pointer}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Finds and returns a plant based on its pointer in the plots vector. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_greenhouse_a585deacf686c3707c98ffb9b4f5e6293}{get\+Plot}} (int position)
+\begin{DoxyCompactList}\small\item\em Gets a descriptive string representation of the plot content at a position. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_greenhouse_a7fe2563669500ed93562b8e80fe22c37}{get\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current number of plants in the greenhouse. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_greenhouse_adb43d5f38f76553849b4a65b2d994a94}{get\+Capacity}} ()
+\begin{DoxyCompactList}\small\item\em Gets the total capacity of the greenhouse (number of available plots). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greenhouse_a55b14a93840d4f0e0c7f077a980de8fe}{increase\+Capacity}} (int amount)
+\begin{DoxyCompactList}\small\item\em Increases the total capacity of the greenhouse. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greenhouse_ac3e3ddc6492df450c76ddf48fbabfa2f}{set\+Inventory}} (\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}inv)
+\begin{DoxyCompactList}\small\item\em Sets or updates the \doxylink{class_inventory}{Inventory} object associated with the greenhouse. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greenhouse_ad5d32889f3eb6239d4b208dc2067e703}{notify}} () override
+\begin{DoxyCompactList}\small\item\em Notifies all attached \doxylink{class_observer}{Observer} objects about a state change. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greenhouse_ae3a2d74d273b05799ddd66d385c64756}{attach}} (\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}observer) override
+\begin{DoxyCompactList}\small\item\em Attaches a new \doxylink{class_observer}{Observer} to the \doxylink{class_greenhouse}{Greenhouse} (\doxylink{class_subject}{Subject}). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greenhouse_a059a78cfb108136bdc2389aa3e03548e}{detach}} (\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}observer) override
+\begin{DoxyCompactList}\small\item\em Detaches an \doxylink{class_observer}{Observer} from the \doxylink{class_greenhouse}{Greenhouse} (\doxylink{class_subject}{Subject}). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greenhouse_a64888a30f29645b4f9ce4a3c6490c7d0}{tick\+Plant}} (int position)
+\begin{DoxyCompactList}\small\item\em Advances the state (e.\+g., growth) of the plant at a specific position. \end{DoxyCompactList}\item 
+\Hypertarget{class_greenhouse_a79817d7b49caa51679c8a658a8653018}\label{class_greenhouse_a79817d7b49caa51679c8a658a8653018} 
+void {\bfseries tick\+All\+Plants} ()
+\begin{DoxyCompactList}\small\item\em Advances the state (e.\+g., growth) of all plants currently in the greenhouse. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_subject}{Subject}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_subject_af9723476c61afcceeb91bee3211258c7}{\texorpdfstring{$\sim$}{\string~}\+Subject}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the base class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_subject}{Subject}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries observers}
+\begin{DoxyCompactList}\small\item\em A collection of pointers to the Observers currently registered to this \doxylink{class_subject}{Subject}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages a collection of \doxylink{class_plant}{Plant} objects and acts as the central \doxylink{class_subject}{Subject}. 
+
+Forward declaration for the \doxylink{class_subject}{Subject} class in the \doxylink{class_observer}{Observer} pattern.
+
+
+\begin{DoxyItemize}
+\item in the \doxylink{class_observer}{Observer} pattern for state changes.
+\item It handles plant management (adding, removing, ticking) and capacity. 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_greenhouse_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_greenhouse_a7fdfc136d9855dc84cff2e6f9d92679a}\index{Greenhouse@{Greenhouse}!Greenhouse@{Greenhouse}}
+\index{Greenhouse@{Greenhouse}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{Greenhouse()}{Greenhouse()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a7fdfc136d9855dc84cff2e6f9d92679a} 
+Greenhouse\+::\+Greenhouse (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}}]{inv}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_greenhouse}{Greenhouse} with an existing \doxylink{class_inventory}{Inventory}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inv} & Pointer to the \doxylink{class_inventory}{Inventory} object used for storing harvested items. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_greenhouse_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_greenhouse_a3f1d38d904f4ad0f174305d5fcf929c9}\index{Greenhouse@{Greenhouse}!addPlant@{addPlant}}
+\index{addPlant@{addPlant}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{addPlant()}{addPlant()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_greenhouse_a3f1d38d904f4ad0f174305d5fcf929c9} 
+bool Greenhouse\+::add\+Plant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{}\end{DoxyParamCaption})}
+
+
+
+Adds a plant to the first available plot position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & Pointer to the \doxylink{class_plant}{Plant} object to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the plant was successfully added, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_aabb55425fcc4a2ec793b0270bfc7b4e7}\index{Greenhouse@{Greenhouse}!addPlant@{addPlant}}
+\index{addPlant@{addPlant}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{addPlant()}{addPlant()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_greenhouse_aabb55425fcc4a2ec793b0270bfc7b4e7} 
+bool Greenhouse\+::add\+Plant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{, }\item[{int}]{position}{}\end{DoxyParamCaption})}
+
+
+
+Adds a plant to a specific plot position if the plot is empty and within capacity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & Pointer to the \doxylink{class_plant}{Plant} object to add. \\
+\hline
+{\em position} & The 0-\/indexed plot position where the plant should be placed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the plant was successfully added, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_ae3a2d74d273b05799ddd66d385c64756}\index{Greenhouse@{Greenhouse}!attach@{attach}}
+\index{attach@{attach}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{attach()}{attach()}}
+{\footnotesize\ttfamily \label{class_greenhouse_ae3a2d74d273b05799ddd66d385c64756} 
+void Greenhouse\+::attach (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}}]{observer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Attaches a new \doxylink{class_observer}{Observer} to the \doxylink{class_greenhouse}{Greenhouse} (\doxylink{class_subject}{Subject}). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em observer} & Pointer to the \doxylink{class_observer}{Observer} object to attach. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_subject_ab6d78de2ea944a23dc5a66a4fe580db2}{Subject}}.
+
+\Hypertarget{class_greenhouse_a059a78cfb108136bdc2389aa3e03548e}\index{Greenhouse@{Greenhouse}!detach@{detach}}
+\index{detach@{detach}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{detach()}{detach()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a059a78cfb108136bdc2389aa3e03548e} 
+void Greenhouse\+::detach (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}}]{observer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Detaches an \doxylink{class_observer}{Observer} from the \doxylink{class_greenhouse}{Greenhouse} (\doxylink{class_subject}{Subject}). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em observer} & Pointer to the \doxylink{class_observer}{Observer} object to detach. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_subject_a7e81018a886792735ab3d067feeb075d}{Subject}}.
+
+\Hypertarget{class_greenhouse_adb43d5f38f76553849b4a65b2d994a94}\index{Greenhouse@{Greenhouse}!getCapacity@{getCapacity}}
+\index{getCapacity@{getCapacity}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{getCapacity()}{getCapacity()}}
+{\footnotesize\ttfamily \label{class_greenhouse_adb43d5f38f76553849b4a65b2d994a94} 
+int Greenhouse\+::get\+Capacity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the total capacity of the greenhouse (number of available plots). 
+
+\begin{DoxyReturn}{Returns}
+The maximum number of plants the greenhouse can hold. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_a98f6ea9623a8182dff8d57a8a840fac6}\index{Greenhouse@{Greenhouse}!getPlant@{getPlant}}
+\index{getPlant@{getPlant}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{getPlant()}{getPlant()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a98f6ea9623a8182dff8d57a8a840fac6} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Greenhouse\+::get\+Plant (\begin{DoxyParamCaption}\item[{int}]{position}{}\end{DoxyParamCaption})}
+
+
+
+Gets the \doxylink{class_plant}{Plant} object at a specific plot position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & The 0-\/indexed plot position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the \doxylink{class_plant}{Plant} object, or nullptr if the plot is empty or invalid. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_a91858f7812037f45e742c375fe62740b}\index{Greenhouse@{Greenhouse}!getPlantByPointer@{getPlantByPointer}}
+\index{getPlantByPointer@{getPlantByPointer}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{getPlantByPointer()}{getPlantByPointer()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a91858f7812037f45e742c375fe62740b} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Greenhouse\+::get\+Plant\+By\+Pointer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+
+
+Finds and returns a plant based on its pointer in the plots vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Pointer to the \doxylink{class_plant}{Plant} object to search for. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the \doxylink{class_plant}{Plant} if found, or nullptr otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_a585deacf686c3707c98ffb9b4f5e6293}\index{Greenhouse@{Greenhouse}!getPlot@{getPlot}}
+\index{getPlot@{getPlot}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{getPlot()}{getPlot()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a585deacf686c3707c98ffb9b4f5e6293} 
+std\+::string Greenhouse\+::get\+Plot (\begin{DoxyParamCaption}\item[{int}]{position}{}\end{DoxyParamCaption})}
+
+
+
+Gets a descriptive string representation of the plot content at a position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & The 0-\/indexed plot position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string describing the plot content (e.\+g., plant type or "{}empty"{}). 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_a7fe2563669500ed93562b8e80fe22c37}\index{Greenhouse@{Greenhouse}!getSize@{getSize}}
+\index{getSize@{getSize}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a7fe2563669500ed93562b8e80fe22c37} 
+int Greenhouse\+::get\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets the current number of plants in the greenhouse. 
+
+\begin{DoxyReturn}{Returns}
+The count of occupied plots (current size). 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_a4c98672c04f748dc6f7872ade0c97aee}\index{Greenhouse@{Greenhouse}!harvestPlant@{harvestPlant}}
+\index{harvestPlant@{harvestPlant}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{harvestPlant()}{harvestPlant()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_greenhouse_a4c98672c04f748dc6f7872ade0c97aee} 
+bool Greenhouse\+::harvest\+Plant (\begin{DoxyParamCaption}\item[{int}]{position}{}\end{DoxyParamCaption})}
+
+
+
+Harvests the plant at a specific position, adding its yield to the \doxylink{class_inventory}{Inventory}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & The 0-\/indexed plot position to harvest from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the plant was successfully harvested, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_aeec298457b8ea05c641fc02bdffcca4c}\index{Greenhouse@{Greenhouse}!harvestPlant@{harvestPlant}}
+\index{harvestPlant@{harvestPlant}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{harvestPlant()}{harvestPlant()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_greenhouse_aeec298457b8ea05c641fc02bdffcca4c} 
+bool Greenhouse\+::harvest\+Plant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{}\end{DoxyParamCaption})}
+
+
+
+Finds and harvests a plant based on its pointer, adding its yield to the \doxylink{class_inventory}{Inventory}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & Pointer to the \doxylink{class_plant}{Plant} object to harvest. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the plant was successfully harvested, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_a55b14a93840d4f0e0c7f077a980de8fe}\index{Greenhouse@{Greenhouse}!increaseCapacity@{increaseCapacity}}
+\index{increaseCapacity@{increaseCapacity}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{increaseCapacity()}{increaseCapacity()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a55b14a93840d4f0e0c7f077a980de8fe} 
+bool Greenhouse\+::increase\+Capacity (\begin{DoxyParamCaption}\item[{int}]{amount}{}\end{DoxyParamCaption})}
+
+
+
+Increases the total capacity of the greenhouse. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & The number of new plots to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if capacity was successfully increased, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_ad5d32889f3eb6239d4b208dc2067e703}\index{Greenhouse@{Greenhouse}!notify@{notify}}
+\index{notify@{notify}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{notify()}{notify()}}
+{\footnotesize\ttfamily \label{class_greenhouse_ad5d32889f3eb6239d4b208dc2067e703} 
+void Greenhouse\+::notify (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Notifies all attached \doxylink{class_observer}{Observer} objects about a state change. 
+
+
+\begin{DoxyItemize}
+\item This implementation is inherited from \doxylink{class_subject}{Subject}. 
+\end{DoxyItemize}
+
+Implements \mbox{\hyperlink{class_subject_aedd8aa6de28b18ef5880566de4294bfe}{Subject}}.
+
+\Hypertarget{class_greenhouse_a85fa458e5f35997b13d77d38690fa5b9}\index{Greenhouse@{Greenhouse}!removePlant@{removePlant}}
+\index{removePlant@{removePlant}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{removePlant()}{removePlant()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a85fa458e5f35997b13d77d38690fa5b9} 
+bool Greenhouse\+::remove\+Plant (\begin{DoxyParamCaption}\item[{int}]{position}{}\end{DoxyParamCaption})}
+
+
+
+Removes a plant at a specific position, clearing the plot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & The 0-\/indexed plot position to clear. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if a plant was removed, false if the position was empty or invalid. 
+\end{DoxyReturn}
+\Hypertarget{class_greenhouse_ac3e3ddc6492df450c76ddf48fbabfa2f}\index{Greenhouse@{Greenhouse}!setInventory@{setInventory}}
+\index{setInventory@{setInventory}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{setInventory()}{setInventory()}}
+{\footnotesize\ttfamily \label{class_greenhouse_ac3e3ddc6492df450c76ddf48fbabfa2f} 
+void Greenhouse\+::set\+Inventory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}}]{inv}{}\end{DoxyParamCaption})}
+
+
+
+Sets or updates the \doxylink{class_inventory}{Inventory} object associated with the greenhouse. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inv} & Pointer to the \doxylink{class_inventory}{Inventory} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_greenhouse_a64888a30f29645b4f9ce4a3c6490c7d0}\index{Greenhouse@{Greenhouse}!tickPlant@{tickPlant}}
+\index{tickPlant@{tickPlant}!Greenhouse@{Greenhouse}}
+\doxysubsubsection{\texorpdfstring{tickPlant()}{tickPlant()}}
+{\footnotesize\ttfamily \label{class_greenhouse_a64888a30f29645b4f9ce4a3c6490c7d0} 
+void Greenhouse\+::tick\+Plant (\begin{DoxyParamCaption}\item[{int}]{position}{}\end{DoxyParamCaption})}
+
+
+
+Advances the state (e.\+g., growth) of the plant at a specific position. 
+
+
+\begin{DoxyItemize}
+\item Notifies Observers if the plant\textquotesingle{}s state changes significantly. 
+\begin{DoxyParams}{Parameters}
+{\em position} & The 0-\/indexed plot position of the plant to tick. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Greenhouse.\+h\item 
+Backend/Greenhouse.\+cpp\end{DoxyCompactItemize}

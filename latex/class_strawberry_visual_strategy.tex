@@ -1,0 +1,77 @@
+\doxysection{Strawberry\+Visual\+Strategy Class Reference}
+\hypertarget{class_strawberry_visual_strategy}{}\label{class_strawberry_visual_strategy}\index{StrawberryVisualStrategy@{StrawberryVisualStrategy}}
+Inheritance diagram for Strawberry\+Visual\+Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_strawberry_visual_strategy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_strawberry_visual_strategy_ad9653782f248c263224390f62fbdff2d}\label{class_strawberry_visual_strategy_ad9653782f248c263224390f62fbdff2d} 
+{\bfseries Strawberry\+Visual\+Strategy} (float width, float height)
+\item 
+void \mbox{\hyperlink{class_strawberry_visual_strategy_aabf2fbb343840ea0344232ce564d3631}{draw\+Detailed}} (float x, float y) override
+\item 
+void \mbox{\hyperlink{class_strawberry_visual_strategy_a2c14a258f53082d352e981f70145d1d1}{draw\+Static}} (float x, float y) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Visual\+Strategy} (float width, float height)
+\item 
+void {\bfseries set\+Growth} (float progress)
+\item 
+void {\bfseries set\+Dimensions} (float width, float height)
+\item 
+void {\bfseries set\+Dead} (bool dead)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+Color {\bfseries apply\+Death\+Filter} (Color base\+Color) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries current\+Width}
+\item 
+float {\bfseries current\+Height}
+\item 
+float {\bfseries growth\+Progress}
+\item 
+bool {\bfseries is\+Currently\+Dead}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_strawberry_visual_strategy_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_strawberry_visual_strategy_aabf2fbb343840ea0344232ce564d3631}\index{StrawberryVisualStrategy@{StrawberryVisualStrategy}!drawDetailed@{drawDetailed}}
+\index{drawDetailed@{drawDetailed}!StrawberryVisualStrategy@{StrawberryVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawDetailed()}{drawDetailed()}}
+{\footnotesize\ttfamily \label{class_strawberry_visual_strategy_aabf2fbb343840ea0344232ce564d3631} 
+void Strawberry\+Visual\+Strategy\+::draw\+Detailed (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+\Hypertarget{class_strawberry_visual_strategy_a2c14a258f53082d352e981f70145d1d1}\index{StrawberryVisualStrategy@{StrawberryVisualStrategy}!drawStatic@{drawStatic}}
+\index{drawStatic@{drawStatic}!StrawberryVisualStrategy@{StrawberryVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawStatic()}{drawStatic()}}
+{\footnotesize\ttfamily \label{class_strawberry_visual_strategy_a2c14a258f53082d352e981f70145d1d1} 
+void Strawberry\+Visual\+Strategy\+::draw\+Static (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Plant\+Visual\+Strategy.\+h\item 
+Frontend/Plant\+Visual\+Strategy.\+cpp\end{DoxyCompactItemize}

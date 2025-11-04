@@ -1,0 +1,77 @@
+\doxysection{Corn\+Visual\+Strategy Class Reference}
+\hypertarget{class_corn_visual_strategy}{}\label{class_corn_visual_strategy}\index{CornVisualStrategy@{CornVisualStrategy}}
+Inheritance diagram for Corn\+Visual\+Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_corn_visual_strategy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_corn_visual_strategy_a26afdedc243158dd9bd866da3541cb77}\label{class_corn_visual_strategy_a26afdedc243158dd9bd866da3541cb77} 
+{\bfseries Corn\+Visual\+Strategy} (float width, float height)
+\item 
+void \mbox{\hyperlink{class_corn_visual_strategy_aac1002393e6c6265f36d9839e4fcdb5a}{draw\+Detailed}} (float x, float y) override
+\item 
+void \mbox{\hyperlink{class_corn_visual_strategy_a8eaed36eef9a45b89282d0c9d61e7da1}{draw\+Static}} (float x, float y) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Visual\+Strategy} (float width, float height)
+\item 
+void {\bfseries set\+Growth} (float progress)
+\item 
+void {\bfseries set\+Dimensions} (float width, float height)
+\item 
+void {\bfseries set\+Dead} (bool dead)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+Color {\bfseries apply\+Death\+Filter} (Color base\+Color) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries current\+Width}
+\item 
+float {\bfseries current\+Height}
+\item 
+float {\bfseries growth\+Progress}
+\item 
+bool {\bfseries is\+Currently\+Dead}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_corn_visual_strategy_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_corn_visual_strategy_aac1002393e6c6265f36d9839e4fcdb5a}\index{CornVisualStrategy@{CornVisualStrategy}!drawDetailed@{drawDetailed}}
+\index{drawDetailed@{drawDetailed}!CornVisualStrategy@{CornVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawDetailed()}{drawDetailed()}}
+{\footnotesize\ttfamily \label{class_corn_visual_strategy_aac1002393e6c6265f36d9839e4fcdb5a} 
+void Corn\+Visual\+Strategy\+::draw\+Detailed (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+\Hypertarget{class_corn_visual_strategy_a8eaed36eef9a45b89282d0c9d61e7da1}\index{CornVisualStrategy@{CornVisualStrategy}!drawStatic@{drawStatic}}
+\index{drawStatic@{drawStatic}!CornVisualStrategy@{CornVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawStatic()}{drawStatic()}}
+{\footnotesize\ttfamily \label{class_corn_visual_strategy_a8eaed36eef9a45b89282d0c9d61e7da1} 
+void Corn\+Visual\+Strategy\+::draw\+Static (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Plant\+Visual\+Strategy.\+h\item 
+Frontend/Plant\+Visual\+Strategy.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,72 @@
+\doxysection{Lettuce\+Factory Class Reference}
+\hypertarget{class_lettuce_factory}{}\label{class_lettuce_factory}\index{LettuceFactory@{LettuceFactory}}
+
+
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_lettuce}{Lettuce}.  
+
+
+
+
+{\ttfamily \#include $<$Plant\+Factory.\+h$>$}
+
+Inheritance diagram for Lettuce\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lettuce_factory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_lettuce_factory_af97add4174177163a8a90720b3085628}{produce}} () override
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_lettuce}{Lettuce} plant with its corresponding \doxylink{class_lettuce_visual_strategy}{Lettuce\+Visual\+Strategy}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_factory}{Plant\+Factory}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant_factory}{Plant\+Factory} object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant_factory}{Plant\+Factory} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_lettuce}{Lettuce}. 
+
+\label{doc-func-members}
+\Hypertarget{class_lettuce_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_lettuce_factory_af97add4174177163a8a90720b3085628}\index{LettuceFactory@{LettuceFactory}!produce@{produce}}
+\index{produce@{produce}!LettuceFactory@{LettuceFactory}}
+\doxysubsubsection{\texorpdfstring{produce()}{produce()}}
+{\footnotesize\ttfamily \label{class_lettuce_factory_af97add4174177163a8a90720b3085628} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Lettuce\+Factory\+::produce (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a new \doxylink{class_lettuce}{Lettuce} plant with its corresponding \doxylink{class_lettuce_visual_strategy}{Lettuce\+Visual\+Strategy}. 
+
+Produces a \doxylink{class_lettuce}{Lettuce} plant.
+
+\begin{DoxyReturn}{Returns}
+A pointer to a new \doxylink{class_lettuce}{Lettuce} object.
+\end{DoxyReturn}
+Creates a new \doxylink{class_lettuce}{Lettuce} instance with \doxylink{class_lettuce_visual_strategy}{Lettuce\+Visual\+Strategy} for rendering. \doxylink{class_lettuce}{Lettuce} dimensions\+: 20x15 pixels
+
+\begin{DoxyReturn}{Returns}
+Pointer to newly allocated \doxylink{class_lettuce}{Lettuce} with \doxylink{class_lettuce_visual_strategy}{Lettuce\+Visual\+Strategy} 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_lettuce}{Lettuce} 
+
+\doxylink{class_lettuce_visual_strategy}{Lettuce\+Visual\+Strategy} 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}{Plant\+Factory}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant\+Factory.\+h\item 
+Backend/\mbox{\hyperlink{_plant_factory_8cpp}{Plant\+Factory.\+cpp}}\end{DoxyCompactItemize}

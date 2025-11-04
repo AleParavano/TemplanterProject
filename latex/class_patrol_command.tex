@@ -1,0 +1,77 @@
+\doxysection{Patrol\+Command Class Reference}
+\hypertarget{class_patrol_command}{}\label{class_patrol_command}\index{PatrolCommand@{PatrolCommand}}
+
+
+A concrete command representing a general patrolling or checking action.  
+
+
+
+
+{\ttfamily \#include $<$Command.\+h$>$}
+
+Inheritance diagram for Patrol\+Command\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_patrol_command}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_patrol_command_aebe0c79ed5f0d19ce612dd9a6cb74296}{execute}} () override
+\begin{DoxyCompactList}\small\item\em Executes the patrolling action (e.\+g., checks the greenhouse status). \end{DoxyCompactList}\item 
+\Hypertarget{class_patrol_command_a1d6a139d4fc670e39f158f29c5b5ae29}\label{class_patrol_command_a1d6a139d4fc670e39f158f29c5b5ae29} 
+{\bfseries Patrol\+Command} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_patrol_command}{Patrol\+Command}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_patrol_command_aa980b21a63b39698aa1d11d0801f9f96}{is\+Patrol}} () const override
+\begin{DoxyCompactList}\small\item\em Overrides the base method to confirm this is a patrol command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the base class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A concrete command representing a general patrolling or checking action. 
+
+\label{doc-func-members}
+\Hypertarget{class_patrol_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_patrol_command_aebe0c79ed5f0d19ce612dd9a6cb74296}\index{PatrolCommand@{PatrolCommand}!execute@{execute}}
+\index{execute@{execute}!PatrolCommand@{PatrolCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_patrol_command_aebe0c79ed5f0d19ce612dd9a6cb74296} 
+void Patrol\+Command\+::execute (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the patrolling action (e.\+g., checks the greenhouse status). 
+
+
+
+Implements \mbox{\hyperlink{class_command_a6fd7d9bd8df8bfc881e4d6c7cd1878b7}{Command}}.
+
+\Hypertarget{class_patrol_command_aa980b21a63b39698aa1d11d0801f9f96}\index{PatrolCommand@{PatrolCommand}!isPatrol@{isPatrol}}
+\index{isPatrol@{isPatrol}!PatrolCommand@{PatrolCommand}}
+\doxysubsubsection{\texorpdfstring{isPatrol()}{isPatrol()}}
+{\footnotesize\ttfamily \label{class_patrol_command_aa980b21a63b39698aa1d11d0801f9f96} 
+bool Patrol\+Command\+::is\+Patrol (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Overrides the base method to confirm this is a patrol command. 
+
+\begin{DoxyReturn}{Returns}
+true always. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_command_ad192d5e38fd39f98d7004a757be4a871}{Command}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Command.\+h\item 
+Backend/Command.\+cpp\end{DoxyCompactItemize}

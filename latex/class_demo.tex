@@ -1,0 +1,111 @@
+\doxysection{Demo Class Reference}
+\hypertarget{class_demo}{}\label{class_demo}\index{Demo@{Demo}}
+
+
+The main application class that acts as the {\bfseries{Facade}} for the game demo.  
+
+
+
+
+{\ttfamily \#include $<$Demo.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_demo_a2caedb2c67e1d1f776f985b3c4cd6b3f}\label{class_demo_a2caedb2c67e1d1f776f985b3c4cd6b3f} 
+{\bfseries Demo} ()
+\begin{DoxyCompactList}\small\item\em Constructor. Initializes the subsystems and prepares the game state. \end{DoxyCompactList}\item 
+\Hypertarget{class_demo_a82bcc87814f02257d04a49400cc8052d}\label{class_demo_a82bcc87814f02257d04a49400cc8052d} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Demo} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Handles cleanup, particularly deleting the dynamically allocated \doxylink{class_player}{Player} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_demo_a508017df2cb4b7a099f6ddaf0b152d0f}{run}} ()
+\begin{DoxyCompactList}\small\item\em Executes the main game loop (initialize -\/\texorpdfstring{$>$}{>} loop -\/\texorpdfstring{$>$}{>} cleanup). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_demo_aa1af0cb9e07593ee5705f797b5551504}{get\+Player}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the \doxylink{class_player}{Player} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_store_scene}{Store\+Scene}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_demo_ac42e96002e16510504110f1096a4a4af}{get\+Store}} ()
+\begin{DoxyCompactList}\small\item\em Getter for the \doxylink{class_store_scene}{Store\+Scene} object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_demo_a7d7e89ac901edb8f6f2986cbda90b45f}{get\+Width}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the window width. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_demo_a57f964f139763bb9d2c6bb5ee8fda825}{get\+Height}} () const
+\begin{DoxyCompactList}\small\item\em Getter for the window height. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The main application class that acts as the {\bfseries{Facade}} for the game demo. 
+
+It initializes the raylib window, manages core subsystems (like the scene manager and player), and provides the main game loop ({\ttfamily \doxylink{class_demo_a508017df2cb4b7a099f6ddaf0b152d0f}{run()}}). It encapsulates the complexity of the subsystems. 
+
+\label{doc-func-members}
+\Hypertarget{class_demo_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_demo_a57f964f139763bb9d2c6bb5ee8fda825}\index{Demo@{Demo}!getHeight@{getHeight}}
+\index{getHeight@{getHeight}!Demo@{Demo}}
+\doxysubsubsection{\texorpdfstring{getHeight()}{getHeight()}}
+{\footnotesize\ttfamily \label{class_demo_a57f964f139763bb9d2c6bb5ee8fda825} 
+int Demo\+::get\+Height (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter for the window height. 
+
+\begin{DoxyReturn}{Returns}
+The window height in pixels. 
+\end{DoxyReturn}
+\Hypertarget{class_demo_aa1af0cb9e07593ee5705f797b5551504}\index{Demo@{Demo}!getPlayer@{getPlayer}}
+\index{getPlayer@{getPlayer}!Demo@{Demo}}
+\doxysubsubsection{\texorpdfstring{getPlayer()}{getPlayer()}}
+{\footnotesize\ttfamily \label{class_demo_aa1af0cb9e07593ee5705f797b5551504} 
+\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} Demo\+::get\+Player (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter for the \doxylink{class_player}{Player} object. 
+
+\begin{DoxyReturn}{Returns}
+A const pointer to the \doxylink{class_player}{Player} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_demo_ac42e96002e16510504110f1096a4a4af}\index{Demo@{Demo}!getStore@{getStore}}
+\index{getStore@{getStore}!Demo@{Demo}}
+\doxysubsubsection{\texorpdfstring{getStore()}{getStore()}}
+{\footnotesize\ttfamily \label{class_demo_ac42e96002e16510504110f1096a4a4af} 
+\mbox{\hyperlink{class_store_scene}{Store\+Scene}} \texorpdfstring{$\ast$}{*} Demo\+::get\+Store (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter for the \doxylink{class_store_scene}{Store\+Scene} object. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the \doxylink{class_store_scene}{Store\+Scene} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_demo_a7d7e89ac901edb8f6f2986cbda90b45f}\index{Demo@{Demo}!getWidth@{getWidth}}
+\index{getWidth@{getWidth}!Demo@{Demo}}
+\doxysubsubsection{\texorpdfstring{getWidth()}{getWidth()}}
+{\footnotesize\ttfamily \label{class_demo_a7d7e89ac901edb8f6f2986cbda90b45f} 
+int Demo\+::get\+Width (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter for the window width. 
+
+\begin{DoxyReturn}{Returns}
+The window width in pixels. 
+\end{DoxyReturn}
+\Hypertarget{class_demo_a508017df2cb4b7a099f6ddaf0b152d0f}\index{Demo@{Demo}!run@{run}}
+\index{run@{run}!Demo@{Demo}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_demo_a508017df2cb4b7a099f6ddaf0b152d0f} 
+void Demo\+::run (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Executes the main game loop (initialize -\/\texorpdfstring{$>$}{>} loop -\/\texorpdfstring{$>$}{>} cleanup). 
+
+
+\begin{DoxyItemize}
+\item This is the primary entry point for running the application. 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Demo.\+h\item 
+Frontend/Demo.\+cpp\end{DoxyCompactItemize}

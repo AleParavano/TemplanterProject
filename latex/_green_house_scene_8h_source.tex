@@ -1,0 +1,105 @@
+\doxysection{Green\+House\+Scene.\+h}
+\hypertarget{_green_house_scene_8h_source}{}\label{_green_house_scene_8h_source}\index{Frontend/GreenHouseScene.h@{Frontend/GreenHouseScene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GREENHOUSESCENE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GREENHOUSESCENE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Scene.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}ObjectTypes.h"{}}\ \textcolor{comment}{//\ Assumed\ to\ define\ SCENE\_GREENHOUSE,\ Road,\ PlantVisual,\ etc.}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Backend/Game.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Backend/Player.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Backend/Plant.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Backend/PlantFactory.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../Backend/Inventory.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}PlantVisualStrategy.h"{}}\ \textcolor{comment}{//\ Assumed\ to\ define\ PlantVisual}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_worker_8h}{../Backend/Worker.h}}"{}}\ \ \ \ \textcolor{comment}{//\ Assumed\ to\ define\ Worker}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}UI.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assumed\ to\ define\ UI-\/related\ drawing\ functions}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MAX\_PLANTS\ 250}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Constants\ for\ menu\ layout}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MENU\_WIDTH\ 250}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ MENU\_X\_START\ 1400\ -\/\ MENU\_WIDTH\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MENU\_Y\_START\ 370}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ITEM\_HEIGHT\ 45}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ BUTTON\_SIZE\ 30}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ BUTTON\_WIDTH\ 30}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ PADDING\ 10}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ -\/-\/-\/\ Shop\ Modal\ Constants\ -\/-\/-\/}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ SHOP\_WIDTH\ 700}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SHOP\_HEIGHT\ 700}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ Note:\ Assuming\ SCREEN\_WIDTH\ and\ SCREEN\_HEIGHT\ are\ defined\ globally\ or\ via\ raylib\ headers}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ SHOP\_X\ ((SCREEN\_WIDTH\ -\/\ SHOP\_WIDTH)\ /\ 2)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ SHOP\_Y\ ((SCREEN\_HEIGHT\ -\/\ SHOP\_HEIGHT)\ /\ 2)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ITEM\_ROW\_HEIGHT\ 60}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ cleanupPlantCatalog();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_green_house_scene_a4ab15f74b544cdb35418d0f8e5f9d504}{GreenHouseScene}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_scene}{Scene}}\ \{}
+\DoxyCodeLine{00061\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{struct_plant_visual}{PlantVisual}}\ plants[MAX\_PLANTS];}
+\DoxyCodeLine{00064\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{struct_road}{Road}}\ paths[10];}
+\DoxyCodeLine{00067\ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ numPlants;}
+\DoxyCodeLine{00070\ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{int}\ numPaths;}
+\DoxyCodeLine{00073\ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ selectedPlotIndex;}
+\DoxyCodeLine{00076\ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{bool}\ isShopOpen;}
+\DoxyCodeLine{00079\ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{bool}\ isHireShopOpen;}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{float}\ simTimeAccumulator;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \ \ \ \ SceneType\ nextScene;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ InitPlants();}
+\DoxyCodeLine{00093\ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ InitPaths();}
+\DoxyCodeLine{00098\ \ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawPlantDetailed(\mbox{\hyperlink{struct_plant_visual}{PlantVisual}}\ p);}
+\DoxyCodeLine{00104\ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawSeedShop();}
+\DoxyCodeLine{00109\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawHireShop();}
+\DoxyCodeLine{00114\ \ \ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawPlantInspector(\mbox{\hyperlink{class_plant}{Plant}}*\ plant,\ Vector2\ drawPos);}
+\DoxyCodeLine{00121\ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawGate(Vector2\ position,\ \textcolor{keywordtype}{bool}\ isVertical);}
+\DoxyCodeLine{00128\ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawGreenhouse();}
+\DoxyCodeLine{00133\ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{float}\ Distance(Vector2\ a,\ Vector2\ b);}
+\DoxyCodeLine{00141\ \ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{int}\ ClampValue(\textcolor{keywordtype}{int}\ value,\ \textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00155\ \ \ \ \ \mbox{\hyperlink{class_green_house_scene_a4ab15f74b544cdb35418d0f8e5f9d504}{GreenHouseScene}}();}
+\DoxyCodeLine{00156\ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ \mbox{\hyperlink{class_green_house_scene_a6019e95fff241eaaa81ec20fc8705b98}{\string~GreenHouseScene}}();}
+\DoxyCodeLine{00161\ \ \ \ \ }
+\DoxyCodeLine{00166\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_green_house_scene_a2149d768ba4f085a7236f62b9fe3f1c0}{CheckExit}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_green_house_scene_a17451e2732ef7f5cbf79d6b1847f5d29}{Init}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00172\ \ \ \ \ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_green_house_scene_af182a65453aa26c81f982f652e80c963}{Update}}(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00178\ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_green_house_scene_ad747f68cf1e1f7384d4b6a9a61ba6c08}{Draw}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00183\ \ \ \ \ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_green_house_scene_a18ee8b1c28e62a38f02055e02addb2af}{HandleInput}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00188\ \ \ \ \ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_green_house_scene_a3b44a203d02b3b1bc841c6ca9617a06c}{DrawMenu}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00193\ \ \ \ \ }
+\DoxyCodeLine{00198\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_green_house_scene_a2879a211b91a6eb20a3f88dd94e4e9b6}{GetSceneType}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ SCENE\_GREENHOUSE;\ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GREENHOUSESCENE\_H}}
+
+\end{DoxyCode}

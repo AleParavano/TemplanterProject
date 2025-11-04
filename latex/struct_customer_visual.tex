@@ -1,0 +1,159 @@
+\doxysection{Customer\+Visual Struct Reference}
+\hypertarget{struct_customer_visual}{}\label{struct_customer_visual}\index{CustomerVisual@{CustomerVisual}}
+
+
+Represents the {\bfseries{Extrinsic}} state of a customer in the Flyweight pattern context.  
+
+
+
+
+{\ttfamily \#include $<$Customer\+Visual.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_customer_visual_ae45b2036eb59307d173da193090036b7}{Customer\+Visual}} (\mbox{\hyperlink{class_customer}{Customer}} \texorpdfstring{$\ast$}{*}cust, Vector2 pos, float rad=30.\+0f)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{struct_customer_visual}{Customer\+Visual}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_customer_visual_a2f00d6c08852690e641ef641a0dc590d}{update}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Updates the customer\textquotesingle{}s state, primarily handling movement towards the target position. \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_aa9f224d772a7de113540479bf07afe72}\label{struct_customer_visual_aa9f224d772a7de113540479bf07afe72} 
+void {\bfseries render} () const
+\begin{DoxyCompactList}\small\item\em Renders the customer using the shared \doxylink{class_customer_image}{Customer\+Image} flyweight based on the customer\textquotesingle{}s type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_customer_visual_a7081680dcb59ab34ac69afa275b3f83b}{move\+To}} (Vector2 target)
+\begin{DoxyCompactList}\small\item\em Sets a new target position and starts the movement animation. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_customer_visual_ad42507c86f1657a6f986e7db85f88166}{can\+Interact}} (Vector2 player\+Pos) const
+\begin{DoxyCompactList}\small\item\em Checks if a player/mouse position is within the customer\textquotesingle{}s larger interaction zone. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_customer_visual_ac20fe494c07eb94f1d4d94526e8abda1}{is\+Hovered}} (Vector2 mouse\+Pos) const
+\begin{DoxyCompactList}\small\item\em Checks if the mouse position is hovering directly over the customer\textquotesingle{}s visual circle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}\label{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3} 
+\mbox{\hyperlink{class_customer}{Customer}} \texorpdfstring{$\ast$}{*} {\bfseries customer}
+\begin{DoxyCompactList}\small\item\em Pointer to the core customer logic object (the domain model). \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}\label{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a} 
+Vector2 {\bfseries position}
+\begin{DoxyCompactList}\small\item\em The current world position of the customer (center of the visual). \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_aedf3ae44d04c3dc1718b9cb162b2a5d7}\label{struct_customer_visual_aedf3ae44d04c3dc1718b9cb162b2a5d7} 
+float {\bfseries radius}
+\begin{DoxyCompactList}\small\item\em The radius used for rendering size and collision checks. \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7}\label{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7} 
+Vector2 {\bfseries target\+Position}
+\begin{DoxyCompactList}\small\item\em The target world position for movement. \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_a2dbecdfe17763f026c7ac931a728f5e3}\label{struct_customer_visual_a2dbecdfe17763f026c7ac931a728f5e3} 
+float {\bfseries speed}
+\begin{DoxyCompactList}\small\item\em The speed at which the customer moves (units per second). \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_ac75dfd55101a4baffb092a3fa170897b}\label{struct_customer_visual_ac75dfd55101a4baffb092a3fa170897b} 
+bool {\bfseries is\+Moving}
+\begin{DoxyCompactList}\small\item\em Flag indicating if the customer is currently moving towards the target\+Position. \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_ac3d4e7a4bc0a1442243e5512ac3a421f}\label{struct_customer_visual_ac3d4e7a4bc0a1442243e5512ac3a421f} 
+Rectangle {\bfseries interaction\+Zone}
+\begin{DoxyCompactList}\small\item\em The rectangular area defining the interaction zone around the customer. \end{DoxyCompactList}\item 
+\Hypertarget{struct_customer_visual_a4d94203bac47ea429bc3803320372811}\label{struct_customer_visual_a4d94203bac47ea429bc3803320372811} 
+bool {\bfseries is\+Active}
+\begin{DoxyCompactList}\small\item\em Flag indicating if the customer is active in the game (e.\+g., waiting in line, not dismissed). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the {\bfseries{Extrinsic}} state of a customer in the Flyweight pattern context. 
+
+This structure holds the unique, mutable data for a customer instance (position, movement, interaction status) and links to the shared intrinsic state (the \doxylink{class_customer_image}{Customer\+Image} flyweight) via the \doxylink{class_customer}{Customer} object\textquotesingle{}s type. 
+
+\label{doc-constructors}
+\Hypertarget{struct_customer_visual_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_customer_visual_ae45b2036eb59307d173da193090036b7}\index{CustomerVisual@{CustomerVisual}!CustomerVisual@{CustomerVisual}}
+\index{CustomerVisual@{CustomerVisual}!CustomerVisual@{CustomerVisual}}
+\doxysubsubsection{\texorpdfstring{CustomerVisual()}{CustomerVisual()}}
+{\footnotesize\ttfamily \label{struct_customer_visual_ae45b2036eb59307d173da193090036b7} 
+Customer\+Visual\+::\+Customer\+Visual (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_customer}{Customer}} \texorpdfstring{$\ast$}{*}}]{cust}{, }\item[{Vector2}]{pos}{, }\item[{float}]{rad}{ = {\ttfamily 30.0f}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for \doxylink{struct_customer_visual}{Customer\+Visual}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cust} & A pointer to the associated \doxylink{class_customer}{Customer} logic object. \\
+\hline
+{\em pos} & The initial spawn position. \\
+\hline
+{\em rad} & The visual radius of the customer. Defaults to 30.\+0f. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{struct_customer_visual_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_customer_visual_ad42507c86f1657a6f986e7db85f88166}\index{CustomerVisual@{CustomerVisual}!canInteract@{canInteract}}
+\index{canInteract@{canInteract}!CustomerVisual@{CustomerVisual}}
+\doxysubsubsection{\texorpdfstring{canInteract()}{canInteract()}}
+{\footnotesize\ttfamily \label{struct_customer_visual_ad42507c86f1657a6f986e7db85f88166} 
+bool Customer\+Visual\+::can\+Interact (\begin{DoxyParamCaption}\item[{Vector2}]{player\+Pos}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if a player/mouse position is within the customer\textquotesingle{}s larger interaction zone. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Pos} & The position to check against the zone. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if collision occurs and the customer is active, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{struct_customer_visual_ac20fe494c07eb94f1d4d94526e8abda1}\index{CustomerVisual@{CustomerVisual}!isHovered@{isHovered}}
+\index{isHovered@{isHovered}!CustomerVisual@{CustomerVisual}}
+\doxysubsubsection{\texorpdfstring{isHovered()}{isHovered()}}
+{\footnotesize\ttfamily \label{struct_customer_visual_ac20fe494c07eb94f1d4d94526e8abda1} 
+bool Customer\+Visual\+::is\+Hovered (\begin{DoxyParamCaption}\item[{Vector2}]{mouse\+Pos}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the mouse position is hovering directly over the customer\textquotesingle{}s visual circle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Pos} & The current mouse position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the mouse is over the customer, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{struct_customer_visual_a7081680dcb59ab34ac69afa275b3f83b}\index{CustomerVisual@{CustomerVisual}!moveTo@{moveTo}}
+\index{moveTo@{moveTo}!CustomerVisual@{CustomerVisual}}
+\doxysubsubsection{\texorpdfstring{moveTo()}{moveTo()}}
+{\footnotesize\ttfamily \label{struct_customer_visual_a7081680dcb59ab34ac69afa275b3f83b} 
+void Customer\+Visual\+::move\+To (\begin{DoxyParamCaption}\item[{Vector2}]{target}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets a new target position and starts the movement animation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The new target position (Vector2). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{struct_customer_visual_a2f00d6c08852690e641ef641a0dc590d}\index{CustomerVisual@{CustomerVisual}!update@{update}}
+\index{update@{update}!CustomerVisual@{CustomerVisual}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{struct_customer_visual_a2f00d6c08852690e641ef641a0dc590d} 
+void Customer\+Visual\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Updates the customer\textquotesingle{}s state, primarily handling movement towards the target position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & The time elapsed since the last frame. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Customer\+Visual.\+h\end{DoxyCompactItemize}

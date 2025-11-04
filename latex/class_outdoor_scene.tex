@@ -1,0 +1,156 @@
+\doxysection{Outdoor\+Scene Class Reference}
+\hypertarget{class_outdoor_scene}{}\label{class_outdoor_scene}\index{OutdoorScene@{OutdoorScene}}
+
+
+Represents the top-\/down, outdoor world map where buildings, NPCs, and traffic are rendered.  
+
+
+
+
+{\ttfamily \#include $<$Outdoor\+Scene.\+h$>$}
+
+Inheritance diagram for Outdoor\+Scene\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_outdoor_scene}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_outdoor_scene_ab864e2ec879798d42722422f1d2a090f}\label{class_outdoor_scene_ab864e2ec879798d42722422f1d2a090f} 
+{\bfseries Outdoor\+Scene} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_outdoor_scene_ab0bf51cb3788305594ef08946930efcf}\label{class_outdoor_scene_ab0bf51cb3788305594ef08946930efcf} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Outdoor\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_outdoor_scene_afbb0010ed30c57f728dbca3e93f3d297}{Init}} () override
+\begin{DoxyCompactList}\small\item\em Performs one-\/time setup and initialization for all scene components. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_outdoor_scene_a684c83f8fa193b0ad9ab15e48e4803cf}{Update}} (float dt) override
+\begin{DoxyCompactList}\small\item\em Updates the logic and simulation state of the scene (time, NPC movement). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_outdoor_scene_a0da9d7fdc1a22042afa4c7801cf0ff67}{Draw}} () override
+\begin{DoxyCompactList}\small\item\em Renders all visual elements of the scene (buildings, roads, trees, NPCs, cars). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_outdoor_scene_a9ee9fa1165a888639944d5246aeee9e6}{Handle\+Input}} () override
+\begin{DoxyCompactList}\small\item\em Processes player input specific to the outdoor world (movement, clicks on buildings). \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_outdoor_scene_ab004510539e966ed269775affb1be1c3}{Get\+Scene\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the constant type of this scene. \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_outdoor_scene_ab060d9b0285779f352fe2954d3180c86}{Check\+Exit}} () override
+\begin{DoxyCompactList}\small\item\em Checks conditions for exiting the current scene (e.\+g., clicking a building entrance). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_scene}{Scene}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of resources in derived classes. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_abe448df6f81609819ce49ab8b1d8040b}{Draw\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Renders any scene-\/specific menu or persistent sidebar UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the top-\/down, outdoor world map where buildings, NPCs, and traffic are rendered. 
+
+This scene is responsible for initializing the static world geometry, updating NPC movement, handling time of day, and managing transitions to indoor scenes (\doxylink{class_store}{Store}, \doxylink{class_greenhouse}{Greenhouse}, \doxylink{class_inventory}{Inventory}). 
+
+\label{doc-func-members}
+\Hypertarget{class_outdoor_scene_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_outdoor_scene_ab060d9b0285779f352fe2954d3180c86}\index{OutdoorScene@{OutdoorScene}!CheckExit@{CheckExit}}
+\index{CheckExit@{CheckExit}!OutdoorScene@{OutdoorScene}}
+\doxysubsubsection{\texorpdfstring{CheckExit()}{CheckExit()}}
+{\footnotesize\ttfamily \label{class_outdoor_scene_ab060d9b0285779f352fe2954d3180c86} 
+Scene\+Type Outdoor\+Scene\+::\+Check\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Checks conditions for exiting the current scene (e.\+g., clicking a building entrance). 
+
+\begin{DoxyReturn}{Returns}
+The Scene\+Type to transition to, or SCENE\+\_\+\+OUTDOOR if no exit is triggered. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_scene_a2908f47812428dd3071c7dfcdd399990}{Scene}}.
+
+\Hypertarget{class_outdoor_scene_a0da9d7fdc1a22042afa4c7801cf0ff67}\index{OutdoorScene@{OutdoorScene}!Draw@{Draw}}
+\index{Draw@{Draw}!OutdoorScene@{OutdoorScene}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_outdoor_scene_a0da9d7fdc1a22042afa4c7801cf0ff67} 
+void Outdoor\+Scene\+::\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Renders all visual elements of the scene (buildings, roads, trees, NPCs, cars). 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a8680672fd30bb4b345e6fab918e31ecd}{Scene}}.
+
+\Hypertarget{class_outdoor_scene_ab004510539e966ed269775affb1be1c3}\index{OutdoorScene@{OutdoorScene}!GetSceneType@{GetSceneType}}
+\index{GetSceneType@{GetSceneType}!OutdoorScene@{OutdoorScene}}
+\doxysubsubsection{\texorpdfstring{GetSceneType()}{GetSceneType()}}
+{\footnotesize\ttfamily \label{class_outdoor_scene_ab004510539e966ed269775affb1be1c3} 
+Scene\+Type Outdoor\+Scene\+::\+Get\+Scene\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the constant type of this scene. 
+
+\begin{DoxyReturn}{Returns}
+SCENE\+\_\+\+OUTDOOR. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}{Scene}}.
+
+\Hypertarget{class_outdoor_scene_a9ee9fa1165a888639944d5246aeee9e6}\index{OutdoorScene@{OutdoorScene}!HandleInput@{HandleInput}}
+\index{HandleInput@{HandleInput}!OutdoorScene@{OutdoorScene}}
+\doxysubsubsection{\texorpdfstring{HandleInput()}{HandleInput()}}
+{\footnotesize\ttfamily \label{class_outdoor_scene_a9ee9fa1165a888639944d5246aeee9e6} 
+void Outdoor\+Scene\+::\+Handle\+Input (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Processes player input specific to the outdoor world (movement, clicks on buildings). 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a857a1635b2fec4aadcaef182ac55870b}{Scene}}.
+
+\Hypertarget{class_outdoor_scene_afbb0010ed30c57f728dbca3e93f3d297}\index{OutdoorScene@{OutdoorScene}!Init@{Init}}
+\index{Init@{Init}!OutdoorScene@{OutdoorScene}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_outdoor_scene_afbb0010ed30c57f728dbca3e93f3d297} 
+void Outdoor\+Scene\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs one-\/time setup and initialization for all scene components. 
+
+
+
+Implements \mbox{\hyperlink{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}{Scene}}.
+
+\Hypertarget{class_outdoor_scene_a684c83f8fa193b0ad9ab15e48e4803cf}\index{OutdoorScene@{OutdoorScene}!Update@{Update}}
+\index{Update@{Update}!OutdoorScene@{OutdoorScene}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_outdoor_scene_a684c83f8fa193b0ad9ab15e48e4803cf} 
+void Outdoor\+Scene\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the logic and simulation state of the scene (time, NPC movement). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The delta time since the last frame. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_scene_a7cd484a12593952a999edfd20309b8fb}{Scene}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Outdoor\+Scene.\+h\item 
+Frontend/Outdoor\+Scene.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,114 @@
+\doxysection{Customer Class Reference}
+\hypertarget{class_customer}{}\label{class_customer}\index{Customer@{Customer}}
+
+
+The abstract base class representing any type of customer visiting the greenhouse.  
+
+
+
+
+{\ttfamily \#include $<$Customer.\+h$>$}
+
+Inheritance diagram for Customer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_customer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}requested\+Plant)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_customer}{Customer} base class. \end{DoxyCompactList}\item 
+\Hypertarget{class_customer_a07f35fdaaf46adc728d7f5310a882e14}\label{class_customer_a07f35fdaaf46adc728d7f5310a882e14} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Customer} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual default destructor to ensure proper cleanup of derived classes. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{class_customer_a131ee499a8926ad45508586d53c68694}{type}} () const =0
+\begin{DoxyCompactList}\small\item\em Pure virtual function to identify the type of the customer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_aef0655bfc70bce8edf2a88aaf1f1cf97}{set\+Requested\+Plant}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Sets the plant the customer is requesting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_customer_a53bb8c38669946b97076fd9c7e4e1553}{get\+Requested\+Plant}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the plant the customer is currently requesting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The abstract base class representing any type of customer visiting the greenhouse. 
+
+
+\begin{DoxyItemize}
+\item It defines the common interface and required item for all customers. 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_customer_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}\index{Customer@{Customer}!Customer@{Customer}}
+\index{Customer@{Customer}!Customer@{Customer}}
+\doxysubsubsection{\texorpdfstring{Customer()}{Customer()}}
+{\footnotesize\ttfamily \label{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b} 
+Customer\+::\+Customer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{requested\+Plant}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for the \doxylink{class_customer}{Customer} base class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em requested\+Plant} & A pointer to the specific \doxylink{class_plant}{Plant} the customer is requesting/targeting. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_customer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_customer_a53bb8c38669946b97076fd9c7e4e1553}\index{Customer@{Customer}!getRequestedPlant@{getRequestedPlant}}
+\index{getRequestedPlant@{getRequestedPlant}!Customer@{Customer}}
+\doxysubsubsection{\texorpdfstring{getRequestedPlant()}{getRequestedPlant()}}
+{\footnotesize\ttfamily \label{class_customer_a53bb8c38669946b97076fd9c7e4e1553} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Customer\+::get\+Requested\+Plant (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieves the plant the customer is currently requesting. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the requested \doxylink{class_plant}{Plant} object. 
+\end{DoxyReturn}
+\Hypertarget{class_customer_aef0655bfc70bce8edf2a88aaf1f1cf97}\index{Customer@{Customer}!setRequestedPlant@{setRequestedPlant}}
+\index{setRequestedPlant@{setRequestedPlant}!Customer@{Customer}}
+\doxysubsubsection{\texorpdfstring{setRequestedPlant()}{setRequestedPlant()}}
+{\footnotesize\ttfamily \label{class_customer_aef0655bfc70bce8edf2a88aaf1f1cf97} 
+void Customer\+::set\+Requested\+Plant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the plant the customer is requesting. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & A pointer to the new \doxylink{class_plant}{Plant} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_customer_a131ee499a8926ad45508586d53c68694}\index{Customer@{Customer}!type@{type}}
+\index{type@{type}!Customer@{Customer}}
+\doxysubsubsection{\texorpdfstring{type()}{type()}}
+{\footnotesize\ttfamily \label{class_customer_a131ee499a8926ad45508586d53c68694} 
+virtual std\+::string Customer\+::type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual function to identify the type of the customer. 
+
+\begin{DoxyReturn}{Returns}
+A string representing the concrete customer type (e.\+g., "{}\+Regular"{}, "{}\+VIP"{}). 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_regular_aa1e208b2a22993314b33e8fb643c1faf}{Regular}}, \mbox{\hyperlink{class_robber_a1bf7b89425f77989b552910fb692c8e1}{Robber}}, and \mbox{\hyperlink{class_v_i_p_acda01bf38d6884fec100c38250b5662b}{VIP}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Customer.\+h\end{DoxyCompactItemize}

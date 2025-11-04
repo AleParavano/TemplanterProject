@@ -1,0 +1,85 @@
+\doxysection{Regular Class Reference}
+\hypertarget{class_regular}{}\label{class_regular}\index{Regular@{Regular}}
+
+
+Represents a standard, non-\/prioritized customer.  
+
+
+
+
+{\ttfamily \#include $<$Customer.\+h$>$}
+
+Inheritance diagram for Regular\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_regular}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_regular_a959403ce193aea0c7b65ae5b83484579}{Regular}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}requested\+Plant)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_regular}{Regular} customer. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_regular_aa1e208b2a22993314b33e8fb643c1faf}{type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the type identifier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_customer}{Customer}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}requested\+Plant)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_customer}{Customer} base class. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Customer} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual default destructor to ensure proper cleanup of derived classes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_aef0655bfc70bce8edf2a88aaf1f1cf97}{set\+Requested\+Plant}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Sets the plant the customer is requesting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_customer_a53bb8c38669946b97076fd9c7e4e1553}{get\+Requested\+Plant}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the plant the customer is currently requesting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a standard, non-\/prioritized customer. 
+
+\label{doc-constructors}
+\Hypertarget{class_regular_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_regular_a959403ce193aea0c7b65ae5b83484579}\index{Regular@{Regular}!Regular@{Regular}}
+\index{Regular@{Regular}!Regular@{Regular}}
+\doxysubsubsection{\texorpdfstring{Regular()}{Regular()}}
+{\footnotesize\ttfamily \label{class_regular_a959403ce193aea0c7b65ae5b83484579} 
+Regular\+::\+Regular (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{requested\+Plant}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \doxylink{class_regular}{Regular} customer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em requested\+Plant} & The plant this customer wishes to buy. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_regular_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_regular_aa1e208b2a22993314b33e8fb643c1faf}\index{Regular@{Regular}!type@{type}}
+\index{type@{type}!Regular@{Regular}}
+\doxysubsubsection{\texorpdfstring{type()}{type()}}
+{\footnotesize\ttfamily \label{class_regular_aa1e208b2a22993314b33e8fb643c1faf} 
+std\+::string Regular\+::type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the type identifier. 
+
+\begin{DoxyReturn}{Returns}
+The string "{}\+Regular"{}. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_customer_a131ee499a8926ad45508586d53c68694}{Customer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Customer.\+h\end{DoxyCompactItemize}

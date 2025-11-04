@@ -1,0 +1,50 @@
+\doxysection{Scene.\+h}
+\hypertarget{_scene_8h_source}{}\label{_scene_8h_source}\index{Frontend/Scene.h@{Frontend/Scene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SCENE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SCENE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}raymath.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ SCENE\_OUTDOOR,}
+\DoxyCodeLine{00019\ \ \ \ \ SCENE\_GREENHOUSE,}
+\DoxyCodeLine{00021\ \ \ \ \ SCENE\_STORE,}
+\DoxyCodeLine{00023\ \ \ \ \ SCENE\_WAREHOUSE}
+\DoxyCodeLine{00024\ \}\ SceneType;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene}{Scene}}}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ std::string\ type;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_scene_af6e09d91ebd10ae9cc7c12c39d06386c}{\string~Scene}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//\ Pure\ virtual\ functions\ that\ all\ scenes\ must\ implement}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}{Init}}()\ =\ 0;}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_a7cd484a12593952a999edfd20309b8fb}{Update}}(\textcolor{keywordtype}{float}\ dt)\ =\ 0;}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_a8680672fd30bb4b345e6fab918e31ecd}{Draw}}()\ =\ 0;}
+\DoxyCodeLine{00061\ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_a857a1635b2fec4aadcaef182ac55870b}{HandleInput}}()\ =\ 0;}
+\DoxyCodeLine{00066\ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{virtual}\ SceneType\ \mbox{\hyperlink{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}{GetSceneType}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{//\ Virtual\ functions\ with\ default\ implementations}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_abe448df6f81609819ce49ab8b1d8040b}{DrawMenu}}()\ \{\}}
+\DoxyCodeLine{00079\ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{virtual}\ SceneType\ \mbox{\hyperlink{class_scene_a2908f47812428dd3071c7dfcdd399990}{CheckExit}}()}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}{GetSceneType}}();}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SCENE\_H}}
+
+\end{DoxyCode}

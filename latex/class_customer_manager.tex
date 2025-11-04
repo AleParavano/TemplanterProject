@@ -1,0 +1,193 @@
+\doxysection{Customer\+Manager Class Reference}
+\hypertarget{class_customer_manager}{}\label{class_customer_manager}\index{CustomerManager@{CustomerManager}}
+
+
+Manages the lifecycle, spawning, movement, queuing, and rendering of all active customers in the game.  
+
+
+
+
+{\ttfamily \#include $<$Customer\+Manager.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_customer_manager_ae92428d33935de53261ebaa45798ee19}{Customer\+Manager}} (Vector2 door\+Pos=\{1270, 0\}, Vector2 counter\+Pos=\{1200, 580\})
+\begin{DoxyCompactList}\small\item\em Constructor. Initializes positions and timing variables. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_customer_manager_a47c5d64005fa0c4a779010eab692df4f}{\texorpdfstring{$\sim$}{\string~}\+Customer\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Cleans up all dynamic memory allocated for \doxylink{class_customer}{Customer} and \doxylink{struct_customer_visual}{Customer\+Visual} objects. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_manager_a9ec9a16c5a46ff520ff29d2602613a24}{update}} (float delta\+Time, bool store\+Open)
+\begin{DoxyCompactList}\small\item\em Updates the state of the \doxylink{class_customer_manager}{Customer\+Manager} and all active customers. \end{DoxyCompactList}\item 
+\Hypertarget{class_customer_manager_a7788014c5ebeb67d710ffe60f6c83718}\label{class_customer_manager_a7788014c5ebeb67d710ffe60f6c83718} 
+void {\bfseries render} () const
+\begin{DoxyCompactList}\small\item\em Renders all active customers and their thought bubbles. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_manager_a57e2369a7613b3f01711412c36fba5dd}{spawn\+Customer}} ()
+\begin{DoxyCompactList}\small\item\em Creates a new random customer and adds them to the queue. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_customer_visual}{Customer\+Visual}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_customer_manager_a9f27131fdb3ae23c12cb86ee961db266}{get\+Clicked\+Customer}} (Vector2 mouse\+Pos)
+\begin{DoxyCompactList}\small\item\em Checks if a customer is clicked/hovered at the given mouse position. \end{DoxyCompactList}\item 
+\Hypertarget{class_customer_manager_add9af6e94a93e8c6414b292c62691daf}\label{class_customer_manager_add9af6e94a93e8c6414b292c62691daf} 
+void {\bfseries dismiss\+All\+Customers} ()
+\begin{DoxyCompactList}\small\item\em Sets all currently active customers to an inactive (dismissed/leaving) state and sends them toward the exit. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_customer_manager_a94fbe0f926fe82755c2def50fbcf17d4}{serve\+Customer}} (\mbox{\hyperlink{struct_customer_visual}{Customer\+Visual}} \texorpdfstring{$\ast$}{*}cust\+Visual, const std\+::string \&plant\+Type)
+\begin{DoxyCompactList}\small\item\em Attempts to serve a customer with a plant of the specified type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_manager_a33ce4e173b4243ac2c7b3a8ab0b350e0}{dismiss\+Customer}} (\mbox{\hyperlink{struct_customer_visual}{Customer\+Visual}} \texorpdfstring{$\ast$}{*}cust\+Visual)
+\begin{DoxyCompactList}\small\item\em Forces a customer to leave (dismissal). \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_customer_manager_ac3794fbb355e11ba5a3d7fcffa7c2f8d}{get\+Customer\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current number of active customers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_manager_a355129bcb883f22322c6c92ba758d509}{set\+Spawn\+Interval}} (float interval)
+\begin{DoxyCompactList}\small\item\em Sets the time interval between customer spawns. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the lifecycle, spawning, movement, queuing, and rendering of all active customers in the game. 
+
+This class orchestrates the customer experience, from spawning them via factories to handling their serving or dismissal, and maintaining their visual queue order. 
+
+\label{doc-constructors}
+\Hypertarget{class_customer_manager_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_customer_manager_ae92428d33935de53261ebaa45798ee19}\index{CustomerManager@{CustomerManager}!CustomerManager@{CustomerManager}}
+\index{CustomerManager@{CustomerManager}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{CustomerManager()}{CustomerManager()}}
+{\footnotesize\ttfamily \label{class_customer_manager_ae92428d33935de53261ebaa45798ee19} 
+Customer\+Manager\+::\+Customer\+Manager (\begin{DoxyParamCaption}\item[{Vector2}]{door\+Pos}{ = {\ttfamily \{1270,~0\}}, }\item[{Vector2}]{counter\+Pos}{ = {\ttfamily \{1200,~580\}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor. Initializes positions and timing variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em door\+Pos} & The position where customers enter/exit. Defaults to \{1270, 0\}. \\
+\hline
+{\em counter\+Pos} & The position near the counter where the queue waits. Defaults to \{1200, 580\}. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_customer_manager_a47c5d64005fa0c4a779010eab692df4f}\index{CustomerManager@{CustomerManager}!````~CustomerManager@{\texorpdfstring{$\sim$}{\string~}CustomerManager}}
+\index{````~CustomerManager@{\texorpdfstring{$\sim$}{\string~}CustomerManager}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}CustomerManager()}{\string~CustomerManager()}}
+{\footnotesize\ttfamily \label{class_customer_manager_a47c5d64005fa0c4a779010eab692df4f} 
+Customer\+Manager\+::\texorpdfstring{$\sim$}{\string~}\+Customer\+Manager (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Destructor. Cleans up all dynamic memory allocated for \doxylink{class_customer}{Customer} and \doxylink{struct_customer_visual}{Customer\+Visual} objects. 
+
+Also calls the cleanup function on the singleton \doxylink{class_customer_image_factory}{Customer\+Image\+Factory} to unload textures. 
+
+\label{doc-func-members}
+\Hypertarget{class_customer_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_customer_manager_a33ce4e173b4243ac2c7b3a8ab0b350e0}\index{CustomerManager@{CustomerManager}!dismissCustomer@{dismissCustomer}}
+\index{dismissCustomer@{dismissCustomer}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{dismissCustomer()}{dismissCustomer()}}
+{\footnotesize\ttfamily \label{class_customer_manager_a33ce4e173b4243ac2c7b3a8ab0b350e0} 
+void Customer\+Manager\+::dismiss\+Customer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_customer_visual}{Customer\+Visual}} \texorpdfstring{$\ast$}{*}}]{cust\+Visual}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forces a customer to leave (dismissal). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cust\+Visual} & The customer to dismiss. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_customer_manager_a9f27131fdb3ae23c12cb86ee961db266}\index{CustomerManager@{CustomerManager}!getClickedCustomer@{getClickedCustomer}}
+\index{getClickedCustomer@{getClickedCustomer}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{getClickedCustomer()}{getClickedCustomer()}}
+{\footnotesize\ttfamily \label{class_customer_manager_a9f27131fdb3ae23c12cb86ee961db266} 
+\mbox{\hyperlink{struct_customer_visual}{Customer\+Visual}} \texorpdfstring{$\ast$}{*} Customer\+Manager\+::get\+Clicked\+Customer (\begin{DoxyParamCaption}\item[{Vector2}]{mouse\+Pos}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if a customer is clicked/hovered at the given mouse position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Pos} & The current position of the mouse. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the active \doxylink{struct_customer_visual}{Customer\+Visual} if clicked, otherwise nullptr. 
+\end{DoxyReturn}
+\Hypertarget{class_customer_manager_ac3794fbb355e11ba5a3d7fcffa7c2f8d}\index{CustomerManager@{CustomerManager}!getCustomerCount@{getCustomerCount}}
+\index{getCustomerCount@{getCustomerCount}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{getCustomerCount()}{getCustomerCount()}}
+{\footnotesize\ttfamily \label{class_customer_manager_ac3794fbb355e11ba5a3d7fcffa7c2f8d} 
+int Customer\+Manager\+::get\+Customer\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current number of active customers. 
+
+\begin{DoxyReturn}{Returns}
+The count of customers in the {\ttfamily active\+Customers} vector. 
+\end{DoxyReturn}
+\Hypertarget{class_customer_manager_a94fbe0f926fe82755c2def50fbcf17d4}\index{CustomerManager@{CustomerManager}!serveCustomer@{serveCustomer}}
+\index{serveCustomer@{serveCustomer}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{serveCustomer()}{serveCustomer()}}
+{\footnotesize\ttfamily \label{class_customer_manager_a94fbe0f926fe82755c2def50fbcf17d4} 
+bool Customer\+Manager\+::serve\+Customer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_customer_visual}{Customer\+Visual}} \texorpdfstring{$\ast$}{*}}]{cust\+Visual}{, }\item[{const std\+::string \&}]{plant\+Type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Attempts to serve a customer with a plant of the specified type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cust\+Visual} & The customer being served. \\
+\hline
+{\em plant\+Type} & The type of the plant being offered. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the plant matches the customer\textquotesingle{}s request and they are served/dismissed, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_customer_manager_a355129bcb883f22322c6c92ba758d509}\index{CustomerManager@{CustomerManager}!setSpawnInterval@{setSpawnInterval}}
+\index{setSpawnInterval@{setSpawnInterval}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{setSpawnInterval()}{setSpawnInterval()}}
+{\footnotesize\ttfamily \label{class_customer_manager_a355129bcb883f22322c6c92ba758d509} 
+void Customer\+Manager\+::set\+Spawn\+Interval (\begin{DoxyParamCaption}\item[{float}]{interval}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the time interval between customer spawns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em interval} & The new spawn interval in seconds. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_customer_manager_a57e2369a7613b3f01711412c36fba5dd}\index{CustomerManager@{CustomerManager}!spawnCustomer@{spawnCustomer}}
+\index{spawnCustomer@{spawnCustomer}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{spawnCustomer()}{spawnCustomer()}}
+{\footnotesize\ttfamily \label{class_customer_manager_a57e2369a7613b3f01711412c36fba5dd} 
+void Customer\+Manager\+::spawn\+Customer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates a new random customer and adds them to the queue. 
+
+A new requested \doxylink{class_plant}{Plant} is generated, a new \doxylink{class_customer}{Customer} logic object is created, and finally a \doxylink{struct_customer_visual}{Customer\+Visual} wrapper is created and added to the list. \Hypertarget{class_customer_manager_a9ec9a16c5a46ff520ff29d2602613a24}\index{CustomerManager@{CustomerManager}!update@{update}}
+\index{update@{update}!CustomerManager@{CustomerManager}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_customer_manager_a9ec9a16c5a46ff520ff29d2602613a24} 
+void Customer\+Manager\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time}{, }\item[{bool}]{store\+Open}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Updates the state of the \doxylink{class_customer_manager}{Customer\+Manager} and all active customers. 
+
+Handles customer spawning, customer movement updates, and removal of inactive customers. 
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & The time elapsed since the last frame. \\
+\hline
+{\em store\+Open} & A flag indicating if new customers should be spawned. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Customer\+Manager.\+h\end{DoxyCompactItemize}

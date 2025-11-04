@@ -1,0 +1,29 @@
+\doxysection{Subject.\+h}
+\hypertarget{_subject_8h_source}{}\label{_subject_8h_source}\index{Backend/Subject.h@{Backend/Subject.h}}
+\mbox{\hyperlink{_subject_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Observer.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_observer}{Observer}};\ \textcolor{comment}{//\ Forward\ declaration\ (although\ included\ above,\ good\ practice\ for\ pattern)}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_subject}{Subject}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_subject_af9723476c61afcceeb91bee3211258c7}{\string~Subject}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_subject_aedd8aa6de28b18ef5880566de4294bfe}{notify}}()\ =\ 0;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_subject_ab6d78de2ea944a23dc5a66a4fe580db2}{attach}}(\mbox{\hyperlink{class_observer}{Observer}}*\ observer)\ =\ 0;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_subject_a7e81018a886792735ab3d067feeb075d}{detach}}(\mbox{\hyperlink{class_observer}{Observer}}*\ observer)\ =\ 0;}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00053\ \ \ \ \ std::vector<Observer*>\ \mbox{\hyperlink{class_subject_a39d24e695db0a792799b351dbebde992}{observers}};}
+\DoxyCodeLine{00054\ \};}
+
+\end{DoxyCode}

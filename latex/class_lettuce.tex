@@ -1,0 +1,115 @@
+\doxysection{Lettuce Class Reference}
+\hypertarget{class_lettuce}{}\label{class_lettuce}\index{Lettuce@{Lettuce}}
+
+
+Concrete \doxylink{class_plant}{Plant} type\+: \doxylink{class_lettuce}{Lettuce}.  
+
+
+
+
+{\ttfamily \#include $<$Plant.\+h$>$}
+
+Inheritance diagram for Lettuce\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_lettuce}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_lettuce_a35bc90a3a6fe38a3f750505d7b6f4bd5}{Lettuce}} (\mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}} \texorpdfstring{$\ast$}{*}strategy)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_lettuce}{Lettuce} plant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant}{Plant}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant_ac05840d98bb0b63c902e496a3ac3f860}{Plant}} (std\+::string \mbox{\hyperlink{class_plant_ab1aed0f38adc8518ce0fff9b61eb5305}{type}}, float \mbox{\hyperlink{class_plant_a3e0a3a4109fe0ce37eb56576cb06c2aa}{growth\+Rate}}, float \mbox{\hyperlink{class_plant_a15569fc1281881ccf9fa38208db86cc5}{sell\+Price}}, \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}} \texorpdfstring{$\ast$}{*}strategy)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant}{Plant} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant_a3e454c81c5a9120c4b321614b22621c1}{Plant}} (const \mbox{\hyperlink{class_plant}{Plant}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy constructor for the \doxylink{class_plant}{Plant} class. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant}{Plant} class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_ae5de8d61ec24fb21f7e72f0234496dfb}{set\+Growth\+Cycle}} (\mbox{\hyperlink{class_growth_cycle}{Growth\+Cycle}} \texorpdfstring{$\ast$}{*}gc)
+\begin{DoxyCompactList}\small\item\em Sets the \doxylink{class_growth_cycle}{Growth\+Cycle} component responsible for managing the plant\textquotesingle{}s growth over time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a5d3758563617bc20eb4f43af746cd80b}{apply\+Growth\+To\+State}} (float growth)
+\begin{DoxyCompactList}\small\item\em Applies a given amount of growth to the current state of the plant. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a3fad7090d7382f83a00e09e18eef8fed}{get\+Base\+Growth\+Rate}} () const
+\begin{DoxyCompactList}\small\item\em Gets the base growth rate defined for this plant type. \end{DoxyCompactList}\item 
+void {\bfseries tick} ()
+\begin{DoxyCompactList}\small\item\em Executes a single time step (tick) for the plant, updating its growth and state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a8a2563e6b6c1da65d9af725cf97f2719}{set\+State}} (\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*}new\+State)
+\begin{DoxyCompactList}\small\item\em Transitions the plant to a new state (part of the State pattern). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a1359d8e72452eeae92d1ece03809586b}{draw}} (float x, float y, float initial\+Width, float initial\+Height) const
+\begin{DoxyCompactList}\small\item\em Draws the plant using its assigned \doxylink{class_plant_visual_strategy}{Plant\+Visual\+Strategy} (part of the Strategy pattern). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_plant_a2a030e9cb225f03f41d1855e4e06b638}{get\+Type}} ()
+\begin{DoxyCompactList}\small\item\em Gets the species type of the plant. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_plant_a988ab750a919af0800dbb2508438c880}{get\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets a string representation of the plant\textquotesingle{}s current state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_plant_aa979ce6ecfc6c9e8bced9cdc4c18d9d0}{get\+Plant\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets a pointer to the current \doxylink{class_plant_state}{Plant\+State} object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_plant_a57c1bd45d15aa5f99fbf413d8b4043d4}{get\+State\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Gets the name of the plant\textquotesingle{}s current state. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_ac27a5148abd8ec34c6a6298d9ff46bcd}{get\+Growth\+Rate}} () const
+\begin{DoxyCompactList}\small\item\em Gets the plant\textquotesingle{}s effective current growth rate. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a99cb9dbda8751c18222149a9026d313d}{get\+Water}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current water level of the plant. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a35aceeec2404f4e25338d07a30cf2ff5}{get\+Nutrients}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current nutrient level of the plant. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_aac8b9e1f656a559b2db54784821e7f50}{get\+Growth}} () const
+\begin{DoxyCompactList}\small\item\em Gets the plant\textquotesingle{}s current growth progress (0.\+0 to 1.\+0). \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_a65a13c1f207afd3012f477ef4f6678bd}{get\+Sell\+Price}} () const
+\begin{DoxyCompactList}\small\item\em Gets the base sell price of the plant. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_plant_a708fc571040248e716bd2cd0ba23d7b1}{is\+Ripe}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the plant is in the ripe state. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_plant_a2bc28a3ac802f3c929135732b06ff943}{is\+Dead}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the plant is in the dead state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_ac67b482e4def16d83920e649c227857c}{fertilize}} (float amount)
+\begin{DoxyCompactList}\small\item\em Applies fertilizer to the plant (part of the \doxylink{class_command}{Command} pattern). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_a34646eb141391cb6798699264344bcef}{water}} (float amount)
+\begin{DoxyCompactList}\small\item\em Applies water to the plant (part of the \doxylink{class_command}{Command} pattern). \end{DoxyCompactList}\item 
+void {\bfseries print\+Status} () const
+\begin{DoxyCompactList}\small\item\em Prints the current status details of the plant to the console. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_plant}{Plant}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant_state}{Plant\+State}} \texorpdfstring{$\ast$}{*} {\bfseries state}
+\begin{DoxyCompactList}\small\item\em The current state of the plant (State pattern context). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_growth_cycle}{Growth\+Cycle}} \texorpdfstring{$\ast$}{*} {\bfseries growth\+Cycle}
+\begin{DoxyCompactList}\small\item\em Component handling the plant\textquotesingle{}s growth logic. \end{DoxyCompactList}\item 
+std\+::string {\bfseries type}
+\begin{DoxyCompactList}\small\item\em The species type of the plant (e.\+g., "{}\+Lettuce"{}). \end{DoxyCompactList}\item 
+float {\bfseries growth\+Rate}
+\begin{DoxyCompactList}\small\item\em The base growth rate of the plant. \end{DoxyCompactList}\item 
+float {\bfseries sell\+Price}
+\begin{DoxyCompactList}\small\item\em The base sell price of the plant when ripe. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}} \texorpdfstring{$\ast$}{*} {\bfseries visual\+Strategy}
+\begin{DoxyCompactList}\small\item\em The strategy for visualizing the plant (Strategy pattern reference). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Concrete \doxylink{class_plant}{Plant} type\+: \doxylink{class_lettuce}{Lettuce}. 
+
+\label{doc-constructors}
+\Hypertarget{class_lettuce_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_lettuce_a35bc90a3a6fe38a3f750505d7b6f4bd5}\index{Lettuce@{Lettuce}!Lettuce@{Lettuce}}
+\index{Lettuce@{Lettuce}!Lettuce@{Lettuce}}
+\doxysubsubsection{\texorpdfstring{Lettuce()}{Lettuce()}}
+{\footnotesize\ttfamily \label{class_lettuce_a35bc90a3a6fe38a3f750505d7b6f4bd5} 
+Lettuce\+::\+Lettuce (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}} \texorpdfstring{$\ast$}{*}}]{strategy}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \doxylink{class_lettuce}{Lettuce} plant. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em strategy} & The visualization strategy for \doxylink{class_lettuce}{Lettuce}. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,176 @@
+\doxysection{Warehouse\+Scene Class Reference}
+\hypertarget{class_warehouse_scene}{}\label{class_warehouse_scene}\index{WarehouseScene@{WarehouseScene}}
+
+
+Represents the internal warehouse or storage area where the player manages bulk inventory and supplies.  
+
+
+
+
+{\ttfamily \#include $<$Warehouse\+Scene.\+h$>$}
+
+Inheritance diagram for Warehouse\+Scene\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_warehouse_scene}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_warehouse_scene_a1d30786f5adcfccfaffc6a2960927173}\label{class_warehouse_scene_a1d30786f5adcfccfaffc6a2960927173} 
+{\bfseries Warehouse\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Constructor. Uses default initialization. \end{DoxyCompactList}\item 
+\Hypertarget{class_warehouse_scene_a1b4d4c8a4f3f78695b620b42a7a71096}\label{class_warehouse_scene_a1b4d4c8a4f3f78695b620b42a7a71096} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Warehouse\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_warehouse_scene_a5d4d863d80c8ea47c7b4a41974dd0b0b}{Init}} () override
+\begin{DoxyCompactList}\small\item\em Performs one-\/time setup and initialization for the warehouse, including shelf layouts. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_warehouse_scene_a7259bb8e3366361493d3707fe47fc7ee}{Update}} (float dt) override
+\begin{DoxyCompactList}\small\item\em Updates the logic and state of the scene (e.\+g., inventory updates, time management). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_warehouse_scene_a52b884e086245abfdc905632edb95586}{Draw}} () override
+\begin{DoxyCompactList}\small\item\em Renders the warehouse environment, shelves, and displayed items. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_warehouse_scene_aba82ae2d4858898e91f02cc1c967ea59}{Handle\+Input}} () override
+\begin{DoxyCompactList}\small\item\em Processes player input specific to the warehouse (e.\+g., interacting with shelves, clicking the door). \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_warehouse_scene_a9375116b15df749b5b4bd41e27e0c9b6}{Get\+Scene\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the constant type of this scene. \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_warehouse_scene_ad1e04b0e2af06c4dcd877361428fa51a}{Check\+Exit}} () override
+\begin{DoxyCompactList}\small\item\em Checks conditions for exiting the current scene (e.\+g., player clicks the exit door). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_warehouse_scene_a3f48968e2e6161eb3b3a75582e0114ef}{Set\+Player}} (\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Links the scene to the primary \doxylink{class_player}{Player} object instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_scene}{Scene}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of resources in derived classes. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_abe448df6f81609819ce49ab8b1d8040b}{Draw\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Renders any scene-\/specific menu or persistent sidebar UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the internal warehouse or storage area where the player manages bulk inventory and supplies. 
+
+This scene is primarily designed for inventory management, separate from the sales floor ({\ttfamily \doxylink{class_store_scene}{Store\+Scene}}) and the farming area ({\ttfamily \doxylink{class_green_house_scene}{Green\+House\+Scene}}). It provides a dedicated, focused area for handling large item transfers.
+\begin{DoxyItemize}
+\item It is a {\bfseries{Concrete \doxylink{class_scene}{Scene}}} implementing the \doxylink{class_scene}{Scene} Abstract Base Class interface. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_warehouse_scene_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_warehouse_scene_ad1e04b0e2af06c4dcd877361428fa51a}\index{WarehouseScene@{WarehouseScene}!CheckExit@{CheckExit}}
+\index{CheckExit@{CheckExit}!WarehouseScene@{WarehouseScene}}
+\doxysubsubsection{\texorpdfstring{CheckExit()}{CheckExit()}}
+{\footnotesize\ttfamily \label{class_warehouse_scene_ad1e04b0e2af06c4dcd877361428fa51a} 
+Scene\+Type Warehouse\+Scene\+::\+Check\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Checks conditions for exiting the current scene (e.\+g., player clicks the exit door). 
+
+\begin{DoxyReturn}{Returns}
+The Scene\+Type to transition to, or SCENE\+\_\+\+WAREHOUSE if no exit is triggered. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_scene_a2908f47812428dd3071c7dfcdd399990}{Scene}}.
+
+\Hypertarget{class_warehouse_scene_a52b884e086245abfdc905632edb95586}\index{WarehouseScene@{WarehouseScene}!Draw@{Draw}}
+\index{Draw@{Draw}!WarehouseScene@{WarehouseScene}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_warehouse_scene_a52b884e086245abfdc905632edb95586} 
+void Warehouse\+Scene\+::\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Renders the warehouse environment, shelves, and displayed items. 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a8680672fd30bb4b345e6fab918e31ecd}{Scene}}.
+
+\Hypertarget{class_warehouse_scene_a9375116b15df749b5b4bd41e27e0c9b6}\index{WarehouseScene@{WarehouseScene}!GetSceneType@{GetSceneType}}
+\index{GetSceneType@{GetSceneType}!WarehouseScene@{WarehouseScene}}
+\doxysubsubsection{\texorpdfstring{GetSceneType()}{GetSceneType()}}
+{\footnotesize\ttfamily \label{class_warehouse_scene_a9375116b15df749b5b4bd41e27e0c9b6} 
+Scene\+Type Warehouse\+Scene\+::\+Get\+Scene\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the constant type of this scene. 
+
+\begin{DoxyReturn}{Returns}
+SCENE\+\_\+\+WAREHOUSE. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}{Scene}}.
+
+\Hypertarget{class_warehouse_scene_aba82ae2d4858898e91f02cc1c967ea59}\index{WarehouseScene@{WarehouseScene}!HandleInput@{HandleInput}}
+\index{HandleInput@{HandleInput}!WarehouseScene@{WarehouseScene}}
+\doxysubsubsection{\texorpdfstring{HandleInput()}{HandleInput()}}
+{\footnotesize\ttfamily \label{class_warehouse_scene_aba82ae2d4858898e91f02cc1c967ea59} 
+void Warehouse\+Scene\+::\+Handle\+Input (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Processes player input specific to the warehouse (e.\+g., interacting with shelves, clicking the door). 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a857a1635b2fec4aadcaef182ac55870b}{Scene}}.
+
+\Hypertarget{class_warehouse_scene_a5d4d863d80c8ea47c7b4a41974dd0b0b}\index{WarehouseScene@{WarehouseScene}!Init@{Init}}
+\index{Init@{Init}!WarehouseScene@{WarehouseScene}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_warehouse_scene_a5d4d863d80c8ea47c7b4a41974dd0b0b} 
+void Warehouse\+Scene\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs one-\/time setup and initialization for the warehouse, including shelf layouts. 
+
+
+
+Implements \mbox{\hyperlink{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}{Scene}}.
+
+\Hypertarget{class_warehouse_scene_a3f48968e2e6161eb3b3a75582e0114ef}\index{WarehouseScene@{WarehouseScene}!SetPlayer@{SetPlayer}}
+\index{SetPlayer@{SetPlayer}!WarehouseScene@{WarehouseScene}}
+\doxysubsubsection{\texorpdfstring{SetPlayer()}{SetPlayer()}}
+{\footnotesize\ttfamily \label{class_warehouse_scene_a3f48968e2e6161eb3b3a75582e0114ef} 
+void Warehouse\+Scene\+::\+Set\+Player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Links the scene to the primary \doxylink{class_player}{Player} object instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & A pointer to the \doxylink{class_player}{Player} object. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_warehouse_scene_a7259bb8e3366361493d3707fe47fc7ee}\index{WarehouseScene@{WarehouseScene}!Update@{Update}}
+\index{Update@{Update}!WarehouseScene@{WarehouseScene}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_warehouse_scene_a7259bb8e3366361493d3707fe47fc7ee} 
+void Warehouse\+Scene\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the logic and state of the scene (e.\+g., inventory updates, time management). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The delta time since the last frame. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_scene_a7cd484a12593952a999edfd20309b8fb}{Scene}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Warehouse\+Scene.\+h\item 
+Frontend/Warehouse\+Scene.\+cpp\end{DoxyCompactItemize}

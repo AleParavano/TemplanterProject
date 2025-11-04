@@ -1,0 +1,126 @@
+\doxysection{Store Class Reference}
+\hypertarget{class_store}{}\label{class_store}\index{Store@{Store}}
+
+
+Represents an in-\/game store where players can purchase items.  
+
+
+
+
+{\ttfamily \#include $<$Store.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_store_a5f58eadcb7385d5a5aa6830daef84f7d}\label{class_store_a5f58eadcb7385d5a5aa6830daef84f7d} 
+{\bfseries Store} ()
+\begin{DoxyCompactList}\small\item\em Constructs a new \doxylink{class_store}{Store} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_store_a4fd725fdb2de0632ed98bfbd131c2512}{\texorpdfstring{$\sim$}{\string~}\+Store}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the \doxylink{class_store}{Store} object and cleans up memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_store_aeb41725022724f48a8a68caad01e08c5}{add\+Item}} (\mbox{\hyperlink{class_store_item}{Store\+Item}} \texorpdfstring{$\ast$}{*}item)
+\begin{DoxyCompactList}\small\item\em Adds a new item to the store\textquotesingle{}s inventory. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_store_a2bcf306778438cb3800afce91da024c5}{purchase\+Item}} (size\+\_\+t index, \mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}player)
+\begin{DoxyCompactList}\small\item\em Attempts to purchase an item from the store at a specific index. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_store_add22adcf08d297e342047f3bc86bec24}{get\+Item\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Gets the total number of items currently available in the store. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_store_item}{Store\+Item}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_store_ab825eb6820515ffb7d10205ad6864bc3}{get\+Item}} (size\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em Retrieves a pointer to an item at a specific index. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an in-\/game store where players can purchase items. 
+
+The \doxylink{class_store}{Store} holds a collection of available \doxylink{class_store_item}{Store\+Item} objects and provides functionality for a \doxylink{class_player}{Player} to attempt to purchase an item. 
+
+\label{doc-constructors}
+\Hypertarget{class_store_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_store_a4fd725fdb2de0632ed98bfbd131c2512}\index{Store@{Store}!````~Store@{\texorpdfstring{$\sim$}{\string~}Store}}
+\index{````~Store@{\texorpdfstring{$\sim$}{\string~}Store}!Store@{Store}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Store()}{\string~Store()}}
+{\footnotesize\ttfamily \label{class_store_a4fd725fdb2de0632ed98bfbd131c2512} 
+Store\+::\texorpdfstring{$\sim$}{\string~}\+Store (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destroys the \doxylink{class_store}{Store} object and cleans up memory. 
+
+It is assumed that the destructor is responsible for deleting the \doxylink{class_store_item}{Store\+Item} objects stored in the \textquotesingle{}items\textquotesingle{} vector to prevent memory leaks. 
+
+\label{doc-func-members}
+\Hypertarget{class_store_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_store_aeb41725022724f48a8a68caad01e08c5}\index{Store@{Store}!addItem@{addItem}}
+\index{addItem@{addItem}!Store@{Store}}
+\doxysubsubsection{\texorpdfstring{addItem()}{addItem()}}
+{\footnotesize\ttfamily \label{class_store_aeb41725022724f48a8a68caad01e08c5} 
+void Store\+::add\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_store_item}{Store\+Item}} \texorpdfstring{$\ast$}{*}}]{item}{}\end{DoxyParamCaption})}
+
+
+
+Adds a new item to the store\textquotesingle{}s inventory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & A pointer to the \doxylink{class_store_item}{Store\+Item} to be added. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_store_ab825eb6820515ffb7d10205ad6864bc3}\index{Store@{Store}!getItem@{getItem}}
+\index{getItem@{getItem}!Store@{Store}}
+\doxysubsubsection{\texorpdfstring{getItem()}{getItem()}}
+{\footnotesize\ttfamily \label{class_store_ab825eb6820515ffb7d10205ad6864bc3} 
+\mbox{\hyperlink{class_store_item}{Store\+Item}} \texorpdfstring{$\ast$}{*} Store\+::get\+Item (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index}{}\end{DoxyParamCaption}) const}
+
+
+
+Retrieves a pointer to an item at a specific index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the item to retrieve (0-\/based). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the \doxylink{class_store_item}{Store\+Item}, or nullptr if the index is out of bounds. 
+\end{DoxyReturn}
+\Hypertarget{class_store_add22adcf08d297e342047f3bc86bec24}\index{Store@{Store}!getItemCount@{getItemCount}}
+\index{getItemCount@{getItemCount}!Store@{Store}}
+\doxysubsubsection{\texorpdfstring{getItemCount()}{getItemCount()}}
+{\footnotesize\ttfamily \label{class_store_add22adcf08d297e342047f3bc86bec24} 
+size\+\_\+t Store\+::get\+Item\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the total number of items currently available in the store. 
+
+\begin{DoxyReturn}{Returns}
+The count of items (size\+\_\+t). 
+\end{DoxyReturn}
+\Hypertarget{class_store_a2bcf306778438cb3800afce91da024c5}\index{Store@{Store}!purchaseItem@{purchaseItem}}
+\index{purchaseItem@{purchaseItem}!Store@{Store}}
+\doxysubsubsection{\texorpdfstring{purchaseItem()}{purchaseItem()}}
+{\footnotesize\ttfamily \label{class_store_a2bcf306778438cb3800afce91da024c5} 
+bool Store\+::purchase\+Item (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index}{, }\item[{\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*}}]{player}{}\end{DoxyParamCaption})}
+
+
+
+Attempts to purchase an item from the store at a specific index. 
+
+The function checks if the player has enough currency and if the purchase is successful, it deducts the cost from the player and adds the item to the player\textquotesingle{}s inventory.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the item in the store\textquotesingle{}s list (0-\/based). \\
+\hline
+{\em player} & A pointer to the \doxylink{class_player}{Player} attempting the purchase. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the purchase was successful, false otherwise (e.\+g., player lacks funds). 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/\mbox{\hyperlink{_store_8h}{Store.\+h}}\item 
+Backend/Store.\+cpp\end{DoxyCompactItemize}

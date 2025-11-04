@@ -1,0 +1,285 @@
+\doxysection{Inventory Class Reference}
+\hypertarget{class_inventory}{}\label{class_inventory}\index{Inventory@{Inventory}}
+
+
+Manages a collection of Inventory\+Slots, providing high-\/level item management functions.  
+
+
+
+
+{\ttfamily \#include $<$Inventory.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_inventory_a7bf4bf12c31508e99e58311820a550c5}{Inventory}} (int capacity)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_inventory}{Inventory}. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_a6c6dfcb6d977c74a7abf46809e892e3d}\label{class_inventory_a6c6dfcb6d977c74a7abf46809e892e3d} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Inventory} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_inventory}{Inventory}. Responsible for cleaning up \doxylink{class_inventory_slot}{Inventory\+Slot} pointers. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_inventory_a44578448b3e122f6edbcd6620b1ee7e2}{add}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant)
+\begin{DoxyCompactList}\small\item\em Adds a plant to a compatible or new slot. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_inventory_aca85d13886f709d95df6dffb43435506}{remove\+Item}} (const std\+::string \&plant\+Type)
+\begin{DoxyCompactList}\small\item\em Finds and removes a single item of the specified type from its corresponding slot. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_inventory_a7056671da418111559b3d98dfa422647}{remove\+Stack}} (size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Removes and deletes an entire \doxylink{class_inventory_slot}{Inventory\+Slot} (stack) at a specific index. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_inventory_a2a34941ae1734342efa15821ea8310ff}{get\+Plant\+Count}} (const std\+::string \&plant\+Type) const
+\begin{DoxyCompactList}\small\item\em Counts the total number of plants of a specific type across all slots. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_inventory_aad0259e1477f19c632dc4c43cd9332fd}{get\+Stack\+Count}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current number of occupied Inventory\+Slots. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_inventory_ae64c114e81d5ee14653161f425510a26}{is\+Full}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the \doxylink{class_inventory}{Inventory} has reached its maximum number of slots. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_inventory_abd1ecba0f6f83be4b621aebb85acf7dd}{get\+Slot}} (size\+\_\+t index) const
+\begin{DoxyCompactList}\small\item\em Gets a pointer to a specific \doxylink{class_inventory_slot}{Inventory\+Slot}. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_a181cdda67bcd1aef95aafe2b7a8432ea}\label{class_inventory_a181cdda67bcd1aef95aafe2b7a8432ea} 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em Clears all slots and deletes all stored \doxylink{class_plant}{Plant} objects. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_inventory_a47c7065a53055bdbb2d48903c9a105a4}{get\+Max\+Slots}} () const
+\begin{DoxyCompactList}\small\item\em Gets the maximum number of slots the inventory can currently hold. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_inventory_adc141680bfbb2b73f4f8182918c34391}{set\+Max\+Slots}} (size\+\_\+t capacity)
+\begin{DoxyCompactList}\small\item\em Sets or updates the maximum number of slots the inventory can hold. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_inventory_a3c9d3dc1293ba9b65d82fce2d5598793}{swap\+Slots}} (int index1, int index2)
+\begin{DoxyCompactList}\small\item\em Swaps the contents (pointers to Inventory\+Slots) of two slot indices within this inventory. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_inventory_afb3aa2ea7ae50c05f3fa633f793ca0f3}{add\+To\+Specific\+Slot}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant, size\+\_\+t slot\+Index)
+\begin{DoxyCompactList}\small\item\em Attempts to add a plant directly into an existing specific slot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_inventory_a48a53ec7c86c3e413332827625126ff0}{swap\+Between\+Inventories}} (\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}inv1, int index1, \mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}inv2, int index2)
+\begin{DoxyCompactList}\small\item\em Static utility method to swap the contents of two slots between two different inventories. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages a collection of Inventory\+Slots, providing high-\/level item management functions. 
+
+\label{doc-constructors}
+\Hypertarget{class_inventory_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_inventory_a7bf4bf12c31508e99e58311820a550c5}\index{Inventory@{Inventory}!Inventory@{Inventory}}
+\index{Inventory@{Inventory}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{Inventory()}{Inventory()}}
+{\footnotesize\ttfamily \label{class_inventory_a7bf4bf12c31508e99e58311820a550c5} 
+Inventory\+::\+Inventory (\begin{DoxyParamCaption}\item[{int}]{capacity}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for the \doxylink{class_inventory}{Inventory}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em capacity} & The maximum number of Inventory\+Slots this inventory can hold. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_inventory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_inventory_a44578448b3e122f6edbcd6620b1ee7e2}\index{Inventory@{Inventory}!add@{add}}
+\index{add@{add}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily \label{class_inventory_a44578448b3e122f6edbcd6620b1ee7e2} 
+bool Inventory\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{}\end{DoxyParamCaption})}
+
+
+
+Adds a plant to a compatible or new slot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & Pointer to the \doxylink{class_plant}{Plant} object to add. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the plant was successfully added, false otherwise (e.\+g., if inventory is full). 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_afb3aa2ea7ae50c05f3fa633f793ca0f3}\index{Inventory@{Inventory}!addToSpecificSlot@{addToSpecificSlot}}
+\index{addToSpecificSlot@{addToSpecificSlot}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{addToSpecificSlot()}{addToSpecificSlot()}}
+{\footnotesize\ttfamily \label{class_inventory_afb3aa2ea7ae50c05f3fa633f793ca0f3} 
+bool Inventory\+::add\+To\+Specific\+Slot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{, }\item[{size\+\_\+t}]{slot\+Index}{}\end{DoxyParamCaption})}
+
+
+
+Attempts to add a plant directly into an existing specific slot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & Pointer to the \doxylink{class_plant}{Plant} object to add. \\
+\hline
+{\em slot\+Index} & The index of the target slot. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the plant was successfully added, false otherwise (e.\+g., slot full or incompatible type). 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_a47c7065a53055bdbb2d48903c9a105a4}\index{Inventory@{Inventory}!getMaxSlots@{getMaxSlots}}
+\index{getMaxSlots@{getMaxSlots}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{getMaxSlots()}{getMaxSlots()}}
+{\footnotesize\ttfamily \label{class_inventory_a47c7065a53055bdbb2d48903c9a105a4} 
+size\+\_\+t Inventory\+::get\+Max\+Slots (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the maximum number of slots the inventory can currently hold. 
+
+\begin{DoxyReturn}{Returns}
+The maximum slot capacity. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_a2a34941ae1734342efa15821ea8310ff}\index{Inventory@{Inventory}!getPlantCount@{getPlantCount}}
+\index{getPlantCount@{getPlantCount}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{getPlantCount()}{getPlantCount()}}
+{\footnotesize\ttfamily \label{class_inventory_a2a34941ae1734342efa15821ea8310ff} 
+int Inventory\+::get\+Plant\+Count (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{plant\+Type}{}\end{DoxyParamCaption}) const}
+
+
+
+Counts the total number of plants of a specific type across all slots. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant\+Type} & The type of plant to count. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The total number of plants of that type. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_abd1ecba0f6f83be4b621aebb85acf7dd}\index{Inventory@{Inventory}!getSlot@{getSlot}}
+\index{getSlot@{getSlot}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{getSlot()}{getSlot()}}
+{\footnotesize\ttfamily \label{class_inventory_abd1ecba0f6f83be4b621aebb85acf7dd} 
+const \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} \texorpdfstring{$\ast$}{*} Inventory\+::get\+Slot (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets a pointer to a specific \doxylink{class_inventory_slot}{Inventory\+Slot}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the slot to retrieve. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A const pointer to the \doxylink{class_inventory_slot}{Inventory\+Slot}, or nullptr if the index is invalid. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_aad0259e1477f19c632dc4c43cd9332fd}\index{Inventory@{Inventory}!getStackCount@{getStackCount}}
+\index{getStackCount@{getStackCount}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{getStackCount()}{getStackCount()}}
+{\footnotesize\ttfamily \label{class_inventory_aad0259e1477f19c632dc4c43cd9332fd} 
+size\+\_\+t Inventory\+::get\+Stack\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current number of occupied Inventory\+Slots. 
+
+\begin{DoxyReturn}{Returns}
+The count of inventory stacks. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_ae64c114e81d5ee14653161f425510a26}\index{Inventory@{Inventory}!isFull@{isFull}}
+\index{isFull@{isFull}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{isFull()}{isFull()}}
+{\footnotesize\ttfamily \label{class_inventory_ae64c114e81d5ee14653161f425510a26} 
+bool Inventory\+::is\+Full (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the \doxylink{class_inventory}{Inventory} has reached its maximum number of slots. 
+
+\begin{DoxyReturn}{Returns}
+true if max\+Slots capacity is reached, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_aca85d13886f709d95df6dffb43435506}\index{Inventory@{Inventory}!removeItem@{removeItem}}
+\index{removeItem@{removeItem}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{removeItem()}{removeItem()}}
+{\footnotesize\ttfamily \label{class_inventory_aca85d13886f709d95df6dffb43435506} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Inventory\+::remove\+Item (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{plant\+Type}{}\end{DoxyParamCaption})}
+
+
+
+Finds and removes a single item of the specified type from its corresponding slot. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant\+Type} & The string type of the plant to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the removed \doxylink{class_plant}{Plant} object, or nullptr if none was found. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_a7056671da418111559b3d98dfa422647}\index{Inventory@{Inventory}!removeStack@{removeStack}}
+\index{removeStack@{removeStack}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{removeStack()}{removeStack()}}
+{\footnotesize\ttfamily \label{class_inventory_a7056671da418111559b3d98dfa422647} 
+bool Inventory\+::remove\+Stack (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index}{}\end{DoxyParamCaption})}
+
+
+
+Removes and deletes an entire \doxylink{class_inventory_slot}{Inventory\+Slot} (stack) at a specific index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the slot to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the stack was successfully removed, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_adc141680bfbb2b73f4f8182918c34391}\index{Inventory@{Inventory}!setMaxSlots@{setMaxSlots}}
+\index{setMaxSlots@{setMaxSlots}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{setMaxSlots()}{setMaxSlots()}}
+{\footnotesize\ttfamily \label{class_inventory_adc141680bfbb2b73f4f8182918c34391} 
+void Inventory\+::set\+Max\+Slots (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{capacity}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets or updates the maximum number of slots the inventory can hold. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em capacity} & The new maximum slot capacity. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_inventory_a48a53ec7c86c3e413332827625126ff0}\index{Inventory@{Inventory}!swapBetweenInventories@{swapBetweenInventories}}
+\index{swapBetweenInventories@{swapBetweenInventories}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{swapBetweenInventories()}{swapBetweenInventories()}}
+{\footnotesize\ttfamily \label{class_inventory_a48a53ec7c86c3e413332827625126ff0} 
+void Inventory\+::swap\+Between\+Inventories (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}}]{inv1}{, }\item[{int}]{index1}{, }\item[{\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}}]{inv2}{, }\item[{int}]{index2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Static utility method to swap the contents of two slots between two different inventories. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inv1} & Pointer to the first \doxylink{class_inventory}{Inventory}. \\
+\hline
+{\em index1} & The slot index in the first inventory. \\
+\hline
+{\em inv2} & Pointer to the second \doxylink{class_inventory}{Inventory}. \\
+\hline
+{\em index2} & The slot index in the second inventory. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_inventory_a3c9d3dc1293ba9b65d82fce2d5598793}\index{Inventory@{Inventory}!swapSlots@{swapSlots}}
+\index{swapSlots@{swapSlots}!Inventory@{Inventory}}
+\doxysubsubsection{\texorpdfstring{swapSlots()}{swapSlots()}}
+{\footnotesize\ttfamily \label{class_inventory_a3c9d3dc1293ba9b65d82fce2d5598793} 
+void Inventory\+::swap\+Slots (\begin{DoxyParamCaption}\item[{int}]{index1}{, }\item[{int}]{index2}{}\end{DoxyParamCaption})}
+
+
+
+Swaps the contents (pointers to Inventory\+Slots) of two slot indices within this inventory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index1} & The index of the first slot. \\
+\hline
+{\em index2} & The index of the second slot. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Inventory.\+h\item 
+Backend/Inventory.\+cpp\end{DoxyCompactItemize}

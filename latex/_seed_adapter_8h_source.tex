@@ -1,0 +1,28 @@
+\doxysection{Seed\+Adapter.\+h}
+\hypertarget{_seed_adapter_8h_source}{}\label{_seed_adapter_8h_source}\index{Backend/SeedAdapter.h@{Backend/SeedAdapter.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}StoreItem.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Plant.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_seed_adapter_a5e3e1520061144dd7cca66951eb6b8d5}{SeedAdapter}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_store_item}{StoreItem}}\ }
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{float}\ price;}
+\DoxyCodeLine{00018\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ std::function<\mbox{\hyperlink{class_plant}{Plant}}*()>\ plantFactory;}
+\DoxyCodeLine{00021\ \ \ \ \ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_seed_adapter_a5e3e1520061144dd7cca66951eb6b8d5}{SeedAdapter}}(\textcolor{keywordtype}{float}\ seedPrice,\ std::function<\mbox{\hyperlink{class_plant}{Plant}}*()>\ factory);}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_seed_adapter_a73f90643ec78b11b287be26d48209fba}{\string~SeedAdapter}}();}
+\DoxyCodeLine{00034\ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_seed_adapter_a3bfb438181864fb5687bd14fcff64b40}{getPrice}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{class_seed_adapter_afafc89e3addce2d9ea4428574cd9a7dd}{request}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \};}
+
+\end{DoxyCode}

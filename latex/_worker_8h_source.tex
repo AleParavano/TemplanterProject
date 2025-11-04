@@ -1,0 +1,92 @@
+\doxysection{Worker.\+h}
+\hypertarget{_worker_8h_source}{}\label{_worker_8h_source}\index{Backend/Worker.h@{Backend/Worker.h}}
+\mbox{\hyperlink{_worker_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Observer.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <queue>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Command.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}Plant.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}PlantState.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <condition\_variable>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <atomic>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ Forward\ declaration}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_greenhouse}{Greenhouse}};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_observer_a19c43f80a38a332a6f694783df3c9835}{Observer}}}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}}\ \&worker);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_worker_aa8e4543ef1e93fd9d884269ba30c5bfe}{\string~Worker}}();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_a053e21528a912633dbe3ef347a1b303b}{setLevel}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_worker_a7a1628042f0401d86aaf924180a6d05e}{level}});}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_a05e9e19692488aa3dd4cb080f7e2723a}{executeCommand}}();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_ab33c6ad58e1391ba4f10cdae7b264444}{addCommand}}(\mbox{\hyperlink{class_command}{Command}}\ *command);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_a550bf3ec6d957e63ca6364311fffa01f}{setSubject}}(\mbox{\hyperlink{class_greenhouse}{Greenhouse}}*\ greenhouse)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_ad501cef52abc11a776ae6a5b7d194a43}{update}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_a273235a8775ff030dda42b53e2b3a895}{stop}}();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_worker_a4b6ab5a089ac55de9c9740daa040a3fc}{type}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Manager/Generic\ Worker"{}};\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_ac6f0e331f0b1cca861336cc8e5f2b370}{clearCommandQueue}}();}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_aa4cde17f757c3ba8a0baedb43a62dbbf}{startPatrol}}();}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_a2433546b9bb038d2807cfa43e3ca1090}{endPatrol}}();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00118\ \ \ \ \ std::string\ \mbox{\hyperlink{class_worker_a745b78594a40c4dcbfa31eed8429d1d2}{currentTaskDescription}};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00123\ \ \ \ \ std::mutex\ \mbox{\hyperlink{class_worker_a3ab4c5fd6c05ea3a2035db40d7ed7af2}{mtx}};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00128\ \ \ \ \ std::condition\_variable\ \mbox{\hyperlink{class_worker_a1ddec1ec7caeacbb856765938127d21d}{condition}};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00133\ \ \ \ \ std::atomic<bool>\ \mbox{\hyperlink{class_worker_add7a4dde022184c1c79d9768bc914071}{running}}\{\textcolor{keyword}{true}\};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ \ \ std::thread\ \mbox{\hyperlink{class_worker_ad0868a1ac19f3f3198a8eaa125096daa}{workerThread}};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00143\ \ \ \ \ std::queue<Command\ *>\ \mbox{\hyperlink{class_worker_a5600540369b03b36809f0db6dae0ba39}{commandQueue}};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00148\ \ \ \ \ \mbox{\hyperlink{class_greenhouse}{Greenhouse}}\ *\mbox{\hyperlink{class_worker_a5f203bf107fa468de452c7b16794b5ea}{subject}};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_worker_a7a1628042f0401d86aaf924180a6d05e}{level}}\ =\ 1;}
+\DoxyCodeLine{00154\ \};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00160\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_water_worker}{WaterWorker}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}}}
+\DoxyCodeLine{00161\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_ad501cef52abc11a776ae6a5b7d194a43}{update}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_worker_a4b6ab5a089ac55de9c9740daa040a3fc}{type}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Water\ Worker"{}};\ \}}
+\DoxyCodeLine{00174\ \};}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00180\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_fertiliser_worker}{FertiliserWorker}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}}}
+\DoxyCodeLine{00181\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_ad501cef52abc11a776ae6a5b7d194a43}{update}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_worker_a4b6ab5a089ac55de9c9740daa040a3fc}{type}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Fertiliser\ Worker"{}};\ \}}
+\DoxyCodeLine{00194\ \};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00200\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_harvest_worker}{HarvestWorker}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_worker_a3754817df06ffe220f7f0d903c78ccac}{Worker}}}
+\DoxyCodeLine{00201\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_worker_ad501cef52abc11a776ae6a5b7d194a43}{update}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_worker_a4b6ab5a089ac55de9c9740daa040a3fc}{type}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Harvest\ Worker"{}};\ \}}
+\DoxyCodeLine{00214\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,116 @@
+\doxysection{Subject Class Reference}
+\hypertarget{class_subject}{}\label{class_subject}\index{Subject@{Subject}}
+
+
+An abstract base class that represents an object being observed (the "{}\+Publisher"{}).  
+
+
+
+
+{\ttfamily \#include $<$Subject.\+h$>$}
+
+Inheritance diagram for Subject\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_subject}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_subject_af9723476c61afcceeb91bee3211258c7}{\texorpdfstring{$\sim$}{\string~}\+Subject}} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the base class. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_subject_aedd8aa6de28b18ef5880566de4294bfe}{notify}} ()=0
+\begin{DoxyCompactList}\small\item\em Notifies all attached \doxylink{class_observer}{Observer} objects of a change in the \doxylink{class_subject}{Subject}\textquotesingle{}s state. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_subject_ab6d78de2ea944a23dc5a66a4fe580db2}{attach}} (\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}observer)=0
+\begin{DoxyCompactList}\small\item\em Attaches an \doxylink{class_observer}{Observer} to the \doxylink{class_subject}{Subject}\textquotesingle{}s list of dependents. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_subject_a7e81018a886792735ab3d067feeb075d}{detach}} (\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}observer)=0
+\begin{DoxyCompactList}\small\item\em Detaches an \doxylink{class_observer}{Observer} from the \doxylink{class_subject}{Subject}\textquotesingle{}s list of dependents. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_subject_a39d24e695db0a792799b351dbebde992}\label{class_subject_a39d24e695db0a792799b351dbebde992} 
+std\+::vector$<$ \mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*} $>$ {\bfseries observers}
+\begin{DoxyCompactList}\small\item\em A collection of pointers to the Observers currently registered to this \doxylink{class_subject}{Subject}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An abstract base class that represents an object being observed (the "{}\+Publisher"{}). 
+
+The \doxylink{class_subject}{Subject} maintains a list of dependents (Observers) and notifies them automatically of any state changes, usually by calling their update method. 
+
+\label{doc-constructors}
+\Hypertarget{class_subject_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_subject_af9723476c61afcceeb91bee3211258c7}\index{Subject@{Subject}!````~Subject@{\texorpdfstring{$\sim$}{\string~}Subject}}
+\index{````~Subject@{\texorpdfstring{$\sim$}{\string~}Subject}!Subject@{Subject}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Subject()}{\string~Subject()}}
+{\footnotesize\ttfamily \label{class_subject_af9723476c61afcceeb91bee3211258c7} 
+virtual Subject\+::\texorpdfstring{$\sim$}{\string~}\+Subject (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+Virtual destructor for the base class. 
+
+Ensures proper cleanup of derived \doxylink{class_subject}{Subject} objects. 
+
+\label{doc-func-members}
+\Hypertarget{class_subject_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_subject_ab6d78de2ea944a23dc5a66a4fe580db2}\index{Subject@{Subject}!attach@{attach}}
+\index{attach@{attach}!Subject@{Subject}}
+\doxysubsubsection{\texorpdfstring{attach()}{attach()}}
+{\footnotesize\ttfamily \label{class_subject_ab6d78de2ea944a23dc5a66a4fe580db2} 
+virtual void Subject\+::attach (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}}]{observer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Attaches an \doxylink{class_observer}{Observer} to the \doxylink{class_subject}{Subject}\textquotesingle{}s list of dependents. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em observer} & A pointer to the \doxylink{class_observer}{Observer} object to be registered. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_greenhouse_ae3a2d74d273b05799ddd66d385c64756}{Greenhouse}}.
+
+\Hypertarget{class_subject_a7e81018a886792735ab3d067feeb075d}\index{Subject@{Subject}!detach@{detach}}
+\index{detach@{detach}!Subject@{Subject}}
+\doxysubsubsection{\texorpdfstring{detach()}{detach()}}
+{\footnotesize\ttfamily \label{class_subject_a7e81018a886792735ab3d067feeb075d} 
+virtual void Subject\+::detach (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}}]{observer}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Detaches an \doxylink{class_observer}{Observer} from the \doxylink{class_subject}{Subject}\textquotesingle{}s list of dependents. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em observer} & A pointer to the \doxylink{class_observer}{Observer} object to be unregistered. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_greenhouse_a059a78cfb108136bdc2389aa3e03548e}{Greenhouse}}.
+
+\Hypertarget{class_subject_aedd8aa6de28b18ef5880566de4294bfe}\index{Subject@{Subject}!notify@{notify}}
+\index{notify@{notify}!Subject@{Subject}}
+\doxysubsubsection{\texorpdfstring{notify()}{notify()}}
+{\footnotesize\ttfamily \label{class_subject_aedd8aa6de28b18ef5880566de4294bfe} 
+virtual void Subject\+::notify (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Notifies all attached \doxylink{class_observer}{Observer} objects of a change in the \doxylink{class_subject}{Subject}\textquotesingle{}s state. 
+
+This is typically the method that initiates the update process for all listeners. 
+
+Implemented in \mbox{\hyperlink{class_greenhouse_ad5d32889f3eb6239d4b208dc2067e703}{Greenhouse}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Backend/\mbox{\hyperlink{_subject_8h}{Subject.\+h}}\end{DoxyCompactItemize}

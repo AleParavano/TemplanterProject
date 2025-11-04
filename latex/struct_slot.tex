@@ -1,0 +1,88 @@
+\doxysection{Slot Struct Reference}
+\hypertarget{struct_slot}{}\label{struct_slot}\index{Slot@{Slot}}
+
+
+Represents a single visual slot in the {\bfseries{\doxylink{class_inventory_u_i}{Inventory\+UI}}}, linking the display area to the actual item data in the core game {\bfseries{\doxylink{class_inventory}{Inventory}}}.  
+
+
+
+
+{\ttfamily \#include $<$Slot.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_slot_a1b68bf041ade604c2753f4b04f718c1c}{Slot}} (const \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} \texorpdfstring{$\ast$}{*}slot\+In, Rectangle rect\+In)
+\begin{DoxyCompactList}\small\item\em Constructor. Initializes the visual slot by linking it to the game data and defining its rectangle. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_slot_aae83f93b7b53fe95d29ec745f54753ce}{is\+Clicked}} (Vector2 mouse\+Pos) const
+\begin{DoxyCompactList}\small\item\em Checks if a given mouse position is within the boundaries of this slot\textquotesingle{}s rectangle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_slot_a90cf44477278df8dbdfaa202595a8d38}\label{struct_slot_a90cf44477278df8dbdfaa202595a8d38} 
+const \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} \texorpdfstring{$\ast$}{*} {\bfseries slot}
+\begin{DoxyCompactList}\small\item\em A read-\/only pointer to the actual game data slot (the Model component). \end{DoxyCompactList}\item 
+\Hypertarget{struct_slot_a5ca7f64e2788853aa8c0791f18853727}\label{struct_slot_a5ca7f64e2788853aa8c0791f18853727} 
+Rectangle {\bfseries rect}
+\begin{DoxyCompactList}\small\item\em The rectangular bounding box defining the slot\textquotesingle{}s drawing area and click zone. \end{DoxyCompactList}\item 
+\Hypertarget{struct_slot_a590acc0bcb728acac3284302dfe2dd0b}\label{struct_slot_a590acc0bcb728acac3284302dfe2dd0b} 
+bool {\bfseries selected} = false
+\begin{DoxyCompactList}\small\item\em Flag indicating if this slot is currently selected by the player for interaction. \end{DoxyCompactList}\item 
+\Hypertarget{struct_slot_a5d8b8e4e9110244cbfe45ba16a5e0419}\label{struct_slot_a5d8b8e4e9110244cbfe45ba16a5e0419} 
+std\+::string {\bfseries quantity}
+\begin{DoxyCompactList}\small\item\em String representation of the item quantity for display purposes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single visual slot in the {\bfseries{\doxylink{class_inventory_u_i}{Inventory\+UI}}}, linking the display area to the actual item data in the core game {\bfseries{\doxylink{class_inventory}{Inventory}}}. 
+
+This structure primarily handles visual representation and input checking (like clicking). 
+
+\label{doc-constructors}
+\Hypertarget{struct_slot_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_slot_a1b68bf041ade604c2753f4b04f718c1c}\index{Slot@{Slot}!Slot@{Slot}}
+\index{Slot@{Slot}!Slot@{Slot}}
+\doxysubsubsection{\texorpdfstring{Slot()}{Slot()}}
+{\footnotesize\ttfamily \label{struct_slot_a1b68bf041ade604c2753f4b04f718c1c} 
+Slot\+::\+Slot (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_inventory_slot}{Inventory\+Slot}} \texorpdfstring{$\ast$}{*}}]{slot\+In}{, }\item[{Rectangle}]{rect\+In}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor. Initializes the visual slot by linking it to the game data and defining its rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em slot\+In} & A pointer to the \doxylink{class_inventory_slot}{Inventory\+Slot} object containing item data (can be nullptr). \\
+\hline
+{\em rect\+In} & The screen coordinates and size of the slot. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{struct_slot_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_slot_aae83f93b7b53fe95d29ec745f54753ce}\index{Slot@{Slot}!isClicked@{isClicked}}
+\index{isClicked@{isClicked}!Slot@{Slot}}
+\doxysubsubsection{\texorpdfstring{isClicked()}{isClicked()}}
+{\footnotesize\ttfamily \label{struct_slot_aae83f93b7b53fe95d29ec745f54753ce} 
+bool Slot\+::is\+Clicked (\begin{DoxyParamCaption}\item[{Vector2}]{mouse\+Pos}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if a given mouse position is within the boundaries of this slot\textquotesingle{}s rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Pos} & The mouse coordinates to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the mouse is over the slot, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Slot.\+h\end{DoxyCompactItemize}

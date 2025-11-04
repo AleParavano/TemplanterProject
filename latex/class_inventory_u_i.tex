@@ -1,0 +1,135 @@
+\doxysection{Inventory\+UI Class Reference}
+\hypertarget{class_inventory_u_i}{}\label{class_inventory_u_i}\index{InventoryUI@{InventoryUI}}
+
+
+Manages the visual representation, rendering, and user interaction logic for the player\textquotesingle{}s inventory.  
+
+
+
+
+{\ttfamily \#include $<$Inventory\+UI.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_inventory_u_i_a761daa60a1de1dadd49048f0fa9bcfc5}{Inventory\+UI}} (\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}inv)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_inventory_u_i}{Inventory\+UI} when linked to an existing \doxylink{class_inventory}{Inventory} model. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_u_i_aecd908de89e39ca532acab9fc3d00f9d}\label{class_inventory_u_i_aecd908de89e39ca532acab9fc3d00f9d} 
+{\bfseries Inventory\+UI} ()
+\begin{DoxyCompactList}\small\item\em Default constructor (potentially for delayed initialization). \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_u_i_a86550abfcd2ad604a5f9cd77b5943846}\label{class_inventory_u_i_a86550abfcd2ad604a5f9cd77b5943846} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Inventory\+UI} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. Resources are generally managed by raylib or other systems. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_u_i_a122ff8fa813d0e88d4885169ebca7288}\label{class_inventory_u_i_a122ff8fa813d0e88d4885169ebca7288} 
+void {\bfseries toggle} ()
+\begin{DoxyCompactList}\small\item\em Toggles the visibility state of the inventory window. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_u_i_a3be978bcc7643fb5a927146cbb6a3125}\label{class_inventory_u_i_a3be978bcc7643fb5a927146cbb6a3125} 
+void {\bfseries render} ()
+\begin{DoxyCompactList}\small\item\em Renders the inventory window, slots, and items to the screen. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_u_i_a91606dbbd7194e94798f0a8e4b4be3dc}\label{class_inventory_u_i_a91606dbbd7194e94798f0a8e4b4be3dc} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em Updates the inventory UI state, processing mouse input, slot selection, and handling item manipulation. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_inventory_u_i_a2ee4bba7f2e067d70d1c42dc1e4bb608}{is\+Inventory\+Open}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the inventory window is currently open. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_inventory_u_i_a9e27b14d1d76590bb0d7386942f04a6f}{get\+Selected\+Slot\+Index}} () const
+\begin{DoxyCompactList}\small\item\em Gets the index of the slot that is currently selected by the user. \end{DoxyCompactList}\item 
+\Hypertarget{class_inventory_u_i_adec1aae79dd687a74d355162f741891d}\label{class_inventory_u_i_adec1aae79dd687a74d355162f741891d} 
+void {\bfseries clear\+Slot\+Selection} ()
+\begin{DoxyCompactList}\small\item\em Resets the currently selected slot index to an unselected state. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{struct_slot}{Slot}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_inventory_u_i_aadebc6082137b6926dbe09a2aec95d13}{get\+Slot}} (int index) const
+\begin{DoxyCompactList}\small\item\em Retrieves a read-\/only pointer to a specific slot object. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_slot}{Slot}} $>$ \& \mbox{\hyperlink{class_inventory_u_i_adc620a45ab7426aa20f9dd8a824913c9}{get\+Slots}} ()
+\begin{DoxyCompactList}\small\item\em Provides access to the vector of all visual \doxylink{struct_slot}{Slot} objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the visual representation, rendering, and user interaction logic for the player\textquotesingle{}s inventory. 
+
+This class acts as the {\bfseries{View/\+Controller}} component for the \doxylink{class_inventory}{Inventory} {\bfseries{Model}}, handling mouse input for slot selection, item swapping, and rendering the UI elements. 
+
+\label{doc-constructors}
+\Hypertarget{class_inventory_u_i_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_inventory_u_i_a761daa60a1de1dadd49048f0fa9bcfc5}\index{InventoryUI@{InventoryUI}!InventoryUI@{InventoryUI}}
+\index{InventoryUI@{InventoryUI}!InventoryUI@{InventoryUI}}
+\doxysubsubsection{\texorpdfstring{InventoryUI()}{InventoryUI()}}
+{\footnotesize\ttfamily \label{class_inventory_u_i_a761daa60a1de1dadd49048f0fa9bcfc5} 
+Inventory\+UI\+::\+Inventory\+UI (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_inventory}{Inventory}} \texorpdfstring{$\ast$}{*}}]{inv}{}\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_inventory_u_i}{Inventory\+UI} when linked to an existing \doxylink{class_inventory}{Inventory} model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inv} & A pointer to the \doxylink{class_inventory}{Inventory} object this UI will manage. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_inventory_u_i_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_inventory_u_i_a9e27b14d1d76590bb0d7386942f04a6f}\index{InventoryUI@{InventoryUI}!getSelectedSlotIndex@{getSelectedSlotIndex}}
+\index{getSelectedSlotIndex@{getSelectedSlotIndex}!InventoryUI@{InventoryUI}}
+\doxysubsubsection{\texorpdfstring{getSelectedSlotIndex()}{getSelectedSlotIndex()}}
+{\footnotesize\ttfamily \label{class_inventory_u_i_a9e27b14d1d76590bb0d7386942f04a6f} 
+int Inventory\+UI\+::get\+Selected\+Slot\+Index (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the index of the slot that is currently selected by the user. 
+
+\begin{DoxyReturn}{Returns}
+The zero-\/based index of the selected slot, or -\/1. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_u_i_aadebc6082137b6926dbe09a2aec95d13}\index{InventoryUI@{InventoryUI}!getSlot@{getSlot}}
+\index{getSlot@{getSlot}!InventoryUI@{InventoryUI}}
+\doxysubsubsection{\texorpdfstring{getSlot()}{getSlot()}}
+{\footnotesize\ttfamily \label{class_inventory_u_i_aadebc6082137b6926dbe09a2aec95d13} 
+const \mbox{\hyperlink{struct_slot}{Slot}} \texorpdfstring{$\ast$}{*} Inventory\+UI\+::get\+Slot (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const}
+
+
+
+Retrieves a read-\/only pointer to a specific slot object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index of the slot to retrieve. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A const pointer to the \doxylink{struct_slot}{Slot}, or nullptr if the index is out of bounds. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_u_i_adc620a45ab7426aa20f9dd8a824913c9}\index{InventoryUI@{InventoryUI}!getSlots@{getSlots}}
+\index{getSlots@{getSlots}!InventoryUI@{InventoryUI}}
+\doxysubsubsection{\texorpdfstring{getSlots()}{getSlots()}}
+{\footnotesize\ttfamily \label{class_inventory_u_i_adc620a45ab7426aa20f9dd8a824913c9} 
+std\+::vector$<$ \mbox{\hyperlink{struct_slot}{Slot}} $>$ \& Inventory\+UI\+::get\+Slots (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Provides access to the vector of all visual \doxylink{struct_slot}{Slot} objects. 
+
+\begin{DoxyReturn}{Returns}
+A reference to the mutable vector of Slots. 
+\end{DoxyReturn}
+\Hypertarget{class_inventory_u_i_a2ee4bba7f2e067d70d1c42dc1e4bb608}\index{InventoryUI@{InventoryUI}!isInventoryOpen@{isInventoryOpen}}
+\index{isInventoryOpen@{isInventoryOpen}!InventoryUI@{InventoryUI}}
+\doxysubsubsection{\texorpdfstring{isInventoryOpen()}{isInventoryOpen()}}
+{\footnotesize\ttfamily \label{class_inventory_u_i_a2ee4bba7f2e067d70d1c42dc1e4bb608} 
+bool Inventory\+UI\+::is\+Inventory\+Open (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the inventory window is currently open. 
+
+\begin{DoxyReturn}{Returns}
+true if open, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Inventory\+UI.\+h\item 
+Frontend/Inventory\+UI.\+cpp\end{DoxyCompactItemize}

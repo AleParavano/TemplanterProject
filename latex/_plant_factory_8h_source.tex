@@ -1,0 +1,151 @@
+\doxysection{Plant\+Factory.\+h}
+\hypertarget{_plant_factory_8h_source}{}\label{_plant_factory_8h_source}\index{Backend/PlantFactory.h@{Backend/PlantFactory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Plant.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Frontend/PlantVisualStrategy.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}()\ \{\}}
+\DoxyCodeLine{00019\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_plant_factory_aaa9e963946bd91314941d259f7eec9bd}{\string~PlantFactory}}()\ \{\}}
+\DoxyCodeLine{00024\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_plant}{Plant}}\ *\mbox{\hyperlink{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}{produce}}()\ =\ 0;}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_carrot_factory}{CarrotFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_carrot_factory_a31ce5fa8997381300d5b1ba3a49962cd}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_carrot}{Carrot}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_carrot_visual_strategy}{CarrotVisualStrategy}}(15.0f,\ 30.0f));}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_tomato_factory}{TomatoFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_tomato_factory_a3ab46c5483ca94b47b7f37771f9c0809}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_tomato}{Tomato}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_tomato_visual_strategy}{TomatoVisualStrategy}}(25.0f,\ 25.0f));}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_lettuce_factory}{LettuceFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}\ \{}
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00075\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_lettuce_factory_af97add4174177163a8a90720b3085628}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_lettuce}{Lettuce}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_lettuce_visual_strategy}{LettuceVisualStrategy}}(20.0f,\ 15.0f));}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ -\/-\/-\/\ You\ will\ need\ to\ complete\ the\ rest\ of\ these\ factories\ -\/-\/-\/}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sunflower_factory}{SunflowerFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}\ \{}
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_sunflower_factory_a18fa839ca7d74b600aa6ab60e07ef514}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_sunflower}{Sunflower}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_sunflower_visual_strategy}{SunflowerVisualStrategy}}(25.0f,\ 50.0f));}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_potato_factory}{PotatoFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00102\ \{}
+\DoxyCodeLine{00103\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_potato_factory_a67045c3f8e45f672863f5aeaaec2faf6}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_potato}{Potato}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_potato_visual_strategy}{PotatoVisualStrategy}}(18.0f,\ 20.0f));}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_cucumber_factory}{CucumberFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00118\ \{}
+\DoxyCodeLine{00119\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_cucumber_factory_a3f5766a0f97be7f16ac1d8e2c0c19acf}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_cucumber}{Cucumber}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_cucumber_visual_strategy}{CucumberVisualStrategy}}(20.0f,\ 35.0f));}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pepper_factory}{PepperFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00134\ \{}
+\DoxyCodeLine{00135\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00140\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_pepper_factory_abf19047e79ef6d89a05706da42879c9e}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_pepper}{Pepper}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_pepper_visual_strategy}{PepperVisualStrategy}}(25.0f,\ 30.0f));}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_strawberry_factory}{StrawberryFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00150\ \{}
+\DoxyCodeLine{00151\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00156\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_strawberry_factory_a0cee3d48eeb44257eb9d534eafdce82c}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_strawberry}{Strawberry}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_strawberry_visual_strategy}{StrawberryVisualStrategy}}(25.0f,\ 15.0f));}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_corn_factory}{CornFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00166\ \{}
+\DoxyCodeLine{00167\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00172\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_corn_factory_aaf4dc1c1344120ca0e055f4df29c11c0}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_corn}{Corn}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_corn_visual_strategy}{CornVisualStrategy}}(20.0f,\ 55.0f));}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pumpkin_factory}{PumpkinFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00182\ \{}
+\DoxyCodeLine{00183\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00188\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_pumpkin_factory_a854f7c6988034a9dc04e916f23a363c1}{produce}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_pumpkin}{Pumpkin}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_pumpkin_visual_strategy}{PumpkinVisualStrategy}}(40.0f,\ 30.0f));}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00197\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_random_plant_factory}{RandomPlantFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_plant_factory_ae91e2cccbb28fe8079534c175649d123}{PlantFactory}}}
+\DoxyCodeLine{00198\ \{}
+\DoxyCodeLine{00199\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00204\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}\ *\mbox{\hyperlink{class_random_plant_factory_ac2a633a2610ce201f4b9451951c227e3}{produce}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00205\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ std::uniform\_int\_distribution<int>\ dist(0,\ 10);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (dist(rng()))}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_carrot}{Carrot}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_carrot_visual_strategy}{CarrotVisualStrategy}}(15.0f,\ 30.0f));}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_tomato}{Tomato}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_tomato_visual_strategy}{TomatoVisualStrategy}}(25.0f,\ 25.0f));}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_sunflower}{Sunflower}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_sunflower_visual_strategy}{SunflowerVisualStrategy}}(25.0f,\ 50.0f));}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_lettuce}{Lettuce}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_lettuce_visual_strategy}{LettuceVisualStrategy}}(20.0f,\ 15.0f));}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_potato}{Potato}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_potato_visual_strategy}{PotatoVisualStrategy}}(18.0f,\ 20.0f));}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_cucumber}{Cucumber}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_cucumber_visual_strategy}{CucumberVisualStrategy}}(20.0f,\ 35.0f));}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_pepper}{Pepper}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_pepper_visual_strategy}{PepperVisualStrategy}}(25.0f,\ 30.0f));}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 7:}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_strawberry}{Strawberry}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_strawberry_visual_strategy}{StrawberryVisualStrategy}}(25.0f,\ 15.0f));}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_corn}{Corn}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_corn_visual_strategy}{CornVisualStrategy}}(20.0f,\ 55.0f));}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_pumpkin}{Pumpkin}}(\textcolor{keyword}{new}\ \mbox{\hyperlink{class_pumpkin_visual_strategy}{PumpkinVisualStrategy}}(40.0f,\ 30.0f));}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keyword}{static}\ std::mt19937\ \&rng()}
+\DoxyCodeLine{00249\ \ \ \ \ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ std::mt19937\ engine\{std::random\_device\{\}()\};}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ engine;}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \};}
+
+\end{DoxyCode}

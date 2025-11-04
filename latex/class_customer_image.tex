@@ -1,0 +1,84 @@
+\doxysection{Customer\+Image Class Reference}
+\hypertarget{class_customer_image}{}\label{class_customer_image}\index{CustomerImage@{CustomerImage}}
+
+
+Flyweight class\+: Represents the {\bfseries{Extrinsic}} state (shared data) of a customer, specifically the image (Texture2D) associated with a particular customer type.  
+
+
+
+
+{\ttfamily \#include $<$Customer\+Flyweight.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_customer_image_a45c8997bac634514c8fcc602aefeb105}{Customer\+Image}} (const std\+::string \&type, const std\+::string \&image\+Path)
+\begin{DoxyCompactList}\small\item\em Constructor. Loads the texture from the specified file path. \end{DoxyCompactList}\item 
+\Hypertarget{class_customer_image_a00683f9e3f13513af227b631a8a52c7a}\label{class_customer_image_a00683f9e3f13513af227b631a8a52c7a} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Customer\+Image} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Unloads the raylib texture resource if it was loaded. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_image_a4024dbafa39b44f2527ae20030fba50c}{render}} (Vector2 position, float radius) const
+\begin{DoxyCompactList}\small\item\em Renders the customer image at a given position and size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_customer_image_ac438c889132ddde453aa6920d793a4b2}\label{class_customer_image_ac438c889132ddde453aa6920d793a4b2} 
+Texture2D {\bfseries texture}
+\begin{DoxyCompactList}\small\item\em The raylib texture representing the customer type\textquotesingle{}s image. \end{DoxyCompactList}\item 
+\Hypertarget{class_customer_image_add22aeb4848b187992c9bb98fbac6672}\label{class_customer_image_add22aeb4848b187992c9bb98fbac6672} 
+std\+::string {\bfseries customer\+Type}
+\begin{DoxyCompactList}\small\item\em The type of the customer (e.\+g., "{}\+Standard"{}, "{}\+Premium"{}). This is part of the {\bfseries{Intrinsic}} state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Flyweight class\+: Represents the {\bfseries{Extrinsic}} state (shared data) of a customer, specifically the image (Texture2D) associated with a particular customer type. 
+
+This class acts as the {\bfseries{Flyweight}}. Instances of this class are shared across many {\ttfamily \doxylink{class_customer}{Customer}} objects of the same type, saving memory by loading and storing the image texture only once. 
+
+\label{doc-constructors}
+\Hypertarget{class_customer_image_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_customer_image_a45c8997bac634514c8fcc602aefeb105}\index{CustomerImage@{CustomerImage}!CustomerImage@{CustomerImage}}
+\index{CustomerImage@{CustomerImage}!CustomerImage@{CustomerImage}}
+\doxysubsubsection{\texorpdfstring{CustomerImage()}{CustomerImage()}}
+{\footnotesize\ttfamily \label{class_customer_image_a45c8997bac634514c8fcc602aefeb105} 
+Customer\+Image\+::\+Customer\+Image (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{type}{, }\item[{const std\+::string \&}]{image\+Path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor. Loads the texture from the specified file path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The string identifier for the customer type. \\
+\hline
+{\em image\+Path} & The file path to the image asset. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_customer_image_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_customer_image_a4024dbafa39b44f2527ae20030fba50c}\index{CustomerImage@{CustomerImage}!render@{render}}
+\index{render@{render}!CustomerImage@{CustomerImage}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily \label{class_customer_image_a4024dbafa39b44f2527ae20030fba50c} 
+void Customer\+Image\+::render (\begin{DoxyParamCaption}\item[{Vector2}]{position}{, }\item[{float}]{radius}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Renders the customer image at a given position and size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & The center coordinates (x, y) where the image should be drawn. \\
+\hline
+{\em radius} & The radius defining the size/scale of the image. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Customer\+Flyweight.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,132 @@
+\doxysection{Game Class Reference}
+\hypertarget{class_game}{}\label{class_game}\index{Game@{Game}}
+
+
+Represents the main game context and manages the overall state.  
+
+
+
+
+{\ttfamily \#include $<$Game.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_ad59df6562a58a614fda24622d3715b65}\label{class_game_ad59df6562a58a614fda24622d3715b65} 
+{\bfseries Game} ()
+\begin{DoxyCompactList}\small\item\em Private default constructor for the Singleton pattern. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_ae3d112ca6e0e55150d2fdbc704474530}\label{class_game_ae3d112ca6e0e55150d2fdbc704474530} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Game} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_game}{Game} class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player}{Player}} \& \mbox{\hyperlink{class_game_af03fe06e84f24961cc9186b80828d3c7}{get\+Player}} ()
+\begin{DoxyCompactList}\small\item\em Gets a reference to the \doxylink{class_player}{Player} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_a0cac350e8ef15229b0a3351f144f4021}{get\+Player\+Ptr}} ()
+\begin{DoxyCompactList}\small\item\em Gets a pointer to the \doxylink{class_player}{Player} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_a9f7ad0384767e46fa072891c123b7d9c}{save\+Game}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the game saving process. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_aa574d129f713c4b0ed4114c5d5224be3}{load\+Game}} ()
+\begin{DoxyCompactList}\small\item\em Initiates the game loading process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_game}{Game}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_a19798a4f4c50037e1c5cd8c5d491fef9}{get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Access method for the Singleton instance. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_game_a1532241e3868492469ebb7d049eca89f}{cleanup}} ()
+\begin{DoxyCompactList}\small\item\em Static function to clean up and delete the unique Singleton instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the main game context and manages the overall state. 
+
+
+\begin{DoxyItemize}
+\item This class is implemented using the {\bfseries{Singleton}} design pattern to ensure only one instance of the game exists throughout the application lifecycle. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_game_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_game_a1532241e3868492469ebb7d049eca89f}\index{Game@{Game}!cleanup@{cleanup}}
+\index{cleanup@{cleanup}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{cleanup()}{cleanup()}}
+{\footnotesize\ttfamily \label{class_game_a1532241e3868492469ebb7d049eca89f} 
+void Game\+::cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Static function to clean up and delete the unique Singleton instance. 
+
+
+\begin{DoxyItemize}
+\item Should be called once when the application shuts down. 
+\end{DoxyItemize}\Hypertarget{class_game_a19798a4f4c50037e1c5cd8c5d491fef9}\index{Game@{Game}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \label{class_game_a19798a4f4c50037e1c5cd8c5d491fef9} 
+\mbox{\hyperlink{class_game}{Game}} \texorpdfstring{$\ast$}{*} Game\+::get\+Instance (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Access method for the Singleton instance. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the unique \doxylink{class_game}{Game} instance, creating it if it doesn\textquotesingle{}t exist. 
+\end{DoxyReturn}
+\Hypertarget{class_game_af03fe06e84f24961cc9186b80828d3c7}\index{Game@{Game}!getPlayer@{getPlayer}}
+\index{getPlayer@{getPlayer}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getPlayer()}{getPlayer()}}
+{\footnotesize\ttfamily \label{class_game_af03fe06e84f24961cc9186b80828d3c7} 
+\mbox{\hyperlink{class_player}{Player}} \& Game\+::get\+Player (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets a reference to the \doxylink{class_player}{Player} object. 
+
+\begin{DoxyReturn}{Returns}
+A reference to the internal \doxylink{class_player}{Player} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_game_a0cac350e8ef15229b0a3351f144f4021}\index{Game@{Game}!getPlayerPtr@{getPlayerPtr}}
+\index{getPlayerPtr@{getPlayerPtr}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getPlayerPtr()}{getPlayerPtr()}}
+{\footnotesize\ttfamily \label{class_game_a0cac350e8ef15229b0a3351f144f4021} 
+\mbox{\hyperlink{class_player}{Player}} \texorpdfstring{$\ast$}{*} Game\+::get\+Player\+Ptr (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gets a pointer to the \doxylink{class_player}{Player} object. 
+
+\begin{DoxyReturn}{Returns}
+A raw pointer to the internal \doxylink{class_player}{Player} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_game_aa574d129f713c4b0ed4114c5d5224be3}\index{Game@{Game}!loadGame@{loadGame}}
+\index{loadGame@{loadGame}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{loadGame()}{loadGame()}}
+{\footnotesize\ttfamily \label{class_game_aa574d129f713c4b0ed4114c5d5224be3} 
+void Game\+::load\+Game (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initiates the game loading process. 
+
+
+\begin{DoxyItemize}
+\item Retrieves the \doxylink{class_memento}{Memento} from the \doxylink{class_caretaker}{Caretaker} and restores the \doxylink{class_player}{Player}\textquotesingle{}s state from it. 
+\end{DoxyItemize}\Hypertarget{class_game_a9f7ad0384767e46fa072891c123b7d9c}\index{Game@{Game}!saveGame@{saveGame}}
+\index{saveGame@{saveGame}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{saveGame()}{saveGame()}}
+{\footnotesize\ttfamily \label{class_game_a9f7ad0384767e46fa072891c123b7d9c} 
+void Game\+::save\+Game (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initiates the game saving process. 
+
+
+\begin{DoxyItemize}
+\item Creates a \doxylink{class_memento}{Memento} from the \doxylink{class_player}{Player}\textquotesingle{}s current state and gives it to the \doxylink{class_caretaker}{Caretaker}. 
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Game.\+h\item 
+Backend/Game.\+cpp\end{DoxyCompactItemize}

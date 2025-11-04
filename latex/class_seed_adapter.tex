@@ -1,0 +1,104 @@
+\doxysection{Seed\+Adapter Class Reference}
+\hypertarget{class_seed_adapter}{}\label{class_seed_adapter}\index{SeedAdapter@{SeedAdapter}}
+
+
+An Adapter class that makes a \doxylink{class_plant}{Plant} Factory function conform to the \doxylink{class_store_item}{Store\+Item} interface.  
+
+
+
+
+{\ttfamily \#include $<$Seed\+Adapter.\+h$>$}
+
+Inheritance diagram for Seed\+Adapter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_seed_adapter}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_seed_adapter_a5e3e1520061144dd7cca66951eb6b8d5}{Seed\+Adapter}} (float seed\+Price, std\+::function$<$ \mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}()$>$ factory)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_seed_adapter}{Seed\+Adapter}. \end{DoxyCompactList}\item 
+\Hypertarget{class_seed_adapter_a73f90643ec78b11b287be26d48209fba}\label{class_seed_adapter_a73f90643ec78b11b287be26d48209fba} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Seed\+Adapter} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \doxylink{class_seed_adapter}{Seed\+Adapter}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_seed_adapter_a3bfb438181864fb5687bd14fcff64b40}{get\+Price}} () const override
+\begin{DoxyCompactList}\small\item\em Gets the price of the seed. \end{DoxyCompactList}\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_seed_adapter_afafc89e3addce2d9ea4428574cd9a7dd}{request}} () override
+\begin{DoxyCompactList}\small\item\em Requests (purchases) the item, which executes the \doxylink{class_plant}{Plant} Factory function and returns a pointer to the newly created \doxylink{class_plant}{Plant} (as a generic void\texorpdfstring{$\ast$}{*}). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An Adapter class that makes a \doxylink{class_plant}{Plant} Factory function conform to the \doxylink{class_store_item}{Store\+Item} interface. 
+
+
+\begin{DoxyItemize}
+\item This is part of the {\bfseries{Adapter}} design pattern, allowing the store to sell seeds (which are \doxylink{class_plant}{Plant} Factory methods) as generic \doxylink{class_store_item}{Store\+Item} objects. 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_seed_adapter_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_seed_adapter_a5e3e1520061144dd7cca66951eb6b8d5}\index{SeedAdapter@{SeedAdapter}!SeedAdapter@{SeedAdapter}}
+\index{SeedAdapter@{SeedAdapter}!SeedAdapter@{SeedAdapter}}
+\doxysubsubsection{\texorpdfstring{SeedAdapter()}{SeedAdapter()}}
+{\footnotesize\ttfamily \label{class_seed_adapter_a5e3e1520061144dd7cca66951eb6b8d5} 
+Seed\+Adapter\+::\+Seed\+Adapter (\begin{DoxyParamCaption}\item[{float}]{seed\+Price}{, }\item[{std\+::function$<$ \mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}()$>$}]{factory}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_seed_adapter}{Seed\+Adapter}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em seed\+Price} & The price of the seed/item. \\
+\hline
+{\em factory} & The function (factory method) used to create the specific \doxylink{class_plant}{Plant} when the item is "{}requested"{} (purchased). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_seed_adapter_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_seed_adapter_a3bfb438181864fb5687bd14fcff64b40}\index{SeedAdapter@{SeedAdapter}!getPrice@{getPrice}}
+\index{getPrice@{getPrice}!SeedAdapter@{SeedAdapter}}
+\doxysubsubsection{\texorpdfstring{getPrice()}{getPrice()}}
+{\footnotesize\ttfamily \label{class_seed_adapter_a3bfb438181864fb5687bd14fcff64b40} 
+float Seed\+Adapter\+::get\+Price (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Gets the price of the seed. 
+
+\begin{DoxyReturn}{Returns}
+The price as a float. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_store_item}{Store\+Item}}.
+
+\Hypertarget{class_seed_adapter_afafc89e3addce2d9ea4428574cd9a7dd}\index{SeedAdapter@{SeedAdapter}!request@{request}}
+\index{request@{request}!SeedAdapter@{SeedAdapter}}
+\doxysubsubsection{\texorpdfstring{request()}{request()}}
+{\footnotesize\ttfamily \label{class_seed_adapter_afafc89e3addce2d9ea4428574cd9a7dd} 
+void \texorpdfstring{$\ast$}{*} Seed\+Adapter\+::request (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Requests (purchases) the item, which executes the \doxylink{class_plant}{Plant} Factory function and returns a pointer to the newly created \doxylink{class_plant}{Plant} (as a generic void\texorpdfstring{$\ast$}{*}). 
+
+\begin{DoxyReturn}{Returns}
+A void pointer to the newly created \doxylink{class_plant}{Plant} object. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_store_item}{Store\+Item}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Seed\+Adapter.\+h\item 
+Backend/Seed\+Adapter.\+cpp\end{DoxyCompactItemize}

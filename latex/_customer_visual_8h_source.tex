@@ -1,0 +1,110 @@
+\doxysection{Customer\+Visual.\+h}
+\hypertarget{_customer_visual_8h_source}{}\label{_customer_visual_8h_source}\index{Frontend/CustomerVisual.h@{Frontend/CustomerVisual.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CUSTOMERVISUAL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CUSTOMERVISUAL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Backend/Customer.h"{}}\ \textcolor{comment}{//\ Assumes\ this\ defines\ the\ Customer\ class/interface}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}CustomerFlyweight.h"{}}\ \ \ \ \textcolor{comment}{//\ Provides\ CustomerImageFactory\ and\ CustomerImage}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_customer_visual_ae45b2036eb59307d173da193090036b7}{CustomerVisual}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_customer}{Customer}}*\ \mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}};}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}};}
+\DoxyCodeLine{00023\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_customer_visual_aedf3ae44d04c3dc1718b9cb162b2a5d7}{radius}};}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Animation/movement}}
+\DoxyCodeLine{00029\ \ \ \ \ Vector2\ \mbox{\hyperlink{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7}{targetPosition}};}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_customer_visual_a2dbecdfe17763f026c7ac931a728f5e3}{speed}};}
+\DoxyCodeLine{00033\ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_customer_visual_ac75dfd55101a4baffb092a3fa170897b}{isMoving}};}
+\DoxyCodeLine{00036\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ Interaction}}
+\DoxyCodeLine{00039\ \ \ \ \ Rectangle\ \mbox{\hyperlink{struct_customer_visual_ac3d4e7a4bc0a1442243e5512ac3a421f}{interactionZone}};}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_customer_visual_a4d94203bac47ea429bc3803320372811}{isActive}};}
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_ae45b2036eb59307d173da193090036b7}{CustomerVisual}}(\mbox{\hyperlink{class_customer}{Customer}}*\ cust,\ Vector2\ pos,\ \textcolor{keywordtype}{float}\ rad\ =\ 30.0f)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}}(cust),\ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}(pos),\ \mbox{\hyperlink{struct_customer_visual_aedf3ae44d04c3dc1718b9cb162b2a5d7}{radius}}(rad),\ \mbox{\hyperlink{struct_customer_visual_a2dbecdfe17763f026c7ac931a728f5e3}{speed}}(50.0f),\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_ac75dfd55101a4baffb092a3fa170897b}{isMoving}}(false),\ \mbox{\hyperlink{struct_customer_visual_a4d94203bac47ea429bc3803320372811}{isActive}}(true)}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7}{targetPosition}}\ =\ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ updateInteractionZone();}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_customer_visual_a2f00d6c08852690e641ef641a0dc590d}{update}}(\textcolor{keywordtype}{float}\ deltaTime)}
+\DoxyCodeLine{00063\ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_customer_visual_ac75dfd55101a4baffb092a3fa170897b}{isMoving}})\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ Vector2\ direction\ =\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7}{targetPosition}}.x\ -\/\ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.x,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7}{targetPosition}}.y\ -\/\ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.y}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ distance\ =\ sqrtf(direction.x\ *\ direction.x\ +\ direction.y\ *\ direction.y);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(distance\ <\ 2.0f)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Arrived\ at\ target}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}\ =\ \mbox{\hyperlink{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7}{targetPosition}};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_ac75dfd55101a4baffb092a3fa170897b}{isMoving}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Move\ towards\ target}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ direction.x\ /=\ distance;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ direction.y\ /=\ distance;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.x\ +=\ direction.x\ *\ \mbox{\hyperlink{struct_customer_visual_a2dbecdfe17763f026c7ac931a728f5e3}{speed}}\ *\ deltaTime;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.y\ +=\ direction.y\ *\ \mbox{\hyperlink{struct_customer_visual_a2dbecdfe17763f026c7ac931a728f5e3}{speed}}\ *\ deltaTime;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ the\ interaction\ zone\ reflects\ the\ current\ position}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ updateInteractionZone();}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_customer_visual_aa9f224d772a7de113540479bf07afe72}{render}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00094\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Render\ customer\ image\ using\ Flyweight\ factory}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ imageFactory\ =\ \mbox{\hyperlink{class_customer_image_factory_a145e63369d43f43e8aa31bc323aede23}{CustomerImageFactory::getInstance}}();}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ std::string\ custType\ =\ \mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}}-\/>type();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ factory\ handles\ getting\ the\ shared\ flyweight\ and\ drawing\ its\ texture}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ imageFactory.renderCustomer(custType,\ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}},\ \mbox{\hyperlink{struct_customer_visual_aedf3ae44d04c3dc1718b9cb162b2a5d7}{radius}});\ }
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_customer_visual_a7081680dcb59ab34ac69afa275b3f83b}{moveTo}}(Vector2\ target)}
+\DoxyCodeLine{00109\ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a5f206fb54a60846498e5a5c6891af0a7}{targetPosition}}\ =\ target;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_ac75dfd55101a4baffb092a3fa170897b}{isMoving}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ \ \ \ \ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_customer_visual_ad42507c86f1657a6f986e7db85f88166}{canInteract}}(Vector2\ playerPos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00120\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_customer_visual_a4d94203bac47ea429bc3803320372811}{isActive}}\ \&\&\ CheckCollisionPointRec(playerPos,\ \mbox{\hyperlink{struct_customer_visual_ac3d4e7a4bc0a1442243e5512ac3a421f}{interactionZone}});}
+\DoxyCodeLine{00122\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_customer_visual_ac20fe494c07eb94f1d4d94526e8abda1}{isHovered}}(Vector2\ mousePos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00130\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CheckCollisionPointCircle(mousePos,\ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}},\ \mbox{\hyperlink{struct_customer_visual_aedf3ae44d04c3dc1718b9cb162b2a5d7}{radius}});}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ updateInteractionZone()}
+\DoxyCodeLine{00139\ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ zoneSize\ =\ \mbox{\hyperlink{struct_customer_visual_aedf3ae44d04c3dc1718b9cb162b2a5d7}{radius}}\ *\ 3;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_ac3d4e7a4bc0a1442243e5512ac3a421f}{interactionZone}}\ =\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.x\ -\/\ zoneSize/2,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.y\ -\/\ zoneSize/2,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ zoneSize,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ zoneSize}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,56 @@
+\doxysection{Plant\+Visual\+Strategy Class Reference}
+\hypertarget{class_plant_visual_strategy}{}\label{class_plant_visual_strategy}\index{PlantVisualStrategy@{PlantVisualStrategy}}
+Inheritance diagram for Plant\+Visual\+Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=11.000000cm]{class_plant_visual_strategy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_visual_strategy_a0f01891fb48bff6cc53fafc1e1401793}\label{class_plant_visual_strategy_a0f01891fb48bff6cc53fafc1e1401793} 
+{\bfseries Plant\+Visual\+Strategy} (float width, float height)
+\item 
+\Hypertarget{class_plant_visual_strategy_a1f1075fef99330b393ecbcd09010edf8}\label{class_plant_visual_strategy_a1f1075fef99330b393ecbcd09010edf8} 
+void {\bfseries set\+Growth} (float progress)
+\item 
+\Hypertarget{class_plant_visual_strategy_a83f73a509b0d769c1aaa1727b0819f18}\label{class_plant_visual_strategy_a83f73a509b0d769c1aaa1727b0819f18} 
+void {\bfseries set\+Dimensions} (float width, float height)
+\item 
+\Hypertarget{class_plant_visual_strategy_af44033e38ba5c2152981846bf66ffbbd}\label{class_plant_visual_strategy_af44033e38ba5c2152981846bf66ffbbd} 
+void {\bfseries set\+Dead} (bool dead)
+\item 
+\Hypertarget{class_plant_visual_strategy_abc5c97cc0feffe05652a54aa1879efbc}\label{class_plant_visual_strategy_abc5c97cc0feffe05652a54aa1879efbc} 
+virtual void {\bfseries draw\+Detailed} (float x, float y)=0
+\item 
+\Hypertarget{class_plant_visual_strategy_ab04627a370b8ace333a30011c689141a}\label{class_plant_visual_strategy_ab04627a370b8ace333a30011c689141a} 
+virtual void {\bfseries draw\+Static} (float x, float y)=0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_visual_strategy_a9b81fd218952392b2e4d955f0e4966f1}\label{class_plant_visual_strategy_a9b81fd218952392b2e4d955f0e4966f1} 
+Color {\bfseries apply\+Death\+Filter} (Color base\+Color) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_visual_strategy_a02797eee930256829a17cb35e2986199}\label{class_plant_visual_strategy_a02797eee930256829a17cb35e2986199} 
+float {\bfseries current\+Width}
+\item 
+\Hypertarget{class_plant_visual_strategy_a6cd5d8a6945d8c716e733c3578f78a47}\label{class_plant_visual_strategy_a6cd5d8a6945d8c716e733c3578f78a47} 
+float {\bfseries current\+Height}
+\item 
+\Hypertarget{class_plant_visual_strategy_a70e3ca40671a7d51df5b12c20c83e9be}\label{class_plant_visual_strategy_a70e3ca40671a7d51df5b12c20c83e9be} 
+float {\bfseries growth\+Progress}
+\item 
+\Hypertarget{class_plant_visual_strategy_a39dbc11bc7526b20d001541a66ed7173}\label{class_plant_visual_strategy_a39dbc11bc7526b20d001541a66ed7173} 
+bool {\bfseries is\+Currently\+Dead}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Plant\+Visual\+Strategy.\+h\item 
+Frontend/Plant\+Visual\+Strategy.\+cpp\end{DoxyCompactItemize}

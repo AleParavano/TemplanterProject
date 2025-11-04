@@ -1,0 +1,72 @@
+\doxysection{Tomato\+Factory Class Reference}
+\hypertarget{class_tomato_factory}{}\label{class_tomato_factory}\index{TomatoFactory@{TomatoFactory}}
+
+
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_tomato}{Tomato}.  
+
+
+
+
+{\ttfamily \#include $<$Plant\+Factory.\+h$>$}
+
+Inheritance diagram for Tomato\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tomato_factory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_tomato_factory_a3ab46c5483ca94b47b7f37771f9c0809}{produce}} () override
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_tomato}{Tomato} plant with its corresponding \doxylink{class_tomato_visual_strategy}{Tomato\+Visual\+Strategy}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_factory}{Plant\+Factory}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant_factory}{Plant\+Factory} object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant_factory}{Plant\+Factory} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_tomato}{Tomato}. 
+
+\label{doc-func-members}
+\Hypertarget{class_tomato_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_tomato_factory_a3ab46c5483ca94b47b7f37771f9c0809}\index{TomatoFactory@{TomatoFactory}!produce@{produce}}
+\index{produce@{produce}!TomatoFactory@{TomatoFactory}}
+\doxysubsubsection{\texorpdfstring{produce()}{produce()}}
+{\footnotesize\ttfamily \label{class_tomato_factory_a3ab46c5483ca94b47b7f37771f9c0809} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Tomato\+Factory\+::produce (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a new \doxylink{class_tomato}{Tomato} plant with its corresponding \doxylink{class_tomato_visual_strategy}{Tomato\+Visual\+Strategy}. 
+
+Produces a \doxylink{class_tomato}{Tomato} plant.
+
+\begin{DoxyReturn}{Returns}
+A pointer to a new \doxylink{class_tomato}{Tomato} object.
+\end{DoxyReturn}
+Creates a new \doxylink{class_tomato}{Tomato} instance with \doxylink{class_tomato_visual_strategy}{Tomato\+Visual\+Strategy} for rendering. \doxylink{class_tomato}{Tomato} dimensions\+: 25x25 pixels
+
+\begin{DoxyReturn}{Returns}
+Pointer to newly allocated \doxylink{class_tomato}{Tomato} with \doxylink{class_tomato_visual_strategy}{Tomato\+Visual\+Strategy} 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_tomato}{Tomato} 
+
+\doxylink{class_tomato_visual_strategy}{Tomato\+Visual\+Strategy} 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}{Plant\+Factory}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant\+Factory.\+h\item 
+Backend/\mbox{\hyperlink{_plant_factory_8cpp}{Plant\+Factory.\+cpp}}\end{DoxyCompactItemize}

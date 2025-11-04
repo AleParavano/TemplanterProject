@@ -1,0 +1,258 @@
+\doxysection{Customer\+Manager.\+h}
+\hypertarget{_customer_manager_8h_source}{}\label{_customer_manager_8h_source}\index{Frontend/CustomerManager.h@{Frontend/CustomerManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CUSTOMERMANAGER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CUSTOMERMANAGER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}CustomerVisual.h"{}}\ \textcolor{comment}{//\ Assumes\ this\ includes\ CustomerFlyweight.h\ or\ is\ accessible}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Backend/CustomerFactory.h"{}}\ \textcolor{comment}{//\ Assumes\ RandomFactory\ is\ defined\ here}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Backend/PlantFactory.h"{}}\ \textcolor{comment}{//\ Assumes\ RandomPlantFactory\ and\ Plant\ are\ defined\ here}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_customer_manager_ae92428d33935de53261ebaa45798ee19}{CustomerManager}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ std::vector<CustomerVisual\ *>\ activeCustomers;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_random_factory}{RandomFactory}}\ customerFactory;}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_random_plant_factory}{RandomPlantFactory}}\ plantFactory;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00031\ \ \ \ \ Vector2\ doorPosition;}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ Vector2\ counterWaitPosition;}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{float}\ customerSpacing;}
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{float}\ spawnTimer;}
+\DoxyCodeLine{00041\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{float}\ spawnInterval;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MAX\_CUSTOMERS\ =\ 5;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_customer_manager_ae92428d33935de53261ebaa45798ee19}{CustomerManager}}(Vector2\ doorPos\ =\ \{1270,\ 0\},\ Vector2\ counterPos\ =\ \{1200,\ 580\})}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ :\ doorPosition(doorPos),}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ counterWaitPosition(counterPos),}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ customerSpacing(80.0f),}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ spawnTimer(0.0f),}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ spawnInterval(5.0f)}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{class_customer_manager_a47c5d64005fa0c4a779010eab692df4f}{\string~CustomerManager}}()}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *customer\ :\ activeCustomers)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Delete\ the\ customer\ object\ managed\ by\ the\ visual\ component}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ customer-\/>customer;\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Delete\ the\ visual\ component\ itself}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ customer;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ activeCustomers.clear();}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cleanup\ shared\ flyweight\ image\ resources}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_customer_image_factory_a145e63369d43f43e8aa31bc323aede23}{CustomerImageFactory::getInstance}}().\mbox{\hyperlink{class_customer_image_factory_aebb51b5e8f936af370eec04ebdfdb84f}{cleanup}}();}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_manager_a9ec9a16c5a46ff520ff29d2602613a24}{update}}(\textcolor{keywordtype}{float}\ deltaTime,\ \textcolor{keywordtype}{bool}\ storeOpen)}
+\DoxyCodeLine{00091\ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (storeOpen\ \&\&\ activeCustomers.size()\ <\ MAX\_CUSTOMERS)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ spawnTimer\ +=\ deltaTime;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (spawnTimer\ >=\ spawnInterval)}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_customer_manager_a57e2369a7613b3f01711412c36fba5dd}{spawnCustomer}}();}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ spawnTimer\ =\ 0.0f;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ all\ active\ customer\ visuals\ (movement,\ etc.)}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *custVisual\ :\ activeCustomers)}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>update(deltaTime);}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Remove\ customers\ that\ have\ finished\ their\ exit\ movement}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ removedAny\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ activeCustomers.erase(}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ std::remove\_if(activeCustomers.begin(),\ activeCustomers.end(),}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&removedAny](\mbox{\hyperlink{struct_customer_visual}{CustomerVisual}}\ *cv)}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ customer\ is\ inactive\ (served/dismissed)\ and\ has\ moved\ off-\/screen}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if\ (!cv-\/>isActive\ \&\&\ cv-\/>position.y\ <=\ -\/50)}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delete\ cv-\/>customer;\ \textcolor{comment}{//\ Delete\ the\ core\ customer\ logic\ object}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delete\ cv;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Delete\ the\ visual\ wrapper\ object}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ removedAny\ =\ true;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ true;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}),}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ activeCustomers.end());}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reorder\ the\ queue\ if\ any\ customer\ was\ removed}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (removedAny)}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ reorderQueue();}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_manager_a7788014c5ebeb67d710ffe60f6c83718}{render}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00138\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ *custVisual\ :\ activeCustomers)}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>render();}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (custVisual-\/>customer\ \&\&\ custVisual-\/>isActive)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ drawThoughtBubble(custVisual);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_manager_a57e2369a7613b3f01711412c36fba5dd}{spawnCustomer}}()}
+\DoxyCodeLine{00157\ \ \ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (activeCustomers.size()\ >=\ MAX\_CUSTOMERS)}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}\ *requestedPlant\ =\ plantFactory.produce();}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_customer}{Customer}}\ *newCustomer\ =\ customerFactory.create(requestedPlant);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_customer_visual}{CustomerVisual}}\ *custVisual\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{struct_customer_visual}{CustomerVisual}}(newCustomer,\ doorPosition);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ Vector2\ targetPos\ =\ calculateQueuePosition(activeCustomers.size());}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a7081680dcb59ab34ac69afa275b3f83b}{moveTo}}(targetPos);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ activeCustomers.push\_back(custVisual);}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{struct_customer_visual}{CustomerVisual}}\ *\mbox{\hyperlink{class_customer_manager_a9f27131fdb3ae23c12cb86ee961db266}{getClickedCustomer}}(Vector2\ mousePos)}
+\DoxyCodeLine{00178\ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *custVisual\ :\ activeCustomers)}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (custVisual-\/>isActive\ \&\&\ custVisual-\/>isHovered(mousePos))}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ custVisual;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00187\ \ \ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00192\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_manager_add9af6e94a93e8c6414b292c62691daf}{dismissAllCustomers}}()}
+\DoxyCodeLine{00193\ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *custVisual\ :\ activeCustomers)}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (custVisual\ \&\&\ custVisual-\/>isActive)}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector2\ exitPosition\ =\ \{doorPosition.x,\ doorPosition.y\ -\/\ 100\};}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>moveTo(exitPosition);}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>isActive\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Flag\ customer\ for\ removal\ in\ next\ update}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_customer_manager_a94fbe0f926fe82755c2def50fbcf17d4}{serveCustomer}}(\mbox{\hyperlink{struct_customer_visual}{CustomerVisual}}\ *custVisual,\ \textcolor{keyword}{const}\ std::string\ \&plantType)}
+\DoxyCodeLine{00212\ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!custVisual\ ||\ !custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}})}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}}-\/>\mbox{\hyperlink{class_customer_a53bb8c38669946b97076fd9c7e4e1553}{getRequestedPlant}}())}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ plant\ type\ matches\ the\ request}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}}-\/>\mbox{\hyperlink{class_customer_a53bb8c38669946b97076fd9c7e4e1553}{getRequestedPlant}}()-\/>\mbox{\hyperlink{class_plant_a2a030e9cb225f03f41d1855e4e06b638}{getType}}()\ ==\ plantType)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Success:\ Move\ customer\ to\ exit\ and\ mark\ inactive}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ Vector2\ exitPosition\ =\ \{doorPosition.x,\ doorPosition.y\ -\/\ 100\};}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a7081680dcb59ab34ac69afa275b3f83b}{moveTo}}(exitPosition);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a4d94203bac47ea429bc3803320372811}{isActive}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00230\ \ \ \ \ \}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_manager_a33ce4e173b4243ac2c7b3a8ab0b350e0}{dismissCustomer}}(\mbox{\hyperlink{struct_customer_visual}{CustomerVisual}}\ *custVisual)}
+\DoxyCodeLine{00237\ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!custVisual)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ Vector2\ exitPosition\ =\ \{doorPosition.x,\ doorPosition.y\ -\/\ 100\};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a7081680dcb59ab34ac69afa275b3f83b}{moveTo}}(exitPosition);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a4d94203bac47ea429bc3803320372811}{isActive}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00244\ \ \ \ \ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_customer_manager_ac3794fbb355e11ba5a3d7fcffa7c2f8d}{getCustomerCount}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00251\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ activeCustomers.size();}
+\DoxyCodeLine{00253\ \ \ \ \ \}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_manager_a355129bcb883f22322c6c92ba758d509}{setSpawnInterval}}(\textcolor{keywordtype}{float}\ interval)}
+\DoxyCodeLine{00260\ \ \ \ \ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ spawnInterval\ =\ interval;}
+\DoxyCodeLine{00262\ \ \ \ \ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00270\ \ \ \ \ Vector2\ calculateQueuePosition(\textcolor{keywordtype}{int}\ queueIndex)}
+\DoxyCodeLine{00271\ \ \ \ \ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startX\ =\ 920.0f;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ startX\ +\ (queueIndex\ *\ customerSpacing),}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ counterWaitPosition.y\};}
+\DoxyCodeLine{00276\ \ \ \ \ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordtype}{void}\ reorderQueue()}
+\DoxyCodeLine{00282\ \ \ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ activeIndex\ =\ 0;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ *custVisual\ :\ activeCustomers)}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (custVisual-\/>isActive)}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vector2\ newPos\ =\ calculateQueuePosition(activeIndex);}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>moveTo(newPos);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ activeIndex++;}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00293\ \ \ \ \ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{void}\ drawThoughtBubble(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_customer_visual}{CustomerVisual}}\ *custVisual)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00300\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}})}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}\ *requestedPlant\ =\ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a6708462ffe9878fb1b8c450da44c48e3}{customer}}-\/>\mbox{\hyperlink{class_customer_a53bb8c38669946b97076fd9c7e4e1553}{getRequestedPlant}}();}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!requestedPlant)}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ Vector2\ bubblePos\ =\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.x,}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ custVisual-\/>\mbox{\hyperlink{struct_customer_visual_a7f228e2d9d794e0fe5c032ae1f03bd1a}{position}}.y\ -\/\ 60\};}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ main\ bubble\ circle\ and\ tail\ circles\ (raylib\ drawing)}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ DrawCircle(bubblePos.x,\ bubblePos.y,\ 25,\ WHITE);}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ DrawCircle(bubblePos.x\ -\/\ 10,\ bubblePos.y\ +\ 15,\ 10,\ WHITE);}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ DrawCircle(bubblePos.x\ -\/\ 15,\ bubblePos.y\ +\ 25,\ 5,\ WHITE);}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ outlines}}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ DrawCircleLines(bubblePos.x,\ bubblePos.y,\ 25,\ BLACK);}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ DrawCircleLines(bubblePos.x\ -\/\ 10,\ bubblePos.y\ +\ 15,\ 10,\ BLACK);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ DrawCircleLines(bubblePos.x\ -\/\ 15,\ bubblePos.y\ +\ 25,\ 5,\ BLACK);}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Draw\ the\ requested\ plant\ type\ text}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ std::string\ plantName\ =\ requestedPlant-\/>\mbox{\hyperlink{class_plant_a2a030e9cb225f03f41d1855e4e06b638}{getType}}();}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ textWidth\ =\ MeasureText(plantName.c\_str(),\ 12);}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ DrawText(plantName.c\_str(),}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bubblePos.x\ -\/\ textWidth\ /\ 2,}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bubblePos.y\ -\/\ 6,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 12,\ BLACK);}
+\DoxyCodeLine{00329\ \ \ \ \ \}}
+\DoxyCodeLine{00330\ \};}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

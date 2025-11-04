@@ -1,0 +1,42 @@
+\doxysection{C\+:/\+Users/\+Psmho/\+Desktop/\+Projects/2nd Year/\+COS214/\+Templanter\+Project/\+Backend/\+Plant\+Factory.\+cpp}
+\hypertarget{_c_1_2_users_2_psmho_2_desktop_2_projects_22nd_01_year_2_c_o_s214_2_templanter_project_2_backend_2_plant_factory_8cpp-example}{}\label{_c_1_2_users_2_psmho_2_desktop_2_projects_22nd_01_year_2_c_o_s214_2_templanter_project_2_backend_2_plant_factory_8cpp-example}Produces a random plant type.
+
+Produces a random plant type.\+Generates a random number (0-\/10) and creates the corresponding plant type. Uses uniform distribution to ensure each plant type has equal probability.
+
+\begin{DoxyReturn}{Returns}
+Pointer to randomly chosen \doxylink{class_plant}{Plant} type with appropriate visual strategy
+\end{DoxyReturn}
+Distribution (11 outcomes)\+:
+\begin{DoxyItemize}
+\item 0\+: \doxylink{class_carrot}{Carrot}
+\item 1\+: \doxylink{class_tomato}{Tomato}
+\item 2\+: \doxylink{class_sunflower}{Sunflower}
+\item 3\+: \doxylink{class_lettuce}{Lettuce}
+\item 4\+: \doxylink{class_potato}{Potato}
+\item 5\+: \doxylink{class_cucumber}{Cucumber}
+\item 6\+: \doxylink{class_pepper}{Pepper}
+\item 7\+: \doxylink{class_strawberry}{Strawberry}
+\item 8\+: \doxylink{class_corn}{Corn}
+\item 9\+: \doxylink{class_pumpkin}{Pumpkin}
+\item 10\+: \doxylink{class_pumpkin}{Pumpkin} (re-\/rolls to case 9)
+\end{DoxyItemize}
+
+Each call generates a fresh random value for variety.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_random_plant_factory}{RandomPlantFactory}}\ factory;}
+\DoxyCodeLine{\mbox{\hyperlink{class_plant}{Plant}}*\ randomPlant\ =\ factory.\mbox{\hyperlink{class_random_plant_factory_ac2a633a2610ce201f4b9451951c227e3}{produce}}();}
+\DoxyCodeLine{\textcolor{comment}{//\ Could\ be\ any\ of\ 10\ plant\ types\ with\ equal\ probability}}
+
+\end{DoxyCode}
+
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_random_factory}{Random\+Factory} (for customer types)
+\end{DoxySeeAlso}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ \doxylink{_plant_factory_8cpp}{Year/\+COS214/\+Templanter\+Project/\+Backend/\+Plant\+Factory.\+cpp} 

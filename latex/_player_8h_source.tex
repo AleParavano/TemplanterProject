@@ -1,0 +1,111 @@
+\doxysection{Player.\+h}
+\hypertarget{_player_8h_source}{}\label{_player_8h_source}\index{Backend/Player.h@{Backend/Player.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Inventory.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Greenhouse.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_worker_8h}{Worker.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Memento.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../Frontend/InventoryUI.h"{}}\ \textcolor{comment}{//\ <<<\ Final\ Check:\ InventoryUI\ included\ >>>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_player_affe0cc3cb714f6deb4e62f0c0d3f1fd8}{Player}}\ }
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{class_player_affe0cc3cb714f6deb4e62f0c0d3f1fd8}{Player}}();}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{\string~Player}}();}
+\DoxyCodeLine{00031\ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Money\ Management\ -\/-\/-\/}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_player_a3b1cba7fe5722664a4f44e8ff61fe043}{getMoney}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a9b10747733d45f739855769ba4f6cb76}{setMoney}}(\textcolor{keywordtype}{float}\ amount);}
+\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_af2c5f2e619f635c58809ca5b1775eabd}{addMoney}}(\textcolor{keywordtype}{float}\ amount);}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_ab8451fc85c405d793813e07a0d5348e3}{subtractMoney}}(\textcolor{keywordtype}{float}\ amount);}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Rating\ Management\ -\/-\/-\/}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_player_af176ec3aa29f826dff65bcdb97ab8f41}{getRating}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00063\ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a2b2ace7822c5754dfdeb54401f38e97e}{setRating}}(\textcolor{keywordtype}{float}\ r);}
+\DoxyCodeLine{00069\ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_aacf4b0066ba99cc4a4c8850c861e037f}{addRating}}(\textcolor{keywordtype}{float}\ r);}
+\DoxyCodeLine{00075\ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_ab2c1ccdf7fbda23114cab4e77c85c055}{subtractRating}}(\textcolor{keywordtype}{float}\ r);}
+\DoxyCodeLine{00081\ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Time\ Management\ -\/-\/-\/}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_player_a66faad585023806eda2c19cbfd3be8a7}{getDay}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_player_af6862a592f2687c475a6f9054351f56c}{getHour}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00094\ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_player_ae71808d6ffc7839719173e9fdc55eabf}{getMinute}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a025730c46e6add0d59dbaf4cd69702cc}{setTime}}(\textcolor{keywordtype}{int}\ d,\ \textcolor{keywordtype}{int}\ h,\ \textcolor{keywordtype}{int}\ m);}
+\DoxyCodeLine{00108\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_afd6ae64e5e9af25848bccf0e155af32b}{advanceTime}}(\textcolor{keywordtype}{int}\ minutes);}
+\DoxyCodeLine{00114\ \ \ \ \ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_aae512fe53e2c6694665eb762754e192d}{UpdateGameTime}}(\textcolor{keywordtype}{float}\ dt);\ \textcolor{comment}{//\ <<<\ UpdateGameTime\ added\ >>>}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Component\ Getters\ -\/-\/-\/}}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{class_inventory_u_i}{InventoryUI}}*\ \mbox{\hyperlink{class_player_a03fbda6e3f997e22a84924d220acbd5e}{getInventoryUI}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ inventoryUI;\ \}}
+\DoxyCodeLine{00127\ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{class_inventory}{Inventory}}*\ \mbox{\hyperlink{class_player_a97f838647a64f29904422836759ea87c}{getInventory}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00133\ \ \ \ \ }
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{class_greenhouse}{Greenhouse}}*\ \mbox{\hyperlink{class_player_ad5a722ba68bf589972b5a9a9f3dcb971}{getPlot}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00139\ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Worker\ Management\ -\/-\/-\/}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a002e60c8251e4ef449f922bea61e042b}{addWorker}}(\mbox{\hyperlink{class_worker}{Worker}}*\ worker);\ \textcolor{comment}{//\ <<<\ addWorker\ added\ >>>}}
+\DoxyCodeLine{00146\ \ \ \ \ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a789b4e4d0eef5efe01e1a09e5b0e95d1}{fireWorker}}(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00152\ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ \mbox{\hyperlink{class_worker}{Worker}}*\ \mbox{\hyperlink{class_player_a18fa557b42c7533e16dcd4874fb9a041}{getWorker}}(\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00159\ \ \ \ \ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_player_a5b2b541d766621eb9efd0d692081afa6}{getWorkerCount}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00165\ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_abf5fc5c1a2e5901964a590b229aaf3dc}{pauseWorkers}}();}
+\DoxyCodeLine{00170\ \ \ \ \ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_acbf88f91d6e6d0dbe3690fec1d63103b}{startWorkers}}()\ ;}
+\DoxyCodeLine{00175\ \ \ \ \ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Worker*>\&\ \mbox{\hyperlink{class_player_a2b212ff2c9ef10358165a29a19b78139}{getWorkers}}()\ ;}
+\DoxyCodeLine{00181\ \ \ \ \ }
+\DoxyCodeLine{00186\ \ \ \ \ std::string\ \mbox{\hyperlink{class_player_a7c0d933ef08922cd2a8b4510ecf7df5b}{getTimeString}}()\ \textcolor{keyword}{const};\ \textcolor{comment}{//\ <<<\ getTimeString\ added\ >>>}}
+\DoxyCodeLine{00187\ \ \ \ \ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Protection\ (Safety)\ Management\ -\/-\/-\/}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a9a0d5acc6565c6a70dc6a6e86a85e7e9}{setProtected}}(\textcolor{keywordtype}{bool}\ prot);}
+\DoxyCodeLine{00194\ \ \ \ \ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_player_a81636c1c3a3ab73fb00f68067a2596ab}{isProtected}}();}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ Memento\ Pattern\ (Originator\ interface)\ -\/-\/-\/}}
+\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{class_memento}{Memento}}*\ \mbox{\hyperlink{class_player_ab1747461c0c0959851dedfe4db0c0de1}{createMemento}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00207\ \ \ \ \ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a2f38e003bd62395eafbdf2014b735b47}{setMemento}}(\mbox{\hyperlink{class_memento}{Memento}}*\ memento);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{float}\ money;}
+\DoxyCodeLine{00217\ \ \ \ \ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{float}\ rating;}
+\DoxyCodeLine{00220\ \ \ \ \ }
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{int}\ day;}
+\DoxyCodeLine{00223\ \ \ \ \ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{int}\ hour;}
+\DoxyCodeLine{00226\ \ \ \ \ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{int}\ minute;}
+\DoxyCodeLine{00229\ \ \ \ \ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{bool}\ safe;}
+\DoxyCodeLine{00232\ \ \ \ \ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordtype}{float}\ timeAccumulator;\ \textcolor{comment}{//\ <<<\ timeAccumulator\ added\ >>>}}
+\DoxyCodeLine{00235\ \ \ \ \ }
+\DoxyCodeLine{00237\ \ \ \ \ \mbox{\hyperlink{class_inventory}{Inventory}}*\ inventory;}
+\DoxyCodeLine{00238\ \ \ \ \ }
+\DoxyCodeLine{00240\ \ \ \ \ \mbox{\hyperlink{class_greenhouse}{Greenhouse}}*\ plot;}
+\DoxyCodeLine{00241\ \ \ \ \ }
+\DoxyCodeLine{00243\ \ \ \ \ std::vector<Worker*>\ workers;}
+\DoxyCodeLine{00244\ \ \ \ \ }
+\DoxyCodeLine{00246\ \ \ \ \ \mbox{\hyperlink{class_inventory_u_i}{InventoryUI}}*\ inventoryUI;\ \textcolor{comment}{//\ <<<\ InventoryUI\ member\ added\ >>>}}
+\DoxyCodeLine{00247\ \};}
+
+\end{DoxyCode}

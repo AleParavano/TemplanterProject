@@ -1,0 +1,72 @@
+\doxysection{Pepper\+Factory Class Reference}
+\hypertarget{class_pepper_factory}{}\label{class_pepper_factory}\index{PepperFactory@{PepperFactory}}
+
+
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_pepper}{Pepper}.  
+
+
+
+
+{\ttfamily \#include $<$Plant\+Factory.\+h$>$}
+
+Inheritance diagram for Pepper\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_pepper_factory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_pepper_factory_abf19047e79ef6d89a05706da42879c9e}{produce}} () override
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_pepper}{Pepper} plant with its corresponding \doxylink{class_pepper_visual_strategy}{Pepper\+Visual\+Strategy}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_factory}{Plant\+Factory}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant_factory}{Plant\+Factory} object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant_factory}{Plant\+Factory} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_pepper}{Pepper}. 
+
+\label{doc-func-members}
+\Hypertarget{class_pepper_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_pepper_factory_abf19047e79ef6d89a05706da42879c9e}\index{PepperFactory@{PepperFactory}!produce@{produce}}
+\index{produce@{produce}!PepperFactory@{PepperFactory}}
+\doxysubsubsection{\texorpdfstring{produce()}{produce()}}
+{\footnotesize\ttfamily \label{class_pepper_factory_abf19047e79ef6d89a05706da42879c9e} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Pepper\+Factory\+::produce (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a new \doxylink{class_pepper}{Pepper} plant with its corresponding \doxylink{class_pepper_visual_strategy}{Pepper\+Visual\+Strategy}. 
+
+Produces a \doxylink{class_pepper}{Pepper} plant.
+
+\begin{DoxyReturn}{Returns}
+A pointer to a new \doxylink{class_pepper}{Pepper} object.
+\end{DoxyReturn}
+Creates a new \doxylink{class_pepper}{Pepper} instance with \doxylink{class_pepper_visual_strategy}{Pepper\+Visual\+Strategy} for rendering. \doxylink{class_pepper}{Pepper} dimensions\+: 25x30 pixels
+
+\begin{DoxyReturn}{Returns}
+Pointer to newly allocated \doxylink{class_pepper}{Pepper} with \doxylink{class_pepper_visual_strategy}{Pepper\+Visual\+Strategy} 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_pepper}{Pepper} 
+
+\doxylink{class_pepper_visual_strategy}{Pepper\+Visual\+Strategy} 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}{Plant\+Factory}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant\+Factory.\+h\item 
+Backend/\mbox{\hyperlink{_plant_factory_8cpp}{Plant\+Factory.\+cpp}}\end{DoxyCompactItemize}

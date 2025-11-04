@@ -1,0 +1,170 @@
+\doxysection{Green\+House\+Scene Class Reference}
+\hypertarget{class_green_house_scene}{}\label{class_green_house_scene}\index{GreenHouseScene@{GreenHouseScene}}
+
+
+Represents the main farming/greenhouse environment where the player manages plants, workers, and purchases supplies.  
+
+
+
+
+{\ttfamily \#include $<$Green\+House\+Scene.\+h$>$}
+
+Inheritance diagram for Green\+House\+Scene\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_green_house_scene}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_green_house_scene_a4ab15f74b544cdb35418d0f8e5f9d504}\label{class_green_house_scene_a4ab15f74b544cdb35418d0f8e5f9d504} 
+{\bfseries Green\+House\+Scene} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_green_house_scene_a6019e95fff241eaaa81ec20fc8705b98}\label{class_green_house_scene_a6019e95fff241eaaa81ec20fc8705b98} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Green\+House\+Scene} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_green_house_scene_a2149d768ba4f085a7236f62b9fe3f1c0}{Check\+Exit}} () override
+\begin{DoxyCompactList}\small\item\em Checks conditions for exiting the current scene (e.\+g., clicking a gate). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_green_house_scene_a17451e2732ef7f5cbf79d6b1847f5d29}{Init}} () override
+\begin{DoxyCompactList}\small\item\em Performs one-\/time setup and initialization for the scene components. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_green_house_scene_af182a65453aa26c81f982f652e80c963}{Update}} (float dt) override
+\begin{DoxyCompactList}\small\item\em Updates the logic and simulation state of the scene (plant growth, worker actions). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_green_house_scene_ad747f68cf1e1f7384d4b6a9a61ba6c08}{Draw}} () override
+\begin{DoxyCompactList}\small\item\em Renders all visual elements of the scene (plants, paths, gates, UI modals). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_green_house_scene_a18ee8b1c28e62a38f02055e02addb2af}{Handle\+Input}} () override
+\begin{DoxyCompactList}\small\item\em Processes player input specific to the greenhouse (clicks, key presses for interaction/\+UI). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_green_house_scene_a3b44a203d02b3b1bc841c6ca9617a06c}{Draw\+Menu}} () override
+\begin{DoxyCompactList}\small\item\em Renders the persistent sidebar menu for the scene. \end{DoxyCompactList}\item 
+Scene\+Type \mbox{\hyperlink{class_green_house_scene_a2879a211b91a6eb20a3f88dd94e4e9b6}{Get\+Scene\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the constant type of this scene. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_scene}{Scene}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of resources in derived classes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the main farming/greenhouse environment where the player manages plants, workers, and purchases supplies. 
+
+Inherits from \doxylink{class_scene}{Scene} and contains all logic for plant management, simulation updates, and UI drawing for this game area. 
+
+\label{doc-func-members}
+\Hypertarget{class_green_house_scene_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_green_house_scene_a2149d768ba4f085a7236f62b9fe3f1c0}\index{GreenHouseScene@{GreenHouseScene}!CheckExit@{CheckExit}}
+\index{CheckExit@{CheckExit}!GreenHouseScene@{GreenHouseScene}}
+\doxysubsubsection{\texorpdfstring{CheckExit()}{CheckExit()}}
+{\footnotesize\ttfamily \label{class_green_house_scene_a2149d768ba4f085a7236f62b9fe3f1c0} 
+Scene\+Type Green\+House\+Scene\+::\+Check\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Checks conditions for exiting the current scene (e.\+g., clicking a gate). 
+
+\begin{DoxyReturn}{Returns}
+The Scene\+Type to transition to, or SCENE\+\_\+\+GREENHOUSE if no exit is triggered. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_scene_a2908f47812428dd3071c7dfcdd399990}{Scene}}.
+
+\Hypertarget{class_green_house_scene_ad747f68cf1e1f7384d4b6a9a61ba6c08}\index{GreenHouseScene@{GreenHouseScene}!Draw@{Draw}}
+\index{Draw@{Draw}!GreenHouseScene@{GreenHouseScene}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_green_house_scene_ad747f68cf1e1f7384d4b6a9a61ba6c08} 
+void Green\+House\+Scene\+::\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Renders all visual elements of the scene (plants, paths, gates, UI modals). 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a8680672fd30bb4b345e6fab918e31ecd}{Scene}}.
+
+\Hypertarget{class_green_house_scene_a3b44a203d02b3b1bc841c6ca9617a06c}\index{GreenHouseScene@{GreenHouseScene}!DrawMenu@{DrawMenu}}
+\index{DrawMenu@{DrawMenu}!GreenHouseScene@{GreenHouseScene}}
+\doxysubsubsection{\texorpdfstring{DrawMenu()}{DrawMenu()}}
+{\footnotesize\ttfamily \label{class_green_house_scene_a3b44a203d02b3b1bc841c6ca9617a06c} 
+void Green\+House\+Scene\+::\+Draw\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Renders the persistent sidebar menu for the scene. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_scene_abe448df6f81609819ce49ab8b1d8040b}{Scene}}.
+
+\Hypertarget{class_green_house_scene_a2879a211b91a6eb20a3f88dd94e4e9b6}\index{GreenHouseScene@{GreenHouseScene}!GetSceneType@{GetSceneType}}
+\index{GetSceneType@{GetSceneType}!GreenHouseScene@{GreenHouseScene}}
+\doxysubsubsection{\texorpdfstring{GetSceneType()}{GetSceneType()}}
+{\footnotesize\ttfamily \label{class_green_house_scene_a2879a211b91a6eb20a3f88dd94e4e9b6} 
+Scene\+Type Green\+House\+Scene\+::\+Get\+Scene\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the constant type of this scene. 
+
+\begin{DoxyReturn}{Returns}
+SCENE\+\_\+\+GREENHOUSE. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}{Scene}}.
+
+\Hypertarget{class_green_house_scene_a18ee8b1c28e62a38f02055e02addb2af}\index{GreenHouseScene@{GreenHouseScene}!HandleInput@{HandleInput}}
+\index{HandleInput@{HandleInput}!GreenHouseScene@{GreenHouseScene}}
+\doxysubsubsection{\texorpdfstring{HandleInput()}{HandleInput()}}
+{\footnotesize\ttfamily \label{class_green_house_scene_a18ee8b1c28e62a38f02055e02addb2af} 
+void Green\+House\+Scene\+::\+Handle\+Input (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Processes player input specific to the greenhouse (clicks, key presses for interaction/\+UI). 
+
+
+
+Implements \mbox{\hyperlink{class_scene_a857a1635b2fec4aadcaef182ac55870b}{Scene}}.
+
+\Hypertarget{class_green_house_scene_a17451e2732ef7f5cbf79d6b1847f5d29}\index{GreenHouseScene@{GreenHouseScene}!Init@{Init}}
+\index{Init@{Init}!GreenHouseScene@{GreenHouseScene}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_green_house_scene_a17451e2732ef7f5cbf79d6b1847f5d29} 
+void Green\+House\+Scene\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Performs one-\/time setup and initialization for the scene components. 
+
+
+
+Implements \mbox{\hyperlink{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}{Scene}}.
+
+\Hypertarget{class_green_house_scene_af182a65453aa26c81f982f652e80c963}\index{GreenHouseScene@{GreenHouseScene}!Update@{Update}}
+\index{Update@{Update}!GreenHouseScene@{GreenHouseScene}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_green_house_scene_af182a65453aa26c81f982f652e80c963} 
+void Green\+House\+Scene\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Updates the logic and simulation state of the scene (plant growth, worker actions). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The delta time since the last frame. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_scene_a7cd484a12593952a999edfd20309b8fb}{Scene}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Green\+House\+Scene.\+h\item 
+Frontend/Green\+House\+Scene.\+cpp\end{DoxyCompactItemize}

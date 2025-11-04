@@ -1,0 +1,47 @@
+\doxysection{Slot.\+h}
+\hypertarget{_slot_8h_source}{}\label{_slot_8h_source}\index{Frontend/Slot.h@{Frontend/Slot.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SLOT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SLOT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}raymath.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Backend/Inventory.h"{}}\ \textcolor{comment}{//\ Assumed\ to\ define\ the\ core\ InventorySlot\ structure}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_slot_a1b68bf041ade604c2753f4b04f718c1c}{Slot}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_inventory_slot}{InventorySlot}}\ *\mbox{\hyperlink{struct_slot_a90cf44477278df8dbdfaa202595a8d38}{slot}};}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ Rectangle\ \mbox{\hyperlink{struct_slot_a5ca7f64e2788853aa8c0791f18853727}{rect}};}
+\DoxyCodeLine{00023\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_slot_a590acc0bcb728acac3284302dfe2dd0b}{selected}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_slot_a5d8b8e4e9110244cbfe45ba16a5e0419}{quantity}};}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{struct_slot_a1b68bf041ade604c2753f4b04f718c1c}{Slot}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_inventory_slot}{InventorySlot}}\ *slotIn,\ Rectangle\ rectIn)}
+\DoxyCodeLine{00036\ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_a90cf44477278df8dbdfaa202595a8d38}{slot}}\ =\ slotIn;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_a5ca7f64e2788853aa8c0791f18853727}{rect}}\ =\ rectIn;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (slotIn\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_a5d8b8e4e9110244cbfe45ba16a5e0419}{quantity}}\ =\ std::to\_string(slotIn-\/>\mbox{\hyperlink{class_inventory_slot_ac908cbb73dcdebb8705439909c81c79c}{getSize}}());}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ quantity\ to\ "{}0"{}\ or\ empty\ string\ if\ the\ slot\ is\ empty}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_a5d8b8e4e9110244cbfe45ba16a5e0419}{quantity}}\ =\ \textcolor{stringliteral}{"{}0"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_slot_aae83f93b7b53fe95d29ec745f54753ce}{isClicked}}(Vector2\ mousePos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00057\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ CheckCollisionPointRec(mousePos,\ \mbox{\hyperlink{struct_slot_a5ca7f64e2788853aa8c0791f18853727}{rect}});}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

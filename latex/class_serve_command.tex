@@ -1,0 +1,79 @@
+\doxysection{Serve\+Command Class Reference}
+\hypertarget{class_serve_command}{}\label{class_serve_command}\index{ServeCommand@{ServeCommand}}
+
+
+A concrete command to serve a specific \doxylink{class_customer}{Customer}.  
+
+
+
+
+{\ttfamily \#include $<$Command.\+h$>$}
+
+Inheritance diagram for Serve\+Command\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_serve_command}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_serve_command_a404a54312a61f23196a1a1855899f7c9}{execute}} () override
+\begin{DoxyCompactList}\small\item\em Executes the serving action for the target customer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_serve_command_a40e6d050765c4a88829f53b12df95693}{Serve\+Command}} (\mbox{\hyperlink{class_customer}{Customer}} \texorpdfstring{$\ast$}{*}cust)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_serve_command}{Serve\+Command}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_command}{Command}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Command} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the base class. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_command_ad192d5e38fd39f98d7004a757be4a871}{is\+Patrol}} () const
+\begin{DoxyCompactList}\small\item\em A flag to identify if a command is a \textquotesingle{}Patrol\textquotesingle{} command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A concrete command to serve a specific \doxylink{class_customer}{Customer}. 
+
+\label{doc-constructors}
+\Hypertarget{class_serve_command_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_serve_command_a40e6d050765c4a88829f53b12df95693}\index{ServeCommand@{ServeCommand}!ServeCommand@{ServeCommand}}
+\index{ServeCommand@{ServeCommand}!ServeCommand@{ServeCommand}}
+\doxysubsubsection{\texorpdfstring{ServeCommand()}{ServeCommand()}}
+{\footnotesize\ttfamily \label{class_serve_command_a40e6d050765c4a88829f53b12df95693} 
+Serve\+Command\+::\+Serve\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_customer}{Customer}} \texorpdfstring{$\ast$}{*}}]{cust}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_serve_command}{Serve\+Command}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cust} & The \doxylink{class_customer}{Customer} object to be served. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_serve_command_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_serve_command_a404a54312a61f23196a1a1855899f7c9}\index{ServeCommand@{ServeCommand}!execute@{execute}}
+\index{execute@{execute}!ServeCommand@{ServeCommand}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_serve_command_a404a54312a61f23196a1a1855899f7c9} 
+void Serve\+Command\+::execute (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Executes the serving action for the target customer. 
+
+
+
+Implements \mbox{\hyperlink{class_command_a6fd7d9bd8df8bfc881e4d6c7cd1878b7}{Command}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Command.\+h\item 
+Backend/Command.\+cpp\end{DoxyCompactItemize}

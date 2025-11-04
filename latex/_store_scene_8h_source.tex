@@ -1,0 +1,98 @@
+\doxysection{Store\+Scene.\+h}
+\hypertarget{_store_scene_8h_source}{}\label{_store_scene_8h_source}\index{Frontend/StoreScene.h@{Frontend/StoreScene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ STORESCENE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ STORESCENE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Scene.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Slot.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}CustomerManager.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Backend/Inventory.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_store_8h}{../Backend/Store.h}}"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}InventoryUI.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_player}{Player}};\ \textcolor{comment}{//\ Forward\ declaration}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_store_scene_a519d9e943b94fe4cfc7cfcd252602b6a}{StoreScene}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_scene}{Scene}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00025\ \ \ \ \ std::vector<Slot>\ storageSlots;}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_store}{Store}}\ *backendStore;}
+\DoxyCodeLine{00029\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_customer_manager}{CustomerManager}}*\ customerManager;}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_player}{Player}}*\ player;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//\ Modal\ state\ for\ inventory\ interaction}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ showModal;}
+\DoxyCodeLine{00039\ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ selectedPlantFromGrid;}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ selectedGridX;}
+\DoxyCodeLine{00045\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{int}\ selectedGridY;}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ UI/Interaction\ Elements}}
+\DoxyCodeLine{00051\ \ \ \ \ Rectangle\ manageToggle;}
+\DoxyCodeLine{00052\ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ Rectangle\ exit;}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ Rectangle\ openNClose;}
+\DoxyCodeLine{00058\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ selectedStorageSlot;}
+\DoxyCodeLine{00061\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{bool}\ storeOpen\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ Helper\ methods}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateCustomers(\textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{00071\ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ UpdateStoreHours();\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ Collision\ rectangles\ (public\ for\ easier\ access\ in\ Demo/Player\ update\ if\ needed)}}
+\DoxyCodeLine{00080\ \ \ \ \ Rectangle\ \mbox{\hyperlink{class_store_scene_adbd7a98b1caacf0d2359c5133deee864}{counterHitBox}};}
+\DoxyCodeLine{00081\ \ \ \ \ SceneType\ nextScene;}
+\DoxyCodeLine{00083\ \ \ \ \ Rectangle\ \mbox{\hyperlink{class_store_scene_ae3b1237f839aef6fd10618b97c0b0c25}{sDoor}};}
+\DoxyCodeLine{00084\ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ Rectangle\ \mbox{\hyperlink{class_store_scene_a420998293a7089347e9bb24753f11f2c}{plotHitBox}};}
+\DoxyCodeLine{00087\ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ Rectangle\ \mbox{\hyperlink{class_store_scene_a4cad324cc3d688ffe14d14a6f45754e1}{boundaryWall}};}
+\DoxyCodeLine{00090\ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{class_store_scene_a519d9e943b94fe4cfc7cfcd252602b6a}{StoreScene}}();}
+\DoxyCodeLine{00095\ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{class_store_scene_ada3b99d107fd8e40d7d9cc454a5e4ba1}{\string~StoreScene}}();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{comment}{//\ Scene\ interface\ implementation}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_store_scene_a91598f75e5a46b4a1f4748d063902152}{Init}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00106\ \ \ \ \ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_store_scene_a3432fbfd1f4717e39a0fa352e587bce6}{Update}}(\textcolor{keywordtype}{float}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00112\ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_store_scene_a0ae0afcf12440616f2dc6f6b3f78bf86}{Draw}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00117\ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_store_scene_a7f1862968f4e56b06a68146c8ec7a7c2}{HandleInput}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00122\ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_store_scene_a4709c44edbbfba38d23fa671b8e58473}{GetSceneType}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00128\ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ SceneType\ \mbox{\hyperlink{class_store_scene_ad71342e06c0b87304acc3df3eb9556b8}{CheckExit}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00134\ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{comment}{//\ Scene-\/specific\ methods}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_store_scene_a96e879cbaddae467701ed36279d58aa5}{SetPlayer}}(\mbox{\hyperlink{class_player}{Player}}*\ p)\ \{\ player\ =\ p;\ \}}
+\DoxyCodeLine{00141\ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{int}\ *\mbox{\hyperlink{class_store_scene_a8fa3633ee8bc596fad3fe08d01989d44}{getSelectedStorageSlot}}()\ \{\ \textcolor{keywordflow}{return}\ \&selectedStorageSlot;\ \}}
+\DoxyCodeLine{00147\ \ \ \ \ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_store_scene_aac47cf9795b0c7d222d8fa362e331b90}{getShowModal}}()\ \{\ \textcolor{keywordflow}{return}\ showModal;\ \}}
+\DoxyCodeLine{00153\ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_store_scene_a6e0d4cbf1542ba8bea0daf89503e4683}{toggleOpen}}();\ \ \textcolor{comment}{//\ Modified\ to\ check\ time\ constraints}}
+\DoxyCodeLine{00158\ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_store_scene_afc9e723a773b569a1e898e61ab543055}{canOpenStore}}()\ \textcolor{keyword}{const};\ }
+\DoxyCodeLine{00164\ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_store_scene_a2321e98bce65a17667a6fa4fe3780761}{isStoreOpen}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ storeOpen;\ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

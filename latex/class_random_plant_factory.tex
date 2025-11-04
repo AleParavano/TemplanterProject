@@ -1,0 +1,66 @@
+\doxysection{Random\+Plant\+Factory Class Reference}
+\hypertarget{class_random_plant_factory}{}\label{class_random_plant_factory}\index{RandomPlantFactory@{RandomPlantFactory}}
+
+
+A specialized Factory that randomly selects and produces one of the available plant types.  
+
+
+
+
+{\ttfamily \#include $<$Plant\+Factory.\+h$>$}
+
+Inheritance diagram for Random\+Plant\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_random_plant_factory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_random_plant_factory_ac2a633a2610ce201f4b9451951c227e3}{produce}} () override
+\begin{DoxyCompactList}\small\item\em Randomly selects and produces a new \doxylink{class_plant}{Plant} of a different type, each with its appropriate strategy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_factory}{Plant\+Factory}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant_factory}{Plant\+Factory} object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant_factory}{Plant\+Factory} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A specialized Factory that randomly selects and produces one of the available plant types. \begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_psmho_2_desktop_2_projects_22nd_01_year_2_c_o_s214_2_templanter_project_2_backend_2_plant_factory_8cpp-example}{C\+:/\+Users/\+Psmho/\+Desktop/\+Projects/2nd Year/\+COS214/\+Templanter\+Project/\+Backend/\+Plant\+Factory.\+cpp}}.\end{Desc}
+
+
+\label{doc-func-members}
+\Hypertarget{class_random_plant_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_random_plant_factory_ac2a633a2610ce201f4b9451951c227e3}\index{RandomPlantFactory@{RandomPlantFactory}!produce@{produce}}
+\index{produce@{produce}!RandomPlantFactory@{RandomPlantFactory}}
+\doxysubsubsection{\texorpdfstring{produce()}{produce()}}
+{\footnotesize\ttfamily \label{class_random_plant_factory_ac2a633a2610ce201f4b9451951c227e3} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Random\+Plant\+Factory\+::produce (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Randomly selects and produces a new \doxylink{class_plant}{Plant} of a different type, each with its appropriate strategy. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to a randomly generated \doxylink{class_plant}{Plant} object. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}{Plant\+Factory}}.
+
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_c_1_2_users_2_psmho_2_desktop_2_projects_22nd_01_year_2_c_o_s214_2_templanter_project_2_backend_2_plant_factory_8cpp-example}{C\+:/\+Users/\+Psmho/\+Desktop/\+Projects/2nd Year/\+COS214/\+Templanter\+Project/\+Backend/\+Plant\+Factory.\+cpp}}.\end{Desc}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant\+Factory.\+h\item 
+Backend/\mbox{\hyperlink{_plant_factory_8cpp}{Plant\+Factory.\+cpp}}\end{DoxyCompactItemize}

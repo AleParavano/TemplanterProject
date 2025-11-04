@@ -1,0 +1,401 @@
+\doxysection{Plant\+State Class Reference}
+\hypertarget{class_plant_state}{}\label{class_plant_state}\index{PlantState@{PlantState}}
+
+
+The Abstract State class in the State design pattern. It defines the interface for encapsulating the behavior associated with a particular state of the \doxylink{class_plant}{Plant}.  
+
+
+
+
+{\ttfamily \#include $<$Plant\+State.\+h$>$}
+
+Inheritance diagram for Plant\+State\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_plant_state}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_state_a565d04fb4b05c30da70a112a0d25ea04}\label{class_plant_state_a565d04fb4b05c30da70a112a0d25ea04} 
+{\bfseries Plant\+State} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for \doxylink{class_plant_state}{Plant\+State}, initializes metrics to zero. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant_state_a846a2011d4b46e3467fadee796f7636b}{Plant\+State}} (float gr, float wa, float nu)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant_state}{Plant\+State} object with specific metric values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant_state_a542ac57222087dd7c8fde30476795647}{Plant\+State}} (const \mbox{\hyperlink{class_plant_state}{Plant\+State}} \&other)
+\begin{DoxyCompactList}\small\item\em Copy constructor for \doxylink{class_plant_state}{Plant\+State}. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_aa0c0b0eaabff3dc8ef60dee2ef19f93f}\label{class_plant_state_aa0c0b0eaabff3dc8ef60dee2ef19f93f} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant\+State} ()=0
+\begin{DoxyCompactList}\small\item\em Pure virtual destructor, making \doxylink{class_plant_state}{Plant\+State} an abstract class. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_plant_state_a8128942762c90e82177b153445e8c95d}{handle}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to handle state-\/specific conditions and potentially trigger transitions. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_plant_state_a4d91123c8d3f3440a2226d854b4e2bb1}{tick}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method for resource consumption and growth logic specific to the state during a time tick. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{class_plant_state_a6ad803fdb071d0d10640e22d2b05da4f}{get\+State}} ()=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method that returns the name of the current state. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_state_a9eb173119d4f377dff281539d9e82efc}{get\+Growth}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current growth progress (0.\+0 to 1.\+0). \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_state_ab6487664b356fca98a1dcb821240d643}{get\+Water}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current water level. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_plant_state_afbf9607d1ab89c6e968444a18151b3f8}{get\+Nutrients}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current nutrient level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_state_ad6cdaa31fb25be6c63a4b85f06492f4f}{set\+Growth}} (float g)
+\begin{DoxyCompactList}\small\item\em Sets the growth progress. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_state_a7f4206def28669eaa7743f4b1a4afe5f}{set\+Water}} (float w)
+\begin{DoxyCompactList}\small\item\em Sets the water level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_state_a27c7272afbcaddc09f7c05247cc55f24}{set\+Nutrients}} (float n)
+\begin{DoxyCompactList}\small\item\em Sets the nutrient level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_state_ae95d21ecb74d83eab4924411a2dce98a}{consume\+Resources}} (float water\+Consumption, float nutrient\+Consumption)
+\begin{DoxyCompactList}\small\item\em Decreases water and nutrients based on consumption rates. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_state_a3e443f9072733534ab3463b470a73f0a}{add\+Water}} (float amount)
+\begin{DoxyCompactList}\small\item\em Increases the water level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_state_a932bf25837cfd8a60f91f6c66147f860}{add\+Nutrients}} (float amount)
+\begin{DoxyCompactList}\small\item\em Increases the nutrient level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_plant_state_a40476c586347a8300def3cb4d83aefbc}{apply\+Growth}} (float growth\+Amount)
+\begin{DoxyCompactList}\small\item\em Increases the plant\textquotesingle{}s growth progress. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual float \mbox{\hyperlink{class_plant_state_a5864a3046122d3fd817153e21c8a4b07}{get\+Water\+Consumption\+Rate}} () const =0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to get the state-\/specific water consumption rate. \end{DoxyCompactList}\item 
+virtual float \mbox{\hyperlink{class_plant_state_af0476e99b8d30e5cb02b4746d0448e35}{get\+Nutrient\+Consumption\+Rate}} () const =0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to get the state-\/specific nutrient consumption rate. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_state_ace3adae6a3c9f96591f70f5bf02c89f9}\label{class_plant_state_ace3adae6a3c9f96591f70f5bf02c89f9} 
+float {\bfseries growth}
+\begin{DoxyCompactList}\small\item\em Current growth progress (0.\+0 to 1.\+0). \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_a1cd9c5026ab65681b64a06a0a6685ad0}\label{class_plant_state_a1cd9c5026ab65681b64a06a0a6685ad0} 
+float {\bfseries water}
+\begin{DoxyCompactList}\small\item\em Current water level. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_ae569555cc112b68d53db65e37e496c56}\label{class_plant_state_ae569555cc112b68d53db65e37e496c56} 
+float {\bfseries nutrients}
+\begin{DoxyCompactList}\small\item\em Current nutrient level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_state_a8697e47af9fe3760035ccec06506e3f5}\label{class_plant_state_a8697e47af9fe3760035ccec06506e3f5} 
+static const float {\bfseries SEED\+\_\+\+TO\+\_\+\+GROWING\+\_\+\+THRESHOLD} = 25.\+0f
+\begin{DoxyCompactList}\small\item\em Static threshold for transition from \doxylink{class_seed_state}{Seed\+State} to \doxylink{class_growing_state}{Growing\+State}. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_a22fa085719bc1d06a1d94a62fa6ff1c0}\label{class_plant_state_a22fa085719bc1d06a1d94a62fa6ff1c0} 
+static const float {\bfseries GROWING\+\_\+\+TO\+\_\+\+RIPE\+\_\+\+THRESHOLD} = 100.\+0f
+\begin{DoxyCompactList}\small\item\em Static threshold for transition from \doxylink{class_growing_state}{Growing\+State} to \doxylink{class_ripe_state}{Ripe\+State}. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_a968e45d8ca432917e1dabc6a73b50e62}\label{class_plant_state_a968e45d8ca432917e1dabc6a73b50e62} 
+static const float {\bfseries DEATH\+\_\+\+WATER\+\_\+\+THRESHOLD} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em Static water level below which the plant transitions to \doxylink{class_dead_state}{Dead\+State}. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_a0b192c3b8fb9f941f53029511f6d1bbc}\label{class_plant_state_a0b192c3b8fb9f941f53029511f6d1bbc} 
+static const float {\bfseries DEATH\+\_\+\+NUTRIENT\+\_\+\+THRESHOLD} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em Static nutrient level below which the plant transitions to \doxylink{class_dead_state}{Dead\+State}. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_a30a21df9bc4683b9322ae964d0e00559}\label{class_plant_state_a30a21df9bc4683b9322ae964d0e00559} 
+static const float {\bfseries WATER\+\_\+\+CONSUMPTION\+\_\+\+RATE} = 2.\+0f
+\begin{DoxyCompactList}\small\item\em Static default water consumption rate. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_aac75c2c1bdc3dc152d401c41e4346ff3}\label{class_plant_state_aac75c2c1bdc3dc152d401c41e4346ff3} 
+static const float {\bfseries NUTRIENT\+\_\+\+CONSUMPTION\+\_\+\+RATE} = 1.\+0f
+\begin{DoxyCompactList}\small\item\em Static default nutrient consumption rate. \end{DoxyCompactList}\item 
+\Hypertarget{class_plant_state_a8cc75d32dd0e5933a761694a9a6b4de6}\label{class_plant_state_a8cc75d32dd0e5933a761694a9a6b4de6} 
+static const float {\bfseries GROWTH\+\_\+\+PER\+\_\+\+TICK} = 3.\+0f
+\begin{DoxyCompactList}\small\item\em Static default growth applied per time tick. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_plant_state_aa7d2e19c0c20134c6785f16b997ddc40}\label{class_plant_state_aa7d2e19c0c20134c6785f16b997ddc40} 
+class \mbox{\hyperlink{class_plant_state_aa7d2e19c0c20134c6785f16b997ddc40}{Plant}}
+\begin{DoxyCompactList}\small\item\em Grants the \doxylink{class_plant}{Plant} class access to protected members for state transitions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The Abstract State class in the State design pattern. It defines the interface for encapsulating the behavior associated with a particular state of the \doxylink{class_plant}{Plant}. 
+
+
+\begin{DoxyItemize}
+\item This class manages the core metrics of a plant (growth, water, nutrients) and defines the virtual interface for state-\/specific operations like handling state transitions and ticking. 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_plant_state_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_plant_state_a846a2011d4b46e3467fadee796f7636b}\index{PlantState@{PlantState}!PlantState@{PlantState}}
+\index{PlantState@{PlantState}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{PlantState()}{PlantState()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_plant_state_a846a2011d4b46e3467fadee796f7636b} 
+Plant\+State\+::\+Plant\+State (\begin{DoxyParamCaption}\item[{float}]{gr}{, }\item[{float}]{wa}{, }\item[{float}]{nu}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_plant_state}{Plant\+State} object with specific metric values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gr} & The initial growth progress (0.\+0 to 1.\+0). \\
+\hline
+{\em wa} & The initial water level. \\
+\hline
+{\em nu} & The initial nutrient level. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_a542ac57222087dd7c8fde30476795647}\index{PlantState@{PlantState}!PlantState@{PlantState}}
+\index{PlantState@{PlantState}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{PlantState()}{PlantState()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_plant_state_a542ac57222087dd7c8fde30476795647} 
+Plant\+State\+::\+Plant\+State (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_plant_state}{Plant\+State}} \&}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Copy constructor for \doxylink{class_plant_state}{Plant\+State}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & The \doxylink{class_plant_state}{Plant\+State} object to copy. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_plant_state_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_plant_state_a932bf25837cfd8a60f91f6c66147f860}\index{PlantState@{PlantState}!addNutrients@{addNutrients}}
+\index{addNutrients@{addNutrients}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{addNutrients()}{addNutrients()}}
+{\footnotesize\ttfamily \label{class_plant_state_a932bf25837cfd8a60f91f6c66147f860} 
+void Plant\+State\+::add\+Nutrients (\begin{DoxyParamCaption}\item[{float}]{amount}{}\end{DoxyParamCaption})}
+
+
+
+Increases the nutrient level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & The amount of nutrients to add. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_a3e443f9072733534ab3463b470a73f0a}\index{PlantState@{PlantState}!addWater@{addWater}}
+\index{addWater@{addWater}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{addWater()}{addWater()}}
+{\footnotesize\ttfamily \label{class_plant_state_a3e443f9072733534ab3463b470a73f0a} 
+void Plant\+State\+::add\+Water (\begin{DoxyParamCaption}\item[{float}]{amount}{}\end{DoxyParamCaption})}
+
+
+
+Increases the water level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em amount} & The amount of water to add. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_a40476c586347a8300def3cb4d83aefbc}\index{PlantState@{PlantState}!applyGrowth@{applyGrowth}}
+\index{applyGrowth@{applyGrowth}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{applyGrowth()}{applyGrowth()}}
+{\footnotesize\ttfamily \label{class_plant_state_a40476c586347a8300def3cb4d83aefbc} 
+void Plant\+State\+::apply\+Growth (\begin{DoxyParamCaption}\item[{float}]{growth\+Amount}{}\end{DoxyParamCaption})}
+
+
+
+Increases the plant\textquotesingle{}s growth progress. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em growth\+Amount} & The amount to increase growth by. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_ae95d21ecb74d83eab4924411a2dce98a}\index{PlantState@{PlantState}!consumeResources@{consumeResources}}
+\index{consumeResources@{consumeResources}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{consumeResources()}{consumeResources()}}
+{\footnotesize\ttfamily \label{class_plant_state_ae95d21ecb74d83eab4924411a2dce98a} 
+void Plant\+State\+::consume\+Resources (\begin{DoxyParamCaption}\item[{float}]{water\+Consumption}{, }\item[{float}]{nutrient\+Consumption}{}\end{DoxyParamCaption})}
+
+
+
+Decreases water and nutrients based on consumption rates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em water\+Consumption} & The amount of water to consume. \\
+\hline
+{\em nutrient\+Consumption} & The amount of nutrients to consume. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_a9eb173119d4f377dff281539d9e82efc}\index{PlantState@{PlantState}!getGrowth@{getGrowth}}
+\index{getGrowth@{getGrowth}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{getGrowth()}{getGrowth()}}
+{\footnotesize\ttfamily \label{class_plant_state_a9eb173119d4f377dff281539d9e82efc} 
+float Plant\+State\+::get\+Growth (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current growth progress (0.\+0 to 1.\+0). 
+
+\begin{DoxyReturn}{Returns}
+The growth progress as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_state_af0476e99b8d30e5cb02b4746d0448e35}\index{PlantState@{PlantState}!getNutrientConsumptionRate@{getNutrientConsumptionRate}}
+\index{getNutrientConsumptionRate@{getNutrientConsumptionRate}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{getNutrientConsumptionRate()}{getNutrientConsumptionRate()}}
+{\footnotesize\ttfamily \label{class_plant_state_af0476e99b8d30e5cb02b4746d0448e35} 
+virtual float Plant\+State\+::get\+Nutrient\+Consumption\+Rate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to get the state-\/specific nutrient consumption rate. 
+
+\begin{DoxyReturn}{Returns}
+The nutrient consumption rate as a float. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_dead_state_a6d9b88a3e6c858a4c8684c579d2dd9e5}{Dead\+State}}, \mbox{\hyperlink{class_growing_state_aa2d317b357b22b929f596e6c2ed5e886}{Growing\+State}}, \mbox{\hyperlink{class_ripe_state_ac378696c51b42db326c642988d6b5984}{Ripe\+State}}, and \mbox{\hyperlink{class_seed_state_a23ab957e71b55e2174c60c2c85690aca}{Seed\+State}}.
+
+\Hypertarget{class_plant_state_afbf9607d1ab89c6e968444a18151b3f8}\index{PlantState@{PlantState}!getNutrients@{getNutrients}}
+\index{getNutrients@{getNutrients}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{getNutrients()}{getNutrients()}}
+{\footnotesize\ttfamily \label{class_plant_state_afbf9607d1ab89c6e968444a18151b3f8} 
+float Plant\+State\+::get\+Nutrients (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current nutrient level. 
+
+\begin{DoxyReturn}{Returns}
+The nutrient level as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_state_a6ad803fdb071d0d10640e22d2b05da4f}\index{PlantState@{PlantState}!getState@{getState}}
+\index{getState@{getState}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{getState()}{getState()}}
+{\footnotesize\ttfamily \label{class_plant_state_a6ad803fdb071d0d10640e22d2b05da4f} 
+virtual std\+::string Plant\+State\+::get\+State (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method that returns the name of the current state. 
+
+\begin{DoxyReturn}{Returns}
+The state name as a string. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_dead_state_a5ce808c7253f15c491a8169d58751e0c}{Dead\+State}}, \mbox{\hyperlink{class_growing_state_a92dbe5637d30fa5149c07bf370bca6bf}{Growing\+State}}, \mbox{\hyperlink{class_ripe_state_a858808ae92c8da16a95a3a3560910053}{Ripe\+State}}, and \mbox{\hyperlink{class_seed_state_a25cdf96404df779d4159034616d1ad5d}{Seed\+State}}.
+
+\Hypertarget{class_plant_state_ab6487664b356fca98a1dcb821240d643}\index{PlantState@{PlantState}!getWater@{getWater}}
+\index{getWater@{getWater}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{getWater()}{getWater()}}
+{\footnotesize\ttfamily \label{class_plant_state_ab6487664b356fca98a1dcb821240d643} 
+float Plant\+State\+::get\+Water (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current water level. 
+
+\begin{DoxyReturn}{Returns}
+The water level as a float. 
+\end{DoxyReturn}
+\Hypertarget{class_plant_state_a5864a3046122d3fd817153e21c8a4b07}\index{PlantState@{PlantState}!getWaterConsumptionRate@{getWaterConsumptionRate}}
+\index{getWaterConsumptionRate@{getWaterConsumptionRate}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{getWaterConsumptionRate()}{getWaterConsumptionRate()}}
+{\footnotesize\ttfamily \label{class_plant_state_a5864a3046122d3fd817153e21c8a4b07} 
+virtual float Plant\+State\+::get\+Water\+Consumption\+Rate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to get the state-\/specific water consumption rate. 
+
+\begin{DoxyReturn}{Returns}
+The water consumption rate as a float. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_dead_state_af745ca7ebee97d2d56f04acfbba52df5}{Dead\+State}}, \mbox{\hyperlink{class_growing_state_a0d051646bda87f3b734aff7a60b8c3b8}{Growing\+State}}, \mbox{\hyperlink{class_ripe_state_a1baad1bdbf1043f413eed2731cc857bf}{Ripe\+State}}, and \mbox{\hyperlink{class_seed_state_aaa9cf18eb5e163a836d6fd13d29af586}{Seed\+State}}.
+
+\Hypertarget{class_plant_state_a8128942762c90e82177b153445e8c95d}\index{PlantState@{PlantState}!handle@{handle}}
+\index{handle@{handle}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{handle()}{handle()}}
+{\footnotesize\ttfamily \label{class_plant_state_a8128942762c90e82177b153445e8c95d} 
+virtual void Plant\+State\+::handle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to handle state-\/specific conditions and potentially trigger transitions. 
+
+
+\begin{DoxyItemize}
+\item This method is the core of the State pattern, allowing states to change the \doxylink{class_plant}{Plant}\textquotesingle{}s state. 
+\begin{DoxyParams}{Parameters}
+{\em plant} & A pointer to the \doxylink{class_plant}{Plant} context object. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+Implemented in \mbox{\hyperlink{class_dead_state_a3dca9aa44223150eca5331fb55b1e4ce}{Dead\+State}}, \mbox{\hyperlink{class_growing_state_a5303c0e6df00a66e0b3541768cf853c7}{Growing\+State}}, \mbox{\hyperlink{class_ripe_state_a8a29868c2e738c918f7d7eebc30bd05c}{Ripe\+State}}, and \mbox{\hyperlink{class_seed_state_a21c4e1a3138e203fce95e7d07c87854c}{Seed\+State}}.
+
+\Hypertarget{class_plant_state_ad6cdaa31fb25be6c63a4b85f06492f4f}\index{PlantState@{PlantState}!setGrowth@{setGrowth}}
+\index{setGrowth@{setGrowth}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{setGrowth()}{setGrowth()}}
+{\footnotesize\ttfamily \label{class_plant_state_ad6cdaa31fb25be6c63a4b85f06492f4f} 
+void Plant\+State\+::set\+Growth (\begin{DoxyParamCaption}\item[{float}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Sets the growth progress. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & The new growth progress value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_a27c7272afbcaddc09f7c05247cc55f24}\index{PlantState@{PlantState}!setNutrients@{setNutrients}}
+\index{setNutrients@{setNutrients}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{setNutrients()}{setNutrients()}}
+{\footnotesize\ttfamily \label{class_plant_state_a27c7272afbcaddc09f7c05247cc55f24} 
+void Plant\+State\+::set\+Nutrients (\begin{DoxyParamCaption}\item[{float}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Sets the nutrient level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & The new nutrient level value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_a7f4206def28669eaa7743f4b1a4afe5f}\index{PlantState@{PlantState}!setWater@{setWater}}
+\index{setWater@{setWater}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{setWater()}{setWater()}}
+{\footnotesize\ttfamily \label{class_plant_state_a7f4206def28669eaa7743f4b1a4afe5f} 
+void Plant\+State\+::set\+Water (\begin{DoxyParamCaption}\item[{float}]{w}{}\end{DoxyParamCaption})}
+
+
+
+Sets the water level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & The new water level value. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_plant_state_a4d91123c8d3f3440a2226d854b4e2bb1}\index{PlantState@{PlantState}!tick@{tick}}
+\index{tick@{tick}!PlantState@{PlantState}}
+\doxysubsubsection{\texorpdfstring{tick()}{tick()}}
+{\footnotesize\ttfamily \label{class_plant_state_a4d91123c8d3f3440a2226d854b4e2bb1} 
+virtual void Plant\+State\+::tick (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method for resource consumption and growth logic specific to the state during a time tick. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & A pointer to the \doxylink{class_plant}{Plant} context object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_dead_state_a8bd5358fcfade0237d024ade94c85df1}{Dead\+State}}, \mbox{\hyperlink{class_growing_state_abe8a81dcf397d5a81d0978ca2e04cf97}{Growing\+State}}, \mbox{\hyperlink{class_ripe_state_a0b23d8b528e4299a12608cbd83e9e8bc}{Ripe\+State}}, and \mbox{\hyperlink{class_seed_state_af5a23e734190ae6a20c55b7ab063e9c3}{Seed\+State}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant\+State.\+h\item 
+Backend/Plant\+State.\+cpp\end{DoxyCompactItemize}

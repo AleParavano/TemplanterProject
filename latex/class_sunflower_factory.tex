@@ -1,0 +1,72 @@
+\doxysection{Sunflower\+Factory Class Reference}
+\hypertarget{class_sunflower_factory}{}\label{class_sunflower_factory}\index{SunflowerFactory@{SunflowerFactory}}
+
+
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_sunflower}{Sunflower}.  
+
+
+
+
+{\ttfamily \#include $<$Plant\+Factory.\+h$>$}
+
+Inheritance diagram for Sunflower\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_sunflower_factory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_sunflower_factory_a18fa839ca7d74b600aa6ab60e07ef514}{produce}} () override
+\begin{DoxyCompactList}\small\item\em Creates a new \doxylink{class_sunflower}{Sunflower} plant with its corresponding \doxylink{class_sunflower_visual_strategy}{Sunflower\+Visual\+Strategy}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_factory}{Plant\+Factory}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_plant_factory}{Plant\+Factory} object. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Plant\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the \doxylink{class_plant_factory}{Plant\+Factory} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A Concrete Factory that implements the Factory Method to produce a \doxylink{class_sunflower}{Sunflower}. 
+
+\label{doc-func-members}
+\Hypertarget{class_sunflower_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_sunflower_factory_a18fa839ca7d74b600aa6ab60e07ef514}\index{SunflowerFactory@{SunflowerFactory}!produce@{produce}}
+\index{produce@{produce}!SunflowerFactory@{SunflowerFactory}}
+\doxysubsubsection{\texorpdfstring{produce()}{produce()}}
+{\footnotesize\ttfamily \label{class_sunflower_factory_a18fa839ca7d74b600aa6ab60e07ef514} 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} Sunflower\+Factory\+::produce (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a new \doxylink{class_sunflower}{Sunflower} plant with its corresponding \doxylink{class_sunflower_visual_strategy}{Sunflower\+Visual\+Strategy}. 
+
+Produces a \doxylink{class_sunflower}{Sunflower} plant.
+
+\begin{DoxyReturn}{Returns}
+A pointer to a new \doxylink{class_sunflower}{Sunflower} object.
+\end{DoxyReturn}
+Creates a new \doxylink{class_sunflower}{Sunflower} instance with \doxylink{class_sunflower_visual_strategy}{Sunflower\+Visual\+Strategy} for rendering. \doxylink{class_sunflower}{Sunflower} dimensions\+: 25x50 pixels (tall flower)
+
+\begin{DoxyReturn}{Returns}
+Pointer to newly allocated \doxylink{class_sunflower}{Sunflower} with \doxylink{class_sunflower_visual_strategy}{Sunflower\+Visual\+Strategy} 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_sunflower}{Sunflower} 
+
+\doxylink{class_sunflower_visual_strategy}{Sunflower\+Visual\+Strategy} 
+\end{DoxySeeAlso}
+
+
+Implements \mbox{\hyperlink{class_plant_factory_a2c399fb04f4f8ecb2c7102cf4e64cb20}{Plant\+Factory}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Plant\+Factory.\+h\item 
+Backend/\mbox{\hyperlink{_plant_factory_8cpp}{Plant\+Factory.\+cpp}}\end{DoxyCompactItemize}

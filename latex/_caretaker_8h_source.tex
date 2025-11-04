@@ -1,0 +1,33 @@
+\doxysection{Caretaker.\+h}
+\hypertarget{_caretaker_8h_source}{}\label{_caretaker_8h_source}\index{Backend/Caretaker.h@{Backend/Caretaker.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Memento.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_caretaker_a3fa6fde4eeedbff4fd699020892c3e95}{Caretaker}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_memento}{Memento}}*\ currentMemento;}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ std::string\ saveFile;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_caretaker_a3fa6fde4eeedbff4fd699020892c3e95}{Caretaker}}(\textcolor{keyword}{const}\ std::string\&\ filename\ =\ \textcolor{stringliteral}{"{}game\_state.txt"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_caretaker_a66b14e6d4b79fe9e45051217cee105e8}{\string~Caretaker}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_caretaker_ab2f6e9284195ed43759b75429fbd1bcf}{addMemento}}(\mbox{\hyperlink{class_memento}{Memento}}*\ memento);}
+\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{class_memento}{Memento}}*\ \mbox{\hyperlink{class_caretaker_ab4e20186fba369f445b03cce80de8e4f}{getMemento}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00050\ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_caretaker_a647c49f1399f3376bad9f26c6c6044de}{loadFromFile}}();}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_caretaker_a8a2d797d5a4de3e2c410f60a728c7365}{deleteData}}();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ saveToFile();}
+\DoxyCodeLine{00068\ \};}
+
+\end{DoxyCode}

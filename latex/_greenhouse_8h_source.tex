@@ -1,0 +1,71 @@
+\doxysection{Greenhouse.\+h}
+\hypertarget{_greenhouse_8h_source}{}\label{_greenhouse_8h_source}\index{Backend/Greenhouse.h@{Backend/Greenhouse.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ Added\ include\ for\ std::string\ return\ type\ in\ getPlot}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Plant.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Inventory.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_subject_8h}{Subject.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Observer.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_greenhouse_a7fdfc136d9855dc84cff2e6f9d92679a}{Greenhouse}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_subject}{Subject}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_greenhouse_a41634b46745d27cb03b0ab3acec64a33}{Greenhouse}}(\mbox{\hyperlink{class_inventory}{Inventory}}*\ inv);}
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_greenhouse_a41634b46745d27cb03b0ab3acec64a33}{Greenhouse}}();}
+\DoxyCodeLine{00027\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_greenhouse_ac7f700007b476ae8b44e63e044d24397}{\string~Greenhouse}}();}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_greenhouse_aabb55425fcc4a2ec793b0270bfc7b4e7}{addPlant}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant,\ \textcolor{keywordtype}{int}\ position);}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_greenhouse_aabb55425fcc4a2ec793b0270bfc7b4e7}{addPlant}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant);}
+\DoxyCodeLine{00047\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_greenhouse_a85fa458e5f35997b13d77d38690fa5b9}{removePlant}}(\textcolor{keywordtype}{int}\ position);}
+\DoxyCodeLine{00054\ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_greenhouse_a4c98672c04f748dc6f7872ade0c97aee}{harvestPlant}}(\textcolor{keywordtype}{int}\ position);}
+\DoxyCodeLine{00061\ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_greenhouse_a4c98672c04f748dc6f7872ade0c97aee}{harvestPlant}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant);}
+\DoxyCodeLine{00068\ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_greenhouse_a98f6ea9623a8182dff8d57a8a840fac6}{getPlant}}(\textcolor{keywordtype}{int}\ position);}
+\DoxyCodeLine{00075\ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_greenhouse_a91858f7812037f45e742c375fe62740b}{getPlantByPointer}}(\mbox{\hyperlink{class_plant}{Plant}}*\ p)\ ;}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ std::string\ \mbox{\hyperlink{class_greenhouse_a585deacf686c3707c98ffb9b4f5e6293}{getPlot}}(\textcolor{keywordtype}{int}\ position);}
+\DoxyCodeLine{00089\ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_greenhouse_a7fe2563669500ed93562b8e80fe22c37}{getSize}}();}
+\DoxyCodeLine{00095\ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_greenhouse_adb43d5f38f76553849b4a65b2d994a94}{getCapacity}}();}
+\DoxyCodeLine{00101\ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_greenhouse_a55b14a93840d4f0e0c7f077a980de8fe}{increaseCapacity}}(\textcolor{keywordtype}{int}\ amount);}
+\DoxyCodeLine{00108\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_greenhouse_ac3e3ddc6492df450c76ddf48fbabfa2f}{setInventory}}(\mbox{\hyperlink{class_inventory}{Inventory}}*\ inv);}
+\DoxyCodeLine{00114\ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{comment}{//\ Subject\ pattern\ implementation}}
+\DoxyCodeLine{00116\ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_greenhouse_ad5d32889f3eb6239d4b208dc2067e703}{notify}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00122\ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_greenhouse_ae3a2d74d273b05799ddd66d385c64756}{attach}}(\mbox{\hyperlink{class_observer}{Observer}}*\ observer)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00128\ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_greenhouse_a059a78cfb108136bdc2389aa3e03548e}{detach}}(\mbox{\hyperlink{class_observer}{Observer}}*\ observer)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00134\ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{comment}{//\ Called\ when\ a\ plant\ ticks}}
+\DoxyCodeLine{00136\ \ \ \ \ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_greenhouse_a64888a30f29645b4f9ce4a3c6490c7d0}{tickPlant}}(\textcolor{keywordtype}{int}\ position);}
+\DoxyCodeLine{00143\ \ \ \ \ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_greenhouse_a79817d7b49caa51679c8a658a8653018}{tickAllPlants}}();}
+\DoxyCodeLine{00148\ \ \ \ \ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{int}\ size;}
+\DoxyCodeLine{00154\ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ std::vector<Plant*>\ plots;}
+\DoxyCodeLine{00159\ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{int}\ capacity;}
+\DoxyCodeLine{00164\ \ \ \ \ }
+\DoxyCodeLine{00168\ \ \ \ \ \mbox{\hyperlink{class_inventory}{Inventory}}*\ inventory;}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ }
+\DoxyCodeLine{00171\ \};}
+
+\end{DoxyCode}

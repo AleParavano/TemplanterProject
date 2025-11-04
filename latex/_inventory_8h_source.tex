@@ -1,0 +1,96 @@
+\doxysection{Inventory.\+h}
+\hypertarget{_inventory_8h_source}{}\label{_inventory_8h_source}\index{Backend/Inventory.h@{Backend/Inventory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}\ \textcolor{comment}{//\ Added\ include\ for\ std::string}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Forward\ declaration}}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_plant}{Plant}};}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_inventory_slot_aa11e4d8293553193737471c244214c0e}{InventorySlot}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_inventory_slot_aa11e4d8293553193737471c244214c0e}{InventorySlot}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_slot_a830a4bc7ea9c0a9de8c1bd6f15694c2d}{add}}(\mbox{\hyperlink{class_plant}{Plant}}\ *plant);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}\ *\mbox{\hyperlink{class_inventory_slot_a09c495184be617c606d4590a791dc8aa}{remove}}();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_slot_afede0e66e648c4a6b606093e80d3ed65}{canAccept}}(\mbox{\hyperlink{class_plant}{Plant}}\ *plant)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_slot_a13158a64df6b9b4d076caac252238ecb}{isFull}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ items.size()\ >=\ capacity;\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_slot_a09f3814257843b3f2f4364b314a5063f}{isEmpty}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ items.empty();\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_inventory_slot_ac908cbb73dcdebb8705439909c81c79c}{getSize}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ items.size();\ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00064\ \ \ \ \ std::string\ \mbox{\hyperlink{class_inventory_slot_a317ce15743267c35013226a0e4160840}{getPlantType}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ plantType;\ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_inventory_slot_a0436091f7a25901595cd35beb30ead89}{getRemainingCapacity}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ capacity\ -\/\ items.size();\ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_inventory_slot_a3c8aedb64665ec041e816167f10392c3}{getPlant}}(\textcolor{keywordtype}{int}\ index)\textcolor{keyword}{\ const\ }}
+\DoxyCodeLine{00078\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ 0\ \&\&\ index\ <\ (\textcolor{keywordtype}{int})items.size())\ \{\ \textcolor{keywordflow}{return}\ items[index];\ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ capacity\ =\ 64;}
+\DoxyCodeLine{00088\ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ std::string\ plantType;}
+\DoxyCodeLine{00093\ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ std::vector<Plant\ *>\ items;}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{comment}{//\ -\/-\/-\/\ Inventory\ Manager\ -\/-\/-\/}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_inventory_a7bf4bf12c31508e99e58311820a550c5}{Inventory}}}
+\DoxyCodeLine{00107\ \{}
+\DoxyCodeLine{00108\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{class_inventory_a7bf4bf12c31508e99e58311820a550c5}{Inventory}}(\textcolor{keywordtype}{int}\ capacity);}
+\DoxyCodeLine{00114\ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{class_inventory_a6c6dfcb6d977c74a7abf46809e892e3d}{\string~Inventory}}();}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_a44578448b3e122f6edbcd6620b1ee7e2}{add}}(\mbox{\hyperlink{class_plant}{Plant}}\ *plant);}
+\DoxyCodeLine{00126\ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}\ *\mbox{\hyperlink{class_inventory_aca85d13886f709d95df6dffb43435506}{removeItem}}(\textcolor{keyword}{const}\ std::string\ \&plantType);}
+\DoxyCodeLine{00133\ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_a7056671da418111559b3d98dfa422647}{removeStack}}(\textcolor{keywordtype}{size\_t}\ index);}
+\DoxyCodeLine{00140\ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_inventory_a2a34941ae1734342efa15821ea8310ff}{getPlantCount}}(\textcolor{keyword}{const}\ std::string\ \&plantType)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00147\ \ \ \ \ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_inventory_aad0259e1477f19c632dc4c43cd9332fd}{getStackCount}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ slots.size();\ \}}
+\DoxyCodeLine{00153\ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_ae64c114e81d5ee14653161f425510a26}{isFull}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00159\ \ \ \ \ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_inventory_slot}{InventorySlot}}\ *\mbox{\hyperlink{class_inventory_abd1ecba0f6f83be4b621aebb85acf7dd}{getSlot}}(\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00166\ \ \ \ \ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_a181cdda67bcd1aef95aafe2b7a8432ea}{clear}}();}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_inventory_a47c7065a53055bdbb2d48903c9a105a4}{getMaxSlots}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ maxSlots;\ \}}
+\DoxyCodeLine{00177\ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_adc141680bfbb2b73f4f8182918c34391}{setMaxSlots}}(\textcolor{keywordtype}{size\_t}\ capacity)\ \{\ maxSlots\ =\ capacity;\ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ Frontend\ methods}}
+\DoxyCodeLine{00185\ \ \ \ \ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_a3c9d3dc1293ba9b65d82fce2d5598793}{swapSlots}}(\textcolor{keywordtype}{int}\ index1,\ \textcolor{keywordtype}{int}\ index2);}
+\DoxyCodeLine{00192\ \ \ \ \ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ NEW:\ Cross-\/inventory\ swap}}
+\DoxyCodeLine{00194\ \ \ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_a48a53ec7c86c3e413332827625126ff0}{swapBetweenInventories}}(\mbox{\hyperlink{class_inventory}{Inventory}}*\ inv1,\ \textcolor{keywordtype}{int}\ index1,\ \mbox{\hyperlink{class_inventory}{Inventory}}*\ inv2,\ \textcolor{keywordtype}{int}\ index2);}
+\DoxyCodeLine{00203\ \ \ \ \ }
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_afb3aa2ea7ae50c05f3fa633f793ca0f3}{addToSpecificSlot}}(\mbox{\hyperlink{class_plant}{Plant}}*\ plant,\ \textcolor{keywordtype}{size\_t}\ slotIndex);}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxSlots;}
+\DoxyCodeLine{00217\ \ \ \ \ }
+\DoxyCodeLine{00221\ \ \ \ \ std::vector<InventorySlot\ *>\ slots;}
+\DoxyCodeLine{00222\ \ \ \ \ }
+\DoxyCodeLine{00228\ \ \ \ \ \mbox{\hyperlink{class_inventory_slot}{InventorySlot}}\ *findCompatibleSlot(\mbox{\hyperlink{class_plant}{Plant}}\ *plant);}
+\DoxyCodeLine{00229\ \ \ \ \ }
+\DoxyCodeLine{00234\ \ \ \ \ \mbox{\hyperlink{class_inventory_slot}{InventorySlot}}\ *createNewSlot();}
+\DoxyCodeLine{00235\ \};}
+
+\end{DoxyCode}

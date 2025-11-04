@@ -1,0 +1,90 @@
+\doxysection{Robber Class Reference}
+\hypertarget{class_robber}{}\label{class_robber}\index{Robber@{Robber}}
+
+
+Represents an antagonistic entity or a special event customer.  
+
+
+
+
+{\ttfamily \#include $<$Customer.\+h$>$}
+
+Inheritance diagram for Robber\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_robber}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_robber_a312df113d009a51a729047df008aa68d}{Robber}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}requested\+Plant)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_robber}{Robber} customer. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_robber_a1bf7b89425f77989b552910fb692c8e1}{type}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the type identifier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_customer}{Customer}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}requested\+Plant)
+\begin{DoxyCompactList}\small\item\em Constructor for the \doxylink{class_customer}{Customer} base class. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Customer} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual default destructor to ensure proper cleanup of derived classes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_aef0655bfc70bce8edf2a88aaf1f1cf97}{set\+Requested\+Plant}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Sets the plant the customer is requesting. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_customer_a53bb8c38669946b97076fd9c7e4e1553}{get\+Requested\+Plant}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the plant the customer is currently requesting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an antagonistic entity or a special event customer. 
+
+
+\begin{DoxyItemize}
+\item May require special handling or defensive actions by the greenhouse. 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_robber_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_robber_a312df113d009a51a729047df008aa68d}\index{Robber@{Robber}!Robber@{Robber}}
+\index{Robber@{Robber}!Robber@{Robber}}
+\doxysubsubsection{\texorpdfstring{Robber()}{Robber()}}
+{\footnotesize\ttfamily \label{class_robber_a312df113d009a51a729047df008aa68d} 
+Robber\+::\+Robber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{requested\+Plant}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \doxylink{class_robber}{Robber} customer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em requested\+Plant} & The plant the robber is targeting. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_robber_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_robber_a1bf7b89425f77989b552910fb692c8e1}\index{Robber@{Robber}!type@{type}}
+\index{type@{type}!Robber@{Robber}}
+\doxysubsubsection{\texorpdfstring{type()}{type()}}
+{\footnotesize\ttfamily \label{class_robber_a1bf7b89425f77989b552910fb692c8e1} 
+std\+::string Robber\+::type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Returns the type identifier. 
+
+\begin{DoxyReturn}{Returns}
+The string "{}\+Robber"{}. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_customer_a131ee499a8926ad45508586d53c68694}{Customer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Customer.\+h\end{DoxyCompactItemize}

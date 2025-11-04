@@ -1,0 +1,77 @@
+\doxysection{Cucumber\+Visual\+Strategy Class Reference}
+\hypertarget{class_cucumber_visual_strategy}{}\label{class_cucumber_visual_strategy}\index{CucumberVisualStrategy@{CucumberVisualStrategy}}
+Inheritance diagram for Cucumber\+Visual\+Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_cucumber_visual_strategy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_cucumber_visual_strategy_a6e2ed4244d8abbc108855cb3061baafc}\label{class_cucumber_visual_strategy_a6e2ed4244d8abbc108855cb3061baafc} 
+{\bfseries Cucumber\+Visual\+Strategy} (float width, float height)
+\item 
+void \mbox{\hyperlink{class_cucumber_visual_strategy_ae068c252ad7a7cdc1dd7faa1899408dd}{draw\+Detailed}} (float x, float y) override
+\item 
+void \mbox{\hyperlink{class_cucumber_visual_strategy_a2b5fbec3d55ead2d6c5e06b593639115}{draw\+Static}} (float x, float y) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Visual\+Strategy} (float width, float height)
+\item 
+void {\bfseries set\+Growth} (float progress)
+\item 
+void {\bfseries set\+Dimensions} (float width, float height)
+\item 
+void {\bfseries set\+Dead} (bool dead)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+Color {\bfseries apply\+Death\+Filter} (Color base\+Color) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries current\+Width}
+\item 
+float {\bfseries current\+Height}
+\item 
+float {\bfseries growth\+Progress}
+\item 
+bool {\bfseries is\+Currently\+Dead}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_cucumber_visual_strategy_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_cucumber_visual_strategy_ae068c252ad7a7cdc1dd7faa1899408dd}\index{CucumberVisualStrategy@{CucumberVisualStrategy}!drawDetailed@{drawDetailed}}
+\index{drawDetailed@{drawDetailed}!CucumberVisualStrategy@{CucumberVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawDetailed()}{drawDetailed()}}
+{\footnotesize\ttfamily \label{class_cucumber_visual_strategy_ae068c252ad7a7cdc1dd7faa1899408dd} 
+void Cucumber\+Visual\+Strategy\+::draw\+Detailed (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+\Hypertarget{class_cucumber_visual_strategy_a2b5fbec3d55ead2d6c5e06b593639115}\index{CucumberVisualStrategy@{CucumberVisualStrategy}!drawStatic@{drawStatic}}
+\index{drawStatic@{drawStatic}!CucumberVisualStrategy@{CucumberVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawStatic()}{drawStatic()}}
+{\footnotesize\ttfamily \label{class_cucumber_visual_strategy_a2b5fbec3d55ead2d6c5e06b593639115} 
+void Cucumber\+Visual\+Strategy\+::draw\+Static (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Plant\+Visual\+Strategy.\+h\item 
+Frontend/Plant\+Visual\+Strategy.\+cpp\end{DoxyCompactItemize}

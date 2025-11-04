@@ -1,0 +1,164 @@
+\doxysection{Scene Class Reference}
+\hypertarget{class_scene}{}\label{class_scene}\index{Scene@{Scene}}
+
+
+The abstract base class that defines the core interface for all game scenes.  
+
+
+
+
+{\ttfamily \#include $<$Scene.\+h$>$}
+
+Inheritance diagram for Scene\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_scene}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_scene_af6e09d91ebd10ae9cc7c12c39d06386c}\label{class_scene_af6e09d91ebd10ae9cc7c12c39d06386c} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Scene} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of resources in derived classes. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}{Init}} ()=0
+\begin{DoxyCompactList}\small\item\em Initializes scene-\/specific resources, loads assets, and sets initial state. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_a7cd484a12593952a999edfd20309b8fb}{Update}} (float dt)=0
+\begin{DoxyCompactList}\small\item\em Updates the scene\textquotesingle{}s core logic, simulation, and object states. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_a8680672fd30bb4b345e6fab918e31ecd}{Draw}} ()=0
+\begin{DoxyCompactList}\small\item\em Renders all visual elements belonging to the scene. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_a857a1635b2fec4aadcaef182ac55870b}{Handle\+Input}} ()=0
+\begin{DoxyCompactList}\small\item\em Processes input (keyboard, mouse) relevant to the current scene. \end{DoxyCompactList}\item 
+virtual Scene\+Type \mbox{\hyperlink{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}{Get\+Scene\+Type}} () const =0
+\begin{DoxyCompactList}\small\item\em Returns the constant identifier for this scene type. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_abe448df6f81609819ce49ab8b1d8040b}{Draw\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em Renders any scene-\/specific menu or persistent sidebar UI. \end{DoxyCompactList}\item 
+virtual Scene\+Type \mbox{\hyperlink{class_scene_a2908f47812428dd3071c7dfcdd399990}{Check\+Exit}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the scene should transition to a new one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The abstract base class that defines the core interface for all game scenes. 
+
+This class establishes the {\bfseries{Template Method}} structure, requiring all concrete scenes to implement essential game loop functions (Init, Update, Draw, Handle\+Input). 
+
+\label{doc-func-members}
+\Hypertarget{class_scene_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_scene_a2908f47812428dd3071c7dfcdd399990}\index{Scene@{Scene}!CheckExit@{CheckExit}}
+\index{CheckExit@{CheckExit}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{CheckExit()}{CheckExit()}}
+{\footnotesize\ttfamily \label{class_scene_a2908f47812428dd3071c7dfcdd399990} 
+virtual Scene\+Type Scene\+::\+Check\+Exit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Checks if the scene should transition to a new one. 
+
+\begin{DoxyReturn}{Returns}
+The Scene\+Type to transition to, or the current scene\textquotesingle{}s type if staying put. 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{class_green_house_scene_a2149d768ba4f085a7236f62b9fe3f1c0}{Green\+House\+Scene}}, \mbox{\hyperlink{class_outdoor_scene_ab060d9b0285779f352fe2954d3180c86}{Outdoor\+Scene}}, \mbox{\hyperlink{class_store_scene_ad71342e06c0b87304acc3df3eb9556b8}{Store\+Scene}}, and \mbox{\hyperlink{class_warehouse_scene_ad1e04b0e2af06c4dcd877361428fa51a}{Warehouse\+Scene}}.
+
+\Hypertarget{class_scene_a8680672fd30bb4b345e6fab918e31ecd}\index{Scene@{Scene}!Draw@{Draw}}
+\index{Draw@{Draw}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily \label{class_scene_a8680672fd30bb4b345e6fab918e31ecd} 
+virtual void Scene\+::\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Renders all visual elements belonging to the scene. 
+
+
+
+Implemented in \mbox{\hyperlink{class_green_house_scene_ad747f68cf1e1f7384d4b6a9a61ba6c08}{Green\+House\+Scene}}, \mbox{\hyperlink{class_outdoor_scene_a0da9d7fdc1a22042afa4c7801cf0ff67}{Outdoor\+Scene}}, \mbox{\hyperlink{class_store_scene_a0ae0afcf12440616f2dc6f6b3f78bf86}{Store\+Scene}}, and \mbox{\hyperlink{class_warehouse_scene_a52b884e086245abfdc905632edb95586}{Warehouse\+Scene}}.
+
+\Hypertarget{class_scene_abe448df6f81609819ce49ab8b1d8040b}\index{Scene@{Scene}!DrawMenu@{DrawMenu}}
+\index{DrawMenu@{DrawMenu}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{DrawMenu()}{DrawMenu()}}
+{\footnotesize\ttfamily \label{class_scene_abe448df6f81609819ce49ab8b1d8040b} 
+virtual void Scene\+::\+Draw\+Menu (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Renders any scene-\/specific menu or persistent sidebar UI. 
+
+
+\begin{DoxyItemize}
+\item Default implementation does nothing. 
+\end{DoxyItemize}
+
+Reimplemented in \mbox{\hyperlink{class_green_house_scene_a3b44a203d02b3b1bc841c6ca9617a06c}{Green\+House\+Scene}}.
+
+\Hypertarget{class_scene_a91bc5eb9266ea25a026dcf514b065ee2}\index{Scene@{Scene}!GetSceneType@{GetSceneType}}
+\index{GetSceneType@{GetSceneType}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{GetSceneType()}{GetSceneType()}}
+{\footnotesize\ttfamily \label{class_scene_a91bc5eb9266ea25a026dcf514b065ee2} 
+virtual Scene\+Type Scene\+::\+Get\+Scene\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns the constant identifier for this scene type. 
+
+\begin{DoxyReturn}{Returns}
+The Scene\+Type enum value (e.\+g., SCENE\+\_\+\+STORE). 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_green_house_scene_a2879a211b91a6eb20a3f88dd94e4e9b6}{Green\+House\+Scene}}, \mbox{\hyperlink{class_outdoor_scene_ab004510539e966ed269775affb1be1c3}{Outdoor\+Scene}}, \mbox{\hyperlink{class_store_scene_a4709c44edbbfba38d23fa671b8e58473}{Store\+Scene}}, and \mbox{\hyperlink{class_warehouse_scene_a9375116b15df749b5b4bd41e27e0c9b6}{Warehouse\+Scene}}.
+
+\Hypertarget{class_scene_a857a1635b2fec4aadcaef182ac55870b}\index{Scene@{Scene}!HandleInput@{HandleInput}}
+\index{HandleInput@{HandleInput}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{HandleInput()}{HandleInput()}}
+{\footnotesize\ttfamily \label{class_scene_a857a1635b2fec4aadcaef182ac55870b} 
+virtual void Scene\+::\+Handle\+Input (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Processes input (keyboard, mouse) relevant to the current scene. 
+
+
+
+Implemented in \mbox{\hyperlink{class_green_house_scene_a18ee8b1c28e62a38f02055e02addb2af}{Green\+House\+Scene}}, \mbox{\hyperlink{class_outdoor_scene_a9ee9fa1165a888639944d5246aeee9e6}{Outdoor\+Scene}}, \mbox{\hyperlink{class_store_scene_a7f1862968f4e56b06a68146c8ec7a7c2}{Store\+Scene}}, and \mbox{\hyperlink{class_warehouse_scene_aba82ae2d4858898e91f02cc1c967ea59}{Warehouse\+Scene}}.
+
+\Hypertarget{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478}\index{Scene@{Scene}!Init@{Init}}
+\index{Init@{Init}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{class_scene_ac3c4677dfd702a3ffd5ffadd3f1ac478} 
+virtual void Scene\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Initializes scene-\/specific resources, loads assets, and sets initial state. 
+
+
+
+Implemented in \mbox{\hyperlink{class_green_house_scene_a17451e2732ef7f5cbf79d6b1847f5d29}{Green\+House\+Scene}}, \mbox{\hyperlink{class_outdoor_scene_afbb0010ed30c57f728dbca3e93f3d297}{Outdoor\+Scene}}, \mbox{\hyperlink{class_store_scene_a91598f75e5a46b4a1f4748d063902152}{Store\+Scene}}, and \mbox{\hyperlink{class_warehouse_scene_a5d4d863d80c8ea47c7b4a41974dd0b0b}{Warehouse\+Scene}}.
+
+\Hypertarget{class_scene_a7cd484a12593952a999edfd20309b8fb}\index{Scene@{Scene}!Update@{Update}}
+\index{Update@{Update}!Scene@{Scene}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_scene_a7cd484a12593952a999edfd20309b8fb} 
+virtual void Scene\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Updates the scene\textquotesingle{}s core logic, simulation, and object states. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The delta time since the last frame (in seconds). \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_green_house_scene_af182a65453aa26c81f982f652e80c963}{Green\+House\+Scene}}, \mbox{\hyperlink{class_outdoor_scene_a684c83f8fa193b0ad9ab15e48e4803cf}{Outdoor\+Scene}}, \mbox{\hyperlink{class_store_scene_a3432fbfd1f4717e39a0fa352e587bce6}{Store\+Scene}}, and \mbox{\hyperlink{class_warehouse_scene_a7259bb8e3366361493d3707fe47fc7ee}{Warehouse\+Scene}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Scene.\+h\end{DoxyCompactItemize}

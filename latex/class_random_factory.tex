@@ -1,0 +1,63 @@
+\doxysection{Random\+Factory Class Reference}
+\hypertarget{class_random_factory}{}\label{class_random_factory}\index{RandomFactory@{RandomFactory}}
+
+
+A concrete factory that creates a random type of \doxylink{class_customer}{Customer} (\doxylink{class_regular}{Regular}, \doxylink{class_v_i_p}{VIP}, or \doxylink{class_robber}{Robber}).  
+
+
+
+
+{\ttfamily \#include $<$Customer\+Factory.\+h$>$}
+
+Inheritance diagram for Random\+Factory\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_random_factory}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_customer}{Customer}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_random_factory_a4ac6508d255da14c422dd41eed786dd9}{create}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}requested\+Plant) const override
+\begin{DoxyCompactList}\small\item\em Creates a random \doxylink{class_customer}{Customer} type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_customer_factory}{Customer\+Factory}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Customer\+Factory} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor to ensure proper cleanup of derived factory objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A concrete factory that creates a random type of \doxylink{class_customer}{Customer} (\doxylink{class_regular}{Regular}, \doxylink{class_v_i_p}{VIP}, or \doxylink{class_robber}{Robber}). 
+
+\label{doc-func-members}
+\Hypertarget{class_random_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_random_factory_a4ac6508d255da14c422dd41eed786dd9}\index{RandomFactory@{RandomFactory}!create@{create}}
+\index{create@{create}!RandomFactory@{RandomFactory}}
+\doxysubsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily \label{class_random_factory_a4ac6508d255da14c422dd41eed786dd9} 
+\mbox{\hyperlink{class_customer}{Customer}} \texorpdfstring{$\ast$}{*} Random\+Factory\+::create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{requested\+Plant}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a random \doxylink{class_customer}{Customer} type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em requested\+Plant} & The plant the customer is interested in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to a randomly selected concrete \doxylink{class_customer}{Customer} object. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_customer_factory_a8c0a204e0044b5a1a51ee28d1ae6039d}{Customer\+Factory}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Customer\+Factory.\+h\item 
+Backend/Customer\+Factory.\+cpp\end{DoxyCompactItemize}

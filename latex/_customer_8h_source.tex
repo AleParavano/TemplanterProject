@@ -1,0 +1,56 @@
+\doxysection{Customer.\+h}
+\hypertarget{_customer_8h_source}{}\label{_customer_8h_source}\index{Backend/Customer.h@{Backend/Customer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Forward\ declaration\ to\ avoid\ circular\ dependencies\ and\ just\ include\ necessary\ details.}}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_plant}{Plant}};}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}\ }
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ :\ requestedPlant(requestedPlant)\ \{\}}
+\DoxyCodeLine{00021\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_customer_a07f35fdaaf46adc728d7f5310a882e14}{\string~Customer}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00026\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \mbox{\hyperlink{class_customer_a131ee499a8926ad45508586d53c68694}{type}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_customer_aef0655bfc70bce8edf2a88aaf1f1cf97}{setRequestedPlant}}(\mbox{\hyperlink{class_plant}{Plant}}*\ p)\ \{\ requestedPlant\ =\ p;\ \}}
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ \mbox{\hyperlink{class_customer_a53bb8c38669946b97076fd9c7e4e1553}{getRequestedPlant}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ requestedPlant;\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant;}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ -\/-\/-\/\ Concrete\ Customer\ Types\ -\/-\/-\/}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_regular_a959403ce193aea0c7b65ae5b83484579}{Regular}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}\ }
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_regular_a959403ce193aea0c7b65ae5b83484579}{Regular}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ :\ \mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}(requestedPlant)\ \{\}}
+\DoxyCodeLine{00067\ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ std::string\ \mbox{\hyperlink{class_regular_aa1e208b2a22993314b33e8fb643c1faf}{type}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Regular"{}};\ \}}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_v_i_p_a20f084ddf18095fe7a01442df3acd75d}{VIP}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}\ }
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{class_v_i_p_a20f084ddf18095fe7a01442df3acd75d}{VIP}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant):\ \mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}(requestedPlant)\ \{\}}
+\DoxyCodeLine{00088\ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ std::string\ \mbox{\hyperlink{class_v_i_p_acda01bf38d6884fec100c38250b5662b}{type}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}VIP"{}};\ \}}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_robber_a312df113d009a51a729047df008aa68d}{Robber}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}\ }
+\DoxyCodeLine{00102\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{class_robber_a312df113d009a51a729047df008aa68d}{Robber}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ :\ \mbox{\hyperlink{class_customer_aa2a9281a864ce7b7e8539e92cd15ea0b}{Customer}}(requestedPlant)\ \{\}}
+\DoxyCodeLine{00109\ \ \ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ std::string\ \mbox{\hyperlink{class_robber_a1bf7b89425f77989b552910fb692c8e1}{type}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Robber"{}};\ \}}
+\DoxyCodeLine{00115\ \};}
+
+\end{DoxyCode}

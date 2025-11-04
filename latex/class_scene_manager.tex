@@ -1,0 +1,80 @@
+\doxysection{Scene\+Manager Class Reference}
+\hypertarget{class_scene_manager}{}\label{class_scene_manager}\index{SceneManager@{SceneManager}}
+
+
+Manages the state machine for the game, controlling which scene is active, updating the active scene, and handling transitions between them.  
+
+
+
+
+{\ttfamily \#include $<$Scene\+Manager.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_scene_manager_a52085e6737c23b491c228e86781af808}\label{class_scene_manager_a52085e6737c23b491c228e86781af808} 
+{\bfseries Scene\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Constructor. Initializes the scene map with pointers to all concrete scene instances. \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_manager_a2bb376a85d29e85f47753e26c7539229}\label{class_scene_manager_a2bb376a85d29e85f47753e26c7539229} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Scene\+Manager} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Responsible for cleaning up and deleting all dynamically allocated \doxylink{class_scene}{Scene} objects in the map. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_manager_a146f8427f6911222d00dd2617da78c46}{Update}} (float dt)
+\begin{DoxyCompactList}\small\item\em Updates the currently active scene, checking for and executing any scene transitions. \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_manager_a0b69da4914ceb84f796dea9f96b37f2a}\label{class_scene_manager_a0b69da4914ceb84f796dea9f96b37f2a} 
+void {\bfseries Handle\+Input} ()
+\begin{DoxyCompactList}\small\item\em Passes input events to the currently active scene. \end{DoxyCompactList}\item 
+\Hypertarget{class_scene_manager_a313955e916bc50c0e8cb5d3cf2ed2664}\label{class_scene_manager_a313955e916bc50c0e8cb5d3cf2ed2664} 
+void {\bfseries Draw} ()
+\begin{DoxyCompactList}\small\item\em Calls the Draw and Draw\+Menu methods of the currently active scene. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_scene_manager_a7b5fb2a30be8ca2c93af8fb84a383f5c}{Is\+Done}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the \doxylink{class_scene_manager}{Scene\+Manager} has determined the game should quit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_scene_manager_aed8b9ce5ce88f2b82a8482ec04da7d0d}\label{class_scene_manager_aed8b9ce5ce88f2b82a8482ec04da7d0d} 
+class \mbox{\hyperlink{class_scene_manager_aed8b9ce5ce88f2b82a8482ec04da7d0d}{Demo}}
+\begin{DoxyCompactList}\small\item\em Declares \doxylink{class_demo}{Demo} as a friend class to allow it access to private members, particularly to initialize the \textquotesingle{}scenes\textquotesingle{} map and set the initial state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages the state machine for the game, controlling which scene is active, updating the active scene, and handling transitions between them. 
+
+Implements the {\bfseries{State Pattern}} (or FSM) to switch between different game environments (Outdoor, \doxylink{class_greenhouse}{Greenhouse}, \doxylink{class_store}{Store}, etc.). 
+
+\label{doc-func-members}
+\Hypertarget{class_scene_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_scene_manager_a7b5fb2a30be8ca2c93af8fb84a383f5c}\index{SceneManager@{SceneManager}!IsDone@{IsDone}}
+\index{IsDone@{IsDone}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{IsDone()}{IsDone()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a7b5fb2a30be8ca2c93af8fb84a383f5c} 
+bool Scene\+Manager\+::\+Is\+Done (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the \doxylink{class_scene_manager}{Scene\+Manager} has determined the game should quit. 
+
+\begin{DoxyReturn}{Returns}
+true if the game is ready to exit, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_scene_manager_a146f8427f6911222d00dd2617da78c46}\index{SceneManager@{SceneManager}!Update@{Update}}
+\index{Update@{Update}!SceneManager@{SceneManager}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_scene_manager_a146f8427f6911222d00dd2617da78c46} 
+void Scene\+Manager\+::\+Update (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})}
+
+
+
+Updates the currently active scene, checking for and executing any scene transitions. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & The delta time since the last frame. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Scene\+Manager.\+h\item 
+Frontend/Scene\+Manager.\+cpp\end{DoxyCompactItemize}

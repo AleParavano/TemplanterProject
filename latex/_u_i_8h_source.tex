@@ -1,0 +1,47 @@
+\doxysection{UI.\+h}
+\hypertarget{_u_i_8h_source}{}\label{_u_i_8h_source}\index{Frontend/UI.h@{Frontend/UI.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ UI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ UI\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Backend/Game.h"{}}\ \ \textcolor{comment}{//\ Assumed\ to\ contain\ core\ game\ state\ access}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Backend/Player.h"{}}\ \textcolor{comment}{//\ Assumed\ to\ contain\ player\ data\ access}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}ObjectTypes.h"{}}\ \ \ \ \ \ \textcolor{comment}{//\ Includes\ structures\ like\ Person}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Scene.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Includes\ SceneType\ enum}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ -\/-\/-\/\ Global\ UI\ Constants\ -\/-\/-\/}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ SCREEN\_WIDTH\ 1400}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ SCREEN\_HEIGHT\ 900}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ MENU\_WIDTH\ 250}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MAX\_LOG\_MESSAGES\ 10}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ -\/-\/-\/\ Defines\ for\ Button\ -\/-\/-\/\(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{comment}{/**\ @brief\ Standard\ width\ for\ a\ generic\ back\ button\ element.\ */}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ BACK\_BUTTON\_WIDTH\ 180}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ BACK\_BUTTON\_HEIGHT\ 30}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ BACK\_BUTTON\_MARGIN\ 20}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ -\/-\/-\/\ Global\ UI\ Drawing\ Utility\ Functions\ -\/-\/-\/}}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ DrawTiledArea(Rectangle\ targetRect,\ Color\ baseColor);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ DrawTiledBackground(Color\ baseColor,\ \textcolor{keywordtype}{int}\ width,\ \textcolor{keywordtype}{int}\ height);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ DrawBackButton(SceneType\ currentScene);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ DrawPersonDetailed(\mbox{\hyperlink{struct_person}{Person}}\ p);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ DrawGlobalMenu();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ -\/-\/-\/\ Utility\ Functions\ -\/-\/-\/}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ DrawMessageLog(\textcolor{keyword}{const}\ std::vector<std::string>\&\ messages);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UI\_H}}
+
+\end{DoxyCode}

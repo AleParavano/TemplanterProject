@@ -1,0 +1,77 @@
+\doxysection{Sunflower\+Visual\+Strategy Class Reference}
+\hypertarget{class_sunflower_visual_strategy}{}\label{class_sunflower_visual_strategy}\index{SunflowerVisualStrategy@{SunflowerVisualStrategy}}
+Inheritance diagram for Sunflower\+Visual\+Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_sunflower_visual_strategy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sunflower_visual_strategy_a1f4a119d12809e9bba5a2b2c05da0466}\label{class_sunflower_visual_strategy_a1f4a119d12809e9bba5a2b2c05da0466} 
+{\bfseries Sunflower\+Visual\+Strategy} (float width, float height)
+\item 
+void \mbox{\hyperlink{class_sunflower_visual_strategy_ad58ce42d675c130755aceac068c6cdba}{draw\+Detailed}} (float x, float y) override
+\item 
+void \mbox{\hyperlink{class_sunflower_visual_strategy_a557fa01d14bd7dff09b58b3da7be7063}{draw\+Static}} (float x, float y) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Visual\+Strategy} (float width, float height)
+\item 
+void {\bfseries set\+Growth} (float progress)
+\item 
+void {\bfseries set\+Dimensions} (float width, float height)
+\item 
+void {\bfseries set\+Dead} (bool dead)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+Color {\bfseries apply\+Death\+Filter} (Color base\+Color) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries current\+Width}
+\item 
+float {\bfseries current\+Height}
+\item 
+float {\bfseries growth\+Progress}
+\item 
+bool {\bfseries is\+Currently\+Dead}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sunflower_visual_strategy_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_sunflower_visual_strategy_ad58ce42d675c130755aceac068c6cdba}\index{SunflowerVisualStrategy@{SunflowerVisualStrategy}!drawDetailed@{drawDetailed}}
+\index{drawDetailed@{drawDetailed}!SunflowerVisualStrategy@{SunflowerVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawDetailed()}{drawDetailed()}}
+{\footnotesize\ttfamily \label{class_sunflower_visual_strategy_ad58ce42d675c130755aceac068c6cdba} 
+void Sunflower\+Visual\+Strategy\+::draw\+Detailed (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+\Hypertarget{class_sunflower_visual_strategy_a557fa01d14bd7dff09b58b3da7be7063}\index{SunflowerVisualStrategy@{SunflowerVisualStrategy}!drawStatic@{drawStatic}}
+\index{drawStatic@{drawStatic}!SunflowerVisualStrategy@{SunflowerVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawStatic()}{drawStatic()}}
+{\footnotesize\ttfamily \label{class_sunflower_visual_strategy_a557fa01d14bd7dff09b58b3da7be7063} 
+void Sunflower\+Visual\+Strategy\+::draw\+Static (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Plant\+Visual\+Strategy.\+h\item 
+Frontend/Plant\+Visual\+Strategy.\+cpp\end{DoxyCompactItemize}

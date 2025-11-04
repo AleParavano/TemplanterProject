@@ -1,0 +1,73 @@
+\doxysection{Boosted\+Growth\+Cycle Class Reference}
+\hypertarget{class_boosted_growth_cycle}{}\label{class_boosted_growth_cycle}\index{BoostedGrowthCycle@{BoostedGrowthCycle}}
+
+
+A growth strategy that applies a higher, multiplier-\/based growth rate.  
+
+
+
+
+{\ttfamily \#include $<$Growth\+Cycle.\+h$>$}
+
+Inheritance diagram for Boosted\+Growth\+Cycle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_boosted_growth_cycle}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{class_boosted_growth_cycle_a8cf3e249fff8a80bd3e562b3dd5a6857}{calculate\+Growth\+Rate}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant) override
+\begin{DoxyCompactList}\small\item\em Calculates a growth rate, typically applying a boost multiplier. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_growth_cycle}{Growth\+Cycle}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Growth\+Cycle} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Growth\+Cycle} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the base class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_growth_cycle_aab7b783217e9950fa403d7f794ecc1e1}{grow}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant, float delta\+Time)
+\begin{DoxyCompactList}\small\item\em The main public method that executes the growth logic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A growth strategy that applies a higher, multiplier-\/based growth rate. 
+
+
+\begin{DoxyItemize}
+\item Suitable for fast-\/growing or fertilized plants. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_boosted_growth_cycle_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_boosted_growth_cycle_a8cf3e249fff8a80bd3e562b3dd5a6857}\index{BoostedGrowthCycle@{BoostedGrowthCycle}!calculateGrowthRate@{calculateGrowthRate}}
+\index{calculateGrowthRate@{calculateGrowthRate}!BoostedGrowthCycle@{BoostedGrowthCycle}}
+\doxysubsubsection{\texorpdfstring{calculateGrowthRate()}{calculateGrowthRate()}}
+{\footnotesize\ttfamily \label{class_boosted_growth_cycle_a8cf3e249fff8a80bd3e562b3dd5a6857} 
+float Boosted\+Growth\+Cycle\+::calculate\+Growth\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Calculates a growth rate, typically applying a boost multiplier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & A pointer to the \doxylink{class_plant}{Plant} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The calculated, boosted growth rate. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_growth_cycle_a96aa1923c05c855042c4bd2f50456073}{Growth\+Cycle}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Growth\+Cycle.\+h\item 
+Backend/Growth\+Cycle.\+cpp\end{DoxyCompactItemize}

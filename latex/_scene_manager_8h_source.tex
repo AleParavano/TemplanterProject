@@ -1,0 +1,48 @@
+\doxysection{Scene\+Manager.\+h}
+\hypertarget{_scene_manager_8h_source}{}\label{_scene_manager_8h_source}\index{Frontend/SceneManager.h@{Frontend/SceneManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SCENEMANAGER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SCENEMANAGER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Scene.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}UI.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assumed\ to\ manage\ the\ main\ inventory/cross-\/scene\ UI}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}OutdoorScene.h"{}}\ \ \ \ \ \textcolor{comment}{//\ Concrete\ Scene}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}GreenHouseScene.h"{}}\ \ \textcolor{comment}{//\ Concrete\ Scene}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}StoreScene.h"{}}\ \ \ \ \ \ \ \textcolor{comment}{//\ Concrete\ Scene}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}WarehouseScene.h"{}}\ \ \ \textcolor{comment}{//\ Concrete\ Scene}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../Backend/Game.h"{}}\ \ \textcolor{comment}{//\ Contains\ core\ game\ logic/state}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../Backend/Player.h"{}}\ \textcolor{comment}{//\ Contains\ player\ data/state}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_demo}{Demo}};\ \textcolor{comment}{//\ Forward\ declaration:\ Demo\ acts\ as\ the\ Facade/main\ application}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene_manager_a52085e6737c23b491c228e86781af808}{SceneManager}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ std::map<SceneType,\ Scene*>\ scenes;}
+\DoxyCodeLine{00029\ \ \ \ \ SceneType\ currentScene;}
+\DoxyCodeLine{00031\ \ \ \ \ SceneType\ nextScene;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{bool}\ shouldExit;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene_manager_aed8b9ce5ce88f2b82a8482ec04da7d0d}{Demo}};\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a52085e6737c23b491c228e86781af808}{SceneManager}}();}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_scene_manager_a2bb376a85d29e85f47753e26c7539229}{\string~SceneManager}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a146f8427f6911222d00dd2617da78c46}{Update}}(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00057\ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a0b69da4914ceb84f796dea9f96b37f2a}{HandleInput}}();}
+\DoxyCodeLine{00062\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_manager_a313955e916bc50c0e8cb5d3cf2ed2664}{Draw}}();}
+\DoxyCodeLine{00067\ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_scene_manager_a7b5fb2a30be8ca2c93af8fb84a383f5c}{IsDone}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ changeScene(SceneType\ newSceneType);}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ SCENEMANAGER\_H}}
+
+\end{DoxyCode}

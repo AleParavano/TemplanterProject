@@ -1,0 +1,546 @@
+\doxysection{Plant\+Visual\+Strategy.\+h}
+\hypertarget{_plant_visual_strategy_8h_source}{}\label{_plant_visual_strategy_8h_source}\index{Frontend/PlantVisualStrategy.h@{Frontend/PlantVisualStrategy.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PLANTVISUALSTRATEGY\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PLANTVISUALSTRATEGY\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ -\/-\/-\/\ General\ Constants\ -\/-\/-\/}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ PI\ 3.14159265358979323846f}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ STATIC\_ICON\_SIZE\ 32.0f}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ Helper\ to\ interpolate\ colors\ (Assuming\ this\ utility\ is\ available\ globally)}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{inline}\ Color\ PlantColorLerp(Color\ c1,\ Color\ c2,\ \textcolor{keywordtype}{float}\ t)}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ t\ =\ fmaxf(0.0f,\ fminf(1.0f,\ t));}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{return}\ Color\{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ char)(c1.r\ +\ (c2.r\ -\/\ c1.r)\ *\ t),}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ char)(c1.g\ +\ (c2.g\ -\/\ c1.g)\ *\ t),}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ char)(c1.b\ +\ (c2.b\ -\/\ c1.b)\ *\ t),}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ char)(c1.a\ +\ (c2.a\ -\/\ c1.a)\ *\ t)\};}
+\DoxyCodeLine{00022\ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ -\/-\/-\/\ Base\ Abstract\ Strategy\ Class\ -\/-\/-\/}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }PlantVisualStrategy}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{float}\ currentWidth;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{float}\ currentHeight;}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{float}\ growthProgress;\ \textcolor{comment}{//\ 0.0\ to\ 1.0\ (from\ PlantState::getGrowth()\ /\ 100.0f)}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ isCurrentlyDead;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{//\ Helper\ for\ applying\ death\ filter}}
+\DoxyCodeLine{00034\ \ \ \ \ Color\ applyDeathFilter(Color\ baseColor)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isCurrentlyDead)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Fades\ color\ towards\ a\ dark,\ unhealthy\ brown/black}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ PlantColorLerp(baseColor,\ Color\{50,\ 40,\ 30,\ 255\},\ 0.8f);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ baseColor;}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ PlantVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ currentWidth(width),\ currentHeight(height),\ growthProgress(0.0f),\ isCurrentlyDead(\textcolor{keyword}{false})\ \{\}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~PlantVisualStrategy()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ setGrowth(\textcolor{keywordtype}{float}\ progress)\ \{\ growthProgress\ =\ fmaxf(0.0f,\ fminf(1.0f,\ progress));\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ setDimensions(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ currentWidth\ =\ width;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ currentHeight\ =\ height;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ setDead(\textcolor{keywordtype}{bool}\ dead)\ \{\ isCurrentlyDead\ =\ dead;\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ DYNAMIC\ VISUAL:\ Uses\ growth\ and\ death\ state\ (for\ in-\/plot\ rendering)}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ =\ 0;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ STATIC\ VISUAL:\ Used\ for\ menus/icons,\ fixed\ size,\ fixed\ color\ (for\ clarity)}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ =\ 0;}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ -\/-\/-\/\ Concrete\ Visual\ Strategies\ -\/-\/-\/}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ ============\ LETTUCE\ ============}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }LettuceVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ \ \ LettuceVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ Color\ color\ =\ applyDeathFilter(PlantColorLerp(DARKGREEN,\ LIME,\ growthProgress\ *\ 0.3f\ +\ 0.7f));}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ currentHeight\ *\ 0.3f,\ currentWidth\ *\ 0.5f,\ color);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.3f)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafDensity\ =\ growthProgress\ *\ 8.0f;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (int)leafDensity;\ i++)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ leafDensity)\ *\ 360.0f;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ currentWidth\ *\ 0.35f;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafY\ =\ y\ -\/\ currentHeight\ *\ 0.2f\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ currentHeight\ *\ 0.2f;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(leafX,\ leafY,\ currentWidth\ *\ 0.15f,\ color);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y,\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ DARKGREEN);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y,\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ LIME);}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ ============\ CARROT\ ============}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{class\ }CarrotVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00098\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00099\ \ \ \ \ CarrotVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00102\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ Color\ rootColor\ =\ applyDeathFilter(PlantColorLerp(ORANGE,\ Color\{255,\ 150,\ 0,\ 255\},\ growthProgress));}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ rootWidth\ =\ currentWidth\ *\ 0.6f;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ DrawTriangle(Vector2\{x\ -\/\ rootWidth\ /\ 2,\ y\ -\/\ currentHeight\ *\ 0.7f\},\ Vector2\{x\ +\ rootWidth\ /\ 2,\ y\ -\/\ currentHeight\ *\ 0.7f\},\ Vector2\{x,\ y\},\ rootColor);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.2f)}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ Color\ leafColor\ =\ applyDeathFilter(PlantColorLerp(DARKGREEN,\ LIME,\ growthProgress\ *\ 0.5f));}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ i++)}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ 5.0f)\ *\ 180.0f\ -\/\ 90.0f;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafLen\ =\ currentHeight\ *\ 0.4f\ *\ growthProgress;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ currentWidth\ *\ 0.2f;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startY\ =\ y\ -\/\ currentHeight\ *\ 0.7f;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endX\ =\ startX\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ leafLen;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endY\ =\ startY\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ leafLen;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{startX,\ startY\},\ Vector2\{endX,\ endY\},\ 3.0f,\ leafColor);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00123\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ DrawTriangle(Vector2\{x\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ y\ +\ STATIC\_ICON\_SIZE\ *\ 0.5f\},\ Vector2\{x\ +\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ y\ +\ STATIC\_ICON\_SIZE\ *\ 0.5f\},\ Vector2\{x,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.5f\},\ ORANGE);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ DrawRectangle(x\ -\/\ 2,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ 4,\ 8,\ DARKGREEN);}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ ============\ POTATO\ ============}}
+\DoxyCodeLine{00130\ \textcolor{keyword}{class\ }PotatoVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00131\ \{}
+\DoxyCodeLine{00132\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00133\ \ \ \ \ PotatoVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00136\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ Color\ potatoColor\ =\ applyDeathFilter(PlantColorLerp(Color\{139,\ 90,\ 43,\ 255\},\ Color\{180,\ 120,\ 60,\ 255\},\ growthProgress));}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y,\ currentWidth\ *\ 0.5f,\ potatoColor);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bumpy\ texture}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bumpSize\ =\ currentWidth\ *\ 0.1f;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ i++)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ 4.0f)\ *\ 360.0f;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bumpX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ currentWidth\ *\ 0.35f;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bumpY\ =\ y\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ currentWidth\ *\ 0.3f;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(bumpX,\ bumpY,\ bumpSize,\ Color\{160,\ 110,\ 70,\ 255\});}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Green\ sprouts\ on\ top}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.25f)}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ Color\ sproutColor\ =\ applyDeathFilter(PlantColorLerp(DARKGREEN,\ LIME,\ growthProgress\ *\ 0.6f));}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sproutCount\ =\ 2\ +\ (int)(growthProgress\ *\ 3.0f);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ sproutCount;\ i++)}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ (float)sproutCount)\ *\ 180.0f;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sproutLen\ =\ currentHeight\ *\ 0.8f\ *\ growthProgress;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ currentWidth\ *\ 0.2f;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startY\ =\ y\ -\/\ currentWidth\ *\ 0.5f;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endX\ =\ startX\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ sproutLen;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endY\ =\ startY\ -\/\ sproutLen;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{startX,\ startY\},\ Vector2\{endX,\ endY\},\ 2.5f,\ sproutColor);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00168\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y,\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ BROWN);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ DrawCircle(x\ +\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ 4,\ LIME);}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ ============\ CUCUMBER\ ============}}
+\DoxyCodeLine{00175\ \textcolor{keyword}{class\ }CucumberVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00176\ \{}
+\DoxyCodeLine{00177\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00178\ \ \ \ \ CucumberVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ Color\ cucColor\ =\ applyDeathFilter(PlantColorLerp(DARKGREEN,\ LIME,\ growthProgress\ *\ 0.4f\ +\ 0.6f));}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ DrawRectangleRounded(}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ Rectangle\{x\ -\/\ currentWidth\ /\ 2,\ y\ -\/\ currentHeight,\ currentWidth,\ currentHeight\},\ \textcolor{comment}{//\ Corrected:\ Only\ 4\ values}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ 0.5f,\ 8,\ cucColor);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bumpy\ texture}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ bumpCount\ =\ 8.0f\ *\ growthProgress;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (int)bumpCount;\ i++)}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ yPos\ =\ y\ -\/\ currentHeight\ +\ (i\ /\ bumpCount)\ *\ currentHeight;}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ offset\ =\ (i\ \%\ 2)\ ?\ currentWidth\ *\ 0.3f\ :\ -\/currentWidth\ *\ 0.3f;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(x\ +\ offset,\ yPos,\ 4.0f,\ Color\{34,\ 139,\ 34,\ 255\});}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Curling\ vine\ when\ mature}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.4f)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ Color\ vineColor\ =\ DARKGREEN;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vineLen\ =\ currentHeight\ *\ 0.5f\ *\ growthProgress;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{float}\ t\ =\ 0.0f;\ t\ <\ 1.0f;\ t\ +=\ 0.05f)}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ t\ *\ 720.0f\ *\ PI\ /\ 180.0f;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vX1\ =\ x\ +\ currentWidth\ /\ 2\ +\ cosf(angle)\ *\ 15.0f;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vY1\ =\ y\ -\/\ currentHeight\ -\/\ t\ *\ vineLen;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vX2\ =\ x\ +\ currentWidth\ /\ 2\ +\ cosf(angle\ +\ 0.1f)\ *\ 15.0f;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vY2\ =\ y\ -\/\ currentHeight\ -\/\ (t\ +\ 0.05f)\ *\ vineLen;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{vX1,\ vY1\},\ Vector2\{vX2,\ vY2\},\ 2.0f,\ vineColor);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00213\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ DrawRectangle(x\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.15f,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ STATIC\_ICON\_SIZE,\ DARKGREEN);}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ DrawCircle(x\ +\ STATIC\_ICON\_SIZE\ *\ 0.15f,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ 3,\ LIME);}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \};}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{comment}{//\ ============\ TOMATO\ ============}}
+\DoxyCodeLine{00220\ \textcolor{keyword}{class\ }TomatoVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00221\ \{}
+\DoxyCodeLine{00222\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00223\ \ \ \ \ TomatoVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00226\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ Color\ stemColor\ =\ applyDeathFilter(DARKGREEN);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ Color\ fruitColor\ =\ applyDeathFilter(PlantColorLerp(ORANGE,\ RED,\ growthProgress\ *\ 0.7f\ +\ 0.3f));}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x,\ y\},\ Vector2\{x,\ y\ -\/\ currentHeight\},\ 4.0f,\ stemColor);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ branchCount\ =\ 2.0f\ +\ growthProgress\ *\ 2.0f;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (int)branchCount;\ i++)}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ branchCount)\ *\ 180.0f\ -\/\ 90.0f\ +\ 30.0f;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ branchLen\ =\ currentHeight\ *\ 0.4f;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ branchX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ branchLen;}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ branchY\ =\ y\ -\/\ currentHeight\ *\ 0.5f\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ branchLen;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x\},\ Vector2\{branchX,\ branchY\},\ 2.0f,\ stemColor);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.5f)}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(branchX,\ branchY,\ currentWidth\ *\ 0.25f,\ fruitColor);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(branchX\ +\ 5,\ branchY\ -\/\ 5,\ 2.0f,\ YELLOW);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.4f)}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ currentHeight\ *\ 0.3f,\ currentWidth\ *\ 0.35f,\ fruitColor);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(x\ +\ 7,\ y\ -\/\ currentHeight\ *\ 0.3f\ -\/\ 7,\ 3.0f,\ YELLOW);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00255\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y,\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ DARKGREEN);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.2f,\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ RED);}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \textcolor{comment}{//\ ============\ PEPPER\ ============}}
+\DoxyCodeLine{00262\ \textcolor{keyword}{class\ }PepperVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00263\ \{}
+\DoxyCodeLine{00264\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00265\ \ \ \ \ PepperVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00268\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ Color\ stemColor\ =\ applyDeathFilter(DARKGREEN);}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ Color\ pepperColor\ =\ applyDeathFilter(PlantColorLerp(DARKGREEN,\ Color\{255,\ 165,\ 0,\ 255\},\ growthProgress\ *\ 0.8f));}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x,\ y\},\ Vector2\{x,\ y\ -\/\ currentHeight\ *\ 0.3f\},\ 3.0f,\ stemColor);}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ pepperY\ =\ y\ -\/\ currentHeight\ *\ 0.5f;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ DrawRectangleRounded(}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ Rectangle\{x\ -\/\ currentWidth\ /\ 2,\ pepperY\ -\/\ currentHeight\ *\ 0.5f,\ currentWidth,\ currentHeight\ *\ 0.6f\},\ \textcolor{comment}{//\ Corrected}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ 0.4f,\ 8,\ pepperColor\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ '0.4f'\ is\ the\ roundness\ factor}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.3f)}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ ridgeCount\ =\ 4.0f;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (int)ridgeCount;\ i++)}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ ridgeX\ =\ x\ -\/\ currentWidth\ *\ 0.35f\ +\ (i\ /\ ridgeCount)\ *\ currentWidth\ *\ 0.7f;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{ridgeX,\ pepperY\ -\/\ currentHeight\ *\ 0.5f\},\ Vector2\{ridgeX,\ pepperY\ +\ currentHeight\ *\ 0.1f\},\ 1.5f,\ Color\{200,\ 140,\ 70,\ 255\});}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ i++)}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ 4.0f)\ *\ 360.0f;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ tipX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ currentWidth\ *\ 0.2f;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ tipY\ =\ pepperY\ -\/\ currentHeight\ *\ 0.5f\ -\/\ 5;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(tipX,\ tipY,\ 3.0f,\ stemColor);}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00299\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ DrawRectangle(x\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.25f,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ STATIC\_ICON\_SIZE,\ ORANGE);}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ 4,\ DARKGREEN);}
+\DoxyCodeLine{00302\ \ \ \ \ \}}
+\DoxyCodeLine{00303\ \};}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{comment}{//\ ============\ SUNFLOWER\ ============}}
+\DoxyCodeLine{00306\ \textcolor{keyword}{class\ }SunflowerVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00307\ \{}
+\DoxyCodeLine{00308\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00309\ \ \ \ \ SunflowerVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00312\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ Color\ stemColor\ =\ applyDeathFilter(DARKGREEN);}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ Color\ petalColor\ =\ YELLOW;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ Color\ centerColor\ =\ applyDeathFilter(Color\{184,\ 134,\ 11,\ 255\});}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x,\ y\},\ Vector2\{x,\ y\ -\/\ currentHeight\},\ 5.0f,\ stemColor);}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.2f)}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ leafCount\ =\ 3\ +\ (int)(growthProgress\ *\ 2.0f);}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ leafCount;\ i++)}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafY\ =\ y\ -\/\ (i\ /\ (float)leafCount)\ *\ currentHeight\ *\ 0.8f;}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ \%\ 2)\ ?\ 45.0f\ :\ -\/45.0f;}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafLen\ =\ currentWidth\ *\ 0.4f;}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ leafLen;}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafEndY\ =\ leafY\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ leafLen;}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x,\ leafY\},\ Vector2\{leafX,\ leafEndY\},\ 3.0f,\ stemColor);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.5f)}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ flowerRadius\ =\ currentWidth\ *\ 0.5f\ *\ growthProgress;}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ petalCount\ =\ 16\ +\ (int)(growthProgress\ *\ 8.0f);}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ petalCount;\ i++)}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ (float)petalCount)\ *\ 360.0f;}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ flowerRadius\ *\ 0.3f;}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startY\ =\ y\ -\/\ currentHeight\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ flowerRadius\ *\ 0.3f;}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ flowerRadius;}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endY\ =\ y\ -\/\ currentHeight\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ flowerRadius;}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawTriangle(Vector2\{startX\ -\/\ 3,\ startY\},\ Vector2\{startX\ +\ 3,\ startY\},\ Vector2\{endX,\ endY\},\ petalColor);}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ currentHeight,\ flowerRadius\ *\ 0.35f,\ centerColor);}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ seedCount\ =\ 30\ *\ growthProgress;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (int)seedCount;\ i++)}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ seedAngle\ =\ (i\ /\ (float)seedCount)\ *\ 360.0f;}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ seedDist\ =\ 5.0f\ +\ (i\ \%\ 3)\ *\ 3.0f;}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ seedX\ =\ x\ +\ cosf(seedAngle\ *\ PI\ /\ 180.0f)\ *\ seedDist;}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ seedY\ =\ y\ -\/\ currentHeight\ +\ sinf(seedAngle\ *\ PI\ /\ 180.0f)\ *\ seedDist;}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(seedX,\ seedY,\ 1.5f,\ Color\{139,\ 90,\ 43,\ 255\});}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00359\ \ \ \ \ \}}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00361\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ YELLOW);}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ STATIC\_ICON\_SIZE\ *\ 0.15f,\ Color\{184,\ 134,\ 11,\ 255\});}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ DrawRectangle(x\ -\/\ 2,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ 4,\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ DARKGREEN);}
+\DoxyCodeLine{00365\ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \};}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{comment}{//\ ============\ CORN\ ============}}
+\DoxyCodeLine{00369\ \textcolor{keyword}{class\ }CornVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00370\ \{}
+\DoxyCodeLine{00371\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00372\ \ \ \ \ CornVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00375\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ Color\ stalkColor\ =\ applyDeathFilter(DARKGREEN);}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ Color\ leafColor\ =\ applyDeathFilter(LIME);}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ Color\ earColor\ =\ applyDeathFilter(YELLOW);}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Main\ stalk}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x,\ y\},\ Vector2\{x,\ y\ -\/\ currentHeight\},\ 6.0f,\ stalkColor);}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Leaves\ along\ stalk\ (Restored\ original\ logic)}}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ leafCount\ =\ 4\ +\ (int)(growthProgress\ *\ 4.0f);}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ leafCount;\ i++)}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafY\ =\ y\ -\/\ (i\ /\ (float)leafCount)\ *\ currentHeight\ *\ 0.85f;}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ \%\ 2)\ ?\ 40.0f\ :\ -\/40.0f;}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafLen\ =\ currentWidth\ *\ 0.6f;}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ RESTORED\ LEAF\ BLADE\ DRAWING\ -\/-\/-\/}}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ DrawRectangleRounded(}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rectangle\{x,\ leafY,\ leafLen\ *\ 0.7f,\ currentWidth\ *\ 0.4f\},}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.3f,\ 4,\ leafColor}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Corn\ ear\ (cob\ with\ kernels)\ -\/\ Only\ visible\ when\ grown}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.5f)}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ earX\ and\ earY\ are\ defined\ here,\ ensuring\ scope\ is\ correct\ -\/-\/-\/}}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ earY\ =\ y\ -\/\ currentHeight\ *\ 0.4f;}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ earX\ =\ x\ +\ currentWidth\ *\ 0.4f;}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Cob\ (DrawRectangleRounded\ is\ now\ correct)}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ DrawRectangleRounded(}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rectangle\{earX\ -\/\ 8,\ earY\ -\/\ 15,\ 16,\ 30\},\ }
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0.5f,\ 4,\ Color\{184,\ 134,\ 11,\ 255\});}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ kernelRows\ =\ 6;}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ kernelCols\ =\ 4;}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ kernelRows;\ row++)}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ kernelCols;\ col++)}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ kX\ =\ earX\ -\/\ 6\ +\ col\ *\ 3.0f;}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ kY\ =\ earY\ -\/\ 12\ +\ row\ *\ 5.0f;}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(kX,\ kY,\ 1.5f,\ earColor);}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ i++)}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ silkX\ =\ earX\ +\ 10\ +\ i\ *\ 3;}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ silkY\ =\ earY;}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{silkX,\ silkY\},\ Vector2\{silkX\ +\ 15,\ silkY\ +\ 10\},\ 1.5f,\ Color\{210,\ 180,\ 140,\ 255\});}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00429\ \ \ \ \ \}}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00431\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ DrawRectangle(x\ -\/\ 3,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ 6,\ STATIC\_ICON\_SIZE,\ DARKGREEN);}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ DrawRectangle(x\ +\ 5,\ y\ -\/\ 5,\ 4,\ 10,\ YELLOW);}
+\DoxyCodeLine{00434\ \ \ \ \ \}}
+\DoxyCodeLine{00435\ \};}
+\DoxyCodeLine{00436\ \textcolor{comment}{//\ ============\ STRAWBERRY\ ============}}
+\DoxyCodeLine{00437\ \textcolor{keyword}{class\ }StrawberryVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00438\ \{}
+\DoxyCodeLine{00439\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00440\ \ \ \ \ StrawberryVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00443\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ Color\ leafColor\ =\ applyDeathFilter(DARKGREEN);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ Color\ fruitColor\ =\ applyDeathFilter(PlantColorLerp(ORANGE,\ RED,\ growthProgress\ *\ 0.8f\ +\ 0.2f));}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ leafCount\ =\ 6\ +\ (int)(growthProgress\ *\ 3.0f);}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ leafCount;\ i++)}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ (float)leafCount)\ *\ 360.0f;}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ leafLen\ =\ currentHeight\ *\ 0.4f\ *\ growthProgress;}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ leafLen;}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endY\ =\ y\ -\/\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ leafLen;}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x,\ y\},\ Vector2\{endX,\ endY\},\ 3.0f,\ leafColor);}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.4f)}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ berryCount\ =\ 1\ +\ (int)(growthProgress\ *\ 2.0f);}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ berryCount;\ i++)}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ (float)berryCount)\ *\ 360.0f\ -\/\ 90.0f;}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ berryDist\ =\ currentWidth\ *\ 0.3f;}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ berryX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ berryDist;}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ berryY\ =\ y\ -\/\ currentHeight\ *\ 0.2f\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ berryDist;}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(berryX\ -\/\ 5,\ berryY\ -\/\ 3,\ 6.0f,\ fruitColor);}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(berryX\ +\ 5,\ berryY\ -\/\ 3,\ 6.0f,\ fruitColor);}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(berryX,\ berryY\ +\ 4,\ 7.0f,\ fruitColor);}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(berryX\ -\/\ 3,\ berryY,\ 1.5f,\ YELLOW);}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(berryX\ +\ 3,\ berryY,\ 1.5f,\ YELLOW);}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawCircle(berryX,\ berryY\ +\ 3,\ 1.5f,\ YELLOW);}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00476\ \ \ \ \ \}}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00478\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00479\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y,\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ DARKGREEN);}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ +\ STATIC\_ICON\_SIZE\ *\ 0.2f,\ STATIC\_ICON\_SIZE\ *\ 0.3f,\ RED);}
+\DoxyCodeLine{00481\ \ \ \ \ \}}
+\DoxyCodeLine{00482\ \};}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \textcolor{comment}{//\ ============\ PUMPKIN\ ============}}
+\DoxyCodeLine{00485\ \textcolor{keyword}{class\ }PumpkinVisualStrategy\ :\ \textcolor{keyword}{public}\ PlantVisualStrategy}
+\DoxyCodeLine{00486\ \{}
+\DoxyCodeLine{00487\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00488\ \ \ \ \ PumpkinVisualStrategy(\textcolor{keywordtype}{float}\ width,\ \textcolor{keywordtype}{float}\ height)\ :\ PlantVisualStrategy(width,\ height)\ \{\}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keywordtype}{void}\ drawDetailed(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00491\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ Color\ pumpkinColor\ =\ applyDeathFilter(PlantColorLerp(ORANGE,\ Color\{255,\ 100,\ 0,\ 255\},\ growthProgress\ *\ 0.5f));}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ Color\ vineColor\ =\ applyDeathFilter(DARKGREEN);}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ Color\ leafColor\ =\ applyDeathFilter(LIME);}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ pumpkinRadius\ =\ currentWidth\ *\ 0.5f;}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ridgeCount\ =\ 8\ +\ (int)(growthProgress\ *\ 4.0f);}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ridgeCount;\ i++)}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ (i\ /\ (float)ridgeCount)\ *\ 360.0f;}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ pumpkinRadius\ *\ 0.7f;}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ startY\ =\ y\ -\/\ currentHeight\ *\ 0.3f\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ pumpkinRadius\ *\ 0.7f;}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endX\ =\ x\ +\ cosf(angle\ *\ PI\ /\ 180.0f)\ *\ pumpkinRadius;}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ endY\ =\ y\ -\/\ currentHeight\ *\ 0.3f\ +\ sinf(angle\ *\ PI\ /\ 180.0f)\ *\ pumpkinRadius;}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{startX,\ startY\},\ Vector2\{endX,\ endY\},\ 2.0f,\ Color\{200,\ 80,\ 0,\ 255\});}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y\ -\/\ currentHeight\ *\ 0.3f,\ pumpkinRadius\ *\ 0.9f,\ pumpkinColor);}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ DrawCircle(x\ -\/\ pumpkinRadius\ *\ 0.4f,\ y\ -\/\ currentHeight\ *\ 0.3f,\ pumpkinRadius\ *\ 0.8f,\ pumpkinColor);}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ DrawCircle(x\ +\ pumpkinRadius\ *\ 0.4f,\ y\ -\/\ currentHeight\ *\ 0.3f,\ pumpkinRadius\ *\ 0.8f,\ pumpkinColor);}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ stemLen\ =\ currentHeight\ *\ 0.4f;}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{x,\ y\ -\/\ currentHeight\ *\ 0.3f\ -\/\ pumpkinRadius\},\ Vector2\{x,\ y\ -\/\ currentHeight\ *\ 0.3f\ -\/\ pumpkinRadius\ -\/\ stemLen\},\ 5.0f,\ vineColor);}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (growthProgress\ >\ 0.3f)}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vineLength\ =\ currentWidth\ *\ growthProgress;}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vineStartX\ =\ x\ +\ pumpkinRadius\ *\ 0.5f;}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vineStartY\ =\ y\ -\/\ currentHeight\ *\ 0.3f;}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{float}\ t\ =\ 0.0f;\ t\ <\ 1.0f;\ t\ +=\ 0.05f)}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ angle\ =\ t\ *\ 1080.0f\ *\ PI\ /\ 180.0f;}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vX1\ =\ vineStartX\ +\ cosf(angle)\ *\ 20.0f;}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vY1\ =\ vineStartY\ +\ t\ *\ vineLength;}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vX2\ =\ vineStartX\ +\ cosf(angle\ +\ 0.1f)\ *\ 20.0f;}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ vY2\ =\ vineStartY\ +\ (t\ +\ 0.05f)\ *\ vineLength;}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLineEx(Vector2\{vX1,\ vY1\},\ Vector2\{vX2,\ vY2\},\ 3.0f,\ vineColor);}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00532\ \ \ \ \ \}}
+\DoxyCodeLine{00533\ \ \ \ \ \textcolor{keywordtype}{void}\ drawStatic(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00534\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ DrawCircle(x,\ y,\ STATIC\_ICON\_SIZE\ *\ 0.5f,\ ORANGE);}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ DrawRectangle(x\ -\/\ 2,\ y\ -\/\ STATIC\_ICON\_SIZE\ *\ 0.6f,\ 4,\ 8,\ DARKGREEN);}
+\DoxyCodeLine{00537\ \ \ \ \ \}}
+\DoxyCodeLine{00538\ \};}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PLANTVISUALSTRATEGY\_H}}
+
+\end{DoxyCode}

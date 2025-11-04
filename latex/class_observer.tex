@@ -1,0 +1,128 @@
+\doxysection{Observer Class Reference}
+\hypertarget{class_observer}{}\label{class_observer}\index{Observer@{Observer}}
+
+
+The \doxylink{class_observer}{Observer} interface (Abstract \doxylink{class_observer}{Observer}) defines an updating interface for objects that should be notified of changes in a \doxylink{class_subject}{Subject}.  
+
+
+
+
+{\ttfamily \#include $<$Observer.\+h$>$}
+
+Inheritance diagram for Observer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_observer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_observer_a19c43f80a38a332a6f694783df3c9835}{Observer}} ()
+\begin{DoxyCompactList}\small\item\em Constructs an \doxylink{class_observer}{Observer} object. \end{DoxyCompactList}\item 
+\Hypertarget{class_observer_a37824643eeaef086de17bba2717d865a}\label{class_observer_a37824643eeaef086de17bba2717d865a} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Observer} ()=default
+\begin{DoxyCompactList}\small\item\em Virtual destructor. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_observer_ac75e4b339faeb3ea6fe0a01bf0b4a215}{update}} ()=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method called by the \doxylink{class_subject}{Subject} to notify the \doxylink{class_observer}{Observer} of a state change. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_observer_aa3588b6f85c7ced1d39943c06b6e60b8}{set\+Subject}} (\mbox{\hyperlink{class_greenhouse}{Greenhouse}} \texorpdfstring{$\ast$}{*}greenhouse)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to set the \doxylink{class_subject}{Subject} (\doxylink{class_greenhouse}{Greenhouse}) this \doxylink{class_observer}{Observer} is watching. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_observer_a193fdb4f62142494428b498dad583b70}{operator==}} (\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}observer)
+\begin{DoxyCompactList}\small\item\em Overloads the equality operator to compare two \doxylink{class_observer}{Observer} pointers based on their ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_observer_ac67c499a5b16953f268840890fd7e6ab}\label{class_observer_ac67c499a5b16953f268840890fd7e6ab} 
+int {\bfseries id}
+\begin{DoxyCompactList}\small\item\em A unique identifier for the observer object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_observer}{Observer} interface (Abstract \doxylink{class_observer}{Observer}) defines an updating interface for objects that should be notified of changes in a \doxylink{class_subject}{Subject}. 
+
+
+\begin{DoxyItemize}
+\item This class is the abstract base for all concrete observer components (e.\+g., UI elements, logging systems) that need to react when the state of the \doxylink{class_greenhouse}{Greenhouse} (the \doxylink{class_subject}{Subject}) changes. 
+\end{DoxyItemize}
+
+\label{doc-constructors}
+\Hypertarget{class_observer_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_observer_a19c43f80a38a332a6f694783df3c9835}\index{Observer@{Observer}!Observer@{Observer}}
+\index{Observer@{Observer}!Observer@{Observer}}
+\doxysubsubsection{\texorpdfstring{Observer()}{Observer()}}
+{\footnotesize\ttfamily \label{class_observer_a19c43f80a38a332a6f694783df3c9835} 
+Observer\+::\+Observer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Constructs an \doxylink{class_observer}{Observer} object. 
+
+
+\begin{DoxyItemize}
+\item Assigns a unique ID to the observer. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_observer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_observer_a193fdb4f62142494428b498dad583b70}\index{Observer@{Observer}!operator==@{operator==}}
+\index{operator==@{operator==}!Observer@{Observer}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily \label{class_observer_a193fdb4f62142494428b498dad583b70} 
+bool Observer\+::operator== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_observer}{Observer}} \texorpdfstring{$\ast$}{*}}]{observer}{}\end{DoxyParamCaption})}
+
+
+
+Overloads the equality operator to compare two \doxylink{class_observer}{Observer} pointers based on their ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em observer} & A pointer to the \doxylink{class_observer}{Observer} to compare against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the observers have the same ID, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_observer_aa3588b6f85c7ced1d39943c06b6e60b8}\index{Observer@{Observer}!setSubject@{setSubject}}
+\index{setSubject@{setSubject}!Observer@{Observer}}
+\doxysubsubsection{\texorpdfstring{setSubject()}{setSubject()}}
+{\footnotesize\ttfamily \label{class_observer_aa3588b6f85c7ced1d39943c06b6e60b8} 
+virtual void Observer\+::set\+Subject (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_greenhouse}{Greenhouse}} \texorpdfstring{$\ast$}{*}}]{greenhouse}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to set the \doxylink{class_subject}{Subject} (\doxylink{class_greenhouse}{Greenhouse}) this \doxylink{class_observer}{Observer} is watching. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em greenhouse} & A pointer to the \doxylink{class_greenhouse}{Greenhouse} object to be observed. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_worker_a550bf3ec6d957e63ca6364311fffa01f}{Worker}}.
+
+\Hypertarget{class_observer_ac75e4b339faeb3ea6fe0a01bf0b4a215}\index{Observer@{Observer}!update@{update}}
+\index{update@{update}!Observer@{Observer}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{class_observer_ac75e4b339faeb3ea6fe0a01bf0b4a215} 
+virtual void Observer\+::update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method called by the \doxylink{class_subject}{Subject} to notify the \doxylink{class_observer}{Observer} of a state change. 
+
+
+\begin{DoxyItemize}
+\item Concrete Observers implement this method to retrieve and process the updated information. 
+\end{DoxyItemize}
+
+Implemented in \mbox{\hyperlink{class_worker_ad501cef52abc11a776ae6a5b7d194a43}{Worker}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Observer.\+h\item 
+Backend/Observer.\+cpp\end{DoxyCompactItemize}

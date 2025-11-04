@@ -1,0 +1,47 @@
+\doxysection{Customer\+Factory.\+h}
+\hypertarget{_customer_factory_8h_source}{}\label{_customer_factory_8h_source}\index{Backend/CustomerFactory.h@{Backend/CustomerFactory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Customer.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_customer_factory}{CustomerFactory}}\ }
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_customer_factory_ab324c3ee18333b07cebd4cc444538f60}{\string~CustomerFactory}}();}
+\DoxyCodeLine{00018\ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_customer}{Customer}}*\ \mbox{\hyperlink{class_customer_factory_a8c0a204e0044b5a1a51ee28d1ae6039d}{create}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ -\/-\/-\/\ Concrete\ Factory\ Implementations\ -\/-\/-\/}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_regular_factory}{RegularFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_customer_factory}{CustomerFactory}}\ }
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_customer}{Customer}}*\ \mbox{\hyperlink{class_regular_factory_ac752d6143084b5635ce188bd4b7ef5ad}{create}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_v_i_p_factory}{VIPFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_customer_factory}{CustomerFactory}}\ }
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{class_customer}{Customer}}*\ \mbox{\hyperlink{class_v_i_p_factory_af61cd33addcff0db845c71cc0d12de41}{create}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_robber_factory}{RobberFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_customer_factory}{CustomerFactory}}\ }
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_customer}{Customer}}*\ \mbox{\hyperlink{class_robber_factory_a0a6757c0b0cf492602cbf7bc9fec0fff}{create}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_random_factory}{RandomFactory}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_customer_factory}{CustomerFactory}}\ }
+\DoxyCodeLine{00079\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{class_customer}{Customer}}*\ \mbox{\hyperlink{class_random_factory_a4ac6508d255da14c422dd41eed786dd9}{create}}(\mbox{\hyperlink{class_plant}{Plant}}*\ requestedPlant)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{static}\ std::mt19937\&\ rng();}
+\DoxyCodeLine{00094\ \};}
+
+\end{DoxyCode}

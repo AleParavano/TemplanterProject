@@ -1,0 +1,32 @@
+\doxysection{Store.\+h}
+\hypertarget{_store_8h_source}{}\label{_store_8h_source}\index{Backend/Store.h@{Backend/Store.h}}
+\mbox{\hyperlink{_store_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}StoreItem.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Player.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}Inventory.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_store_a5f58eadcb7385d5a5aa6830daef84f7d}{Store}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00028\ \ \ \ \ std::vector<StoreItem*>\ items;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_store_a5f58eadcb7385d5a5aa6830daef84f7d}{Store}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_store_a4fd725fdb2de0632ed98bfbd131c2512}{\string~Store}}();}
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_store_aeb41725022724f48a8a68caad01e08c5}{addItem}}(\mbox{\hyperlink{class_store_item}{StoreItem}}*\ item);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_store_a2bcf306778438cb3800afce91da024c5}{purchaseItem}}(\textcolor{keywordtype}{size\_t}\ index,\ \mbox{\hyperlink{class_player}{Player}}*\ player);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_store_add22adcf08d297e342047f3bc86bec24}{getItemCount}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_store_item}{StoreItem}}*\ \mbox{\hyperlink{class_store_ab825eb6820515ffb7d10205ad6864bc3}{getItem}}(\textcolor{keywordtype}{size\_t}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00075\ \};}
+
+\end{DoxyCode}

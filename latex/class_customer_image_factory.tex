@@ -1,0 +1,101 @@
+\doxysection{Customer\+Image\+Factory Class Reference}
+\hypertarget{class_customer_image_factory}{}\label{class_customer_image_factory}\index{CustomerImageFactory@{CustomerImageFactory}}
+
+
+Singleton factory that manages and provides shared \doxylink{class_customer_image}{Customer\+Image} flyweights.  
+
+
+
+
+{\ttfamily \#include $<$Customer\+Flyweight.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_customer_image}{Customer\+Image}} $>$ \mbox{\hyperlink{class_customer_image_factory_aeab11b7fe8491f061f96351e43caf1b9}{get\+Image}} (const std\+::string \&customer\+Type)
+\begin{DoxyCompactList}\small\item\em Retrieves the shared flyweight image for a given customer type. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_image_factory_a8fd80d73771973d3bb4620fe951d615b}{render\+Customer}} (const std\+::string \&customer\+Type, Vector2 position, float radius)
+\begin{DoxyCompactList}\small\item\em Convenience function to render a customer using the shared flyweight. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_customer_image_factory_aebb51b5e8f936af370eec04ebdfdb84f}{cleanup}} ()
+\begin{DoxyCompactList}\small\item\em Cleans up all loaded textures managed by the factory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_customer_image_factory}{Customer\+Image\+Factory}} \& \mbox{\hyperlink{class_customer_image_factory_a145e63369d43f43e8aa31bc323aede23}{get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Gets the singleton instance of the factory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Singleton factory that manages and provides shared \doxylink{class_customer_image}{Customer\+Image} flyweights. 
+
+Implements the {\bfseries{Flyweight Factory}} part of the pattern, ensuring that for any given customer type, only one {\ttfamily \doxylink{class_customer_image}{Customer\+Image}} object (flyweight) is created and reused. 
+
+\label{doc-func-members}
+\Hypertarget{class_customer_image_factory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_customer_image_factory_aebb51b5e8f936af370eec04ebdfdb84f}\index{CustomerImageFactory@{CustomerImageFactory}!cleanup@{cleanup}}
+\index{cleanup@{cleanup}!CustomerImageFactory@{CustomerImageFactory}}
+\doxysubsubsection{\texorpdfstring{cleanup()}{cleanup()}}
+{\footnotesize\ttfamily \label{class_customer_image_factory_aebb51b5e8f936af370eec04ebdfdb84f} 
+void Customer\+Image\+Factory\+::cleanup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Cleans up all loaded textures managed by the factory. 
+
+Should be called upon application shutdown or when textures are no longer needed. \Hypertarget{class_customer_image_factory_aeab11b7fe8491f061f96351e43caf1b9}\index{CustomerImageFactory@{CustomerImageFactory}!getImage@{getImage}}
+\index{getImage@{getImage}!CustomerImageFactory@{CustomerImageFactory}}
+\doxysubsubsection{\texorpdfstring{getImage()}{getImage()}}
+{\footnotesize\ttfamily \label{class_customer_image_factory_aeab11b7fe8491f061f96351e43caf1b9} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_customer_image}{Customer\+Image}} $>$ Customer\+Image\+Factory\+::get\+Image (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{customer\+Type}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the shared flyweight image for a given customer type. 
+
+If the image for the specified type hasn\textquotesingle{}t been created yet, it loads it, stores it, and returns it. Otherwise, it returns the existing shared instance. 
+\begin{DoxyParams}{Parameters}
+{\em customer\+Type} & The type of the customer (e.\+g., "{}\+Standard"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A shared pointer to the \doxylink{class_customer_image}{Customer\+Image} flyweight. 
+\end{DoxyReturn}
+\Hypertarget{class_customer_image_factory_a145e63369d43f43e8aa31bc323aede23}\index{CustomerImageFactory@{CustomerImageFactory}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!CustomerImageFactory@{CustomerImageFactory}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \label{class_customer_image_factory_a145e63369d43f43e8aa31bc323aede23} 
+\mbox{\hyperlink{class_customer_image_factory}{Customer\+Image\+Factory}} \& Customer\+Image\+Factory\+::get\+Instance (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Gets the singleton instance of the factory. 
+
+\begin{DoxyReturn}{Returns}
+A reference to the single \doxylink{class_customer_image_factory}{Customer\+Image\+Factory} instance. 
+\end{DoxyReturn}
+\Hypertarget{class_customer_image_factory_a8fd80d73771973d3bb4620fe951d615b}\index{CustomerImageFactory@{CustomerImageFactory}!renderCustomer@{renderCustomer}}
+\index{renderCustomer@{renderCustomer}!CustomerImageFactory@{CustomerImageFactory}}
+\doxysubsubsection{\texorpdfstring{renderCustomer()}{renderCustomer()}}
+{\footnotesize\ttfamily \label{class_customer_image_factory_a8fd80d73771973d3bb4620fe951d615b} 
+void Customer\+Image\+Factory\+::render\+Customer (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{customer\+Type}{, }\item[{Vector2}]{position}{, }\item[{float}]{radius}{}\end{DoxyParamCaption})}
+
+
+
+Convenience function to render a customer using the shared flyweight. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em customer\+Type} & The type of the customer to render. \\
+\hline
+{\em position} & The center position for rendering. \\
+\hline
+{\em radius} & The size/scale for rendering. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Customer\+Flyweight.\+h\item 
+Frontend/Customer\+Flyweight.\+cpp\end{DoxyCompactItemize}

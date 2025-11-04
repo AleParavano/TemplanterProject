@@ -1,0 +1,58 @@
+\doxysection{Car Struct Reference}
+\hypertarget{struct_car}{}\label{struct_car}\index{Car@{Car}}
+
+
+Defines the state and movement parameters for a vehicle.  
+
+
+
+
+{\ttfamily \#include $<$Object\+Types.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_car_a14854eaecdc7a1f013732e7890c5cf10}\label{struct_car_a14854eaecdc7a1f013732e7890c5cf10} 
+Vector2 {\bfseries position}
+\begin{DoxyCompactList}\small\item\em The current world position of the car. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_a733759215209fc75b0a8a1c837df90ca}\label{struct_car_a733759215209fc75b0a8a1c837df90ca} 
+Vector2 {\bfseries size}
+\begin{DoxyCompactList}\small\item\em The dimensions (width, height) of the car. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_ad254cfa00ac787e6176a5a2273b76979}\label{struct_car_ad254cfa00ac787e6176a5a2273b76979} 
+int {\bfseries current\+Waypoint}
+\begin{DoxyCompactList}\small\item\em The index of the current waypoint the car is driving toward. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_a518885039307e42a5c13fd8a96f1d5d1}\label{struct_car_a518885039307e42a5c13fd8a96f1d5d1} 
+float {\bfseries speed}
+\begin{DoxyCompactList}\small\item\em The movement speed of the car. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_a0f08f78d4fa24f9d2131abc30e3b4ef4}\label{struct_car_a0f08f78d4fa24f9d2131abc30e3b4ef4} 
+Color {\bfseries body\+Color}
+\begin{DoxyCompactList}\small\item\em The primary color of the car body. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_ad47ccf336d0734edfcfde021123d3a89}\label{struct_car_ad47ccf336d0734edfcfde021123d3a89} 
+Color {\bfseries window\+Color}
+\begin{DoxyCompactList}\small\item\em The color of the car windows. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_aecfaa495a115dd07db9601e21b84d3a0}\label{struct_car_aecfaa495a115dd07db9601e21b84d3a0} 
+bool {\bfseries forward}
+\begin{DoxyCompactList}\small\item\em Flag indicating the car\textquotesingle{}s general direction of travel (true for forward). \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_a2ffaa469c3de4a096d19c8b2862997e3}\label{struct_car_a2ffaa469c3de4a096d19c8b2862997e3} 
+bool {\bfseries parked}
+\begin{DoxyCompactList}\small\item\em Flag indicating if the car is currently parked. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_a09e1f809955b4e13fadc7d89bea0e8af}\label{struct_car_a09e1f809955b4e13fadc7d89bea0e8af} 
+float {\bfseries park\+Timer}
+\begin{DoxyCompactList}\small\item\em Timer used for managing the duration of the car\textquotesingle{}s parking time. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_aa5852dc4401011c21d091d44580446b2}\label{struct_car_aa5852dc4401011c21d091d44580446b2} 
+int {\bfseries target\+Spot}
+\begin{DoxyCompactList}\small\item\em The index of the parking spot the car is targeting. \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_ac214c5acb016ff984f4337dc45368e5f}\label{struct_car_ac214c5acb016ff984f4337dc45368e5f} 
+float {\bfseries angle}
+\begin{DoxyCompactList}\small\item\em The current rotation angle of the car (for rendering). \end{DoxyCompactList}\item 
+\Hypertarget{struct_car_aea0ae5de7df8abe3f25207068b38fd66}\label{struct_car_aea0ae5de7df8abe3f25207068b38fd66} 
+Vector2 {\bfseries shadow\+Offset}
+\begin{DoxyCompactList}\small\item\em Offset used for rendering a simple drop shadow. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the state and movement parameters for a vehicle. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Object\+Types.\+h\end{DoxyCompactItemize}

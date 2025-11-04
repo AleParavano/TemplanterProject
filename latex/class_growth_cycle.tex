@@ -1,0 +1,97 @@
+\doxysection{Growth\+Cycle Class Reference}
+\hypertarget{class_growth_cycle}{}\label{class_growth_cycle}\index{GrowthCycle@{GrowthCycle}}
+
+
+The abstract base class for defining different strategies for plant growth.  
+
+
+
+
+{\ttfamily \#include $<$Growth\+Cycle.\+h$>$}
+
+Inheritance diagram for Growth\+Cycle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_growth_cycle}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_growth_cycle_a70aa163cd75a45384bc663e0246ea73e}\label{class_growth_cycle_a70aa163cd75a45384bc663e0246ea73e} 
+{\bfseries Growth\+Cycle} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_growth_cycle_a79d6a5405d40992859d5b60c63ca1fae}\label{class_growth_cycle_a79d6a5405d40992859d5b60c63ca1fae} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Growth\+Cycle} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for the base class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_growth_cycle_aab7b783217e9950fa403d7f794ecc1e1}{grow}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant, float delta\+Time)
+\begin{DoxyCompactList}\small\item\em The main public method that executes the growth logic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual float \mbox{\hyperlink{class_growth_cycle_a96aa1923c05c855042c4bd2f50456073}{calculate\+Growth\+Rate}} (\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}plant)=0
+\begin{DoxyCompactList}\small\item\em Calculates the raw growth rate based on the \doxylink{class_plant}{Plant}\textquotesingle{}s current state (pure virtual). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The abstract base class for defining different strategies for plant growth. 
+
+Forward declaration for the component responsible for managing plant growth.
+
+
+\begin{DoxyItemize}
+\item Implements the Strategy design pattern, allowing a \doxylink{class_plant}{Plant}\textquotesingle{}s growth mechanism to be swapped. 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{class_growth_cycle_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_growth_cycle_a96aa1923c05c855042c4bd2f50456073}\index{GrowthCycle@{GrowthCycle}!calculateGrowthRate@{calculateGrowthRate}}
+\index{calculateGrowthRate@{calculateGrowthRate}!GrowthCycle@{GrowthCycle}}
+\doxysubsubsection{\texorpdfstring{calculateGrowthRate()}{calculateGrowthRate()}}
+{\footnotesize\ttfamily \label{class_growth_cycle_a96aa1923c05c855042c4bd2f50456073} 
+virtual float Growth\+Cycle\+::calculate\+Growth\+Rate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Calculates the raw growth rate based on the \doxylink{class_plant}{Plant}\textquotesingle{}s current state (pure virtual). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em plant} & A pointer to the \doxylink{class_plant}{Plant} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The calculated growth rate multiplier (float). 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_boosted_growth_cycle_a8cf3e249fff8a80bd3e562b3dd5a6857}{Boosted\+Growth\+Cycle}}, and \mbox{\hyperlink{class_normal_growth_cycle_a9fef557a52d5e14a483b8dc81c89003e}{Normal\+Growth\+Cycle}}.
+
+\Hypertarget{class_growth_cycle_aab7b783217e9950fa403d7f794ecc1e1}\index{GrowthCycle@{GrowthCycle}!grow@{grow}}
+\index{grow@{grow}!GrowthCycle@{GrowthCycle}}
+\doxysubsubsection{\texorpdfstring{grow()}{grow()}}
+{\footnotesize\ttfamily \label{class_growth_cycle_aab7b783217e9950fa403d7f794ecc1e1} 
+void Growth\+Cycle\+::grow (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_plant}{Plant}} \texorpdfstring{$\ast$}{*}}]{plant}{, }\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+The main public method that executes the growth logic. 
+
+
+\begin{DoxyItemize}
+\item This method uses the template method pattern\+: it calls the private/protected
+\item virtual methods internally to execute the specific strategy steps. 
+\begin{DoxyParams}{Parameters}
+{\em plant} & A pointer to the \doxylink{class_plant}{Plant} object whose state needs to be updated. \\
+\hline
+{\em delta\+Time} & The time elapsed since the last update (tick). \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Backend/Growth\+Cycle.\+h\item 
+Backend/Growth\+Cycle.\+cpp\end{DoxyCompactItemize}

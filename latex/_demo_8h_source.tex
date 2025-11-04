@@ -1,0 +1,57 @@
+\doxysection{Demo.\+h}
+\hypertarget{_demo_8h_source}{}\label{_demo_8h_source}\index{Frontend/Demo.h@{Frontend/Demo.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ DEMO\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ DEMO\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}StoreScene.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}SceneManager.h"{}}\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Backend/Player.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}../Backend/Game.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_demo_a2caedb2c67e1d1f776f985b3c4cd6b3f}{Demo}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Subsystems}}
+\DoxyCodeLine{00021\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_store_scene}{StoreScene}}\ store;\ }
+\DoxyCodeLine{00024\ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{class_player}{Player}}*\ player;}
+\DoxyCodeLine{00027\ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_scene_manager}{SceneManager}}\ manager;\ }
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ Window\ configuration}}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ width\ =\ 1400;}
+\DoxyCodeLine{00034\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ height\ =\ 900;}
+\DoxyCodeLine{00037\ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ Private\ helper\ methods}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ initializeWindow();}
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ setupTestInventory();}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ displayControls();}
+\DoxyCodeLine{00053\ \ \ \ \ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_demo_a2caedb2c67e1d1f776f985b3c4cd6b3f}{Demo}}();}
+\DoxyCodeLine{00059\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{class_demo_a82bcc87814f02257d04a49400cc8052d}{\string~Demo}}();}
+\DoxyCodeLine{00064\ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ Main\ facade\ interface}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_demo_a508017df2cb4b7a099f6ddaf0b152d0f}{run}}();}
+\DoxyCodeLine{00071\ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ Optional:\ Getters\ if\ needed}}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{class_player}{Player}}*\ \mbox{\hyperlink{class_demo_aa1af0cb9e07593ee5705f797b5551504}{getPlayer}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ player;\ \}}
+\DoxyCodeLine{00078\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{class_store_scene}{StoreScene}}*\ \mbox{\hyperlink{class_demo_ac42e96002e16510504110f1096a4a4af}{getStore}}()\ \{\ \textcolor{keywordflow}{return}\ \&store;\ \}}
+\DoxyCodeLine{00084\ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_demo_a7d7e89ac901edb8f6f2986cbda90b45f}{getWidth}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ width;\ \}}
+\DoxyCodeLine{00090\ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_demo_a57f964f139763bb9d2c6bb5ee8fda825}{getHeight}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ height;\ \}}
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

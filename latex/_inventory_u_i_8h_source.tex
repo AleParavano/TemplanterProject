@@ -1,0 +1,51 @@
+\doxysection{Inventory\+UI.\+h}
+\hypertarget{_inventory_u_i_8h_source}{}\label{_inventory_u_i_8h_source}\index{Frontend/InventoryUI.h@{Frontend/InventoryUI.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../Backend/Inventory.h"{}}\ \textcolor{comment}{//\ Assumed\ to\ define\ the\ core\ Inventory\ data\ structure}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Slot.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assumed\ to\ define\ the\ visual\ Slot\ structure}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_inventory_u_i_a761daa60a1de1dadd49048f0fa9bcfc5}{InventoryUI}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_inventory}{Inventory}}*\ inventory;}
+\DoxyCodeLine{00019\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{bool}\ isOpen;}
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ std::vector<Slot>\ slotVector;}
+\DoxyCodeLine{00025\ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{int}\ selectedSlotIndex;}
+\DoxyCodeLine{00028\ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{float}\ timeSinceLastUpdate;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_inventory_u_i_aecd908de89e39ca532acab9fc3d00f9d}{InventoryUI}}(\mbox{\hyperlink{class_inventory}{Inventory}}*\ inv);}
+\DoxyCodeLine{00038\ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_inventory_u_i_aecd908de89e39ca532acab9fc3d00f9d}{InventoryUI}}()\{\};}
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_inventory_u_i_a86550abfcd2ad604a5f9cd77b5943846}{\string~InventoryUI}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_u_i_a122ff8fa813d0e88d4885169ebca7288}{toggle}}();}
+\DoxyCodeLine{00053\ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_u_i_a3be978bcc7643fb5a927146cbb6a3125}{render}}();}
+\DoxyCodeLine{00058\ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_u_i_a91606dbbd7194e94798f0a8e4b4be3dc}{update}}();}
+\DoxyCodeLine{00063\ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ Getters}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_inventory_u_i_a2ee4bba7f2e067d70d1c42dc1e4bb608}{isInventoryOpen}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ isOpen;\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_inventory_u_i_a9e27b14d1d76590bb0d7386942f04a6f}{getSelectedSlotIndex}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ selectedSlotIndex;\ \}}
+\DoxyCodeLine{00076\ \ \ \ \ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ Selection\ management}}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_inventory_u_i_adec1aae79dd687a74d355162f741891d}{clearSlotSelection}}();}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ For\ cross-\/inventory\ interactions\ (e.g.,\ with\ customer/shop)}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_slot}{Slot}}*\ \mbox{\hyperlink{class_inventory_u_i_aadebc6082137b6926dbe09a2aec95d13}{getSlot}}(\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ std::vector<Slot>\&\ \mbox{\hyperlink{class_inventory_u_i_adc620a45ab7426aa20f9dd8a824913c9}{getSlots}}()\ \{\ \textcolor{keywordflow}{return}\ slotVector;\ \}}
+\DoxyCodeLine{00096\ \};}
+
+\end{DoxyCode}

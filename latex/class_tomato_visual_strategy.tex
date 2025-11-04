@@ -1,0 +1,77 @@
+\doxysection{Tomato\+Visual\+Strategy Class Reference}
+\hypertarget{class_tomato_visual_strategy}{}\label{class_tomato_visual_strategy}\index{TomatoVisualStrategy@{TomatoVisualStrategy}}
+Inheritance diagram for Tomato\+Visual\+Strategy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tomato_visual_strategy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_tomato_visual_strategy_a5d010e661d03fc6f3931f3a48552e14b}\label{class_tomato_visual_strategy_a5d010e661d03fc6f3931f3a48552e14b} 
+{\bfseries Tomato\+Visual\+Strategy} (float width, float height)
+\item 
+void \mbox{\hyperlink{class_tomato_visual_strategy_a33ddd494110c18d54d669453b16b711c}{draw\+Detailed}} (float x, float y) override
+\item 
+void \mbox{\hyperlink{class_tomato_visual_strategy_a1572e3c904b36fd34ab3887b86d58f80}{draw\+Static}} (float x, float y) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Plant\+Visual\+Strategy} (float width, float height)
+\item 
+void {\bfseries set\+Growth} (float progress)
+\item 
+void {\bfseries set\+Dimensions} (float width, float height)
+\item 
+void {\bfseries set\+Dead} (bool dead)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+Color {\bfseries apply\+Death\+Filter} (Color base\+Color) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}}
+\begin{DoxyCompactItemize}
+\item 
+float {\bfseries current\+Width}
+\item 
+float {\bfseries current\+Height}
+\item 
+float {\bfseries growth\+Progress}
+\item 
+bool {\bfseries is\+Currently\+Dead}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_tomato_visual_strategy_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_tomato_visual_strategy_a33ddd494110c18d54d669453b16b711c}\index{TomatoVisualStrategy@{TomatoVisualStrategy}!drawDetailed@{drawDetailed}}
+\index{drawDetailed@{drawDetailed}!TomatoVisualStrategy@{TomatoVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawDetailed()}{drawDetailed()}}
+{\footnotesize\ttfamily \label{class_tomato_visual_strategy_a33ddd494110c18d54d669453b16b711c} 
+void Tomato\+Visual\+Strategy\+::draw\+Detailed (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+\Hypertarget{class_tomato_visual_strategy_a1572e3c904b36fd34ab3887b86d58f80}\index{TomatoVisualStrategy@{TomatoVisualStrategy}!drawStatic@{drawStatic}}
+\index{drawStatic@{drawStatic}!TomatoVisualStrategy@{TomatoVisualStrategy}}
+\doxysubsubsection{\texorpdfstring{drawStatic()}{drawStatic()}}
+{\footnotesize\ttfamily \label{class_tomato_visual_strategy_a1572e3c904b36fd34ab3887b86d58f80} 
+void Tomato\+Visual\+Strategy\+::draw\+Static (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{class_plant_visual_strategy}{Plant\+Visual\+Strategy}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Frontend/Plant\+Visual\+Strategy.\+h\item 
+Frontend/Plant\+Visual\+Strategy.\+cpp\end{DoxyCompactItemize}
