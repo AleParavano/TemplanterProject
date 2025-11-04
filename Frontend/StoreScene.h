@@ -78,7 +78,7 @@ public:
     // Collision rectangles (public for easier access in Demo/Player update if needed)
     /** @brief Collision area for the main service counter. */
     Rectangle counterHitBox;
-    
+    SceneType nextScene;
     /** @brief Collision area for the scene's exit door. */
     Rectangle sDoor;
     

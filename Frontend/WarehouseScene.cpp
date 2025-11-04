@@ -18,3 +18,8 @@ void WarehouseScene::Draw() {
     DrawText("WELCOME TO THE WAREHOUSE", 380, 400, 40, DARKGRAY);
     DrawText("Press [Escape] to return", 500, 460, 20, GRAY);
 }
+SceneType WarehouseScene::CheckExit() {
+    SceneType result = nextScene;
+    nextScene = SCENE_OUTDOOR;  // Reset to stay in outdoor scene by default
+    return result;
+}

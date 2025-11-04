@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include "Plant.h"
 
 bool InventorySlot::add(Plant *plant)
 {

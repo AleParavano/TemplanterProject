@@ -17,7 +17,11 @@ StoreScene::StoreScene()
     backendStore = new Store();
     customerManager = new CustomerManager({1270, 0}, {1200, 580});
 }
-
+SceneType StoreScene::CheckExit() {
+    SceneType result = nextScene;
+    nextScene = SCENE_OUTDOOR;  // Reset to stay in outdoor scene by default
+    return result;
+}
 StoreScene::~StoreScene()
 {
     delete backendStore;
