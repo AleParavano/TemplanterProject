@@ -1,3 +1,5 @@
+<p align="center"> <img src="Templanterbanner.png" width="100%" alt="TEMPLANTER Banner"> </p>
+
 # Templanter - Plant Nursery Business Simulator
 
 ## Project Overview
@@ -5,17 +7,17 @@
 **Templanter** is a plant nursery business management simulator built in C++ using the raylib graphics library. Players manage a virtual greenhouse, cultivate various plant species, hire workers, and run a profitable business by selling harvested plants to customers.
 
 The project demonstrates the implementation of **11 design patterns** in a practical, real-world application:
-- **Singleton** (Game state management)
-- **Factory** (Plant and Customer creation)
-- **Adapter** (Plant to Store integration)
-- **Facade** (System simplification)
-- **Flyweight** (Data sharing optimization)
-- **Command** (Worker task execution)
-- **Observer** (Plant monitoring)
-- **State** (Plant lifecycle)
-- **Strategy** (Rendering algorithms)
-- **Template Method** (Growth algorithms)
-- **Memento** (Save/Load system)
+- **Singleton** - Game state management
+- **Factory** - Plant and Customer creation
+- **Adapter** - Plant to Store integration
+- **Facade** - System simplification
+- **Flyweight** - Data sharing optimization
+- **Command** - Worker task execution
+- **Observer** - Plant monitoring
+- **State** - Plant lifecycle
+- **Strategy** - Rendering algorithms
+- **Template Method** - Growth algorithms
+- **Memento** - Save/Load system
 
 ### Key Features
 
@@ -31,77 +33,64 @@ The project demonstrates the implementation of **11 design patterns** in a pract
 
 ---
 
-## How to Compile and Run
+## Build Instructions
 
 ### Prerequisites
-
-Make sure you have the following installed:
 - **C++ Compiler** (g++, clang, or MSVC with C++17 support)
 - **CMake** 3.15 or higher
 - **raylib** graphics library
 - **Make** (on Unix/Linux/macOS)
 
 ### Step 1: Install Dependencies
-
 #### macOS (using Homebrew)
 ```bash
 brew install raylib cmake
 ```
-
 #### Ubuntu/Debian
 ```bash
 sudo apt-get install libraylib-dev cmake build-essential
 ```
-
 #### Windows (using vcpkg)
 ```bash
 vcpkg install raylib:x64-windows
 ```
 
 ### Step 2: Clone/Extract Project
-
 ```bash
 cd /path/to/templanter
 ```
 
 ### Step 3: Create Build Directory
-
 ```bash
 mkdir build
 cd build
 ```
 
 ### Step 4: Configure with CMake
-
 ```bash
 cmake ..
 ```
 
 ### Step 5: Compile
-
 ```bash
 make
 ```
-
 Or on Windows with Visual Studio:
 ```bash
 cmake --build . --config Release
 ```
 
 ### Step 6: Run the Program
-
 #### macOS/Linux
 ```bash
 ./Templanter
 ```
-
 #### Windows
 ```bash
 Templanter.exe
 ```
 
-### Build Output
-
+### Build Output Locations
 After successful compilation, the executable will be located in:
 - **Unix/Linux/macOS**: `build/Templanter`
 - **Windows**: `build/Release/Templanter.exe`
@@ -112,14 +101,13 @@ After successful compilation, the executable will be located in:
 
 ### Required Libraries
 
-| Library | Version | Purpose |
-|---------|---------|---------|
-| raylib | 4.0+ | Graphics rendering and UI |
-| C++ Standard Library | C++17 | Core language features |
-| pthread (Unix) | - | Multi-threading support |
+| Logo | Library | Version | Purpose |
+|------|---------|---------|---------|
+| ![Raylib](https://img.shields.io/badge/raylib-%23FF6600.svg?style=for-the-badge&logo=raylib&logoColor=white) | raylib | 4.0+ | Graphics rendering and UI |
+| ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) | C++ Standard Library | C++17 | Core language features |
+| ![pthread](https://img.shields.io/badge/pthread-Unix-blue?style=for-the-badge) | pthread | - | Multi-threading support (Unix/Linux) |
 
 ### Project Structure
-
 ```
 Templanter/
 ├── src/
@@ -166,61 +154,52 @@ Templanter/
 - **Graphics Assets**: Raylib renders primitives (no image files needed)
 
 ### File Placement Instructions
-
 1. **Source Code**: Place all `.h` and `.cpp` files in the `src/` directory
 2. **Headers**: Ensure all header files include proper `#pragma once` guards
 3. **Save Games**: Create a `saves/` directory in the executable's directory
 4. **Configuration**: Create a `config/` directory if custom settings needed
 
 ### Memory Requirements
-
 - **Minimum RAM**: 512 MB
 - **Recommended RAM**: 2 GB
 - **Disk Space**: ~50 MB for executable and data
 
 ### Graphics/Display
-
 - **Minimum Resolution**: 1024x768
 - **Recommended Resolution**: 1920x1080
-- **GPU**: Any GPU with OpenGL 3.3+ support
+- **GPU**: OpenGL 3.3+
 
 ---
 
 ## Compilation Troubleshooting
 
-### Issue: raylib not found
-
-**Solution:**
+### raylib not found
 ```bash
 # Ensure raylib is installed
 pkg-config --modversion raylib
 
 # If not found, install it:
-# macOS:
+# macOS
 brew install raylib
 
-# Linux:
+# Linux
 sudo apt-get install libraylib-dev
 
-# Then reconfigure CMake:
+# Reconfigure CMake:
 cd build
 rm CMakeCache.txt
 cmake ..
 make
 ```
 
-### Issue: C++ Standard Version
-
-**Solution:**
+### C++ Standard Version
 Ensure CMakeLists.txt specifies C++17:
 ```cmake
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ```
 
-### Issue: Linker Errors
-
-**Solution:**
+### Linker Errors
 ```bash
 # Clear build and start fresh
 cd build
@@ -235,14 +214,11 @@ make
 ## Running the Program
 
 ### Basic Execution
-
 ```bash
 ./Templanter
 ```
 
 ### Expected Output
-
-Upon launch:
 1. Raylib window opens (1920x1080 recommended)
 2. Game loads initial state
 3. Player starts with:
@@ -252,7 +228,6 @@ Upon launch:
    - No workers
 
 ### Game Controls
-
 - **Mouse**: Click to interact with UI elements
 - **Keyboard**: Various shortcuts for actions
 - **Save/Load**: In-game menu options
@@ -261,16 +236,7 @@ Upon launch:
 
 ## Documentation
 
-### Comprehensive Doxygen Documentation
-
-Complete API documentation is available with full details on:
-- All 40+ classes
-- 70+ methods with signatures
-- Design pattern implementations
-- Code examples and usage
-
 To generate documentation:
-
 ```bash
 # Install Doxygen first
 brew install doxygen  # macOS
@@ -279,13 +245,12 @@ sudo apt-get install doxygen  # Linux
 # Generate documentation
 doxygen Doxyfile
 
-# View documentation
+# View docs
 open docs/html/index.html  # macOS
 firefox docs/html/index.html  # Linux
 ```
 
 ### Key Documentation Files
-
 - **Requirements.txt**: Functional and non-functional requirements
 - **PlantFactory.h/cpp**: Factory pattern implementation
 - **DOXYGEN_GUIDE.md**: Complete Doxygen setup guide
@@ -294,8 +259,6 @@ firefox docs/html/index.html  # Linux
 ---
 
 ## Project Files
-
-All source files are located in `/mnt/user-data/outputs/`:
 
 ### Header Files (20 files)
 - Game.h, Player.h, Greenhouse.h
@@ -317,17 +280,18 @@ All source files are located in `/mnt/user-data/outputs/`:
 - DOXYGEN_SUMMARY.md
 - FILE_INDEX.md
 
+All source files are located in `/mnt/user-data/outputs/`:
+
 ---
 
 ## Google Docs Report
 
 For the detailed project report with design documentation, analysis, and additional information, visit:
 
-**[Templanter Project Report - Google Docs](https://docs.google.com/document/d/[INSERT-DOCUMENT-ID-HERE]/edit?usp=sharing)**
+**[Templanter Project Report - Google Docs](https://docs.google.com/document/d/1rdOeh1aZ57GRGRswDw6wNYUqwda3ksXJLmDQzdqiFbQ/edit?usp=sharing)**
 
-*Note: Replace `[INSERT-DOCUMENT-ID-HERE]` with the actual Google Docs ID*
 
-The Google Docs version includes:
+Includes:
 - Detailed design pattern explanations
 - Architecture overview diagrams
 - Implementation challenges and solutions
@@ -354,17 +318,15 @@ The Google Docs version includes:
 ---
 
 ## Getting Started
-
-1. **Install dependencies** (see Dependencies section above)
-2. **Compile the project** (see Compilation section)
-3. **Run the executable** (see Running section)
-4. **Read the Google Docs report** for detailed documentation
-5. **Explore the code** with Doxygen-generated documentation
+1. [Install dependencies](#step-1-install-dependencies)
+2. [Compile the project](#step-5-compile)
+3. [Run the executable](#step-6-run-the-program)
+4. [Read the Google Docs report](#google-docs-report)
+5. [Explore code with Doxygen docs](#documentation)
 
 ---
 
 ## Support & Contact
-
 For questions or issues:
 - Review the documentation files included
 - Check the Doxygen generated API reference
@@ -374,8 +336,9 @@ For questions or issues:
 
 ## License
 
-This project is developed as part of COS 214 coursework at [Your University].
+This project is developed as part of COS 214 coursework at the University of Pretoria.
 
----
+<p align="center">
+  <img src="Bbanner.png" width="100%" alt="TEMPLANTER Bottom Banner">
+</p>
 
-**Status: ✅ Complete and Ready for Submission**
