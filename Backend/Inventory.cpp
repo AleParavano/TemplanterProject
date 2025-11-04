@@ -94,18 +94,17 @@ bool Inventory::add(Plant *plant)
 
 Plant *Inventory::removeItem(const std::string &plantType)
 {
-    // Find first slot with this plant type
-    for (auto it = slots.begin(); it != slots.end(); ++it)
+    for (int i = 0; i < slots.size(); i++) // Use index iteration
     {
-        InventorySlot *slot = *it;
-        if (slot->getPlantType() == plantType)
+        InventorySlot *slot = slots[i];
+        if (slot != nullptr && slot->getPlantType() == plantType)
         {
             Plant *plant = slot->remove();
 
             if (slot->isEmpty())
             {
-                slots.erase(it);
                 delete slot;
+                slots[i] = nullptr; 
             }
 
             return plant;
@@ -170,19 +169,20 @@ const InventorySlot *Inventory::getSlot(size_t index) const
 
 void Inventory::clear()
 {
-    for (auto *slot : slots)
+    for (int i = 0; i < slots.size(); i++)
     {
-        if (slot != nullptr)  
+        InventorySlot *inventorySlot = slots[i];
+        if (inventorySlot  != nullptr)  
         {
-            while (!slot->isEmpty())
+            while (!inventorySlot->isEmpty())
             {
-                Plant *plant = slot->remove();
+                Plant *plant = inventorySlot->remove();
                 delete plant;
             }
-            delete slot;
+            delete inventorySlot;
         }
+        slots[i] = nullptr;
     }
-    slots.clear();
 }
 
 InventorySlot *Inventory::findCompatibleSlot(Plant *plant)

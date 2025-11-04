@@ -2,13 +2,14 @@
 #include "Serializer.h"
 #include <sstream>
 #include <iomanip> 
+#include <iostream>
 #include "../Frontend/InventoryUI.h"
 
 // bool Player::safe = true;
 
 Player::Player()
     : money(100.0f), rating(0), day(1), hour(6), minute(0),
-      inventory(nullptr), plot(nullptr)
+      inventory(nullptr), plot(nullptr), safe(false), timeAccumulator(0.0f)
 {
     inventory = new Inventory(25); // Changed from 15 to 25 slots
     plot = new Greenhouse(inventory);
@@ -173,6 +174,9 @@ void Player::fireWorker(int index)
     {
         if (workers[index])
         {
+            if (plot){
+                plot->detach(workers[index]);
+            }
             delete workers[index];
         }
         workers.erase(workers.begin() + index);
@@ -191,6 +195,20 @@ Worker *Player::getWorker(int index) const
 int Player::getWorkerCount() const
 {
     return workers.size();
+}
+
+void Player::pauseWorkers()
+{
+    for (auto* worker : workers) {
+        if (worker) {
+            worker->stop(); 
+        }
+    }
+}
+
+void Player::startWorkers()
+{
+
 }
 
 const std::vector<Worker *> &Player::getWorkers()
@@ -221,20 +239,27 @@ void Player::setMemento(Memento *memento)
 {
     if (memento)
     {
+        pauseWorkers();
         money = memento->getMoney();
         rating = memento->getRating();
         day = memento->getDay();
         hour = memento->getHour();
         minute = memento->getMinute();
+        inventory->clear();
 
         Serializer::deserializeInventory(inventory, memento->getInventoryData());
         Serializer::deserializeGreenhouse(plot, memento->getGreenhouseData());
+
+     
+
         Serializer::deserializeWorkers(workers, memento->getWorkerData());
+
         for (auto *worker : workers)
         {
             if (worker)
             {
                 plot->attach(worker);
+                worker->setSubject(plot);
             }
         }
     }

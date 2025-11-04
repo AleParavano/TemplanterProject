@@ -1,34 +1,30 @@
 #include "UI.h"
-
-// #include "ActionLogManager.h" 
+#include <map>
+ 
 #include <iostream>
 
 void DrawGlobalMenu() {
-    // Draw Menu Background (Translucent Black)
+
     float menuX = SCREEN_WIDTH - MENU_WIDTH;
     Color translucentBlack = {0, 0, 0, 180}; 
     
     DrawRectangle(menuX, 0, MENU_WIDTH, SCREEN_HEIGHT, translucentBlack);
     DrawRectangleLinesEx({menuX, 0, MENU_WIDTH, SCREEN_HEIGHT}, 3, LIGHTGRAY);
-    
-    // Get Global Data
+ 
     Game* game = Game::getInstance();
     Player* player = game->getPlayerPtr();
     
     if (player) {
-        //  CLOCK (Day, Hour, Minute) ---
+
         int clockY = 20;
         
-        // Day
         DrawText(TextFormat("DAY: %d", player->getDay()), menuX + 10, clockY, 20, RAYWHITE);
-        // Time
         DrawText(player->getTimeString().c_str(), menuX + 10, clockY + 30, 30, YELLOW);
         
         
-        // PLAYER STATES (Money, Rating, Protection) 
         int statsY = 95;
         
-        // Money
+        // Money Display 
         DrawText(TextFormat("Money: $%.2f", player->getMoney()), menuX + 10, statsY, 20, LIME);
         
         // Rating
@@ -59,19 +55,71 @@ void DrawGlobalMenu() {
         int separatorY = 320;
         DrawLine(menuX + 5, separatorY, menuX + MENU_WIDTH - 5, separatorY, LIGHTGRAY);
         
-        //  HINT TEXT (For the bottom half) 
         DrawText("SCENE MENU ", menuX + 50 , separatorY + 10, 20, RAYWHITE);
 
-        // --- 7. MESSAGE LOG (Placeholder/Future Integration) ---
-        // int logBoxY = SCREEN_HEIGHT - (MAX_LOG_MESSAGES * 18 + 20); 
-        // DrawRectangle(menuX, logBoxY - 5, MENU_WIDTH, SCREEN_HEIGHT - logBoxY + 5, Fade(BLACK, 0.7f));
-        // DrawRectangleLinesEx({menuX, (float)logBoxY - 5, MENU_WIDTH, SCREEN_HEIGHT - (float)logBoxY + 5}, 2, LIGHTGRAY);
-        // ... (Future calls to ActionLogManager::getInstance()->getMessageLog() here)
+        
+        // --- WORKER STATUS DISPLAY (Bottom Section) ---
+        
+        int workerDisplayY = separatorY + 400; 
+        DrawText("ACTIVE WORKERS:", menuX + 10, workerDisplayY, 18, RAYWHITE);
+        workerDisplayY += 30; // Move down for the worker list
+        
+        const auto& workers = player->getWorkers();
+        
+        // 1. Group and Count Workers
+        std::map<std::string, int> workerCounts;
+        std::map<std::string, Color> workerColors;
+        
+        for (const auto* worker : workers) {
+            std::string type = worker->type();
+            workerCounts[type]++;
+            
+            // Assign colors based on known types (Purely Visual)
+            if (type == "Water Worker") workerColors[type] = SKYBLUE;
+            else if (type == "Fertiliser Worker") workerColors[type] = BROWN;
+            else if (type == "Harvest Worker") workerColors[type] = LIME;
+            else workerColors[type] = GRAY;
+        }
+
+        // 2. Draw each worker type/count
+        for (const auto& pair : workerCounts) {
+            std::string type = pair.first;
+            int count = pair.second;
+            Color color = workerColors[type];
+            
+            float drawY = (float)workerDisplayY;
+            
+            // Define a base position for the icon within the menu
+            Vector2 iconPos = {menuX + 20, drawY + 15};
+            
+            // Create a temporary Person struct for drawing
+            Person p = {
+                iconPos,             // position
+                {0, 0},              // target (unused)
+                {0, 0},              // home (unused)
+                0.0f,                // speed (unused)
+                color,               // shirtColor (based on worker type)
+                DARKGRAY,            // pantsColor (default)
+                false,               // goingToStore (unused)
+                0.0f,                // waitTimer (unused)
+                (float)GetTime() * 3.0f, // walkCycle (animated)
+                {3, 3}               // shadowOffset
+            };
+
+            // Call the external detailed drawing function
+            DrawPersonDetailed(p); 
+            
+            // 3. Draw status text: Type (Count)
+            DrawText(TextFormat("%s (%d)", type.c_str(), count), menuX + 45, drawY, 15, RAYWHITE);
+            
+            workerDisplayY += 30; // Move down for the next worker type
+        }
+        // ------------------------------------
     }
 }
 
 
-// --- Local Helper Function (Required by DrawTiledBackground) ---
+// --- Local Helper Function  ---
 static int ClampValue(int value, int min, int max) {
     if (value < min) return min;
     if (value > max) return max;

@@ -5,14 +5,13 @@
 #include "Player.h"
 #include "Game.h"
 
-
 Worker::Worker() : Observer()
 {
     subject = nullptr;
     workerThread = std::thread(&Worker::executeCommand, this);
 }
 
-Worker::Worker(const Worker& worker)
+Worker::Worker(const Worker &worker)
 {
     this->level = worker.level;
     this->subject = worker.subject;
@@ -29,29 +28,20 @@ void Worker::executeCommand()
 {
     while(running){
         std::unique_lock<std::mutex> lock(mtx);
+    
         condition.wait(lock, [&]{return !commandQueue.empty() || !running;});
-        if(!running && commandQueue.empty()){
-            break;
+        
+        if(!running){
+            break; 
         }
-        Command* command = commandQueue.front();
+        Command *command = commandQueue.front();
         commandQueue.pop();
-        lock.unlock();
+
+        lock.unlock(); 
         command->execute();
+        
         if(!command->isPatrol()){
             endPatrol();
-        }
-        //command starts
-        std::cout << "Executing command" << std::endl;
-        switch(level){
-            case 1:
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-                break;
-            case 2:
-                std::this_thread::sleep_for(std::chrono::milliseconds(750));
-                break;
-            case 3:
-                std::this_thread::sleep_for(std::chrono::milliseconds(500));
-                break;
         }
         delete command;
     }
@@ -62,14 +52,15 @@ void Worker::clearCommandQueue()
     std::lock_guard<std::mutex> lock(mtx);
     while (!commandQueue.empty())
     {
-        Command* cmd = commandQueue.front();
+        Command *cmd = commandQueue.front();
         commandQueue.pop();
-        if (cmd) {
+        if (cmd)
+        {
             delete cmd; // CRITICAL: Deletes the command object, preventing leak
         }
     }
 }
-void Worker::addCommand(Command* command)
+void Worker::addCommand(Command *command)
 {
     {
         std::lock_guard<std::mutex> lock(mtx);
@@ -78,43 +69,42 @@ void Worker::addCommand(Command* command)
     condition.notify_one();
 }
 
-void Worker::setSubject(Greenhouse* greenhouse)
+void Worker::setSubject(Greenhouse *greenhouse)
 {
     this->subject = greenhouse;
 }
 
-
-
 void Worker::stop()
 {
-    if(running){
+    if (running)
+    {
         running = false;
         condition.notify_all();
-        if(workerThread.joinable()){
+        if (workerThread.joinable())
+        {
             workerThread.join();
         }
     }
 }
 
-
-
 void Worker::startPatrol()
 {
-    Player* player = Game::getInstance()->getPlayerPtr();
-    if(player)
+    Player *player = Game::getInstance()->getPlayerPtr();
+    if (player)
         player->setProtected(true);
 }
 
 void Worker::endPatrol()
 {
-    Player* player = Game::getInstance()->getPlayerPtr();
-    if(player)
+    Player *player = Game::getInstance()->getPlayerPtr();
+    if (player)
         player->setProtected(false);
 }
 
 void Worker::setLevel(int level)
 {
-    if(level >= 1 && level <= 3){
+    if (level >= 1 && level <= 3)
+    {
         this->level = level;
     }
 }
@@ -137,43 +127,32 @@ void Worker::update()
 
 void WaterWorker::update()
 {
-    if(subject){
-        // 1. FIX: Clear stale commands before checking for new ones
-        clearCommandQueue(); 
-        
-        for(int i = 0; i < subject->getCapacity(); i++){
-            Plant* plant = subject->getPlant(i);
-            
-            // Recheck status and queue fresh commands
-            if(plant && plant->getWater() <= 20.0f){
-                addCommand(new WaterCommand(plant, subject)); // Pass subject for crash guard
+    if (subject)
+    {
+        clearCommandQueue();
+
+        for (int i = 0; i < subject->getCapacity(); i++)
+        {
+            Plant *plant = subject->getPlant(i);
+            if (plant && plant->getWater() <= 20.0f)
+            {
+                addCommand(new WaterCommand(plant, subject));
             }
         }
     }
 }
 
-// void FertiliserWorker::update()
-// {
-//     if(subject){
-//         for(int i = 0; i < subject->getCapacity(); i++){
-//             Plant* plant = subject->getPlant(i);
-//             if(plant && plant->getNutrients() <= 20.0f){
-//                 addCommand(new FertilizeCommand(plant,subject));
-//             }
-//         }
-//     }
-// }
 void FertiliserWorker::update()
 {
-    if(subject){
-        // 1. FIX: Clear stale commands before checking for new ones
-        clearCommandQueue(); 
+    if (subject)
+    {
+        clearCommandQueue();
+        for (int i = 0; i < subject->getCapacity(); i++)
+        {
+            Plant *plant = subject->getPlant(i);
 
-        for(int i = 0; i < subject->getCapacity(); i++){
-            Plant* plant = subject->getPlant(i);
-            
-            // Recheck status and queue fresh commands
-            if(plant && plant->getNutrients() <= 20.0f){
+            if (plant && plant->getNutrients() <= 20.0f)
+            {
                 addCommand(new FertilizeCommand(plant, subject)); // Pass subject for crash guard
             }
         }
@@ -194,15 +173,16 @@ void FertiliserWorker::update()
 
 void HarvestWorker::update()
 {
-    if(subject){
-        // 1. FIX: Clear stale commands before checking for new ones
-        clearCommandQueue(); 
+    if (subject)
+    {
+ clearCommandQueue();
+        for (int i = 0; i < subject->getCapacity(); i++)
+        {
+            Plant *plant = subject->getPlant(i);
 
-        for(int i = 0; i < subject->getCapacity(); i++){
-            Plant* plant = subject->getPlant(i);
-            
             // Recheck status and queue fresh commands
-            if(plant && plant->isRipe()){
+            if (plant && plant->isRipe())
+            {
                 addCommand(new HarvestCommand(plant, subject)); // Pass subject for crash guard
             }
         }

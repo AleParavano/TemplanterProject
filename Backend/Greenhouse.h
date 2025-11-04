@@ -39,4 +39,6 @@ private:
     std::vector<Plant*> plots;
     int capacity;
     Inventory* inventory;
+
+    
 };

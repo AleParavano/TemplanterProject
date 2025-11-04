@@ -165,15 +165,19 @@ void GreenHouseScene::HandleInput()
                 // a. Water Button (R1, C1)
                 if (CheckCollisionPointRec(mousePos, btnWater))
                 {
-                    plant->water(10.0f);
-                    // std::cout << "LOG: Watered plot " << selectedPlotIndex << std::endl;
+                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 0.5f) {
+                        plant->water(10.0f);
+                        Game::getInstance()->getPlayerPtr()->subtractMoney(0.5f);
+                    }
                     return;
                 }
                 // b. Fertilize Button (R1, C2)
                 else if (CheckCollisionPointRec(mousePos, btnFert))
                 {
-                    plant->fertilize(5.0f);
-                    // std::cout << "LOG: Fertilized plot " << selectedPlotIndex << std::endl;
+                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 1.0f) {
+                        plant->fertilize(5.0f);
+                        Game::getInstance()->getPlayerPtr()->subtractMoney(1.0f);
+                    }
                     return;
                 }
                 // c. DELETE Button (R2, C2)
@@ -181,7 +185,6 @@ void GreenHouseScene::HandleInput()
                 {
                     gh->removePlant(selectedPlotIndex);
                     selectedPlotIndex = -1;
-                    // std::cout << "LOG: Permanently deleted plant from plot " << selectedPlotIndex << std::endl;
                     return;
                 }
                 // d. Harvest/Deroot/Growing Action Button (R2, C1)

@@ -41,6 +41,8 @@ public:
     void fireWorker(int index);
     Worker* getWorker(int index) const;
     int getWorkerCount() const;
+    void pauseWorkers();
+    void startWorkers() ;
     const std::vector<Worker*>& getWorkers() ;
     
     std::string getTimeString() const; // <<< getTimeString added >>>
