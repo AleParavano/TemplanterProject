@@ -28,23 +28,10 @@
  * Encapsulates plant creation logic. Subclasses specify which plant type
  * to create and which visual strategy to use.
  */
-class PlantFactory
-{
+class PlantFactory {
 public:
-    /**
-     * @brief Constructor.
-     */
     PlantFactory() {}
-
-    /**
-     * @brief Virtual destructor.
-     */
     virtual ~PlantFactory() {}
-
-    /**
-     * @brief Creates and returns a plant.
-     * @return Pointer to a newly allocated Plant subclass
-     */
     virtual Plant *produce() = 0;
 };
 
@@ -55,13 +42,7 @@ public:
  */
 class CarrotFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Carrot plant.
-     * @return Newly allocated Carrot with CarrotVisualStrategy
-     */
-    Plant* produce() override {
-        return new Carrot(new CarrotVisualStrategy(15.0f, 30.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -71,13 +52,7 @@ public:
  */
 class TomatoFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Tomato plant.
-     * @return Newly allocated Tomato with TomatoVisualStrategy
-     */
-    Plant* produce() override {
-        return new Tomato(new TomatoVisualStrategy(25.0f, 25.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -87,13 +62,7 @@ public:
  */
 class LettuceFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Lettuce plant.
-     * @return Newly allocated Lettuce with LettuceVisualStrategy
-     */
-    Plant* produce() override {
-        return new Lettuce(new LettuceVisualStrategy(20.0f, 15.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -103,13 +72,7 @@ public:
  */
 class SunflowerFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Sunflower plant.
-     * @return Newly allocated Sunflower with SunflowerVisualStrategy
-     */
-    Plant* produce() override {
-        return new Sunflower(new SunflowerVisualStrategy(25.0f, 50.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -119,13 +82,7 @@ public:
  */
 class PotatoFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Potato plant.
-     * @return Newly allocated Potato with PotatoVisualStrategy
-     */
-    Plant* produce() override {
-        return new Potato(new PotatoVisualStrategy(18.0f, 20.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -135,13 +92,7 @@ public:
  */
 class CucumberFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Cucumber plant.
-     * @return Newly allocated Cucumber with CucumberVisualStrategy
-     */
-    Plant* produce() override {
-        return new Cucumber(new CucumberVisualStrategy(20.0f, 35.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -151,13 +102,7 @@ public:
  */
 class PepperFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Pepper plant.
-     * @return Newly allocated Pepper with PepperVisualStrategy
-     */
-    Plant* produce() override {
-        return new Pepper(new PepperVisualStrategy(25.0f, 30.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -167,13 +112,7 @@ public:
  */
 class StrawberryFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Strawberry plant.
-     * @return Newly allocated Strawberry with StrawberryVisualStrategy
-     */
-    Plant* produce() override {
-        return new Strawberry(new StrawberryVisualStrategy(25.0f, 15.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -183,13 +122,7 @@ public:
  */
 class CornFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Corn plant.
-     * @return Newly allocated Corn with CornVisualStrategy
-     */
-    Plant* produce() override {
-        return new Corn(new CornVisualStrategy(20.0f, 55.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -199,13 +132,7 @@ public:
  */
 class PumpkinFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a Pumpkin plant.
-     * @return Newly allocated Pumpkin with PumpkinVisualStrategy
-     */
-    Plant* produce() override {
-        return new Pumpkin(new PumpkinVisualStrategy(40.0f, 30.0f));
-    }
+    Plant* produce() override;
 };
 
 /**
@@ -231,26 +158,11 @@ public:
  * - Strawberry: ~9.1%
  * - Corn: ~9.1%
  * - Pumpkin: ~9.1%
- * - (repeats randomly)
  */
 class RandomPlantFactory : public PlantFactory {
 public:
-    /**
-     * @brief Produces a random plant.
-     * @return Random plant type (0-10 equally distributed)
-     * 
-     * @details Generates random number 0-10 and creates corresponding plant.
-     *         Uses static Mersenne Twister for consistent randomness.
-     */
     Plant *produce() override;
 
 private:
-    /**
-     * @brief Gets the static RNG instance.
-     * @return Reference to the global Mersenne Twister engine
-     * 
-     * @details Static instance ensures same RNG across all calls.
-     *         Seeded with random_device for variation.
-     */
     static std::mt19937 &rng();
 };
