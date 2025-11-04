@@ -46,18 +46,21 @@ protected:
 
 class WaterWorker : public Worker
 {
+    public:
     void update() override;
     const char *type() const override { return "Water Worker"; }
 };
 
 class FertiliserWorker : public Worker
 {
+    public:
     void update() override;
     const char *type() const override { return "Fertiliser Worker"; }
 };
 
 class HarvestWorker : public Worker
 {
+    public:
     void update() override;
     const char *type() const override { return "Harvest Worker"; }
 };
