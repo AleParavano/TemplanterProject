@@ -1,0 +1,347 @@
+==465361== Memcheck, a memory error detector
+==465361== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==465361== Using Valgrind-3.18.1-42b08ed5bd-20211015 and LibVEX; rerun with -h for copyright info
+==465361== Command: ./game
+==465361== 
+--465361-- Valgrind options:
+--465361--    --leak-check=full
+--465361--    --show-leak-kinds=all
+--465361--    --track-origins=yes
+--465361--    --verbose
+--465361-- Contents of /proc/version:
+--465361--   Linux version 6.6.87.2-microsoft-standard-WSL2 (root@439a258ad544) (gcc (GCC) 11.2.0, GNU ld (GNU Binutils) 2.37) #1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025
+--465361-- 
+--465361-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--465361-- Page sizes: currently 4096, max supported 4096
+--465361-- Valgrind library directory: /usr/libexec/valgrind
+--465361-- Reading syms from /home/paul/projects/2nd Year/COS214/TemplanterProject/Frontend/game
+--465361-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+--465361--   Considering /usr/lib/debug/.build-id/ac/af96d7b1a6bad57b559d646233d5dc1a23257c.debug ..
+--465361--   .. build-id is valid
+--465361-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--465361--    object doesn't have a symbol table
+--465361--    object doesn't have a dynamic symbol table
+--465361-- Scheduler: using generic scheduler lock implementation.
+--465361-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==465361== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-465361-by-paul-on-???
+==465361== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-465361-by-paul-on-???
+==465361== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-465361-by-paul-on-???
+==465361== 
+==465361== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==465361== don't want to do, unless you know exactly what you're doing,
+==465361== or are doing some strange experiment):
+==465361==   /usr/bin/vgdb --pid=465361 ...command...
+==465361== 
+==465361== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==465361==   /path/to/gdb ./game
+==465361== and then give GDB the following command
+==465361==   target remote | /usr/bin/vgdb --pid=465361
+==465361== --pid is optional if only one valgrind process is running
+==465361== 
+--465361-- REDIR: 0x402aa40 (ld-linux-x86-64.so.2:strlen) redirected to 0x580bcec2 (???)
+--465361-- REDIR: 0x402a810 (ld-linux-x86-64.so.2:index) redirected to 0x580bcedc (???)
+--465361-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--465361--    object doesn't have a symbol table
+--465361-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+--465361--    object doesn't have a symbol table
+==465361== WARNING: new redirection conflicts with existing -- ignoring it
+--465361--     old: 0x0402aa40 (strlen              ) R-> (0000.0) 0x580bcec2 ???
+--465361--     new: 0x0402aa40 (strlen              ) R-> (2007.0) 0x0484ee30 strlen
+--465361-- REDIR: 0x4027220 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484fcd0 (strcmp)
+--465361-- REDIR: 0x402afa0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4853840 (mempcpy)
+--465361-- Reading syms from /usr/local/lib/libraylib.so.5.5.0
+--465361-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30
+--465361--    object doesn't have a symbol table
+--465361-- Reading syms from /usr/lib/x86_64-linux-gnu/libm.so.6
+--465361--   Considering /usr/lib/debug/.build-id/b2/b4cd0f73a7c7a6da5ba4126bceb33ce68853d5.debug ..
+--465361--   .. build-id is valid
+--465361-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--465361--    object doesn't have a symbol table
+--465361-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
+--465361--   Considering /usr/lib/debug/.build-id/4f/7b0c955c3d81d7cac1501a2498b69d1d82bfe7.debug ..
+--465361--   .. build-id is valid
+==465361== WARNING: new redirection conflicts with existing -- ignoring it
+--465361--     old: 0x04f46c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--465361--     new: 0x04f46c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==465361== WARNING: new redirection conflicts with existing -- ignoring it
+--465361--     old: 0x04f46c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--465361--     new: 0x04f46c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+==465361== WARNING: new redirection conflicts with existing -- ignoring it
+--465361--     old: 0x04f46c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--465361--     new: 0x04f46c60 (memalign            ) R-> (1017.0) 0x0484e050 aligned_alloc
+==465361== WARNING: new redirection conflicts with existing -- ignoring it
+--465361--     old: 0x04f46c60 (memalign            ) R-> (1011.0) 0x0484e080 memalign
+--465361--     new: 0x04f46c60 (memalign            ) R-> (1017.0) 0x0484e020 aligned_alloc
+--465361-- REDIR: 0x4f49720 (libc.so.6:strnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f499e0 (libc.so.6:strpbrk) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f492e0 (libc.so.6:strcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f67cd0 (libc.so.6:wcsnlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4a6d0 (libc.so.6:memset) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f66540 (libc.so.6:wcslen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4ac10 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f66370 (libc.so.6:wcschr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f49260 (libc.so.6:index) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f49960 (libc.so.6:rindex) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4a5a0 (libc.so.6:memmove) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+==465361== Preferring higher priority redirection:
+--465361--     old: 0x05041840 (__memcpy_avx_unalign) R-> (2018.0) 0x04850f90 __memcpy_avx_unaligned_erms
+--465361--     new: 0x05041840 (__memcpy_avx_unalign) R-> (2018.1) 0x04852880 memmove
+--465361-- REDIR: 0x4f663f0 (libc.so.6:wcscmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4a9e0 (libc.so.6:stpncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f669b0 (libc.so.6:wmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f49830 (libc.so.6:strncmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4aa70 (libc.so.6:strcasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f49420 (libc.so.6:strcspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f66470 (libc.so.6:wcscpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f491d0 (libc.so.6:strcat) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4ab60 (libc.so.6:strncasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4a480 (libc.so.6:bcmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f52570 (libc.so.6:memrchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4c010 (libc.so.6:strchrnul) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f49390 (libc.so.6:strcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4ab10 (libc.so.6:strcasecmp_l) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f496a0 (libc.so.6:strlen) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f498d0 (libc.so.6:strncpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4a950 (libc.so.6:stpcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4a3f0 (libc.so.6:memchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f49b00 (libc.so.6:strspn) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4a7d0 (libc.so.6:mempcpy) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4aac0 (libc.so.6:strncasecmp) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x4f4bf80 (libc.so.6:rawmemchr) redirected to 0x483f220 (_vgnU_ifunc_wrapper)
+--465361-- REDIR: 0x503e690 (libc.so.6:__strrchr_avx2) redirected to 0x484e810 (rindex)
+--465361-- REDIR: 0x4f460a0 (libc.so.6:malloc) redirected to 0x4848820 (malloc)
+--465361-- REDIR: 0x503e860 (libc.so.6:__strlen_avx2) redirected to 0x484ed10 (strlen)
+--465361-- REDIR: 0x503ab00 (libc.so.6:__memcmp_avx2_movbe) redirected to 0x4852010 (bcmp)
+--465361-- REDIR: 0x4c1a970 (libstdc++.so.6:operator new(unsigned long)) redirected to 0x4848fa0 (operator new(unsigned long))
+--465361-- REDIR: 0x5041840 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x4852880 (memmove)
+--465361-- REDIR: 0x4c18c10 (libstdc++.so.6:operator delete(void*)) redirected to 0x484b840 (operator delete(void*))
+--465361-- REDIR: 0x5041800 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4853440 (mempcpy)
+TEMPLANTER - MEMORY LEAK TESTING SUITE
+Backend Systems Only (No Raylib)
+TEST: Game Singleton & Player
+--465361-- REDIR: 0x4f49fc0 (libc.so.6:__GI_strstr) redirected to 0x4853ae0 (__strstr_sse2)
+--465361-- REDIR: 0x4c1a9d0 (libstdc++.so.6:operator new[](unsigned long)) redirected to 0x484a280 (operator new[](unsigned long))
+--465361-- REDIR: 0x503a340 (libc.so.6:__memchr_avx2) redirected to 0x484fd50 (memchr)
+--465361-- REDIR: 0x4c18c40 (libstdc++.so.6:operator delete[](void*)) redirected to 0x484ca20 (operator delete[](void*))
+--465361-- REDIR: 0x4f463e0 (libc.so.6:free) redirected to 0x484b210 (free)
+Game instance 1: 0x50e0d10
+Game instance 2: 0x50e0d10
+Singleton check: PASS
+--465361-- REDIR: 0x503e480 (libc.so.6:__strchrnul_avx2) redirected to 0x4853330 (strchrnul)
+Player initial money: $100
+Player initial rating: 0
+Player day: 1
+Player time: 6:0
+[PASS] Test completed successfully
+TEST: Plant Lifecycle & State Transitions
+Plant type: Lettuce
+Initial state: Seed
+Initial growth: 0%
+Initial water: 100%
+Initial nutrients: 100%
+
+--- Testing Water Command ---
+After watering: 100%
+
+--- Testing Fertilize Command ---
+After fertilizing: 100%
+
+--- Simulating Growth (10 ticks) ---
+Tick 0: State=Seed, Growth=2.56%, Water=99%, Nutrients=99.5%
+Tick 3: State=Seed, Growth=10.24%, Water=96%, Nutrients=98%
+Tick 6: State=Seed, Growth=17.92%, Water=93%, Nutrients=96.5%
+Tick 9: State=Seed, Growth=25.6%, Water=90%, Nutrients=95%
+
+Final state: Seed
+Is ripe: NO
+Is dead: NO
+--465361-- REDIR: 0x4c18c20 (libstdc++.so.6:operator delete(void*, unsigned long)) redirected to 0x484bb00 (operator delete(void*, unsigned long))
+[PASS] Test completed successfully
+TEST: Inventory Management System
+Created inventory with capacity: 10
+
+--- Adding Plants ---
+Added Tomato #1
+Added Tomato #2
+Added Tomato #3
+Added Tomato #4
+Added Tomato #5
+Added Carrot #1
+Added Carrot #2
+Added Carrot #3
+
+--- Inventory Status ---
+Total stacks: 10
+Tomato count: 5
+Carrot count: 3
+Is full: NO
+
+--- Removing Items ---
+Removed: Tomato
+Tomato count after removal: 4
+[PASS] Test completed successfully
+TEST: Greenhouse Management
+Greenhouse capacity: 56
+Initial size: 0
+
+--- Planting Seeds ---
+Planted Lettuce at position 0
+Planted Lettuce at position 1
+Planted Lettuce at position 2
+Planted Lettuce at position 3
+Planted Lettuce at position 4
+Greenhouse size after planting: 5
+
+--- Simulating Time (5 ticks) ---
+Tick 0 completed
+Tick 1 completed
+Tick 2 completed
+Tick 3 completed
+Tick 4 completed
+
+Plant at position 0:
+  Type: Lettuce
+  State: Seed
+  Growth: 12.8%
+
+--- Testing Harvest ---
+Inventory before harvest: 0
+Inventory after harvest: 1
+Greenhouse size after harvest: 4
+[PASS] Test completed successfully
+TEST: Worker System with Commands
+--- Creating Workers ---
+--465361-- REDIR: 0x4f47520 (libc.so.6:calloc) redirected to 0x484d9d0 (calloc)
+
+--- Workers attached to greenhouse ---
+
+--- Simulating Plant Care ---
+Plant 0 - Water: 90%, Nutrients: 95%
+Plant 1 - Water: 90%, Nutrients: 95%
+Plant 2 - Water: 90%, Nutrients: 95%
+
+--- Notifying Workers ---
+Workers have been notified to perform tasks
+
+--- Cleaning up workers ---
+[PASS] Test completed successfully
+TEST: Customer Factory & Types
+--- Creating Customers ---
+Regular customer type: Regular
+VIP customer type: VIP
+Robber customer type: Robber
+
+--- Creating Random Customers ---
+Random customer 0: Regular
+Random customer 1: Regular
+Random customer 2: Regular
+Random customer 3: VIP
+Random customer 4: Regular
+Random customer 5: Regular
+Random customer 6: Regular
+Random customer 7: Regular
+Random customer 8: Regular
+Random customer 9: Regular
+[PASS] Test completed successfully
+TEST: Store System with Seed Adapter
+Player starting money: $500
+
+--- Adding Seeds to Store ---
+Added Lettuce seeds ($15.00)
+Added Carrot seeds ($25.00)
+Added Tomato seeds ($55.00)
+Total items in store: 3
+
+--- Purchasing Seeds ---
+Item 0 price: $15
+Purchase successful!
+Player money after purchase: $485
+Item 1 price: $25
+Purchase successful!
+Player money after purchase: $460
+Item 2 price: $55
+Purchase successful!
+Player money after purchase: $405
+
+Player inventory count:
+Lettuce: 1
+Carrot: 1
+Tomato: 1
+[PASS] Test completed successfully
+TEST: Save/Load System (Memento Pattern)
+--- Setting up initial game state ---
+Initial state:
+  Money: $1000
+  Rating: 3.5
+  Day: 5
+  Time: 14:30
+  Lettuce in inventory: 4
+  Plants in greenhouse: 2
+
+--- Saving game ---
+Game saved successfully
+
+--- Modifying game state ---
+Modified state:
+  Money: $5000
+  Rating: 5
+  Day: 10
+  Time: 18:45
+  Lettuce in inventory: 0
+
+--- Loading saved game ---
+Game loaded successfully
+Restored state:
+  Money: $1000
+  Rating: 3
+  Day: 5
+  Time: 14:30
+  Lettuce in inventory: 4
+  Plants in greenhouse: 2
+[PASS] Test completed successfully
+TEST: Plant State Transitions
+Starting state: Seed
+
+--- Growing from Seed ---
+[SEED -> GROWING] Plant sprouted! Growth: 25.6
+State changed to Growing at tick 10
+
+--- Sustaining growth to Ripe ---
+[GROWING -> RIPE] Plant is ripe! Growth: 100
+State changed to Ripe at tick 29
+Growth level: 100%
+
+--- Testing death from neglect ---
+[SEED -> GROWING] Plant sprouted! Growth: 25
+[GROWING] Warning! Low resources! Water: 4, Nutrients: 52
+[GROWING] Warning! Low resources! Water: 2, Nutrients: 51
+[GROWING] Warning! Low resources! Water: 0, Nutrients: 50
+[GROWING] Plant died from lack of resources!
+Plant died at tick 62
+Final water: 0%
+Final nutrients: 50%
+[PASS] Test completed successfully
+TEST: Time System
+Initial time: Day 1, 6:0
+
+--- Advancing time ---
+After 30 minutes: 6:30
+After 45 more minutes: 7:15
+After 1000 minutes: Day 1, 23:55
+[PASS] Test completed successfully
+ALL TESTS COMPLETED
+
+--- Cleaning up singleton and global resources ---
+Cleanup completed
+Run with Valgrind:
+  valgrind --leak-check=full --show-leak-kinds=all \
+           --track-origins=yes --verbose \
+           --log-file=valgrind-out.txt ./test_main
+==465361== 
+==465361== HEAP SUMMARY:
+==465361==     in use at exit: 0 bytes in 0 blocks
+==465361==   total heap usage: 369 allocs, 369 frees, 137,772 bytes allocated
+==465361== 
+==465361== All heap blocks were freed -- no leaks are possible
+==465361== 
+==465361== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
