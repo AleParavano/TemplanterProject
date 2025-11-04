@@ -1,17 +1,3 @@
-/**
- * @file SeedAdapter.h
- * @brief Adapter pattern implementation connecting Plant to StoreItem.
- * @details Allows plants (seeds) to be sold through the store interface using
- *          the Adapter pattern to bridge incompatible interfaces.
- * 
- * @author Team Templation
- * @date November 2025
- * 
- * @see StoreItem
- * @see Plant
- * @see Store
- */
-
 #pragma once
 
 #include "StoreItem.h"
@@ -20,90 +6,42 @@
 
 /**
  * @class SeedAdapter
- * @brief Adapts a plant factory to the StoreItem interface.
- * 
- * Enables seeds to be sold in the store by adapting the Plant interface
- * to the StoreItem interface using the Adapter pattern.
- * 
- * @par Design Pattern: Adapter
- * Makes incompatible Plant objects compatible with the StoreItem interface,
- * allowing them to be sold through the Store without modifying Plant class.
- * 
- * @par Usage
- * SeedAdapter wraps a factory function that creates Plant objects and
- * presents them as StoreItem objects:
- * @code
- * // Create a seed adapter for Tomatoes
- * SeedAdapter* tomatoSeed = new SeedAdapter(
- *     55.0f,  // price
- *     []() { return new Tomato(new TomatoVisualStrategy(25.0f, 25.0f)); }
- * );
- * 
- * // Add to store
- * store->addItem(tomatoSeed);
- * 
- * // Purchase
- * store->purchaseItem(index, player);
- * @endcode
- * 
- * @par Benefits
- * - Store doesn't need to know about Plant class
- * - Plants can be created without modifying existing code
- * - Factory functions keep creation logic centralized
- * - Compatible with Store's StoreItem interface
- * 
- * @see StoreItem
- * @see Plant
- * @see Store
- * @see PlantFactory
+ * @brief An Adapter class that makes a Plant Factory function conform to the StoreItem interface.
+ * * This is part of the **Adapter** design pattern, allowing the store to sell seeds 
+ * (which are Plant Factory methods) as generic StoreItem objects.
  */
 class SeedAdapter : public StoreItem 
 {
 private:
-    float price;                                    ///< Seed purchase price
-    std::function<Plant*()> plantFactory;          ///< Factory function to create plants
-
+    /** @brief The price of the seed (store item). */
+    float price;
+    
+    /** @brief A function object (lambda or function pointer) that, when called, creates a specific Plant instance (the Factory Method). */
+    std::function<Plant*()> plantFactory;
+    
 public:
     /**
-     * @brief Constructor.
-     * @param seedPrice Price of the seed item
-     * @param factory Lambda/function that creates Plant objects
-     * 
-     * @details Stores the price and factory function for later use.
-     *         Factory is called when plant is purchased.
-     * 
-     * @example
-     * @code
-     * SeedAdapter carrot(
-     *     25.0f,
-     *     []() { return new Carrot(new CarrotVisualStrategy(15.0f, 30.0f)); }
-     * );
-     * @endcode
+     * @brief Constructs a SeedAdapter.
+     * @param seedPrice The price of the seed/item.
+     * @param factory The function (factory method) used to create the specific Plant when the item is "requested" (purchased).
      */
     SeedAdapter(float seedPrice, std::function<Plant*()> factory);
-
+    
     /**
-     * @brief Destructor.
+     * @brief Destructor for the SeedAdapter.
      */
     ~SeedAdapter();
     
     /**
-     * @brief Gets the seed price.
-     * @return Price in currency units
-     * 
-     * @override
+     * @brief Gets the price of the seed.
+     * @return The price as a float.
      */
     float getPrice() const override;
-
+    
     /**
-     * @brief Creates and returns a plant seed.
-     * @return Pointer to a newly created Plant
-     * 
-     * @details Calls the stored factory function to create a new plant instance.
-     *         The returned plant is ready to be added to inventory.
-     * 
-     * @post New Plant is created via factory
-     * @override
+     * @brief Requests (purchases) the item, which executes the Plant Factory function 
+     * and returns a pointer to the newly created Plant (as a generic void*).
+     * @return A void pointer to the newly created Plant object.
      */
     void* request() override;
 };

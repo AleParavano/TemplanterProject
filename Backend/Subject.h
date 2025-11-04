@@ -1,13 +1,6 @@
 /**
  * @file Subject.h
- * @brief Subject interface for the Observer pattern.
- * @details Defines the Subject (Observable) role that notifies observers of state changes.
- * 
- * @author Team Templation
- * @date November 2025
- * 
- * @see Observer
- * @see Greenhouse
+ * @brief Defines the abstract base class for the Subject role in the Observer pattern.
  */
 
 #pragma once
@@ -15,55 +8,47 @@
 #include "Observer.h"
 #include <vector>
 
-// Forward declaration
-class Observer;
+class Observer; // Forward declaration (although included above, good practice for pattern)
 
 /**
  * @class Subject
- * @brief Abstract subject interface for the Observer pattern.
- * 
- * Subject defines the interface for objects that manage observers and send
- * notifications. Greenhouse implements this interface.
- * 
- * @par Design Pattern: Observer
- * Subject is the "Observable" in the Observer pattern. It maintains a list
- * of observers and notifies them when state changes.
- * 
- * @see Greenhouse
- * @see Observer
+ * @brief An abstract base class that represents an object being observed (the "Publisher").
+ *
+ * The Subject maintains a list of dependents (Observers) and notifies them
+ * automatically of any state changes, usually by calling their update method.
  */
 class Subject
 {
 public:
     /**
-     * @brief Virtual destructor for safe polymorphic deletion.
+     * @brief Virtual destructor for the base class.
+     *
+     * Ensures proper cleanup of derived Subject objects.
      */
     virtual ~Subject() = default;
 
     /**
-     * @brief Notifies all attached observers of state changes.
-     * @details Pure virtual method. Called when subject state changes.
-     * 
-     * @post All observers receive an update() call
+     * @brief Notifies all attached Observer objects of a change in the Subject's state.
+     *
+     * This is typically the method that initiates the update process for all listeners.
      */
     virtual void notify() = 0;
 
     /**
-     * @brief Attaches an observer to be notified of changes.
-     * @param observer Pointer to an Observer to attach
-     * 
-     * @post Observer is added to notification list
+     * @brief Attaches an Observer to the Subject's list of dependents.
+     * @param observer A pointer to the Observer object to be registered.
      */
     virtual void attach(Observer* observer) = 0;
 
     /**
-     * @brief Detaches an observer from notifications.
-     * @param observer Pointer to an Observer to remove
-     * 
-     * @post Observer is removed from notification list
+     * @brief Detaches an Observer from the Subject's list of dependents.
+     * @param observer A pointer to the Observer object to be unregistered.
      */
     virtual void detach(Observer* observer) = 0;
     
 protected:
-    std::vector<Observer*> observers;  ///< List of attached observers
+    /**
+     * @brief A collection of pointers to the Observers currently registered to this Subject.
+     */
+    std::vector<Observer*> observers;
 };

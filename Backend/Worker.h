@@ -1,15 +1,6 @@
 /**
  * @file Worker.h
- * @brief Worker entities that manage plant care through the Observer and Command patterns.
- * @details Defines worker types (WaterWorker, FertiliserWorker, HarvestWorker) that
- *          monitor plants and queue tasks through a command queue with threading.
- * 
- * @author Team Templation
- * @date November 2025
- * 
- * @see Observer
- * @see Command
- * @see Greenhouse
+ * @brief Defines the Worker abstract base class and specialized worker types for task execution.
  */
 
 #pragma once
@@ -26,274 +17,198 @@
 #include <vector>
 
 // Forward declaration
-/**
- * @class Greenhouse
- * @brief Forward declaration of Greenhouse class.
- */
 class Greenhouse;
 
 /**
  * @class Worker
- * @brief Base class for plant care workers with threading and command queueing.
- * 
- * Worker implements both the Observer pattern (to receive plant notifications)
- * and uses the Command pattern (to queue and execute tasks).
- * 
- * @par Design Pattern: Observer
- * Workers inherit from Observer and receive update() notifications from the
- * Greenhouse whenever plant states change.
- * 
- * @par Design Pattern: Command
- * Workers queue Command objects (WaterCommand, FertilizeCommand, etc.) and
- * execute them on a separate thread.
- * 
- * @par Threading
- * Each worker runs on its own thread with a command queue. Commands are
- * processed one at a time as they're queued.
- * 
- * @par Worker Types
- * Three specialized worker types are defined:
- * - WaterWorker: Monitors water levels, queues WaterCommand
- * - FertiliserWorker: Monitors nutrients, queues FertilizeCommand
- * - HarvestWorker: Monitors ripeness, queues HarvestCommand
- * 
- * @par Performance
- * Workers operate independently on threads, allowing efficient parallel task
- * execution without blocking the main game loop.
- * 
- * @see WaterWorker
- * @see FertiliserWorker
- * @see HarvestWorker
- * @see Command
- * @see Observer
+ * @brief An abstract base class representing an autonomous unit that executes commands.
+ *
+ * Worker objects run on their own threads, process a queue of Command objects,
+ * and act as an Observer to a Greenhouse, receiving updates when the Greenhouse state changes.
  */
 class Worker : public Observer
 {
+
 public:
     /**
-     * @brief Constructor.
-     * @details Creates a worker and starts its command execution thread.
-     *         Worker starts in "running" state ready to accept commands.
+     * @brief Constructs a new Worker object.
+     *
+     * Initializes the worker thread and internal state.
      */
     Worker();
 
     /**
-     * @brief Copy constructor.
-     * @param worker Reference to another Worker to copy from
-     * 
-     * @note Worker type is copied but command queue is not
+     * @brief Copy constructor for the Worker class.
+     * @param worker The Worker object to copy from.
      */
     Worker(const Worker &worker);
 
     /**
-     * @brief Destructor.
-     * @details Stops the worker thread and cleans up resources.
-     *         Calls stop() to ensure proper shutdown.
+     * @brief Virtual destructor for the Worker base class.
+     *
+     * Ensures the worker thread is properly joined and resources are released.
      */
     virtual ~Worker();
 
     /**
-     * @brief Sets the worker's skill level.
-     * @param level Worker level (1-3)
-     * 
-     * @details Higher levels may affect efficiency or task quality.
-     *         Levels are clamped to valid range [1-3].
+     * @brief Sets the worker's proficiency level.
+     *
+     * Higher levels may correspond to faster execution or better results.
+     * @param level The new integer level for the worker (e.g., 1, 2, 3).
      */
     void setLevel(int level);
 
     /**
-     * @brief Executes queued commands on the worker thread.
-     * @details Internal method run on the worker's thread.
-     *         Waits for commands to be queued, executes them, then waits again.
-     *         Continues until stop() is called.
-     * 
-     * @note This method runs continuously in a separate thread
+     * @brief Executes the next command in the command queue.
+     *
+     * This method is typically called by the internal worker thread.
      */
     void executeCommand();
 
     /**
-     * @brief Adds a command to the worker's queue.
-     * @param command Pointer to a Command to execute
-     * 
-     * @details Commands are executed FIFO (first-in, first-out).
-     *         Thread-safe with mutex protection.
-     * 
-     * @post Command is queued and condition variable is signaled
+     * @brief Adds a command to the worker's execution queue.
+     * @param command A pointer to the Command object to be executed. The worker takes ownership of the command.
      */
     void addCommand(Command *command);
 
     /**
-     * @brief Sets the subject (Greenhouse) being observed.
-     * @param greenhouse Pointer to the Greenhouse to work with
-     * 
-     * @details Called when worker is attached to a greenhouse.
-     *         Worker uses this reference to query plant states.
-     * 
-     * @override
+     * @brief Sets the Greenhouse object this Worker observes.
+     * @param greenhouse A pointer to the Greenhouse that acts as the Subject.
      */
     void setSubject(Greenhouse* greenhouse) override;
 
     /**
-     * @brief Called when the observed greenhouse changes.
-     * @details Pure virtual method that derived classes implement.
-     *         Called by Greenhouse::notify() when plant states change.
-     * 
-     * @override
+     * @brief Called by the Subject (Greenhouse) when its state changes.
+     *
+     * Derived classes must implement this to react to changes, typically by adding
+     * new Commands to the queue (e.g., a WaterWorker adding a WaterCommand).
      */
     void update() override;
 
     /**
-     * @brief Stops the worker and its execution thread.
-     * @details Sets running flag to false and waits for thread to join.
-     *         After calling this, no more commands will be processed.
-     * 
-     * @post Worker thread is terminated and joined
+     * @brief Signals the worker thread to stop execution and attempts to join the thread.
      */
     void stop();
 
     /**
-     * @brief Gets the worker's type as a string.
-     * @return Worker type ("Manager/Generic Worker", "Water Worker", etc.)
-     * 
-     * @virtual
+     * @brief Returns the type description of the worker.
+     * @return A constant character pointer to the worker type string.
      */
     virtual const char *type() const { return "Manager/Generic Worker"; }
 
     /**
-     * @brief Clears all pending commands from the queue.
-     * @details Deletes all queued commands without executing them.
-     *         Thread-safe with mutex protection.
-     * 
-     * @post Command queue is empty
-     * @post All command objects are deleted
+     * @brief Clears all pending commands from the worker's queue and handles their memory cleanup.
      */
     void clearCommandQueue();
 
 protected:
     /**
-     * @brief Starts patrol mode (sets player as protected).
-     * @details Called when a PatrolCommand is queued.
-     * 
-     * @see endPatrol()
+     * @brief Initiates the worker's thread activity, often referred to as 'patrolling' or 'monitoring'.
      */
     void startPatrol();
 
     /**
-     * @brief Ends patrol mode (removes player protection).
-     * @details Called when patrol is complete.
-     * 
-     * @see startPatrol()
+     * @brief Stops the worker's thread activity and attempts to join the thread.
      */
     void endPatrol();
 
-    std::string currentTaskDescription;          ///< Description of current task
-    std::mutex mtx;                              ///< Mutex for thread-safe queue access
-    std::condition_variable condition;           ///< Signal for new commands
-    std::atomic<bool> running{true};             ///< Flag to control thread execution
-    std::thread workerThread;                    ///< Worker's execution thread
-    std::queue<Command *> commandQueue;          ///< Queue of commands to execute
-    Greenhouse *subject;                         ///< Reference to observed greenhouse
-    int level;                                   ///< Worker skill level (1-3)
+    /**
+     * @brief A string describing the worker's current activity or command being executed.
+     */
+    std::string currentTaskDescription;
+
+    /**
+     * @brief Mutex used to protect shared resources, particularly the command queue, from concurrent access.
+     */
+    std::mutex mtx;
+
+    /**
+     * @brief Condition variable used to signal the worker thread when a new command is available.
+     */
+    std::condition_variable condition;
+
+    /**
+     * @brief Atomic flag indicating whether the worker thread should continue running.
+     */
+    std::atomic<bool> running{true};
+
+    /**
+     * @brief The thread on which the worker executes its commands.
+     */
+    std::thread workerThread;
+
+    /**
+     * @brief Queue of commands to be executed by the worker thread.
+     */
+    std::queue<Command *> commandQueue;
+
+    /**
+     * @brief Pointer to the Greenhouse object being observed. The Worker is not responsible for its memory.
+     */
+    Greenhouse *subject;
+
+    /**
+     * @brief The proficiency level of the worker. Default is 1.
+     */
+    int level = 1;
 };
 
 /**
  * @class WaterWorker
- * @brief Specialist worker that monitors and manages plant watering.
- * 
- * WaterWorker observes plants and automatically queues WaterCommand when
- * a plant's water level falls below 20%.
- * 
- * @par Behavior
- * - Triggered by Greenhouse notifications
- * - Scans all plants for water < 20%
- * - Clears previous commands to avoid redundancy
- * - Queues WaterCommand for each thirsty plant
- * 
- * @see WaterCommand
+ * @brief Specialized Worker responsible for watering plants.
  */
 class WaterWorker : public Worker
 {
-public:
     /**
-     * @brief Called when greenhouse plants change.
-     * @details Scans for plants needing water and queues WaterCommand.
-     * 
-     * @override
+     * @brief Implementation of the Observer update logic for a WaterWorker.
+     *
+     * Typically checks the Greenhouse state for plants needing water and adds WaterCommand objects.
      */
     void update() override;
 
     /**
-     * @brief Returns "Water Worker".
-     * 
-     * @override
+     * @brief Returns the specific type of this worker.
+     * @return "Water Worker"
      */
     const char *type() const override { return "Water Worker"; }
 };
 
 /**
  * @class FertiliserWorker
- * @brief Specialist worker that monitors and manages plant fertilization.
- * 
- * FertiliserWorker observes plants and automatically queues FertilizeCommand when
- * a plant's nutrient level falls below 20%.
- * 
- * @par Behavior
- * - Triggered by Greenhouse notifications
- * - Scans all plants for nutrients < 20%
- * - Clears previous commands to avoid redundancy
- * - Queues FertilizeCommand for each malnourished plant
- * 
- * @see FertilizeCommand
+ * @brief Specialized Worker responsible for applying fertilizer to plants.
  */
 class FertiliserWorker : public Worker
 {
-public:
     /**
-     * @brief Called when greenhouse plants change.
-     * @details Scans for plants needing fertilizer and queues FertilizeCommand.
-     * 
-     * @override
+     * @brief Implementation of the Observer update logic for a FertiliserWorker.
+     *
+     * Typically checks the Greenhouse state for plants needing fertilizer and adds FertiliseCommand objects.
      */
     void update() override;
 
     /**
-     * @brief Returns "Fertiliser Worker".
-     * 
-     * @override
+     * @brief Returns the specific type of this worker.
+     * @return "Fertiliser Worker"
      */
     const char *type() const override { return "Fertiliser Worker"; }
 };
 
 /**
  * @class HarvestWorker
- * @brief Specialist worker that monitors and manages plant harvesting.
- * 
- * HarvestWorker observes plants and automatically queues HarvestCommand when
- * a plant reaches the Ripe state and is ready for harvest.
- * 
- * @par Behavior
- * - Triggered by Greenhouse notifications
- * - Scans all plants for ripe status
- * - Clears previous commands to avoid redundancy
- * - Queues HarvestCommand for each ripe plant
- * 
- * @see HarvestCommand
+ * @brief Specialized Worker responsible for harvesting mature plants.
  */
 class HarvestWorker : public Worker
 {
-public:
     /**
-     * @brief Called when greenhouse plants change.
-     * @details Scans for ripe plants and queues HarvestCommand.
-     * 
-     * @override
+     * @brief Implementation of the Observer update logic for a HarvestWorker.
+     *
+     * Typically checks the Greenhouse state for plants ready for harvest and adds HarvestCommand objects.
      */
     void update() override;
 
     /**
-     * @brief Returns "Harvest Worker".
-     * 
-     * @override
+     * @brief Returns the specific type of this worker.
+     * @return "Harvest Worker"
      */
     const char *type() const override { return "Harvest Worker"; }
 };

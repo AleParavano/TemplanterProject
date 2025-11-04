@@ -1,16 +1,3 @@
-/**
- * @file PlantFactory.h
- * @brief Factory pattern implementation for creating plant objects.
- * @details Provides factories for creating different plant types with visual strategies.
- *          Includes a RandomPlantFactory for spawning random varieties.
- * 
- * @author Team Templation
- * @date November 2025
- * 
- * @see Plant
- * @see PlantVisualStrategy
- */
-
 #pragma once
 
 #include "Plant.h"
@@ -19,150 +6,248 @@
 
 /**
  * @class PlantFactory
- * @brief Abstract factory for plant creation.
- * 
- * Defines the interface for concrete plant factories.
- * Each factory creates a specific plant type with appropriate visual strategy.
- * 
- * @par Design Pattern: Factory
- * Encapsulates plant creation logic. Subclasses specify which plant type
- * to create and which visual strategy to use.
+ * @brief The Abstract Factory (Creator) class in the Factory Method design pattern.
+ * * It declares the interface for methods that return new Plant objects.
  */
-class PlantFactory {
+class PlantFactory
+{
 public:
+    /**
+     * @brief Constructs a PlantFactory object.
+     */
     PlantFactory() {}
+    
+    /**
+     * @brief Virtual destructor for the PlantFactory class.
+     */
     virtual ~PlantFactory() {}
+    
+    /**
+     * @brief Pure virtual method for creating a Plant product.
+     * * Concrete factories must implement this method to produce a specific plant type.
+     * @return A pointer to the newly created Plant object.
+     */
     virtual Plant *produce() = 0;
 };
 
 /**
  * @class CarrotFactory
- * @brief Factory for creating Carrot plants.
- * @details Creates Carrot with dimensions 15x30
+ * @brief A Concrete Factory that implements the Factory Method to produce a Carrot.
  */
-class CarrotFactory : public PlantFactory {
+class CarrotFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Carrot plant with its corresponding CarrotVisualStrategy.
+     * @return A pointer to a new Carrot object.
+     */
+    Plant* produce() override {
+        return new Carrot(new CarrotVisualStrategy(15.0f, 30.0f));
+    }
 };
 
 /**
  * @class TomatoFactory
- * @brief Factory for creating Tomato plants.
- * @details Creates Tomato with dimensions 25x25
+ * @brief A Concrete Factory that implements the Factory Method to produce a Tomato.
  */
-class TomatoFactory : public PlantFactory {
+class TomatoFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Tomato plant with its corresponding TomatoVisualStrategy.
+     * @return A pointer to a new Tomato object.
+     */
+    Plant* produce() override {
+        return new Tomato(new TomatoVisualStrategy(25.0f, 25.0f));
+    }
 };
 
 /**
  * @class LettuceFactory
- * @brief Factory for creating Lettuce plants.
- * @details Creates Lettuce with dimensions 20x15
+ * @brief A Concrete Factory that implements the Factory Method to produce a Lettuce.
  */
 class LettuceFactory : public PlantFactory {
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Lettuce plant with its corresponding LettuceVisualStrategy.
+     * @return A pointer to a new Lettuce object.
+     */
+    Plant* produce() override {
+        return new Lettuce(new LettuceVisualStrategy(20.0f, 15.0f));
+    }
 };
+
+// --- You will need to complete the rest of these factories ---
 
 /**
  * @class SunflowerFactory
- * @brief Factory for creating Sunflower plants.
- * @details Creates Sunflower with dimensions 25x50
+ * @brief A Concrete Factory that implements the Factory Method to produce a Sunflower.
  */
 class SunflowerFactory : public PlantFactory {
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Sunflower plant with its corresponding SunflowerVisualStrategy.
+     * @return A pointer to a new Sunflower object.
+     */
+    Plant* produce() override {
+        return new Sunflower(new SunflowerVisualStrategy(25.0f, 50.0f));
+    }
 };
 
 /**
  * @class PotatoFactory
- * @brief Factory for creating Potato plants.
- * @details Creates Potato with dimensions 18x20
+ * @brief A Concrete Factory that implements the Factory Method to produce a Potato.
  */
-class PotatoFactory : public PlantFactory {
+class PotatoFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Potato plant with its corresponding PotatoVisualStrategy.
+     * @return A pointer to a new Potato object.
+     */
+    Plant* produce() override {
+        return new Potato(new PotatoVisualStrategy(18.0f, 20.0f));
+    }
 };
 
 /**
  * @class CucumberFactory
- * @brief Factory for creating Cucumber plants.
- * @details Creates Cucumber with dimensions 20x35
+ * @brief A Concrete Factory that implements the Factory Method to produce a Cucumber.
  */
-class CucumberFactory : public PlantFactory {
+class CucumberFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Cucumber plant with its corresponding CucumberVisualStrategy.
+     * @return A pointer to a new Cucumber object.
+     */
+    Plant* produce() override {
+        return new Cucumber(new CucumberVisualStrategy(20.0f, 35.0f));
+    }
 };
 
 /**
  * @class PepperFactory
- * @brief Factory for creating Pepper plants.
- * @details Creates Pepper with dimensions 25x30
+ * @brief A Concrete Factory that implements the Factory Method to produce a Pepper.
  */
-class PepperFactory : public PlantFactory {
+class PepperFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Pepper plant with its corresponding PepperVisualStrategy.
+     * @return A pointer to a new Pepper object.
+     */
+    Plant* produce() override {
+        return new Pepper(new PepperVisualStrategy(25.0f, 30.0f));
+    }
 };
 
 /**
  * @class StrawberryFactory
- * @brief Factory for creating Strawberry plants.
- * @details Creates Strawberry with dimensions 25x15
+ * @brief A Concrete Factory that implements the Factory Method to produce a Strawberry.
  */
-class StrawberryFactory : public PlantFactory {
+class StrawberryFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Strawberry plant with its corresponding StrawberryVisualStrategy.
+     * @return A pointer to a new Strawberry object.
+     */
+    Plant* produce() override {
+        return new Strawberry(new StrawberryVisualStrategy(25.0f, 15.0f));
+    }
 };
 
 /**
  * @class CornFactory
- * @brief Factory for creating Corn plants.
- * @details Creates Corn with dimensions 20x55
+ * @brief A Concrete Factory that implements the Factory Method to produce Corn.
  */
-class CornFactory : public PlantFactory {
+class CornFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Corn plant with its corresponding CornVisualStrategy.
+     * @return A pointer to a new Corn object.
+     */
+    Plant* produce() override {
+        return new Corn(new CornVisualStrategy(20.0f, 55.0f));
+    }
 };
 
 /**
  * @class PumpkinFactory
- * @brief Factory for creating Pumpkin plants.
- * @details Creates Pumpkin with dimensions 40x30
+ * @brief A Concrete Factory that implements the Factory Method to produce a Pumpkin.
  */
-class PumpkinFactory : public PlantFactory {
+class PumpkinFactory : public PlantFactory
+{
 public:
-    Plant* produce() override;
+    /**
+     * @brief Creates a new Pumpkin plant with its corresponding PumpkinVisualStrategy.
+     * @return A pointer to a new Pumpkin object.
+     */
+    Plant* produce() override {
+        return new Pumpkin(new PumpkinVisualStrategy(40.0f, 30.0f));
+    }
 };
 
 /**
  * @class RandomPlantFactory
- * @brief Factory for creating random plant types.
- * 
- * Creates one of 11 plant types with equal probability.
- * Uses Mersenne Twister RNG for randomness.
- * 
- * @par Design Pattern: Factory
- * Extends the Factory pattern with randomization, allowing dynamic
- * creation of varied plant types without specifying exact type.
- * 
- * @par Probability Distribution
- * Each plant type has equal probability of being created:
- * - Carrot: ~9.1%
- * - Tomato: ~9.1%
- * - Sunflower: ~9.1%
- * - Lettuce: ~9.1%
- * - Potato: ~9.1%
- * - Cucumber: ~9.1%
- * - Pepper: ~9.1%
- * - Strawberry: ~9.1%
- * - Corn: ~9.1%
- * - Pumpkin: ~9.1%
+ * @brief A specialized Factory that randomly selects and produces one of the available plant types.
  */
-class RandomPlantFactory : public PlantFactory {
+class RandomPlantFactory : public PlantFactory
+{
 public:
-    Plant *produce() override;
+    /**
+     * @brief Randomly selects and produces a new Plant of a different type, each with its appropriate strategy.
+     * @return A pointer to a randomly generated Plant object.
+     */
+    Plant *produce() override
+    {
+        std::uniform_int_distribution<int> dist(0, 10);
+
+        switch (dist(rng()))
+        {
+        case 0:
+            return new Carrot(new CarrotVisualStrategy(15.0f, 30.0f));
+            break;
+        case 1:
+            return new Tomato(new TomatoVisualStrategy(25.0f, 25.0f));
+            break;
+        case 2:
+            return new Sunflower(new SunflowerVisualStrategy(25.0f, 50.0f));
+            break;
+        case 3:
+            return new Lettuce(new LettuceVisualStrategy(20.0f, 15.0f));
+            break;
+        case 4:
+            return new Potato(new PotatoVisualStrategy(18.0f, 20.0f));
+            break;
+        case 5:
+            return new Cucumber(new CucumberVisualStrategy(20.0f, 35.0f));
+            break;
+        case 6:
+            return new Pepper(new PepperVisualStrategy(25.0f, 30.0f));
+            break;
+        case 7:
+            return new Strawberry(new StrawberryVisualStrategy(25.0f, 15.0f));
+            break;
+        case 8:
+            return new Corn(new CornVisualStrategy(20.0f, 55.0f));
+            break;
+        default:
+            return new Pumpkin(new PumpkinVisualStrategy(40.0f, 30.0f));
+            break;
+        }
+    }
 
 private:
-    static std::mt19937 &rng();
+    /**
+     * @brief Returns a reference to the static random number generator engine.
+     * @return A reference to the static std::mt19937 engine.
+     */
+    static std::mt19937 &rng()
+    {
+        static std::mt19937 engine{std::random_device{}()};
+        return engine;
+    }
 };

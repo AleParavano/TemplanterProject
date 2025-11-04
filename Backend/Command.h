@@ -1,18 +1,3 @@
-/**
- * @file Command.h
- * @brief Command pattern implementation for encapsulating worker tasks.
- * @details Provides a set of command classes that encapsulate actions like watering,
- *          fertilizing, harvesting, and patrolling plants. Enables flexible task queuing
- *          and execution.
- * 
- * @author Team Templation
- * @date November 2025
- * 
- * @see Plant
- * @see Customer
- * @see Greenhouse
- */
-
 #pragma once
 #include "Plant.h"
 #include "Customer.h"
@@ -20,216 +5,148 @@
 
 /**
  * @class Command
- * @brief Abstract base class for all worker commands.
- * 
- * The Command pattern allows actions to be encapsulated as objects, enabling tasks
- * to be queued, logged, or executed in various orders. All concrete commands inherit
- * from this interface.
- * 
- * @par Design Pattern: Command
- * Encapsulates requests (actions) as objects, allowing them to be passed around,
- * queued, or executed later. Decouples the invoker (worker) from the receiver (plant/customer).
- * 
- * @see WaterCommand
- * @see FertilizeCommand
- * @see HarvestCommand
- * @see PatrolCommand
- * @see ServeCommand
+ * @brief The abstract base class for the Command design pattern.
+ * * Defines the interface for all concrete command objects.
  */
 class Command {
 public:
     /**
-     * @brief Virtual destructor for safe polymorphic deletion.
+     * @brief Virtual destructor for the base class.
      */
     virtual ~Command() {}
-
+    
     /**
-     * @brief Executes the command.
-     * @details Pure virtual method that must be implemented by all subclasses.
-     *          Performs the actual action encapsulated by the command.
+     * @brief The core operation that executes the request.
+     * * This is a pure virtual function and must be implemented by concrete commands.
      */
     virtual void execute() = 0;
-
+    
     /**
-     * @brief Checks if this command is a patrol command.
-     * @return true if this is a PatrolCommand, false for all other commands.
-     * 
-     * @details This is a convenience method to identify patrol commands without RTTI.
+     * @brief A flag to identify if a command is a 'Patrol' command.
+     * @return true if the command is a PatrolCommand, false otherwise (default).
      */
     virtual bool isPatrol() const { return false; }
 };
 
+// --- Concrete Commands ---
+
 /**
  * @class WaterCommand
- * @brief Command for watering a plant.
- * 
- * Encapsulates the action of watering a plant. Can be queued and executed
- * when a worker has time to perform the task.
- * 
- * @par Safety Checks
- * - Validates that the plant exists in the greenhouse
- * - Checks that the plant is not dead
- * 
- * @see Plant::water()
- * @see Greenhouse
+ * @brief A concrete command to water a specific Plant.
  */
 class WaterCommand : public Command {
 public:
     /**
-     * @brief Executes the water command.
-     * @details Applies water to the target plant if all validation checks pass.
-     * 
-     * @post If successful, the plant receives water effect
+     * @brief Executes the watering action on the target plant.
      */
     void execute() override;
-
+    
     /**
-     * @brief Constructor for WaterCommand.
-     * @param plant Pointer to the Plant to water.
-     * @param gh Pointer to the Greenhouse containing the plant.
+     * @brief Constructs a WaterCommand.
+     * @param plant The Plant object to be watered.
+     * @param gh The Greenhouse context needed for the operation.
      */
     WaterCommand(Plant* plant, Greenhouse* gh); 
-
 private:
-    Plant* targetPlant;         ///< The plant to water
-    Greenhouse* subject;        ///< The greenhouse containing the plant
+    /** @brief The specific plant to apply the action to. */
+    Plant* targetPlant;
+    
+    /** @brief The greenhouse providing context or resources. */
+    Greenhouse* subject; 
 };
 
 /**
  * @class FertilizeCommand
- * @brief Command for fertilizing a plant.
- * 
- * Encapsulates the action of fertilizing a plant with nutrients.
- * Can be queued and executed when a worker has time to perform the task.
- * 
- * @par Safety Checks
- * - Validates that the plant exists in the greenhouse
- * - Checks that the plant is not dead
- * 
- * @see Plant::fertilize()
- * @see Greenhouse
+ * @brief A concrete command to fertilize a specific Plant.
  */
 class FertilizeCommand : public Command {
 public:
     /**
-     * @brief Executes the fertilize command.
-     * @details Applies 50.0f units of fertilizer to the target plant if validation passes.
-     * 
-     * @post If successful, the plant receives fertilizer
+     * @brief Executes the fertilizing action on the target plant.
      */
     void execute() override;
    
     /**
-     * @brief Constructor for FertilizeCommand.
-     * @param plant Pointer to the Plant to fertilize.
-     * @param gh Pointer to the Greenhouse containing the plant.
+     * @brief Constructs a FertilizeCommand.
+     * @param plant The Plant object to be fertilized.
+     * @param gh The Greenhouse context needed for the operation.
      */
     FertilizeCommand(Plant* plant, Greenhouse* gh);
-
 private:
-    Plant* targetPlant;         ///< The plant to fertilize
-    Greenhouse* subject;        ///< The greenhouse containing the plant
+    /** @brief The specific plant to apply the action to. */
+    Plant* targetPlant;
+    
+    /** @brief The greenhouse providing context or resources. */
+    Greenhouse* subject; 
 };
 
 /**
  * @class HarvestCommand
- * @brief Command for harvesting a ripe plant.
- * 
- * Encapsulates the action of harvesting a plant and moving it to the player's inventory.
- * This command can be queued and executed by a worker.
- * 
- * @par Safety Checks
- * - Validates that the plant exists in the greenhouse
- * - Retrieves the current player and greenhouse
- * 
- * @see Greenhouse::harvestPlant()
- * @see Player
+ * @brief A concrete command to harvest a specific Plant.
  */
 class HarvestCommand : public Command {
 public:
     /**
-     * @brief Executes the harvest command.
-     * @details Removes the plant from the greenhouse and moves it to the player's inventory.
-     * 
-     * @post If successful, the plant is transferred to inventory and greenhouse is cleared
+     * @brief Executes the harvesting action on the target plant.
      */
     void execute() override;
-
+    
     /**
-     * @brief Constructor for HarvestCommand.
-     * @param plant Pointer to the Plant to harvest.
-     * @param gh Pointer to the Greenhouse containing the plant.
+     * @brief Constructs a HarvestCommand.
+     * @param plant The Plant object to be harvested.
+     * @param gh The Greenhouse context needed for the operation.
      */
     HarvestCommand(Plant* plant, Greenhouse* gh);
-
 private:
-    Plant* targetPlant;         ///< The plant to harvest
-    Greenhouse* subject;        ///< The greenhouse containing the plant
+    /** @brief The specific plant to apply the action to. */
+    Plant* targetPlant;
+    
+    /** @brief The greenhouse providing context or resources. */
+    Greenhouse* subject;
 };
 
 /**
  * @class PatrolCommand
- * @brief Command for a worker to patrol the nursery.
- * 
- * Encapsulates the action of a worker patrolling the nursery.
- * This appears to protect against theft by setting a protected flag.
- * 
- * @see Player::setProtected()
+ * @brief A concrete command representing a general patrolling or checking action.
  */
 class PatrolCommand : public Command {
 public:
     /**
-     * @brief Executes the patrol command.
-     * @details Sets the player's protected flag to true.
-     * 
-     * @post If successful, the player is marked as protected
+     * @brief Executes the patrolling action (e.g., checks the greenhouse status).
      */
     void execute() override;
-
+    
     /**
-     * @brief Constructor for PatrolCommand.
-     * @details No parameters needed as patrol is a global action.
+     * @brief Constructs a PatrolCommand.
      */
     PatrolCommand(){}
-
+    
     /**
-     * @brief Identifies this as a patrol command.
-     * @return Always returns true for PatrolCommand.
-     * 
-     * @override
+     * @brief Overrides the base method to confirm this is a patrol command.
+     * @return true always.
      */
     bool isPatrol() const override { return true; }
-
 private:
+    // No specific member variables needed for a general patrol command.
 };
 
 /**
  * @class ServeCommand
- * @brief Command for serving a customer.
- * 
- * Encapsulates the action of a worker serving a customer.
- * This command handles customer interactions and potentially purchases.
- * 
- * @note The execute() method is not yet implemented (marked as TODO).
- * 
- * @see Customer
+ * @brief A concrete command to serve a specific Customer.
  */
 class ServeCommand : public Command {
 public:
     /**
-     * @brief Executes the serve command.
-     * @details TODO: Implementation pending. Should handle customer service interactions.
-     * 
-     * @note This method is not currently implemented.
+     * @brief Executes the serving action for the target customer.
      */
     void execute() override;
-
+    
     /**
-     * @brief Constructor for ServeCommand.
-     * @param cust Pointer to the Customer to serve.
+     * @brief Constructs a ServeCommand.
+     * @param cust The Customer object to be served.
      */
-    ServeCommand(Customer *cust);
-
+    ServeCommand(Customer* cust);
 private:
-    Customer* target;           ///< The customer to serve
+    /** @brief The specific customer to apply the action to. */
+    Customer* target;
 };
