@@ -3,20 +3,29 @@
 #include "Player.h"
 #include "Caretaker.h"
 
-class Game {
+class Game
+{
 private:
-    static Game* uniqueInstance;
+    static Game *uniqueInstance;
     Player player;
-    Caretaker caretaker; 
+    Caretaker caretaker;
 
 public:
     Game();
     ~Game();
-    static Game* getInstance();
-    Player& getPlayer();
-    Player* getPlayerPtr();
+    static Game *getInstance();
+    Player &getPlayer();
+    Player *getPlayerPtr();
 
     void saveGame();
     void loadGame();
-};
 
+    static void cleanup()
+    {
+        if (uniqueInstance)
+        {
+            delete uniqueInstance;
+            uniqueInstance = nullptr;
+        }
+    }
+};

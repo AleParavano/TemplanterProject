@@ -55,9 +55,9 @@ CXXFLAGS += $(INCLUDE_PATH)
 DEBUG_FLAGS = -g -O0
 
 # Source files
-SOURCES = demo_testing.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp ../Backend/Player.cpp ../Backend/Inventory.cpp ../Backend/Worker.cpp ../Backend/Greenhouse.cpp ../Backend/Memento.cpp ../Backend/Plant.cpp ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.cpp ../Backend/CustomerFactory.cpp SceneManager.cpp ../Backend/Game.cpp ../Backend/GrowthCycle.cpp ../Backend/Observer.cpp ../Backend/PlantState.cpp ../Backend/SeedAdapter.cpp ../Backend/Store.cpp ../Backend/Subject.cpp InventoryUI.cpp Demo.cpp CustomerFlyweight.cpp UI.cpp ../Backend/Serializer.cpp WarehouseScene.cpp 
+SOURCES = testing_main.cpp Scene.cpp StoreScene.cpp OutdoorScene.cpp GreenHouseScene.cpp ../Backend/Player.cpp ../Backend/Inventory.cpp ../Backend/Worker.cpp ../Backend/Greenhouse.cpp ../Backend/Memento.cpp ../Backend/Plant.cpp ../Backend/Caretaker.cpp ../Backend/Command.cpp ../Backend/Customer.cpp ../Backend/CustomerFactory.cpp SceneManager.cpp ../Backend/Game.cpp ../Backend/GrowthCycle.cpp ../Backend/Observer.cpp ../Backend/PlantState.cpp ../Backend/SeedAdapter.cpp ../Backend/Store.cpp ../Backend/Subject.cpp InventoryUI.cpp Demo.cpp CustomerFlyweight.cpp UI.cpp ../Backend/Serializer.cpp WarehouseScene.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-HEADERS = Scene.h StoreScene.h OutdoorScene.h GreenHouseScene.h ../Backend/Player.h ../Backend/Inventory.h ../Backend/Worker.h ../Backend/Greenhouse.h ../Backend/Memento.h ../Backend/Plant.h ../Backend/Caretaker.h ../Backend/Command.h ../Backend/Customer.h ../Backend/CustomerFactory.h SceneManager.h ../Backend/Game.h ../Backend/GrowthCycle.h ../Backend/Observer.h ../Backend/PlantState.h ../Backend/PlantFactory.h ../Backend/SeedAdapter.h ../Backend/Store.h ../Backend/Subject.h Slot.h CustomerVisual.h CustomerManager.h InventoryUI.h Demo.h CustomerFlyweight.h ObjectTypes.h PlantVisualStrategy.h UI.h ../Backend/Serializer.h WarehouseScene.h 
+HEADERS = Scene.h StoreScene.h OutdoorScene.h GreenHouseScene.h ../Backend/Player.h ../Backend/Inventory.h ../Backend/Worker.h ../Backend/Greenhouse.h ../Backend/Memento.h ../Backend/Plant.h ../Backend/Caretaker.h ../Backend/Command.h ../Backend/Customer.h ../Backend/CustomerFactory.h SceneManager.h ../Backend/Game.h ../Backend/GrowthCycle.h ../Backend/Observer.h ../Backend/PlantState.h ../Backend/PlantFactory.h ../Backend/SeedAdapter.h ../Backend/Store.h ../Backend/Subject.h Slot.h CustomerVisual.h CustomerManager.h InventoryUI.h Demo.h CustomerFlyweight.h ObjectTypes.h PlantVisualStrategy.h UI.h ../Backend/Serializer.h WarehouseScene.h
 
 # Target executable
 TARGET = $(EXECUTABLE)
@@ -108,11 +108,13 @@ ifeq ($(DETECTED_OS),Windows)
 else
 	@echo "Running with valgrind..."
 	@echo "Note: This will be slow. Press Ctrl+C to stop."
+	@echo "Output will be displayed and saved to valgrind_output.txt"
 	@if [ -f valgrind.supp ]; then \
-		$(VALGRIND) $(VALGRIND_FLAGS) $(VALGRIND_SUPPRESSIONS) ./$(TARGET); \
+		$(VALGRIND) $(VALGRIND_FLAGS) $(VALGRIND_SUPPRESSIONS) ./$(TARGET) 2>&1 | tee valgrind_output.txt; \
 	else \
-		$(VALGRIND) $(VALGRIND_FLAGS) ./$(TARGET); \
+		$(VALGRIND) $(VALGRIND_FLAGS) ./$(TARGET) 2>&1 | tee valgrind_output.txt; \
 	fi
+	@echo "Output saved to valgrind_output.txt"
 endif
 
 # Run with valgrind and save output to file

@@ -32,6 +32,7 @@
 #define SHOP_Y ((SCREEN_HEIGHT - SHOP_HEIGHT) / 2)
 #define ITEM_ROW_HEIGHT 60
 
+void cleanupPlantCatalog();
 class GreenHouseScene : public Scene {
 private:
     PlantVisual plants[MAX_PLANTS];
@@ -58,7 +59,7 @@ private:
 
 public:
     GreenHouseScene();
-    ~GreenHouseScene() = default;
+    ~GreenHouseScene();
     SceneType CheckExit() override;
 
     void Init() override;
@@ -67,6 +68,7 @@ public:
     void HandleInput() override;
     void DrawMenu() override;
     SceneType GetSceneType() const override { return SCENE_GREENHOUSE; }
+
 };
 
 #endif // GREENHOUSESCENE_H

@@ -33,6 +33,14 @@ extern std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrate
     {"Corn", {120.0f, new CornFactory(), new CornVisualStrategy(20.0f, 55.0f)}},
     {"Pumpkin", {200.0f, new PumpkinFactory(), new PumpkinVisualStrategy(40.0f, 30.0f)}}};
 
+void cleanupPlantCatalog() {
+    for (auto& pair : plantCatalog) {
+        delete std::get<1>(pair.second); 
+        delete std::get<2>(pair.second); 
+    }
+    plantCatalog.clear();
+}
+
 std::map<std::string, WorkerData> workerCatalog = {
     {"Water Worker", {"Water", 200.0f, BLUE}},            // Blue for Water
     {"Fertilizer Worker", {"Fertilizer", 300.0f, BROWN}}, // Brown for Fertilizer
@@ -66,6 +74,14 @@ Worker *CreateSpecializedWorker(const std::string &type)
 // --- CONSTRUCTOR AND INIT ---
 GreenHouseScene::GreenHouseScene()
     : numPlants(0), numPaths(0), nextScene(SCENE_GREENHOUSE), isShopOpen(false), isHireShopOpen(false), selectedPlotIndex(-1), simTimeAccumulator(0.0f) {}
+
+GreenHouseScene::~GreenHouseScene() {
+    static bool cleaned = false;
+    if (!cleaned) {
+        cleanupPlantCatalog();
+        cleaned = true;
+    }
+}
 
 void GreenHouseScene::Init()
 {
@@ -165,7 +181,8 @@ void GreenHouseScene::HandleInput()
                 // a. Water Button (R1, C1)
                 if (CheckCollisionPointRec(mousePos, btnWater))
                 {
-                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 0.5f) {
+                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 0.5f)
+                    {
                         plant->water(10.0f);
                         Game::getInstance()->getPlayerPtr()->subtractMoney(0.5f);
                     }
@@ -174,7 +191,8 @@ void GreenHouseScene::HandleInput()
                 // b. Fertilize Button (R1, C2)
                 else if (CheckCollisionPointRec(mousePos, btnFert))
                 {
-                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 1.0f) {
+                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 1.0f)
+                    {
                         plant->fertilize(5.0f);
                         Game::getInstance()->getPlayerPtr()->subtractMoney(1.0f);
                     }
