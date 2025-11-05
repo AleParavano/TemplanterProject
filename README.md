@@ -33,84 +33,60 @@ The project demonstrates the implementation of **11 design patterns** in a pract
 
 ---
 
-## Build Instructions
+## Quick Start
 
 ### Prerequisites
 - **C++ Compiler** (g++, clang, or MSVC with C++17 support)
-- **CMake** 3.15 or higher
+- **Make** build tool
 - **raylib** graphics library
-- **Make** (on Unix/Linux/macOS)
 
-### Step 1: Install Dependencies
-#### macOS (using Homebrew)
+### Installation & Running
+
+#### 1. Install Dependencies
+
+**macOS (using Homebrew)**
 ```bash
-brew install raylib cmake
+brew install raylib make
 ```
-#### Ubuntu/Debian
+
+**Ubuntu/Debian**
 ```bash
-sudo apt-get install libraylib-dev cmake build-essential
+sudo apt-get install libraylib-dev build-essential make
 ```
-#### Windows (using vcpkg)
+
+**Windows (using vcpkg)**
 ```bash
 vcpkg install raylib:x64-windows
 ```
 
-### Step 2: Clone/Extract Project
+#### 2. Navigate to Frontend Directory
 ```bash
-cd /path/to/templanter
+cd Frontend
 ```
 
-### Step 3: Create Build Directory
+#### 3. Build and Run
 ```bash
-mkdir build
-cd build
+make run
 ```
 
-### Step 4: Configure with CMake
-```bash
-cmake ..
-```
+That's it! The game will compile and launch automatically.
 
-### Step 5: Compile
-```bash
-make
-```
-Or on Windows with Visual Studio:
-```bash
-cmake --build . --config Release
-```
+### Build Commands
 
-### Step 6: Run the Program
-#### macOS/Linux
-```bash
-./Templanter
-```
-#### Windows
-```bash
-Templanter.exe
-```
-
-### Build Output Locations
-After successful compilation, the executable will be located in:
-- **Unix/Linux/macOS**: `build/Templanter`
-- **Windows**: `build/Release/Templanter.exe`
+| Command | Purpose |
+|---------|---------|
+| `make` | Compile the project |
+| `make run` | Compile and run the game |
+| `make clean` | Remove compiled files |
+| `make rebuild` | Clean and recompile |
 
 ---
 
-## Dependencies and Data Placement
+## Project Structure
 
-### Required Libraries
-
-| Logo | Library | Version | Purpose |
-|------|---------|---------|---------|
-| ![Raylib](https://img.shields.io/badge/raylib-%23FF6600.svg?style=for-the-badge&logo=raylib&logoColor=white) | raylib | 4.0+ | Graphics rendering and UI |
-| ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) | C++ Standard Library | C++17 | Core language features |
-| ![pthread](https://img.shields.io/badge/pthread-Unix-blue?style=for-the-badge) | pthread | - | Multi-threading support (Unix/Linux) |
-
-### Project Structure
 ```
 Templanter/
-├── src/
+├── Backend/
 │   ├── Game.h / Game.cpp
 │   ├── Player.h / Player.cpp
 │   ├── Greenhouse.h / Greenhouse.cpp
@@ -124,58 +100,57 @@ Templanter/
 │   ├── Memento.h / Memento.cpp
 │   ├── Caretaker.h / Caretaker.cpp
 │   ├── Serializer.h / Serializer.cpp
-│   └── ... (other source files)
-├── include/
-│   ├── Observer.h
-│   ├── Subject.h
-│   ├── GrowthCycle.h
-│   └── ... (header files)
+│   ├── Observer.h / Observer.cpp
+│   ├── Subject.h / Subject.cpp
+│   ├── GrowthCycle.h / GrowthCycle.cpp
+│   ├── Customer.h / Customer.cpp
+│   ├── CustomerFactory.h / CustomerFactory.cpp
+│   ├── SeedAdapter.h / SeedAdapter.cpp
+│   ├── StoreItem.h / StoreItem.cpp
+│   └── (other backend files)
 ├── Frontend/
+│   ├── Makefile
 │   ├── PlantVisualStrategy.h
 │   ├── InventoryUI.h
-│   └── ... (UI-related files)
-├── CMakeLists.txt
-├── build/
-│   └── (compiled binaries)
-└── README.md
-
+│   ├── main.cpp
+│   └── (other UI/graphics files)
+├── Data/
+│   └── (Images and game assets)
+├── Documents/
+│   ├── Requirements.txt
+│   ├── DOXYGEN_GUIDE.md
+│   ├── DOXYGEN_SUMMARY.md
+│   └── FILE_INDEX.md
+├── README.md
+└── Doxyfile
 ```
 
-### Data Files
+---
 
-#### Save Game Files
-- **Location**: `./saves/` directory (auto-created on first save)
-- **Format**: Text-based serialized game state
-- **File Extension**: `.save` or `.gm`
+## Dependencies
 
-#### Configuration Files
-- **Location**: `./config/` directory
-- **Plant Data**: Stored in memory, no external files required
-- **Graphics Assets**: Raylib renders primitives (no image files needed)
+### Required Libraries
 
-### File Placement Instructions
-1. **Source Code**: Place all `.h` and `.cpp` files in the `src/` directory
-2. **Headers**: Ensure all header files include proper `#pragma once` guards
-3. **Save Games**: Create a `saves/` directory in the executable's directory
-4. **Configuration**: Create a `config/` directory if custom settings needed
+| Library | Version | Purpose |
+|---------|---------|---------|
+| **raylib** | 4.0+ | Graphics rendering and UI |
+| **C++ Standard Library** | C++17 | Core language features |
+| **pthread** | - | Multi-threading support (Unix/Linux) |
 
-### Memory Requirements
+### System Requirements
 - **Minimum RAM**: 512 MB
 - **Recommended RAM**: 2 GB
-- **Disk Space**: ~50 MB for executable and data
-
-### Graphics/Display
-- **Minimum Resolution**: 1024x768
-- **Recommended Resolution**: 1920x1080
+- **Disk Space**: ~100 MB
+- **Display Resolution**: 1024x768 minimum (1920x1080 recommended)
 - **GPU**: OpenGL 3.3+
 
 ---
 
-## Compilation Troubleshooting
+## Troubleshooting
 
 ### raylib not found
 ```bash
-# Ensure raylib is installed
+# Verify raylib installation
 pkg-config --modversion raylib
 
 # If not found, install it:
@@ -185,38 +160,42 @@ brew install raylib
 # Linux
 sudo apt-get install libraylib-dev
 
-# Reconfigure CMake:
-cd build
-rm CMakeCache.txt
-cmake ..
-make
+# Then try building again
+cd Frontend
+make clean
+make run
 ```
 
-### C++ Standard Version
-Ensure CMakeLists.txt specifies C++17:
-```cmake
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-```
+### Compilation Errors
 
-### Linker Errors
+**"undefined reference to raylib"**
+- Ensure raylib is properly installed
+- Check that pkg-config can find raylib: `pkg-config --cflags --libs raylib`
+
+**"cannot find -lraylib"**
+- On Linux, you may need: `sudo ldconfig`
+- On macOS, verify Homebrew installation
+
+**Build fails**
 ```bash
 # Clear build and start fresh
-cd build
-rm -rf *
-cmake ..
+cd Frontend
 make clean
-make
+rm -rf *.o
+make run
+```
+
+### Permission Denied
+```bash
+# Make the makefile executable
+chmod +x Frontend/Makefile
+
+# Then run again
+cd Frontend
+make run
 ```
 
 ---
-
-## Running the Program
-
-### Basic Execution
-```bash
-./Templanter
-```
 
 ### Expected Output
 1. Raylib window opens (1920x1080 recommended)
