@@ -10,13 +10,13 @@ std::string CustomerImageFactory::getAssetPath(const std::string& customerType)
 {
     // Map customer types to image files in assets folder
     if (customerType == "Regular")
-        return "assets/regular.png";
+        return "Data/regular.png";
     else if (customerType == "VIP")
-        return "assets/vip.png";
+        return "Data/vip.png";
     else if (customerType == "Robber")
-        return "assets/robber.png";
+        return "Data/robber.png";
     
-    return "assets/regular.png"; // Default fallback
+    return "Data/regular.png"; // Default fallback
 }
 
 std::shared_ptr<CustomerImage> CustomerImageFactory::getImage(const std::string& customerType) 

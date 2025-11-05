@@ -1,5 +1,6 @@
-#include <iostream>
-#include <cassert>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest.h"
+
 #include <string>
 #include <vector>
 #include <thread>
@@ -24,191 +25,173 @@
 #include "../Backend/Serializer.h"
 #include "../Backend/GrowthCycle.h"
 
-using namespace std;
-
-// Test counters
-int tests_passed = 0;
-int tests_failed = 0;
-int tests_total = 0;
-
-// Macro for assertions
-#define TEST_ASSERT(condition, message)             \
-    do                                              \
-    {                                               \
-        tests_total++;                              \
-        if (condition)                              \
-        {                                           \
-            tests_passed++;                         \
-            cout << "  [PASS] " << message << endl; \
-        }                                           \
-        else                                        \
-        {                                           \
-            tests_failed++;                         \
-            cout << "  [FAIL] " << message << endl; \
-        }                                           \
-    } while (0)
-
-#define TEST_SECTION(name) \
-    cout << "\n=== " << name << " ===" << endl;
-
 // Forward declaration for cleanup
-extern void cleanupPlantCatalog();
+//extern void cleanupPlantCatalog();
 
-// UNIT TESTS
+// =============================================================================
+// PLANTSTATE TESTS
+// =============================================================================
 
-// --- PlantState Tests ---
-void test_PlantState_Initialization()
-{
-    TEST_SECTION("PlantState Initialization");
+TEST_CASE("PlantState - Initialization") {
+    SUBCASE("Seed state initialization") {
+        SeedState seed(0.0f, 100.0f, 100.0f);
+        CHECK(seed.getGrowth() == 0.0f);
+        CHECK(seed.getWater() == 100.0f);
+        CHECK(seed.getNutrients() == 100.0f);
+        CHECK(seed.getState() == "Seed");
+    }
 
-    SeedState seed(0.0f, 100.0f, 100.0f);
-    TEST_ASSERT(seed.getGrowth() == 0.0f, "Seed starts at 0% growth");
-    TEST_ASSERT(seed.getWater() == 100.0f, "Seed starts with 100% water");
-    TEST_ASSERT(seed.getNutrients() == 100.0f, "Seed starts with 100% nutrients");
-    TEST_ASSERT(seed.getState() == "Seed", "State name is 'Seed'");
+    SUBCASE("Growing state initialization") {
+        GrowingState growing(50.0f, 80.0f, 70.0f);
+        CHECK(growing.getGrowth() == 50.0f);
+        CHECK(growing.getState() == "Growing");
+    }
 
-    GrowingState growing(50.0f, 80.0f, 70.0f);
-    TEST_ASSERT(growing.getGrowth() == 50.0f, "Growing state preserves growth");
-    TEST_ASSERT(growing.getState() == "Growing", "State name is 'Growing'");
+    SUBCASE("Ripe state initialization") {
+        RipeState ripe(100.0f, 60.0f, 50.0f);
+        CHECK(ripe.getGrowth() == 100.0f);
+        CHECK(ripe.getState() == "Ripe");
+    }
 
-    RipeState ripe(100.0f, 60.0f, 50.0f);
-    TEST_ASSERT(ripe.getGrowth() == 100.0f, "Ripe state at 100% growth");
-    TEST_ASSERT(ripe.getState() == "Ripe", "State name is 'Ripe'");
-
-    DeadState dead(25.0f, 0.0f, 0.0f);
-    TEST_ASSERT(dead.getState() == "Dead", "State name is 'Dead'");
+    SUBCASE("Dead state initialization") {
+        DeadState dead(25.0f, 0.0f, 0.0f);
+        CHECK(dead.getState() == "Dead");
+    }
 }
 
-void test_PlantState_ResourceManagement()
-{
-    TEST_SECTION("PlantState Resource Management");
-
+TEST_CASE("PlantState - Resource Management") {
     SeedState state(10.0f, 50.0f, 60.0f);
 
-    state.addWater(30.0f);
-    TEST_ASSERT(state.getWater() == 80.0f, "Adding water increases level");
+    SUBCASE("Adding water") {
+        state.addWater(30.0f);
+        CHECK(state.getWater() == 80.0f);
+    }
 
-    state.addWater(50.0f);
-    TEST_ASSERT(state.getWater() == 100.0f, "Water caps at 100%");
+    SUBCASE("Water caps at 100%") {
+        state.addWater(30.0f);
+        state.addWater(50.0f);
+        CHECK(state.getWater() == 100.0f);
+    }
 
-    state.addNutrients(20.0f);
-    TEST_ASSERT(state.getNutrients() == 80.0f, "Adding nutrients increases level");
+    SUBCASE("Adding nutrients") {
+        state.addNutrients(20.0f);
+        CHECK(state.getNutrients() == 80.0f);
+    }
 
-    state.consumeResources(30.0f, 20.0f);
-    TEST_ASSERT(state.getWater() == 70.0f, "Consuming water decreases level");
-    TEST_ASSERT(state.getNutrients() == 60.0f, "Consuming nutrients decreases level");
+    SUBCASE("Consuming resources") {
+        state.addWater(50.0f);
+        state.addNutrients(40.0f);
+        state.consumeResources(30.0f, 20.0f);
+        CHECK(state.getWater() == 70.0f);
+        CHECK(state.getNutrients() == 80.0f);
+    }
 }
 
-void test_PlantState_GrowthApplication()
-{
-    TEST_SECTION("PlantState Growth Application");
-
+TEST_CASE("PlantState - Growth Application") {
     SeedState state(20.0f, 100.0f, 100.0f);
 
-    state.applyGrowth(15.0f);
-    TEST_ASSERT(state.getGrowth() == 35.0f, "Growth increases correctly");
+    SUBCASE("Growth increases correctly") {
+        state.applyGrowth(15.0f);
+        CHECK(state.getGrowth() == 35.0f);
+    }
 
-    state.applyGrowth(100.0f);
-    TEST_ASSERT(state.getGrowth() == 100.0f, "Growth caps at 100%");
+    SUBCASE("Growth caps at 100%") {
+        state.applyGrowth(15.0f);
+        state.applyGrowth(100.0f);
+        CHECK(state.getGrowth() == 100.0f);
+    }
 }
 
-// --- Plant Tests ---
-void test_Plant_Creation()
-{
-    TEST_SECTION("Plant Creation");
+// =============================================================================
+// PLANT TESTS
+// =============================================================================
 
-    Plant *lettuce = new Lettuce(nullptr);
-    TEST_ASSERT(lettuce != nullptr, "Lettuce plant created");
-    TEST_ASSERT(lettuce->getType() == "Lettuce", "Plant type is Lettuce");
-    TEST_ASSERT(lettuce->getStateName() == "Seed", "Plant starts as Seed");
-    TEST_ASSERT(lettuce->getGrowth() == 0.0f, "Initial growth is 0");
-    TEST_ASSERT(!lettuce->isRipe(), "Plant is not ripe initially");
-    TEST_ASSERT(!lettuce->isDead(), "Plant is not dead initially");
-    delete lettuce;
+TEST_CASE("Plant - Creation") {
+    SUBCASE("Lettuce creation") {
+        Plant *lettuce = new Lettuce(nullptr);
+        REQUIRE(lettuce != nullptr);
+        CHECK(lettuce->getType() == "Lettuce");
+        CHECK(lettuce->getStateName() == "Seed");
+        CHECK(lettuce->getGrowth() == 0.0f);
+        CHECK_FALSE(lettuce->isRipe());
+        CHECK_FALSE(lettuce->isDead());
+        delete lettuce;
+    }
 
-    Plant *tomato = new Tomato(nullptr);
-    TEST_ASSERT(tomato->getType() == "Tomato", "Tomato type correct");
-    TEST_ASSERT(tomato->getSellPrice() == 55.0f, "Tomato sell price correct");
-    delete tomato;
+    SUBCASE("Tomato creation") {
+        Plant *tomato = new Tomato(nullptr);
+        CHECK(tomato->getType() == "Tomato");
+        CHECK(tomato->getSellPrice() == 55.0f);
+        delete tomato;
+    }
 }
 
-void test_Plant_WateringAndFertilizing()
-{
-    TEST_SECTION("Plant Watering and Fertilizing");
-
+TEST_CASE("Plant - Watering and Fertilizing") {
     Plant *plant = new Carrot(nullptr);
-  
 
     // Deplete resources
-    for (int i = 0; i < 20; i++)
-    {
+    for (int i = 0; i < 20; i++) {
         plant->tick();
     }
 
-    float waterBefore = plant->getWater();
-    plant->water(50.0f);
-    TEST_ASSERT(plant->getWater() > waterBefore, "Watering increases water level");
+    SUBCASE("Watering increases water level") {
+        float waterBefore = plant->getWater();
+        plant->water(50.0f);
+        CHECK(plant->getWater() > waterBefore);
+    }
 
-    float nutrientsBefore = plant->getNutrients();
-    plant->fertilize(50.0f);
-    TEST_ASSERT(plant->getNutrients() > nutrientsBefore, "Fertilizing increases nutrients");
+    SUBCASE("Fertilizing increases nutrients") {
+        float nutrientsBefore = plant->getNutrients();
+        plant->fertilize(50.0f);
+        CHECK(plant->getNutrients() > nutrientsBefore);
+    }
 
     delete plant;
 }
 
-void test_Plant_StateTransitions()
-{
-    TEST_SECTION("Plant State Transitions");
-
+TEST_CASE("Plant - State Transitions") {
     Plant *plant = new Lettuce(nullptr);
 
-    // Grow to Growing state
-    for (int i = 0; i < 15; i++)
-    {
-        plant->water(10.0f);
-        plant->fertilize(10.0f);
-        plant->tick();
+    SUBCASE("Transition to Growing state") {
+        for (int i = 0; i < 15; i++) {
+            plant->water(10.0f);
+            plant->fertilize(10.0f);
+            plant->tick();
+        }
+        CHECK(plant->getStateName() == "Growing");
     }
-    TEST_ASSERT(plant->getStateName() == "Growing", "Plant transitions to Growing");
 
-    // Grow to Ripe state
-    for (int i = 0; i < 50; i++)
-    {
-        plant->water(10.0f);
-        plant->fertilize(10.0f);
-        plant->tick();
+    SUBCASE("Transition to Ripe state") {
+        for (int i = 0; i < 50; i++) {
+            plant->water(10.0f);
+            plant->fertilize(10.0f);
+            plant->tick();
+        }
+        CHECK(plant->isRipe());
     }
-    TEST_ASSERT(plant->isRipe(), "Plant becomes ripe");
 
     delete plant;
 }
 
-void test_Plant_Death()
-{
-    TEST_SECTION("Plant Death from Neglect");
-
+TEST_CASE("Plant - Death from Neglect") {
     Plant *plant = new Tomato(nullptr);
 
-    // Neglect plant
-    for (int i = 0; i < 100; i++)
-    {
+    for (int i = 0; i < 100; i++) {
         plant->tick();
-        if (plant->isDead())
-        {
+        if (plant->isDead()) {
             break;
         }
     }
 
-    TEST_ASSERT(plant->isDead(), "Plant dies from lack of resources");
-
+    CHECK(plant->isDead());
     delete plant;
 }
 
-// --- GrowthCycle Tests ---
-void test_GrowthCycle_Normal()
-{
-    TEST_SECTION("Normal Growth Cycle");
+// =============================================================================
+// GROWTHCYCLE TESTS
+// =============================================================================
 
+TEST_CASE("GrowthCycle - Normal") {
     Plant *plant = new Lettuce(nullptr);
     NormalGrowthCycle *normalCycle = new NormalGrowthCycle();
     plant->setGrowthCycle(normalCycle);
@@ -217,133 +200,132 @@ void test_GrowthCycle_Normal()
     plant->tick();
     float growthAfter = plant->getGrowth();
 
-    TEST_ASSERT(growthAfter > growthBefore, "Normal cycle increases growth");
-
+    CHECK(growthAfter > growthBefore);
     delete plant;
 }
 
-void test_GrowthCycle_Boosted()
-{
-    TEST_SECTION("Boosted Growth Cycle");
-
+TEST_CASE("GrowthCycle - Boosted") {
     Plant *plant1 = new Lettuce(nullptr);
     Plant *plant2 = new Lettuce(nullptr);
 
     BoostedGrowthCycle *boostedCycle = new BoostedGrowthCycle();
     plant2->setGrowthCycle(boostedCycle);
 
-    // Tick both plants
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++) {
         plant1->tick();
         plant2->tick();
     }
 
-    TEST_ASSERT(plant2->getGrowth() > plant1->getGrowth(), "Boosted cycle grows faster");
+    CHECK(plant2->getGrowth() > plant1->getGrowth());
 
     delete plant1;
     delete plant2;
 }
 
-// --- Inventory Tests ---
-void test_Inventory_AddRemove()
-{
-    TEST_SECTION("Inventory Add/Remove");
+// =============================================================================
+// INVENTORY TESTS
+// =============================================================================
 
+TEST_CASE("Inventory - Add and Remove") {
     Inventory *inv = new Inventory(10);
 
-    TEST_ASSERT(inv->getMaxSlots() == 10, "Inventory has correct capacity");
+    SUBCASE("Initial capacity") {
+        CHECK(inv->getMaxSlots() == 10);
+    }
 
-    Plant *plant1 = new Lettuce(nullptr);
-    TEST_ASSERT(inv->add(plant1), "Can add plant to inventory");
-    TEST_ASSERT(inv->getPlantCount("Lettuce") == 1, "Plant count correct after add");
+    SUBCASE("Adding plants") {
+        Plant *plant1 = new Lettuce(nullptr);
+        CHECK(inv->add(plant1));
+        CHECK(inv->getPlantCount("Lettuce") == 1);
 
-    Plant *plant2 = new Lettuce(nullptr);
-    TEST_ASSERT(inv->add(plant2), "Can add another plant of same type");
-    TEST_ASSERT(inv->getPlantCount("Lettuce") == 2, "Plant stacking works");
+        Plant *plant2 = new Lettuce(nullptr);
+        CHECK(inv->add(plant2));
+        CHECK(inv->getPlantCount("Lettuce") == 2);
+    }
 
-    Plant *removed = inv->removeItem("Lettuce");
-    TEST_ASSERT(removed != nullptr, "Can remove plant from inventory");
-    TEST_ASSERT(removed->getType() == "Lettuce", "Removed correct plant type");
-    TEST_ASSERT(inv->getPlantCount("Lettuce") == 1, "Count decreases after removal");
-    delete removed;
+    SUBCASE("Removing plants") {
+        Plant *plant = new Lettuce(nullptr);
+        inv->add(plant);
+        
+        Plant *removed = inv->removeItem("Lettuce");
+        REQUIRE(removed != nullptr);
+        CHECK(removed->getType() == "Lettuce");
+        CHECK(inv->getPlantCount("Lettuce") == 0);
+        delete removed;
+    }
 
     delete inv;
 }
 
-void test_Inventory_Stacking()
-{
-    TEST_SECTION("Inventory Stacking");
-
+TEST_CASE("Inventory - Stacking") {
     Inventory *inv = new Inventory(5);
 
-    // Add multiple plants of same type
-    for (int i = 0; i < 10; i++)
-    {
+    for (int i = 0; i < 10; i++) {
         Plant *plant = new Tomato(nullptr);
         inv->add(plant);
     }
 
-    TEST_ASSERT(inv->getPlantCount("Tomato") == 10, "All plants stacked correctly");
-    TEST_ASSERT(inv->getStackCount() <= 5, "Uses minimal number of slots");
+    CHECK(inv->getPlantCount("Tomato") == 10);
+    CHECK(inv->getStackCount() <= 5);
 
     delete inv;
 }
 
-void test_Inventory_FullCheck()
-{
-    TEST_SECTION("Inventory Full Check");
-
+TEST_CASE("Inventory - Full Check") {
     Inventory *inv = new Inventory(2);
 
-    // Fill inventory completely (2 slots × 64 capacity = 128 items)
-    for (int i = 0; i < 128; i++)
-    {
+    // Fill inventory (2 slots × 64 capacity = 128 items)
+    for (int i = 0; i < 128; i++) {
         Plant *plant = new Lettuce(nullptr);
-        if (!inv->add(plant))
-        {
+        if (!inv->add(plant)) {
             delete plant;
             break;
         }
     }
 
-    TEST_ASSERT(inv->isFull(), "Inventory reports full when at capacity");
+    CHECK(inv->isFull());
 
     Plant *extraPlant = new Lettuce(nullptr);
-    TEST_ASSERT(!inv->add(extraPlant), "Cannot add to full inventory");
+    CHECK_FALSE(inv->add(extraPlant));
     delete extraPlant;
 
     delete inv;
 }
 
-// --- Greenhouse Tests ---
-void test_Greenhouse_AddRemovePlants()
-{
-    TEST_SECTION("Greenhouse Add/Remove Plants");
+// =============================================================================
+// GREENHOUSE TESTS
+// =============================================================================
 
+TEST_CASE("Greenhouse - Add and Remove Plants") {
     Inventory *inv = new Inventory(10);
     Greenhouse *gh = new Greenhouse(inv);
 
-    TEST_ASSERT(gh->getCapacity() == 56, "Greenhouse has correct initial capacity");
-    TEST_ASSERT(gh->getSize() == 0, "Greenhouse starts empty");
+    SUBCASE("Initial state") {
+        CHECK(gh->getCapacity() == 56);
+        CHECK(gh->getSize() == 0);
+    }
 
-    Plant *plant = new Lettuce(nullptr);
-    TEST_ASSERT(gh->addPlant(plant, 0), "Can add plant at specific position");
-    TEST_ASSERT(gh->getSize() == 1, "Size increases after adding plant");
-    TEST_ASSERT(gh->getPlant(0) == plant, "Can retrieve plant from position");
+    SUBCASE("Adding plants") {
+        Plant *plant = new Lettuce(nullptr);
+        CHECK(gh->addPlant(plant, 0));
+        CHECK(gh->getSize() == 1);
+        CHECK(gh->getPlant(0) == plant);
+    }
 
-    TEST_ASSERT(gh->removePlant(0), "Can remove plant");
-    TEST_ASSERT(gh->getSize() == 0, "Size decreases after removal");
-    TEST_ASSERT(gh->getPlant(0) == nullptr, "Position is empty after removal");
+    SUBCASE("Removing plants") {
+        Plant *plant = new Lettuce(nullptr);
+        gh->addPlant(plant, 0);
+        
+        CHECK(gh->removePlant(0));
+        CHECK(gh->getSize() == 0);
+        CHECK(gh->getPlant(0) == nullptr);
+    }
 
     delete gh;
     delete inv;
 }
 
-void test_Greenhouse_Harvesting()
-{
-    TEST_SECTION("Greenhouse Harvesting");
-
+TEST_CASE("Greenhouse - Harvesting") {
     Inventory *inv = new Inventory(10);
     Greenhouse *gh = new Greenhouse(inv);
 
@@ -351,8 +333,7 @@ void test_Greenhouse_Harvesting()
     gh->addPlant(plant);
 
     // Grow plant to ripe
-    for (int i = 0; i < 50; i++)
-    {
+    for (int i = 0; i < 50; i++) {
         plant->water(10.0f);
         plant->fertilize(10.0f);
         plant->tick();
@@ -362,63 +343,38 @@ void test_Greenhouse_Harvesting()
     gh->harvestPlant(0);
     int invCountAfter = inv->getPlantCount("Lettuce");
 
-    TEST_ASSERT(invCountAfter == invCountBefore + 1, "Harvest adds plant to inventory");
-    TEST_ASSERT(gh->getSize() == 0, "Greenhouse plot empty after harvest");
+    CHECK(invCountAfter == invCountBefore + 1);
+    CHECK(gh->getSize() == 0);
 
     delete gh;
     delete inv;
 }
 
-void test_Greenhouse_TickAllPlants()
-{
-    TEST_SECTION("Greenhouse Tick All Plants");
-
+TEST_CASE("Greenhouse - Tick All Plants") {
     Inventory *inv = new Inventory(10);
     Greenhouse *gh = new Greenhouse(inv);
 
-    // Add multiple plants
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++) {
         Plant *plant = new Tomato(nullptr);
         gh->addPlant(plant);
     }
 
     gh->tickAllPlants();
 
-    // Check that all plants have ticked
-    for (int i = 0; i < 5; i++)
-    {
+    for (int i = 0; i < 5; i++) {
         Plant *plant = gh->getPlant(i);
-        TEST_ASSERT(plant->getWater() < 100.0f, "Plant has consumed resources");
+        CHECK(plant->getWater() < 100.0f);
     }
 
     delete gh;
     delete inv;
 }
 
-// --- Worker Tests ---
-void test_Worker_Creation()
-{
-    TEST_SECTION("Worker Creation");
+// =============================================================================
+// WORKER TESTS
+// =============================================================================
 
-    WaterWorker *waterWorker = new WaterWorker();
-    TEST_ASSERT(waterWorker != nullptr, "WaterWorker created");
-    TEST_ASSERT(string(waterWorker->type()) == "Water Worker", "WaterWorker type correct");
-    delete waterWorker;
-
-    FertiliserWorker *fertWorker = new FertiliserWorker();
-    TEST_ASSERT(string(fertWorker->type()) == "Fertiliser Worker", "FertiliserWorker type correct");
-    delete fertWorker;
-
-    HarvestWorker *harvestWorker = new HarvestWorker();
-    TEST_ASSERT(string(harvestWorker->type()) == "Harvest Worker", "HarvestWorker type correct");
-    delete harvestWorker;
-}
-
-void test_Worker_Commands()
-{
-    TEST_SECTION("Worker Commands");
-
+TEST_CASE("Worker - Commands") {
     Inventory *inv = new Inventory(10);
     Greenhouse *gh = new Greenhouse(inv);
 
@@ -426,8 +382,7 @@ void test_Worker_Commands()
     gh->addPlant(plant, 0);
 
     // Deplete water
-    for (int i = 0; i < 25; i++)
-    {
+    for (int i = 0; i < 25; i++) {
         plant->tick();
     }
 
@@ -437,131 +392,133 @@ void test_Worker_Commands()
     gh->attach(worker);
     gh->notify();
 
-    // Give worker time to process
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-    TEST_ASSERT(plant->getWater() >= waterBefore, "Worker processes commands");
+    CHECK(plant->getWater() >= waterBefore);
 
     delete worker;
     delete gh;
     delete inv;
 }
 
-// --- Command Tests ---
-void test_Commands_Execution()
-{
-    TEST_SECTION("Command Execution");
+// =============================================================================
+// COMMAND TESTS
+// =============================================================================
 
+TEST_CASE("Commands - Execution") {
     Inventory *inv = new Inventory(10);
     Greenhouse *gh = new Greenhouse(inv);
 
     Plant *plant = new Lettuce(nullptr);
     gh->addPlant(plant);
 
-    float waterBefore = plant->getWater();
-    WaterCommand waterCmd(plant, gh);
-    waterCmd.execute();
-    TEST_ASSERT(plant->getWater() >= waterBefore, "WaterCommand executes");
-
-
+    SUBCASE("Water command") {
+        float waterBefore = plant->getWater();
+        WaterCommand waterCmd(plant, gh);
+        waterCmd.execute();
+        CHECK(plant->getWater() >= waterBefore);
+    }
 
     delete gh;
     delete inv;
 }
 
-// --- Customer Tests ---
-void test_Customer_Types()
-{
-    TEST_SECTION("Customer Types");
+// =============================================================================
+// CUSTOMER TESTS
+// =============================================================================
 
+TEST_CASE("Customer - Types") {
     Plant *requestedPlant = new Lettuce(nullptr);
 
-    RegularFactory regularFactory;
-    Customer *regular = regularFactory.create(requestedPlant);
-    TEST_ASSERT(regular->type() == "Regular", "RegularFactory creates Regular customer");
-    delete regular;
+    SUBCASE("Regular customer") {
+        RegularFactory regularFactory;
+        Customer *regular = regularFactory.create(requestedPlant);
+        CHECK(regular->type() == "Regular");
+        delete regular;
+    }
 
-    VIPFactory vipFactory;
-    Customer *vip = vipFactory.create(requestedPlant);
-    TEST_ASSERT(vip->type() == "VIP", "VIPFactory creates VIP customer");
-    delete vip;
+    SUBCASE("VIP customer") {
+        VIPFactory vipFactory;
+        Customer *vip = vipFactory.create(requestedPlant);
+        CHECK(vip->type() == "VIP");
+        delete vip;
+    }
 
-    RobberFactory robberFactory;
-    Customer *robber = robberFactory.create(requestedPlant);
-    TEST_ASSERT(robber->type() == "Robber", "RobberFactory creates Robber customer");
-    delete robber;
+    SUBCASE("Robber") {
+        RobberFactory robberFactory;
+        Customer *robber = robberFactory.create(requestedPlant);
+        CHECK(robber->type() == "Robber");
+        delete robber;
+    }
 
     delete requestedPlant;
 }
 
-void test_Customer_RequestedPlant()
-{
-    TEST_SECTION("Customer Requested Plant");
-
+TEST_CASE("Customer - Requested Plant") {
     Plant *plant1 = new Tomato(nullptr);
     Plant *plant2 = new Lettuce(nullptr);
 
     RegularFactory factory;
     Customer *customer = factory.create(plant1);
 
-    TEST_ASSERT(customer->getRequestedPlant() == plant1, "Customer has correct requested plant");
+    CHECK(customer->getRequestedPlant() == plant1);
 
     customer->setRequestedPlant(plant2);
-    TEST_ASSERT(customer->getRequestedPlant() == plant2, "Can change requested plant");
+    CHECK(customer->getRequestedPlant() == plant2);
 
     delete customer;
     delete plant1;
     delete plant2;
 }
 
-// --- Store Tests ---
-void test_Store_AddItems()
-{
-    TEST_SECTION("Store Add Items");
+// =============================================================================
+// STORE TESTS
+// =============================================================================
 
+TEST_CASE("Store - Add Items") {
     Store *store = new Store();
 
-    store->addItem(new SeedAdapter(15.0f, []()
-                                   { return new Lettuce(nullptr); }));
-    TEST_ASSERT(store->getItemCount() == 1, "Store has 1 item after adding");
+    store->addItem(new SeedAdapter(15.0f, []() { 
+        return new Lettuce(nullptr); 
+    }));
+    CHECK(store->getItemCount() == 1);
 
-    store->addItem(new SeedAdapter(25.0f, []()
-                                   { return new Carrot(nullptr); }));
-    TEST_ASSERT(store->getItemCount() == 2, "Store has 2 items after adding");
+    store->addItem(new SeedAdapter(25.0f, []() { 
+        return new Carrot(nullptr); 
+    }));
+    CHECK(store->getItemCount() == 2);
 
     delete store;
 }
 
-void test_Store_Purchase()
-{
-    TEST_SECTION("Store Purchase");
-
+TEST_CASE("Store - Purchase") {
     Store *store = new Store();
     Game *game = Game::getInstance();
     Player *player = game->getPlayerPtr();
 
     player->setMoney(100.0f);
 
-    store->addItem(new SeedAdapter(15.0f, []()
-                                   { return new Lettuce(nullptr); }));
+    store->addItem(new SeedAdapter(15.0f, []() { 
+        return new Lettuce(nullptr); 
+    }));
 
     int invCountBefore = player->getInventory()->getPlantCount("Lettuce");
     float moneyBefore = player->getMoney();
 
     bool purchased = store->purchaseItem(0, player);
 
-    TEST_ASSERT(purchased, "Purchase succeeds with sufficient funds");
-    TEST_ASSERT(player->getMoney() < moneyBefore, "Money decreases after purchase");
-    TEST_ASSERT(player->getInventory()->getPlantCount("Lettuce") > invCountBefore, "Plant added to inventory");
+    CHECK(purchased);
+    CHECK(player->getMoney() < moneyBefore);
+    CHECK(player->getInventory()->getPlantCount("Lettuce") > invCountBefore);
 
     delete store;
 }
 
-// --- Memento Tests ---
-void test_Memento_SaveRestore()
-{
-    TEST_SECTION("Memento Save/Restore");
+// =============================================================================
+// MEMENTO TESTS
+// =============================================================================
 
+TEST_CASE("Memento - Save and Restore") {
     Game *game = Game::getInstance();
     Player *player = game->getPlayerPtr();
 
@@ -581,164 +538,119 @@ void test_Memento_SaveRestore()
     // Load
     game->loadGame();
 
-    TEST_ASSERT(player->getMoney() == 1000.0f, "Money restored correctly");
-    TEST_ASSERT(player->getRating() == 4, "Rating restored correctly");
-    TEST_ASSERT(player->getDay() == 5, "Day restored correctly");
-    TEST_ASSERT(player->getHour() == 12, "Hour restored correctly");
-    TEST_ASSERT(player->getMinute() == 30, "Minute restored correctly");
+    CHECK(player->getMoney() == 1000.0f);
+    CHECK(player->getRating() == 4);
+    CHECK(player->getDay() == 5);
+    CHECK(player->getHour() == 12);
+    CHECK(player->getMinute() == 30);
 }
 
-// --- Player Tests ---
-void test_Player_MoneyManagement()
-{
-    TEST_SECTION("Player Money Management");
+// =============================================================================
+// PLAYER TESTS
+// =============================================================================
 
+TEST_CASE("Player - Money Management") {
     Game *game = Game::getInstance();
     Player *player = game->getPlayerPtr();
 
-    player->setMoney(100.0f);
-    TEST_ASSERT(player->getMoney() == 100.0f, "Set money works");
+    SUBCASE("Set money") {
+        player->setMoney(100.0f);
+        CHECK(player->getMoney() == 100.0f);
+    }
 
-    player->addMoney(50.0f);
-    TEST_ASSERT(player->getMoney() == 150.0f, "Add money works");
+    SUBCASE("Add money") {
+        player->setMoney(100.0f);
+        player->addMoney(50.0f);
+        CHECK(player->getMoney() == 150.0f);
+    }
 
-    player->subtractMoney(30.0f);
-    TEST_ASSERT(player->getMoney() == 120.0f, "Subtract money works");
+    SUBCASE("Subtract money") {
+        player->setMoney(150.0f);
+        player->subtractMoney(30.0f);
+        CHECK(player->getMoney() == 120.0f);
+    }
 
-    player->subtractMoney(200.0f);
-    TEST_ASSERT(player->getMoney() == 0.0f, "Money cannot go negative");
+    SUBCASE("Money cannot go negative") {
+        player->setMoney(100.0f);
+        player->subtractMoney(200.0f);
+        CHECK(player->getMoney() == 0.0f);
+    }
 }
 
-void test_Player_TimeSystem()
-{
-    TEST_SECTION("Player Time System");
-
+TEST_CASE("Player - Time System") {
     Game *game = Game::getInstance();
     Player *player = game->getPlayerPtr();
 
-    player->setTime(1, 10, 30);
-    TEST_ASSERT(player->getDay() == 1, "Day set correctly");
-    TEST_ASSERT(player->getHour() == 10, "Hour set correctly");
-    TEST_ASSERT(player->getMinute() == 30, "Minute set correctly");
+    SUBCASE("Set time") {
+        player->setTime(1, 10, 30);
+        CHECK(player->getDay() == 1);
+        CHECK(player->getHour() == 10);
+        CHECK(player->getMinute() == 30);
+    }
 
-    player->advanceTime(45);
-    TEST_ASSERT(player->getHour() == 11, "Hour advances correctly");
-    TEST_ASSERT(player->getMinute() == 15, "Minute advances correctly");
+    SUBCASE("Advance time") {
+        player->setTime(1, 10, 30);
+        player->advanceTime(45);
+        CHECK(player->getHour() == 11);
+        CHECK(player->getMinute() == 15);
+    }
 }
 
-void test_Player_RatingSystem()
-{
-    TEST_SECTION("Player Rating System");
-
+TEST_CASE("Player - Rating System") {
     Game *game = Game::getInstance();
     Player *player = game->getPlayerPtr();
 
-    player->setRating(3.0f);
-    TEST_ASSERT(player->getRating() == 3.0f, "Set rating works");
+    SUBCASE("Set rating") {
+        player->setRating(3.0f);
+        CHECK(player->getRating() == 3.0f);
+    }
 
-    player->addRating(1.5f);
-    TEST_ASSERT(player->getRating() == 4.5f, "Add rating works");
+    SUBCASE("Add rating") {
+        player->setRating(3.0f);
+        player->addRating(1.5f);
+        CHECK(player->getRating() == 4.5f);
+    }
 
-    player->addRating(2.0f);
-    TEST_ASSERT(player->getRating() == 5.0f, "Rating caps at 5");
+    SUBCASE("Rating caps at 5") {
+        player->setRating(4.5f);
+        player->addRating(2.0f);
+        CHECK(player->getRating() == 5.0f);
+    }
 
-    player->subtractRating(2.0f);
-    TEST_ASSERT(player->getRating() == 3.0f, "Subtract rating works");
+    SUBCASE("Subtract rating") {
+        player->setRating(5.0f);
+        player->subtractRating(2.0f);
+        CHECK(player->getRating() == 3.0f);
+    }
 
-    player->subtractRating(5.0f);
-    TEST_ASSERT(player->getRating() == 0.0f, "Rating cannot go negative");
+    SUBCASE("Rating cannot go negative") {
+        player->setRating(2.0f);
+        player->subtractRating(5.0f);
+        CHECK(player->getRating() == 0.0f);
+    }
 }
 
-// --- Game Singleton Tests ---
-void test_Game_Singleton()
-{
-    TEST_SECTION("Game Singleton Pattern");
+// =============================================================================
+// GAME TESTS
+// =============================================================================
 
+TEST_CASE("Game - Singleton Pattern") {
     Game *game1 = Game::getInstance();
     Game *game2 = Game::getInstance();
 
-    TEST_ASSERT(game1 == game2, "Singleton returns same instance");
-    TEST_ASSERT(game1 != nullptr, "Singleton instance is not null");
+    CHECK(game1 == game2);
+    REQUIRE(game1 != nullptr);
 }
 
-// MAIN TEST RUNNER
+// =============================================================================
+// CLEANUP
+// =============================================================================
 
-int main()
-{
-    cout << "TEMPLANTER - BACKEND UNIT TEST SUITE" << endl;
-    cout << "Comprehensive Testing" << endl;
-
-    try
-    {
-        // PlantState Tests
-        test_PlantState_Initialization();
-        test_PlantState_ResourceManagement();
-        test_PlantState_GrowthApplication();
-
-        // Plant Tests
-        test_Plant_Creation();
-        test_Plant_WateringAndFertilizing();
-        test_Plant_StateTransitions();
-        test_Plant_Death();
-
-        // GrowthCycle Tests
-        test_GrowthCycle_Normal();
-        test_GrowthCycle_Boosted();
-
-        // Inventory Tests
-        test_Inventory_AddRemove();
-        test_Inventory_Stacking();
-        test_Inventory_FullCheck();
-
-        // Greenhouse Tests
-        test_Greenhouse_AddRemovePlants();
-        test_Greenhouse_Harvesting();
-        test_Greenhouse_TickAllPlants();
-
-        // Worker Tests
-        test_Worker_Creation();
-        test_Worker_Commands();
-
-        // Command Tests
-        test_Commands_Execution();
-
-        // Customer Tests
-        test_Customer_Types();
-        test_Customer_RequestedPlant();
-
-        // Store Tests
-        test_Store_AddItems();
-        test_Store_Purchase();
-
-        // Memento Tests
-        test_Memento_SaveRestore();
-
-        // Player Tests
-        test_Player_MoneyManagement();
-        test_Player_TimeSystem();
-        test_Player_RatingSystem();
-
-        // Game Singleton Tests
-        test_Game_Singleton();
+struct GlobalCleanup {
+    ~GlobalCleanup() {
+        Game::cleanup();
+        // cleanupPlantCatalog();
     }
-    catch (const exception &e)
-    {
-        cerr << "\n[EXCEPTION] " << e.what() << endl;
-        return 1;
-    }
+};
 
-    // Print summary
-    cout << "TEST SUMMARY" << endl;
-    cout << "Total Tests:" << tests_total << endl;
-    cout << "Passed:" << tests_passed << " ("
-         << (tests_total > 0 ? (tests_passed * 100 / tests_total) : 0) << "%)" << endl;
-    cout << "Failed:" << tests_failed << endl;
-
-    // Cleanup
-    cout << "\n--- Cleaning up resources ---" << endl;
-    Game::cleanup();
-    cleanupPlantCatalog();
-    cout << "Cleanup completed" << endl;
-
-    return (tests_failed == 0) ? 0 : 1;
-}
+GlobalCleanup g_cleanup;

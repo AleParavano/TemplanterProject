@@ -261,10 +261,18 @@ void Serializer::deserializeGreenhouse(Greenhouse *greenhouse, const std::string
     if (!greenhouse || data.empty())
         return;
 
+    // Detach all observers first to prevent notify() during cleanup
+    std::vector<Observer*> observersBackup = greenhouse->observers;
+    greenhouse->observers.clear();
+    
+    // Now safely remove plants without triggering notifications
     for (int i = 0; i < greenhouse->getCapacity(); ++i)
     {
         greenhouse->removePlant(i);
     }
+    
+    // Re-attach observers
+    greenhouse->observers = observersBackup;
 
     try
     {
@@ -287,17 +295,14 @@ void Serializer::deserializeGreenhouse(Greenhouse *greenhouse, const std::string
                 plantIndex += 1;
                 continue; 
             }
-
             else if (plantIndex + 6 < parts.size()) 
             {
-
                 std::string plantData = parts[plantIndex] + "|" + parts[plantIndex + 1] + "|" + parts[plantIndex + 2] + "|" + parts[plantIndex + 3] + "|" + parts[plantIndex + 4] + "|" + parts[plantIndex + 5] + "|" + parts[plantIndex + 6];
                 
                 Plant *plant = deserializePlant(plantData);
                 
                 if (plant)
                 {
-
                     greenhouse->addPlant(plant, i);
                 }
                 
@@ -311,7 +316,7 @@ void Serializer::deserializeGreenhouse(Greenhouse *greenhouse, const std::string
     }
     catch (...)
     {
-    }
+}
 }
 
 std::string Serializer::serializeWorkers(const std::vector<Worker *> &workers)

@@ -240,6 +240,15 @@ void Player::setMemento(Memento *memento)
     if (memento)
     {
         pauseWorkers();
+
+        for (auto *worker : workers)
+        {
+            if (worker)
+            {
+                worker->clearCommandQueue();
+            }
+            
+        }
         money = memento->getMoney();
         rating = memento->getRating();
         day = memento->getDay();

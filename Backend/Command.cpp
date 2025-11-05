@@ -32,6 +32,12 @@ void WaterCommand::execute()
     if (targetPlant->isDead()) {
         return;
     }
+    
+    std::cout << "COMMAND EXECUTION: WaterCommand started. Target water: " 
+              << this->targetPlant->getWater() << "%." << std::endl;
+    this->targetPlant->water(50.0f);
+    std::cout << "COMMAND EXECUTION: WaterCommand completed. New water: " 
+              << this->targetPlant->getWater() << "%." << std::endl;
 
 }
 void FertilizeCommand::execute()

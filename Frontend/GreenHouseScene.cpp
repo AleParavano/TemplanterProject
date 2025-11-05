@@ -21,25 +21,28 @@ const int MIDDLE_PATH_INDEX = 7;
 const float REAL_SECONDS_PER_GAME_TICK = 0.5f;
 
 // --- Plant Catalog (Hardcoded, assumed Factory/Visual Strategies exist) ---
-extern std::map<std::string, std::tuple<float, PlantFactory *, PlantVisualStrategy *>> plantCatalog = {
-    {"Lettuce", {15.0f, new LettuceFactory(), new LettuceVisualStrategy(20.0f, 15.0f)}},
-    {"Carrot", {25.0f, new CarrotFactory(), new CarrotVisualStrategy(15.0f, 30.0f)}},
-    {"Potato", {35.0f, new PotatoFactory(), new PotatoVisualStrategy(18.0f, 20.0f)}},
-    {"Cucumber", {45.0f, new CucumberFactory(), new CucumberVisualStrategy(20.0f, 35.0f)}},
-    {"Tomato", {55.0f, new TomatoFactory(), new TomatoVisualStrategy(25.0f, 25.0f)}},
-    {"Pepper", {65.0f, new PepperFactory(), new PepperVisualStrategy(25.0f, 30.0f)}},
-    {"Sunflower", {80.0f, new SunflowerFactory(), new SunflowerVisualStrategy(25.0f, 50.0f)}},
-    {"Strawberry", {100.0f, new StrawberryFactory(), new StrawberryVisualStrategy(25.0f, 15.0f)}},
-    {"Corn", {120.0f, new CornFactory(), new CornVisualStrategy(20.0f, 55.0f)}},
-    {"Pumpkin", {200.0f, new PumpkinFactory(), new PumpkinVisualStrategy(40.0f, 30.0f)}}};
+#include <memory>
 
-void cleanupPlantCatalog() {
-    for (auto& pair : plantCatalog) {
-        delete std::get<1>(pair.second); 
-        delete std::get<2>(pair.second); 
-    }
-    plantCatalog.clear();
+// Helper function to create the catalog
+std::map<std::string, std::tuple<float, std::unique_ptr<PlantFactory>, std::unique_ptr<PlantVisualStrategy>>> createPlantCatalog() {
+    std::map<std::string, std::tuple<float, std::unique_ptr<PlantFactory>, std::unique_ptr<PlantVisualStrategy>>> catalog;
+    
+    catalog.emplace("Lettuce", std::make_tuple(15.0f, std::make_unique<LettuceFactory>(), std::make_unique<LettuceVisualStrategy>(20.0f, 15.0f)));
+    catalog.emplace("Carrot", std::make_tuple(25.0f, std::make_unique<CarrotFactory>(), std::make_unique<CarrotVisualStrategy>(15.0f, 30.0f)));
+    catalog.emplace("Potato", std::make_tuple(35.0f, std::make_unique<PotatoFactory>(), std::make_unique<PotatoVisualStrategy>(18.0f, 20.0f)));
+    catalog.emplace("Cucumber", std::make_tuple(45.0f, std::make_unique<CucumberFactory>(), std::make_unique<CucumberVisualStrategy>(20.0f, 35.0f)));
+    catalog.emplace("Tomato", std::make_tuple(55.0f, std::make_unique<TomatoFactory>(), std::make_unique<TomatoVisualStrategy>(25.0f, 25.0f)));
+    catalog.emplace("Pepper", std::make_tuple(65.0f, std::make_unique<PepperFactory>(), std::make_unique<PepperVisualStrategy>(25.0f, 30.0f)));
+    catalog.emplace("Sunflower", std::make_tuple(80.0f, std::make_unique<SunflowerFactory>(), std::make_unique<SunflowerVisualStrategy>(25.0f, 50.0f)));
+    catalog.emplace("Strawberry", std::make_tuple(100.0f, std::make_unique<StrawberryFactory>(), std::make_unique<StrawberryVisualStrategy>(25.0f, 15.0f)));
+    catalog.emplace("Corn", std::make_tuple(120.0f, std::make_unique<CornFactory>(), std::make_unique<CornVisualStrategy>(20.0f, 55.0f)));
+    catalog.emplace("Pumpkin", std::make_tuple(200.0f, std::make_unique<PumpkinFactory>(), std::make_unique<PumpkinVisualStrategy>(40.0f, 30.0f)));
+    
+    return catalog;
 }
+
+// Initialize the global variable
+std::map<std::string, std::tuple<float, std::unique_ptr<PlantFactory>, std::unique_ptr<PlantVisualStrategy>>> plantCatalog = createPlantCatalog();
 
 std::map<std::string, WorkerData> workerCatalog = {
     {"Water Worker", {"Water", 200.0f, BLUE}},            // Blue for Water
@@ -74,14 +77,6 @@ Worker *CreateSpecializedWorker(const std::string &type)
 // --- CONSTRUCTOR AND INIT ---
 GreenHouseScene::GreenHouseScene()
     : numPlants(0), numPaths(0), nextScene(SCENE_GREENHOUSE), isShopOpen(false), isHireShopOpen(false), selectedPlotIndex(-1), simTimeAccumulator(0.0f) {}
-
-GreenHouseScene::~GreenHouseScene() {
-    static bool cleaned = false;
-    if (!cleaned) {
-        cleanupPlantCatalog();
-        cleaned = true;
-    }
-}
 
 void GreenHouseScene::Init()
 {
@@ -181,8 +176,7 @@ void GreenHouseScene::HandleInput()
                 // a. Water Button (R1, C1)
                 if (CheckCollisionPointRec(mousePos, btnWater))
                 {
-                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 0.5f)
-                    {
+                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 0.5f) {
                         plant->water(10.0f);
                         Game::getInstance()->getPlayerPtr()->subtractMoney(0.5f);
                     }
@@ -191,8 +185,7 @@ void GreenHouseScene::HandleInput()
                 // b. Fertilize Button (R1, C2)
                 else if (CheckCollisionPointRec(mousePos, btnFert))
                 {
-                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 1.0f)
-                    {
+                    if (Game::getInstance()->getPlayerPtr()->getMoney() >= 1.0f) {
                         plant->fertilize(5.0f);
                         Game::getInstance()->getPlayerPtr()->subtractMoney(1.0f);
                     }
@@ -250,6 +243,7 @@ void GreenHouseScene::HandleInput()
                 else
                 {
                     blockWidth = isPathCol ? PATH_SIZE : PLOT_SIZE;
+                    
                 }
 
                 bool isPlotTile = !isPathRow && !isPathCol;
@@ -452,8 +446,8 @@ void GreenHouseScene::DrawSeedShop()
     {
         const std::string &type = pair.first;
         float price = std::get<0>(pair.second);
-        PlantFactory *factory = std::get<1>(pair.second);
-        PlantVisualStrategy *visual = std::get<2>(pair.second);
+        PlantFactory *factory = std::get<1>(pair.second).get();
+        PlantVisualStrategy *visual = std::get<2>(pair.second).get();
 
         Rectangle itemRect = {SHOP_X + 20, (float)startY, SHOP_WIDTH - 40, ITEM_ROW_HEIGHT - 10};
         DrawRectangleRec(itemRect, Fade(DARKGRAY, 0.2f));
